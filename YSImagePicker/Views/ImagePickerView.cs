@@ -8,6 +8,9 @@ namespace YSImagePicker.Views
     [Register("ImagePickerView")]
     public partial class ImagePickerView : UICollectionView
     {
+
+        public UICollectionView UICollectionView => CollectionView;
+        
         public ImagePickerView(NSCoder coder) : base(coder)
         {
         }

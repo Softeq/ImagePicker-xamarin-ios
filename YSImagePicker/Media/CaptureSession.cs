@@ -286,6 +286,7 @@ namespace YSImagePicker.Media
                 if (IsSessionRunning)
                 {
                     Console.WriteLine("capture session: warning - trying to resume already running session");
+                    return;
                 }
 
                 switch (_setupResult)
@@ -332,6 +333,7 @@ namespace YSImagePicker.Media
                 if (IsSessionRunning != true)
                 {
                     Console.WriteLine("capture session: warning - trying to suspend non running session");
+                    return;
                 }
 
                 Session.StopRunning();
@@ -347,7 +349,7 @@ namespace YSImagePicker.Media
         /// 1. adds video input
         /// 2. adds video output (for recording videos)
         /// 3. adds audio input (for video recording with audio)
-        /// 4. adds photo output (for capturing photos)
+        /// 4. adds photo output (for capturing photos)capture session: trying to record a video but no preview layer is set
         ///
         private void ConfigureSession()
         {
@@ -887,11 +889,13 @@ namespace YSImagePicker.Media
             if (videoFileOutput == null)
             {
                 Console.WriteLine("capture session: trying to record a video but no movie file output is set");
+                return;
             }
 
             if (PreviewLayer == null)
             {
                 Console.WriteLine("capture session: trying to record a video but no preview layer is set");
+                return;
             }
 
             /*
@@ -908,6 +912,7 @@ namespace YSImagePicker.Media
                 {
                     Console.WriteLine(
                         "capture session: trying to record a video but there is one already being recorded");
+                    return;
                 }
 
                 // update the orientation on the movie file output video connection before starting recording.
@@ -981,6 +986,7 @@ namespace YSImagePicker.Media
             if (videoFileOutput == null)
             {
                 Console.WriteLine("capture session: trying to stop a video recording but no movie file output is set");
+                return;
             }
 
             sessionQueue.DispatchAsync(() =>
@@ -989,6 +995,7 @@ namespace YSImagePicker.Media
                 {
                     Console.WriteLine(
                         "capture session: trying to stop a video recording but no recording is in progress");
+                    return;
                 }
 
                 if (videoCaptureDelegate == null)

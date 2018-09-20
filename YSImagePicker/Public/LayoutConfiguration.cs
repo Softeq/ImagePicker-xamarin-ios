@@ -42,11 +42,11 @@ namespace YSImagePicker.Public
             return ShowsFirstActionItem || ShowsSecondActionItem;
         }
 
-        public int SectionIndexForActions => 0;
+        public int SectionIndexForActions = 0;
 
-        public int SectionIndexForCamera => 1;
+        public int SectionIndexForCamera = 1;
 
-        public int SectionIndexForAssets => 2;
+        public int SectionIndexForAssets = 2;
 
         public static LayoutConfiguration Default()
         {

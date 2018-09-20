@@ -14,10 +14,10 @@ namespace YSImagePicker.Views
         public ImagePickerAssetCell(CGRect frame) : base(frame){}
         
         /// This image view will be used when setting an asset's image
-        UIImageView ImageView { get; }
+        public UIImageView ImageView { get; }
 
         /// This is a helper identifier that is used when properly displaying cells asynchronously
-        string RepresentedAssetIdentifier { get; set; }
+        public string RepresentedAssetIdentifier { get; set; }
     }
 
     ///
