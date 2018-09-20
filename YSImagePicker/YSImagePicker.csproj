@@ -68,6 +68,7 @@
     <Compile Include="Media\VideoCaptureDelegate.cs" />
     <Compile Include="Media\VideoOutputSampleBufferDelegate.cs" />
     <Compile Include="Miscellaneous.cs" />
+    <Compile Include="Operations\CollectionViewBatchAnimation.cs" />
     <Compile Include="Operations\CollectionViewUpdatesCoordinator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Public\Appearance.cs" />

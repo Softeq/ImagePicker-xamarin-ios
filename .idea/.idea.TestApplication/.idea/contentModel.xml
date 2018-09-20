@@ -48,6 +48,7 @@
         <e p="Miscellaneous.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive" />
         <e p="Operations" t="Include">
+          <e p="CollectionViewBatchAnimation.cs" t="Include" />
           <e p="CollectionViewUpdatesCoordinator.cs" t="Include" />
         </e>
         <e p="Properties" t="Include">
