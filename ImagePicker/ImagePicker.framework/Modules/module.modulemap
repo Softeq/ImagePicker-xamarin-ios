@@ -1,0 +1,11 @@
+framework module ImagePicker {
+  umbrella header "ImagePicker.h"
+
+  export *
+  module * { export * }
+}
+
+module ImagePicker.Swift {
+    header "ImagePicker-Swift.h"
+    requires objc
+}

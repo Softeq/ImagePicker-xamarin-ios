@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="$USER_HOME$/Library/Caches/Rider2018.2/extResources" t="IncludeRecursive" />
+    <e p="$USER_HOME$/Library/Caches/Rider2018.2/resharper-host/local/Transient/ReSharperHost/v182/SolutionCaches/_TestApplication.998325892.00" t="ExcludeRecursive" />
+    <e p="$APPLICATION_CONFIG_DIR$/extensions" t="IncludeRecursive" />
+    <e p="$PROJECT_DIR$" t="IncludeFlat">
+      <e p="ImagePicker" t="IncludeRecursive">
+        <e p="ImagePicker.csproj" t="IncludeRecursive" />
+      </e>
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="TestApplication" t="IncludeRecursive">
+        <e p="AppDelegate.cs" t="Include" />
+        <e p="Assets.xcassets" t="Include">
+          <e p="AppIcon.appiconset" t="Include">
+            <e p="Contents.json" t="Include" />
+          </e>
+          <e p="Contents.json" t="Include" />
+        </e>
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Entitlements.plist" t="Include" />
+        <e p="Info.plist" t="Include" />
+        <e p="LaunchScreen.storyboard" t="Include" />
+        <e p="Main.cs" t="Include" />
+        <e p="Main.storyboard" t="Include" />
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="packages.config" t="Include" />
+        <e p="Resources" t="Include" />
+        <e p="TestApplication.csproj" t="IncludeRecursive" />
+        <e p="ViewController.cs" t="Include" />
+        <e p="ViewController.designer.cs" t="Include" />
+      </e>
+      <e p="TestApplication.sln" t="IncludeFlat" />
+      <e p="YSImagePicker" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="LayoutModel.cs" t="Include" />
+        <e p="Media" t="Include">
+          <e p="AVPreviewView.cs" t="Include" />
+          <e p="CaptureSession.cs" t="Include" />
+          <e p="PhotoCaptureDelegate.cs" t="Include" />
+          <e p="VideoCaptureDelegate.cs" t="Include" />
+          <e p="VideoOutputSampleBufferDelegate.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+        </e>
+        <e p="Public" t="Include">
+          <e p="Appearance.cs" t="Include" />
+          <e p="CameraCollectionViewCell.cs" t="Include" />
+          <e p="CaptureSettings.cs" t="Include" />
+          <e p="CellRegistrator.cs" t="Include" />
+          <e p="LayoutConfiguration.cs" t="Include" />
+        </e>
+        <e p="Resources" t="Include">
+          <e p="Assets.xcassets" t="Include">
+            <e p="background-rounded.imageset" t="Include">
+              <e p="background-rounded.pdf" t="Include" />
+              <e p="Contents.json" t="Include" />
+            </e>
+            <e p="button-camera.imageset" t="Include">
+              <e p="button-camera.pdf" t="Include" />
+              <e p="Contents.json" t="Include" />
+            </e>
+            <e p="button-photo-library.imageset" t="Include">
+              <e p="button-photo-library.pdf" t="Include" />
+              <e p="Contents.json" t="Include" />
+            </e>
+            <e p="Contents.json" t="Include" />
+            <e p="gradient.imageset" t="Include">
+              <e p="Contents.json" t="Include" />
+              <e p="gradient.png" t="Include" />
+              <e p="gradient@2x.png" t="Include" />
+              <e p="gradient@3x.png" t="Include" />
+            </e>
+            <e p="icon-badge-livephoto.imageset" t="Include">
+              <e p="Contents.json" t="Include" />
+              <e p="icon-badge-livephoto.pdf" t="Include" />
+            </e>
+            <e p="icon-badge-video.imageset" t="Include">
+              <e p="Contents.json" t="Include" />
+              <e p="icon-badge-video.pdf" t="Include" />
+            </e>
+            <e p="icon-check-background.imageset" t="Include">
+              <e p="Contents.json" t="Include" />
+              <e p="icon-ckeck-background.pdf" t="Include" />
+            </e>
+            <e p="icon-check.imageset" t="Include">
+              <e p="Contents.json" t="Include" />
+              <e p="icon-check.pdf" t="Include" />
+            </e>
+            <e p="icon-flip-camera.imageset" t="Include">
+              <e p="Contents.json" t="Include" />
+              <e p="flipCamera.pdf" t="Include" />
+            </e>
+            <e p="icon-live-off.imageset" t="Include">
+              <e p="Contents.json" t="Include" />
+              <e p="icon-live-off.pdf" t="Include" />
+            </e>
+            <e p="icon-live-on.imageset" t="Include">
+              <e p="Contents.json" t="Include" />
+              <e p="icon-live-on.pdf" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Views" t="Include">
+          <e p="ActionCell.cs" t="Include" />
+          <e p="ActionCell.designer.cs" t="Include" />
+          <e p="ActionCell.xib" t="Include" />
+          <e p="AssetCell.cs" t="Include" />
+          <e p="CarvedLabel.cs" t="Include" />
+          <e p="ImagePickerView.cs" t="Include" />
+          <e p="ImagePickerView.designer.cs" t="Include" />
+          <e p="ImagePickerView.xib" t="Include" />
+          <e p="LivePhotoCameraCell.cs" t="Include" />
+          <e p="LivePhotoCameraCell.designer.cs" t="Include" />
+          <e p="LivePhotoCameraCell.xib" t="Include" />
+          <e p="RecordButton.cs" t="Include" />
+          <e p="RecordDurationLabel.cs" t="Include" />
+          <e p="ShutterButton.cs" t="Include" />
+          <e p="StationaryButton.cs" t="Include" />
+          <e p="VideoCameraCell.cs" t="Include" />
+          <e p="VideoCameraCell.designer.cs" t="Include" />
+          <e p="VideoCameraCell.xib" t="Include" />
+        </e>
+        <e p="YSImagePicker.csproj" t="IncludeRecursive" />
+      </e>
+    </e>
+  </component>
+</project>

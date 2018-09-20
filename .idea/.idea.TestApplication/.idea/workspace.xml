@@ -1,0 +1,1352 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="9fb2ab32-4559-4499-b79b-69ce6a329abc" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ImagePicker/ApiDefinition.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ImagePicker/ImagePicker.csproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ImagePicker/Properties/AssemblyInfo.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ImagePicker/Structs.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TestApplication.sln" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TestApplication/AppDelegate.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TestApplication/Assets.xcassets/AppIcon.appiconset/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TestApplication/Assets.xcassets/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TestApplication/Entitlements.plist" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TestApplication/Info.plist" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TestApplication/LaunchScreen.storyboard" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TestApplication/Main.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TestApplication/Main.storyboard" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TestApplication/TestApplication.csproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TestApplication/ViewController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TestApplication/ViewController.designer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TestApplication/packages.config" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/YSImagePicker/LayoutModel.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/YSImagePicker/MyClass.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/YSImagePicker/Properties/AssemblyInfo.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/YSImagePicker/Public/CameraCollectionViewCell.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/YSImagePicker/Public/LayoutConfiguration.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/YSImagePicker/Resources/Assets.xcassets/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/YSImagePicker/Resources/Assets.xcassets/background-rounded.imageset/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/YSImagePicker/Resources/Assets.xcassets/background-rounded.imageset/background-rounded.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/YSImagePicker/Resources/Assets.xcassets/button-camera.imageset/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/YSImagePicker/Resources/Assets.xcassets/button-camera.imageset/button-camera.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/YSImagePicker/Resources/Assets.xcassets/button-photo-library.imageset/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/YSImagePicker/Resources/Assets.xcassets/button-photo-library.imageset/button-photo-library.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/YSImagePicker/Resources/Assets.xcassets/gradient.imageset/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/YSImagePicker/Resources/Assets.xcassets/gradient.imageset/gradient.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/YSImagePicker/Resources/Assets.xcassets/gradient.imageset/gradient@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/YSImagePicker/Resources/Assets.xcassets/gradient.imageset/gradient@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/YSImagePicker/Resources/Assets.xcassets/icon-badge-livephoto.imageset/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/YSImagePicker/Resources/Assets.xcassets/icon-badge-livephoto.imageset/icon-badge-livephoto.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/YSImagePicker/Resources/Assets.xcassets/icon-badge-video.imageset/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/YSImagePicker/Resources/Assets.xcassets/icon-badge-video.imageset/icon-badge-video.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/YSImagePicker/Resources/Assets.xcassets/icon-check-background.imageset/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/YSImagePicker/Resources/Assets.xcassets/icon-check-background.imageset/icon-ckeck-background.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/YSImagePicker/Resources/Assets.xcassets/icon-check.imageset/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/YSImagePicker/Resources/Assets.xcassets/icon-check.imageset/icon-check.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/YSImagePicker/Resources/Assets.xcassets/icon-flip-camera.imageset/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/YSImagePicker/Resources/Assets.xcassets/icon-flip-camera.imageset/flipCamera.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/YSImagePicker/Resources/Assets.xcassets/icon-live-off.imageset/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/YSImagePicker/Resources/Assets.xcassets/icon-live-off.imageset/icon-live-off.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/YSImagePicker/Resources/Assets.xcassets/icon-live-on.imageset/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/YSImagePicker/Resources/Assets.xcassets/icon-live-on.imageset/icon-live-on.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/YSImagePicker/Views/ActionCell.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/YSImagePicker/Views/ActionCell.designer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/YSImagePicker/Views/ActionCell.xib" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/YSImagePicker/Views/AssetCell.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/YSImagePicker/Views/ImagePickerView.designer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/YSImagePicker/Views/ImagePickerView.xib" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/YSImagePicker/Views/LivePhotoCameraCell.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/YSImagePicker/Views/LivePhotoCameraCell.designer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/YSImagePicker/Views/LivePhotoCameraCell.xib" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/YSImagePicker/Views/RecordButton.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/YSImagePicker/Views/VideoCameraCell.designer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/YSImagePicker/Views/VideoCameraCell.xib" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/YSImagePicker/YSImagePicker.csproj" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FUSProjectUsageTrigger">
+    <session id="869087116">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="2" />
+          <entry key="project.open.time.1" value="1" />
+          <entry key="project.open.time.3" value="1" />
+          <entry key="project.open.time.6" value="1" />
+          <entry key="project.opened" value="3" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="cs" value="61" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="C#" value="61" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="cs" value="21203" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="C#" value="21203" />
+        </counts>
+      </usages-collector>
+    </session>
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/YSImagePicker/Media/CaptureSession.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1938">
+              <caret line="781" column="21" lean-forward="true" selection-start-line="781" selection-start-column="21" selection-end-line="781" selection-end-column="21" />
+              <folding>
+                <marker date="1537380043700" expanded="false" signature="6:178" ph="..." />
+                <marker date="1537380043700" expanded="true" signature="209:42854" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="358:1267" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="591:611" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="822:842" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="995:1015" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="1241:1261" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="1415:2632" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="1594:1614" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="1745:1765" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="1948:1968" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="2116:2136" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="2146:2356" ph="/// called when a recording was finished prematurely due to a system interruption ... " />
+                <marker date="1537380043700" expanded="true" signature="2458:2478" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="2606:2626" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="2673:4280" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="2833:2853" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="2988:3008" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="3171:3191" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="3407:3427" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="3604:3624" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="3800:3820" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="4056:4076" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="4254:4274" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="4316:4396" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="4440:4503" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="4534:4570" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="4614:42852" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="5241:5381" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="5781:5878" ph="/// Communicate with the session and other session objects on this queue. ... " />
+                <marker date="1537380043700" expanded="true" signature="6429:6540" ph="/* this is provided by argument of capturePhoto() ... */" />
+                <marker date="1537380043700" expanded="true" signature="6901:7154" ph="/// Set this method to orientation that mathches UI orientation before `prepare()` ... " />
+                <marker date="1537380043700" expanded="true" signature="7601:7665" ph="/// Updates orientation on video outputs ... " />
+                <marker date="1537380043700" expanded="true" signature="7744:8720" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="7906:8003" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="8017:8258" ph="/* TODO: we have to update orientation of video data output but it's blinking a bit which is ... */" />
+                <marker date="1537380043700" expanded="true" signature="8304:8708" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="8549:8694" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="8751:10844" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="8774:8993" ph="/* Check video authorization status. Video access is required and audio ... */" />
+                <marker date="1537380043700" expanded="true" signature="9112:10762" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="9365:9808" ph="/* The user has not yet been presented with the option to grant ... */" />
+                <marker date="1537380043700" expanded="true" signature="9957:10535" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="10016:10307" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="10114:10279" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="10336:10465" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="10874:12563" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="10929:12551" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="10981:11127" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="11166:12537" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="11535:11667" ph="/* We are not calling the delegate here explicitly, because we are observing ... */" />
+                <marker date="1537380043700" expanded="true" signature="11873:12099" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="12349:12486" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="12594:13405" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="12664:12716" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="12730:12852" ph="/* we need to capture self in order to postpone deallocation while ... */" />
+                <marker date="1537380043700" expanded="true" signature="12897:13393" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="12957:13100" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="13244:13379" ph="/* we are not calling delegate from here because ... */" />
+                <marker date="1537380043700" expanded="true" signature="13415:13721" ph="/// Cinfigures a session before it can be used, following steps are done: ... " />
+                <marker date="1537380043700" expanded="true" signature="13761:22394" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="13831:13883" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="14054:14455" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="14472:16425" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="14659:14940" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="15093:16093" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="15291:16073" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="15338:15847" ph="/* Why are we dispatching this to the main queue? ... */" />
+                <marker date="1537380043700" expanded="true" signature="15909:16051" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="16114:16411" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="16461:16732" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="16846:18124" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="16877:17215" ph="/* A capture session cannot support at the same time: ... */" />
+                <marker date="1537380043700" expanded="true" signature="17439:17798" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="17633:17778" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="17819:18110" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="18281:19244" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="18485:19049" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="18747:18851" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="18876:19031" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="19089:19230" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="19478:20944" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="19674:20618" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="19983:20433" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="20188:20411" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="20639:20930" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="21020:22340" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="21051:21356" ph="/* Add video data output - we use this to capture last video sample that is ... */" />
+                <marker date="1537380043700" expanded="true" signature="21483:22153" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="21939:22135" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="22174:22326" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="22464:23270" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="22665:22722" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="22920:22977" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="23176:23233" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="23347:25032" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="23398:23450" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="23680:23899" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="23711:23885" ph="/* let devicePoint = CGPoint(x: 0.5, y: 0.5) ... */" />
+                <marker date="1537380043700" expanded="true" signature="24142:24576" ph="/* A session can only run when the app is full screen. It will be interrupted ... */" />
+                <marker date="1537380043700" expanded="true" signature="25072:25589" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="25122:25174" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="25706:26682" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="25773:26556" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="25995:26059" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="26120:26540" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="26278:26387" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="26412:26522" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="26573:26672" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="26757:27160" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="26851:27038" ph="/* this is called automatically when interruption is done and session ... */" />
+                <marker date="1537380043700" expanded="true" signature="27230:28614" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="27332:27384" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="27480:27718" ph="/* Automatically try to restart the session running if media services were ... */" />
+                <marker date="1537380043700" expanded="true" signature="27853:27905" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="27963:28454" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="28026:28438" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="28086:28238" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="28263:28420" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="28471:28604" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="28687:29966" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="28710:29243" ph="/* In some scenarios we want to enable the user to resume the session running. ... */" />
+                <marker date="1537380043700" expanded="true" signature="29415:29810" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="29666:29794" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="29827:29956" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="30054:37545" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="30077:30345" ph="/* Retrieve the video preview layer's video orientation on the main queue before ... */" />
+                <marker date="1537380043700" expanded="true" signature="30413:30584" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="30720:37533" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="31000:31127" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="31302:37519" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="31484:31993" ph="/* TODO: we dont need preview photo, we need thumbnail format, read `previewPhotoFormat` docs ... */" />
+                <marker date="1537380043700" expanded="true" signature="32164:32716" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="32211:32332" ph="/* TODO: specify thumb size somehow, this does crash! ... */" />
+                <marker date="1537380043700" expanded="true" signature="32450:32693" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="32776:33808" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="32960:33485" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="33514:33786" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="34038:34317" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="34136:34289" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="34331:35924" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="34386:34676" ph="/* Because Live Photo captures can overlap, we need to keep track of the ... */" />
+                <marker date="1537380043700" expanded="true" signature="34737:35896" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="34814:34958" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="34995:35139" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="35216:35864" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="35330:35529" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="35570:35830" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="35942:36948" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="36029:36208" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="36283:36920" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="36382:36635" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="36712:36890" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="37016:37264" ph="/* The Photo Output keeps a weak reference to the photo capture delegate so ... */" />
+                <marker date="1537380043700" expanded="true" signature="37611:41679" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="37662:37802" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="37841:37977" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="37991:38275" ph="/* Retrieve the video preview layer's video orientation on the main queue ... */" />
+                <marker date="1537380043700" expanded="true" signature="38410:41667" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="38530:38715" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="38991:39122" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="39545:39807" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="39635:39783" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="39827:40594" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="40106:40570" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="40198:40359" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="40392:40544" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="40623:41391" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="40902:41367" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="41001:41160" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="41193:41341" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="41689:41906" ph="/// If there is any recording in progres it will be stopped. ... " />
+                <marker date="1537380043700" expanded="true" signature="41966:42846" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="42017:42165" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="42211:42834" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="42281:42466" ph="{...}" />
+                <marker date="1537380043700" expanded="true" signature="42517:42706" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/YSImagePicker/Public/Appearance.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="165">
+              <caret line="11" column="11" selection-start-line="11" selection-start-column="11" selection-end-line="11" selection-end-column="11" />
+              <folding>
+                <marker date="1537426416120" expanded="true" signature="44:354" ph="{...}" />
+                <marker date="1537426416120" expanded="true" signature="51:125" ph="/// Provides access to styling attributes of Image Picker. ... " />
+                <marker date="1537426416120" expanded="true" signature="153:352" ph="{...}" />
+                <marker date="1537426416120" expanded="true" signature="168:226" ph="/// Image picker background color. ... " />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/YSImagePicker/Public/CellRegistrator.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="907">
+              <caret line="297" selection-start-line="297" selection-end-line="297" />
+              <folding>
+                <marker date="1537435472839" expanded="true" signature="6:138" ph="..." />
+                <marker date="1537435472839" expanded="true" signature="170:12054" ph="{...}" />
+                <marker date="1537435472839" expanded="true" signature="177:615" ph="/// Convenient API to register custom cell classes or nibs for each item type. ... " />
+                <marker date="1537435472839" expanded="true" signature="648:7281" ph="{...}" />
+                <marker date="1537435472839" expanded="true" signature="1694:2178" ph="{...}" />
+                <marker date="1537435472839" expanded="true" signature="1886:1944" ph="{...}" />
+                <marker date="1537435472839" expanded="true" signature="1983:2040" ph="{...}" />
+                <marker date="1537435472839" expanded="true" signature="2459:2843" ph="{...}" />
+                <marker date="1537435472839" expanded="true" signature="2551:2633" ph="{...}" />
+                <marker date="1537435472839" expanded="true" signature="2722:2807" ph="{...}" />
+                <marker date="1537435472839" expanded="true" signature="2886:3029" ph="/// Register a cell nib for all action items. Use this method if all action items ... " />
+                <marker date="1537435472839" expanded="true" signature="3086:3147" ph="{...}" />
+                <marker date="1537435472839" expanded="true" signature="3157:3302" ph="/// Register a cell class for all action items. Use this method if all action items ... " />
+                <marker date="1537435472839" expanded="true" signature="3386:3453" ph="{...}" />
+                <marker date="1537435472839" expanded="true" signature="3463:3628" ph="/// Register a cell nib for an action item at particular index. Use this method if ... " />
+                <marker date="1537435472839" expanded="true" signature="3679:3985" ph="{...}" />
+                <marker date="1537435472839" expanded="true" signature="3733:3838" ph="{...}" />
+                <marker date="1537435472839" expanded="true" signature="3995:4162" ph="/// Register a cell class for an action item at particular index. Use this method if ... " />
+                <marker date="1537435472839" expanded="true" signature="4234:4570" ph="{...}" />
+                <marker date="1537435472839" expanded="true" signature="4291:4414" ph="{...}" />
+                <marker date="1537435472839" expanded="true" signature="4580:4646" ph="/// Register a cell class for camera item. ... " />
+                <marker date="1537435472839" expanded="true" signature="4733:4794" ph="{...}" />
+                <marker date="1537435472839" expanded="true" signature="4804:4998" ph="/// Register a cell nib for camera item. ... " />
+                <marker date="1537435472839" expanded="true" signature="5054:5107" ph="{...}" />
+                <marker date="1537435472839" expanded="true" signature="5117:5489" ph="/// Register a cell nib for asset items of specific type (image or video). ... " />
+                <marker date="1537435472839" expanded="true" signature="5552:5876" ph="{...}" />
+                <marker date="1537435472839" expanded="true" signature="5605:5722" ph="{...}" />
+                <marker date="1537435472839" expanded="true" signature="5886:6260" ph="/// Register a cell class for asset items of specific type (image or video). ... " />
+                <marker date="1537435472839" expanded="true" signature="6333:6676" ph="{...}" />
+                <marker date="1537435472839" expanded="true" signature="6389:6524" ph="{...}" />
+                <marker date="1537435472839" expanded="true" signature="6686:6780" ph="/// Register a cell class for all asset items types (image and video). ... " />
+                <marker date="1537435472839" expanded="true" signature="6863:6923" ph="{...}" />
+                <marker date="1537435472839" expanded="true" signature="6933:7167" ph="/// Register a cell nib for all asset items types (image and video). ... " />
+                <marker date="1537435472839" expanded="true" signature="7223:7275" ph="{...}" />
+                <marker date="1537435472839" expanded="true" signature="7329:12052" ph="{...}" />
+                <marker date="1537435472839" expanded="true" signature="7344:7528" ph="/// Used by datasource when registering all cells to the collection view. If user ... " />
+                <marker date="1537435472839" expanded="true" signature="7663:11048" ph="{...}" />
+                <marker date="1537435472839" expanded="true" signature="7686:7806" ph="/* register action items considering type ... */" />
+                <marker date="1537435472839" expanded="true" signature="7872:8425" ph="{...}" />
+                <marker date="1537435472839" expanded="true" signature="8126:8264" ph="{...}" />
+                <marker date="1537435472839" expanded="true" signature="8442:8633" ph="{...}" />
+                <marker date="1537435472839" expanded="true" signature="8724:9507" ph="{...}" />
+                <marker date="1537435472839" expanded="true" signature="8774:9493" ph="{...}" />
+                <marker date="1537435472839" expanded="true" signature="9602:9749" ph="{...}" />
+                <marker date="1537435472839" expanded="true" signature="9766:9913" ph="{...}" />
+                <marker date="1537435472839" expanded="true" signature="10208:10602" ph="{...}" />
+                <marker date="1537435472839" expanded="true" signature="10695:10841" ph="{...}" />
+                <marker date="1537435472839" expanded="true" signature="10858:11038" ph="{...}" />
+                <marker date="1537435472839" expanded="true" signature="11058:11164" ph="/// Helper func that takes nib,cellId pair and registers them on a collection view ... " />
+                <marker date="1537435472839" expanded="true" signature="11277:11532" ph="{...}" />
+                <marker date="1537435472839" expanded="true" signature="11320:11372" ph="{...}" />
+                <marker date="1537435472839" expanded="true" signature="11417:11522" ph="{...}" />
+                <marker date="1537435472839" expanded="true" signature="11542:11648" ph="/// Helper func that takes nib,cellid pair and registers them on a collection view ... " />
+                <marker date="1537435472839" expanded="true" signature="11777:12046" ph="{...}" />
+                <marker date="1537435472839" expanded="true" signature="11821:11873" ph="{...}" />
+                <marker date="1537435472839" expanded="true" signature="11919:12036" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/YSImagePicker/Media/VideoCaptureDelegate.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="432">
+              <caret line="147" selection-start-line="147" selection-end-line="147" />
+              <folding>
+                <marker date="1537435672782" expanded="false" signature="6:78" ph="..." />
+                <marker date="1537435672782" expanded="true" signature="109:6532" ph="{...}" />
+                <marker date="1537435672782" expanded="true" signature="188:6530" ph="{...}" />
+                <marker date="1537435672782" expanded="true" signature="1165:2149" ph="{...}" />
+                <marker date="1537435672782" expanded="true" signature="1339:2139" ph="{...}" />
+                <marker date="1537435672782" expanded="true" signature="1370:2026" ph="/* Setup background task. ... */" />
+                <marker date="1537435672782" expanded="true" signature="2237:4881" ph="{...}" />
+                <marker date="1537435672782" expanded="true" signature="2285:2995" ph="{...}" />
+                <marker date="1537435672782" expanded="true" signature="2340:2404" ph="{...}" />
+                <marker date="1537435672782" expanded="true" signature="2521:2981" ph="{...}" />
+                <marker date="1537435672782" expanded="true" signature="2563:2681" ph="{...}" />
+                <marker date="1537435672782" expanded="true" signature="2725:2963" ph="{...}" />
+                <marker date="1537435672782" expanded="true" signature="3043:3367" ph="{...}" />
+                <marker date="1537435672782" expanded="true" signature="3139:3275" ph="{...}" />
+                <marker date="1537435672782" expanded="true" signature="3398:4788" ph="{...}" />
+                <marker date="1537435672782" expanded="true" signature="3474:4772" ph="{...}" />
+                <marker date="1537435672782" expanded="true" signature="3586:4601" ph="{...}" />
+                <marker date="1537435672782" expanded="true" signature="3695:4139" ph="{...}" />
+                <marker date="1537435672782" expanded="true" signature="4160:4573" ph="{...}" />
+                <marker date="1537435672782" expanded="true" signature="4241:4543" ph="{...}" />
+                <marker date="1537435672782" expanded="true" signature="4630:4732" ph="{...}" />
+                <marker date="1537435672782" expanded="true" signature="4805:4871" ph="{...}" />
+                <marker date="1537435672782" expanded="true" signature="5021:5073" ph="{...}" />
+                <marker date="1537435672782" expanded="true" signature="5240:6524" ph="{...}" />
+                <marker date="1537435672782" expanded="true" signature="5281:6194" ph="{...}" />
+                <marker date="1537435672782" expanded="true" signature="5448:5630" ph="/* this can be true even if recording is stopped due to a reason (no disk space, ...) so the video can still be d ... */" />
+                <marker date="1537435672782" expanded="true" signature="5861:6017" ph="{...}" />
+                <marker date="1537435672782" expanded="true" signature="6038:6180" ph="{...}" />
+                <marker date="1537435672782" expanded="true" signature="6241:6362" ph="{...}" />
+                <marker date="1537435672782" expanded="true" signature="6379:6514" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/YSImagePicker/Public/LayoutConfiguration.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <folding>
+                <marker date="1537202917278" expanded="false" signature="6:26" ph="..." />
+                <marker date="1537202917278" expanded="true" signature="58:1397" ph="{...}" />
+                <marker date="1537202917278" expanded="true" signature="97:1395" ph="{...}" />
+                <marker date="1537202917278" expanded="true" signature="302:357" ph="/// Scroll and layout direction ... " />
+                <marker date="1537202917278" expanded="true" signature="476:563" ph="/// Defines how many image assets will be in a row. Must be &gt; 0 ... " />
+                <marker date="1537202917278" expanded="true" signature="621:687" ph="/// Spacing between items within a section ... " />
+                <marker date="1537202917278" expanded="true" signature="741:819" ph="/// Spacing between actions section and camera section ... " />
+                <marker date="1537202917278" expanded="true" signature="877:954" ph="/// Spacing between camera section and assets section ... " />
+                <marker date="1537202917278" expanded="true" signature="1039:1125" ph="{...}" />
+                <marker date="1537202917278" expanded="true" signature="1323:1389" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/YSImagePicker/Views/ActionCell.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="7" column="25" selection-start-line="7" selection-start-column="25" selection-end-line="7" selection-end-column="25" />
+              <folding>
+                <marker date="1537205312888" expanded="false" signature="6:58" ph="..." />
+                <marker date="1537205312888" expanded="true" signature="89:1895" ph="{...}" />
+                <marker date="1537205312888" expanded="true" signature="179:1893" ph="{...}" />
+                <marker date="1537205312888" expanded="true" signature="253:361" ph="{...}" />
+                <marker date="1537205312888" expanded="true" signature="441:1887" ph="{...}" />
+                <marker date="1537205312888" expanded="true" signature="702:1085" ph="{...}" />
+                <marker date="1537205312888" expanded="true" signature="1233:1877" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>kCAMediaTimingFunctionEaseOut</find>
+      <find>keypa</find>
+      <find>Forwards</find>
+      <find>RequestAccessForMediaType</find>
+      <find>connection</find>
+      <find>Running</find>
+      <find>running(</find>
+      <find>reset</find>
+      <find>SessionRuntimeError</find>
+      <find>essionInterruptionEnded</find>
+      <find>sessionQueue</find>
+      <find>photoSampleBuffer</find>
+      <find>temp</find>
+      <find>()</find>
+      <find>UIColor.FromRGBA</find>
+      <find>log</find>
+      <find>ImagePickerAssetCell</find>
+      <find>ActionCell</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>Console.WriteLine</replace>
+    </replaceStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/YSImagePicker/Views/ImagePickerView.designer.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/YSImagePicker/Public/LayoutConfiguration.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/YSImagePicker/Views/ImagePickerView.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/YSImagePicker/Views/AssetCell.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/YSImagePicker/Views/ActionCell.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/YSImagePicker/Views/CarvedLabel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/YSImagePicker/Views/ShutterButton.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/YSImagePicker/Media/VideoOutputSampleBufferDelegate.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/4AB8DB04-6AF6-4AB0-AE03-6378DAE8BFD3/05/fbff353f/IAVCaptureFileOutputRecordingDelegate.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/YSImagePicker/Views/RecordDurationLabel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/YSImagePicker/Views/StationaryButton.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/YSImagePicker/Media/VideoCaptureDelegate.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/YSImagePicker/Views/LivePhotoCameraCell.designer.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/YSImagePicker/Views/RecordButton.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/YSImagePicker/Media/AVPreviewView.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/YSImagePicker/Public/CameraCollectionViewCell.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/YSImagePicker/Views/LivePhotoCameraCell.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TestApplication/ViewController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ImagePicker/ApiDefinition.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/6A026A65-03CA-4935-B5BB-3ED241D053FE/b3/867073d6/PHAssetMediaType.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file:///Library/Frameworks/Xamarin.iOS.framework/Versions/12.0.0.15/src/Xamarin.iOS/mcs/class/corlib/System/Nullable.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/YSImagePicker/Views/VideoCameraCell.designer.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/YSImagePicker/Public/CellRegistrator.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/YSImagePicker/Media/CaptureSession.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/YSImagePicker/Public/Appearance.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/YSImagePicker/Media/PhotoCaptureDelegate.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/YSImagePicker/Views/VideoCameraCell.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/4AB8DB04-6AF6-4AB0-AE03-6378DAE8BFD3/be/af2f0b92/NSKeyValueChange.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/YSImagePicker/Public/CaptureSettings.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/4AB8DB04-6AF6-4AB0-AE03-6378DAE8BFD3/78/032add96/AVError.cs" root0="SKIP_HIGHLIGHTING" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/TestApplication/ViewController.cs" />
+        <option value="$PROJECT_DIR$/ImagePicker/ApiDefinition.cs" />
+        <option value="$PROJECT_DIR$/YSImagePicker/Media/AVPreviewView.cs" />
+        <option value="$PROJECT_DIR$/YSImagePicker/Views/RecordButton.cs" />
+        <option value="$PROJECT_DIR$/YSImagePicker/Views/StationaryButton.cs" />
+        <option value="$PROJECT_DIR$/YSImagePicker/Views/ShutterButton.cs" />
+        <option value="$PROJECT_DIR$/YSImagePicker/Views/CarvedLabel.cs" />
+        <option value="$PROJECT_DIR$/YSImagePicker/Views/RecordDurationLabel.cs" />
+        <option value="$PROJECT_DIR$/YSImagePicker/Public/CaptureSettings.cs" />
+        <option value="$PROJECT_DIR$/YSImagePicker/Views/LivePhotoCameraCell.cs" />
+        <option value="$PROJECT_DIR$/YSImagePicker/Public/CameraCollectionViewCell.cs" />
+        <option value="$PROJECT_DIR$/YSImagePicker/Views/VideoCameraCell.cs" />
+        <option value="$PROJECT_DIR$/YSImagePicker/Views/ImagePickerView.cs" />
+        <option value="$PROJECT_DIR$/YSImagePicker/Views/VideoCameraCell.designer.cs" />
+        <option value="$PROJECT_DIR$/YSImagePicker/Media/PhotoCaptureDelegate.cs" />
+        <option value="$PROJECT_DIR$/YSImagePicker/Media/VideoOutputSampleBufferDelegate.cs" />
+        <option value="$PROJECT_DIR$/YSImagePicker/Media/CaptureSession.cs" />
+        <option value="$PROJECT_DIR$/YSImagePicker/Public/Appearance.cs" />
+        <option value="$PROJECT_DIR$/YSImagePicker/Public/CellRegistrator.cs" />
+        <option value="$PROJECT_DIR$/YSImagePicker/Views/AssetCell.cs" />
+        <option value="$PROJECT_DIR$/YSImagePicker/Media/VideoCaptureDelegate.cs" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="y" value="23" />
+    <option name="width" value="2560" />
+    <option name="height" value="1369" />
+  </component>
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="SolutionExplorer" proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="FileSystemExplorer" />
+      <pane id="SolutionExplorer">
+        <subPane>
+          <expand>
+            <path>
+              <item name="Project" type="784c90a0:SolutionExplorerRootNode" />
+              <item name="TestApplication" type="24d0babc:SolutionExplorerModelNode" />
+            </path>
+            <path>
+              <item name="Project" type="784c90a0:SolutionExplorerRootNode" />
+              <item name="TestApplication" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="YSImagePicker" type="24d0babc:SolutionExplorerModelNode" />
+            </path>
+            <path>
+              <item name="Project" type="784c90a0:SolutionExplorerRootNode" />
+              <item name="TestApplication" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="YSImagePicker" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="Public" type="24d0babc:SolutionExplorerModelNode" />
+            </path>
+            <path>
+              <item name="Project" type="784c90a0:SolutionExplorerRootNode" />
+              <item name="TestApplication" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="YSImagePicker" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="Views" type="24d0babc:SolutionExplorerModelNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+        <option name="show-all-files" value="false" />
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="Rider.DefaultBreakpoints.AreToggled" value="true" />
+    <property name="Rider.ProjectViewActivator.IsNotFirstRun" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="iOS Default" type="XamarinIOSProject" factoryName="Xamarin.iOS">
+      <option name="PROJECT_PATH" value="$PROJECT_DIR$/TestApplication/TestApplication.csproj" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="DEFAULT_IPHONE_DEVICE" value="" />
+      <option name="DEFAULT_IPHONE_SIMULATOR" value="iPhone X iOS 11.4" />
+      <option name="DEPLOY_TARGET_BEHAVIOUR_NAME" value="Simulator" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9fb2ab32-4559-4499-b79b-69ce6a329abc" name="Default Changelist" comment="" />
+      <created>1536923411259</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1536923411259</updated>
+      <workItem from="1536923414089" duration="1228000" />
+      <workItem from="1537174362342" duration="62313000" />
+      <workItem from="1537425220662" duration="8394000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="71935000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="23" width="2560" height="1369" extended-state="0" />
+    <editor active="true" />
+    <layout>
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25377283" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39937353" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="NuGet" order="7" />
+      <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" order="10" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Unit Tests" order="11" />
+      <window_info anchor="bottom" id="Terminal" order="12" />
+      <window_info anchor="bottom" id="Event Log" order="13" side_tool="true" />
+      <window_info active="true" anchor="bottom" id="Build" order="14" visible="true" weight="0.32498044" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Errors In Solution" order="3" />
+      <window_info anchor="right" id="Database" order="4" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
+  <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" suspend="NONE" type="DotNet Exception Breakpoints">
+          <properties exception="System.Threading.ThreadAbortException" displayValue="System.Threading.ThreadAbortException" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/TestApplication/ViewController.cs</url>
+          <line>20</line>
+          <properties documentPath="$PROJECT_DIR$/TestApplication/ViewController.cs" initialLine="21">
+            <startOffsets>
+              <option value="521" />
+            </startOffsets>
+            <endOffsets>
+              <option value="587" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/ImagePicker/ApiDefinition.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="22" selection-start-line="22" selection-end-line="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///Library/Frameworks/Xamarin.iOS.framework/Versions/11.14.0.14/src/Xamarin.iOS/UIKit/UIView.g.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="274">
+          <caret line="3313" column="29" selection-start-line="3313" selection-start-column="23" selection-end-line="3313" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///Library/Frameworks/Xamarin.iOS.framework/Versions/11.14.0.14/src/Xamarin.iOS/Photos/PHAsset.g.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="274">
+          <caret line="234" column="30" selection-start-line="234" selection-start-column="30" selection-end-line="234" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/YSImagePicker/Media/AVPreviewView.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="7" selection-start-line="11" selection-start-column="7" selection-end-line="11" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TestApplication/ViewController.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="22" column="9" selection-start-line="22" selection-start-column="9" selection-end-line="22" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/YSImagePicker/Views/RecordButton.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1460">
+          <caret line="172" column="74" selection-start-line="172" selection-start-column="59" selection-end-line="172" selection-end-column="74" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/YSImagePicker/Views/StationaryButton.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="8" column="31" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/YSImagePicker/Views/ShutterButton.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="17" column="9" selection-start-line="17" selection-start-column="9" selection-end-line="17" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/YSImagePicker/Views/CarvedLabel.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="191">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/YSImagePicker/Views/RecordDurationLabel.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="29" column="81" selection-start-line="29" selection-start-column="81" selection-end-line="29" selection-end-column="81" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/YSImagePicker/Views/LivePhotoCameraCell.designer.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="17" column="34" selection-start-line="17" selection-start-column="34" selection-end-line="17" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/YSImagePicker/Views/LivePhotoCameraCell.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="5" selection-start-line="10" selection-start-column="5" selection-end-line="10" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/YSImagePicker/Views/ImagePickerView.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="26" column="1" selection-start-line="26" selection-start-column="1" selection-end-line="26" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///Library/Frameworks/Xamarin.iOS.framework/Versions/11.14.0.14/src/Xamarin.iOS/AVFoundation/AVCaptureDevice.g.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="379">
+          <caret line="1077" column="8" selection-start-line="1077" selection-start-column="8" selection-end-line="1077" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///Library/Frameworks/Xamarin.iOS.framework/Versions/11.14.0.14/src/Xamarin.iOS/Foundation/NSObject.g.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="274">
+          <caret line="54" column="28" selection-start-line="54" selection-start-column="28" selection-end-line="54" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///Library/Frameworks/Xamarin.iOS.framework/Versions/11.14.0.14/src/Xamarin.iOS/AVFoundation/AVCaptureSession.g.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="278">
+          <caret line="500" column="30" selection-start-line="500" selection-start-column="22" selection-end-line="500" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/4AB8DB04-6AF6-4AB0-AE03-6378DAE8BFD3/78/032add96/AVError.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="404">
+          <caret line="62" column="26" selection-start-line="62" selection-start-column="4" selection-end-line="62" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/4AB8DB04-6AF6-4AB0-AE03-6378DAE8BFD3/be/af2f0b92/NSKeyValueChange.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="4" selection-start-line="14" selection-start-column="4" selection-end-line="14" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/YSImagePicker/Views/ImagePickerView.designer.cs">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/YSImagePicker/Views/VideoCameraCell.designer.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="20" column="50" selection-start-line="20" selection-start-column="50" selection-end-line="20" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/YSImagePicker/Views/VideoCameraCell.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="57" selection-start-line="9" selection-start-column="57" selection-end-line="9" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/YSImagePicker/Public/CameraCollectionViewCell.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="665">
+          <caret line="72" column="9" selection-start-line="72" selection-start-column="9" selection-end-line="72" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///Library/Frameworks/Xamarin.iOS.framework/Versions/11.14.0.14/src/Xamarin.iOS/UIKit/UIDevice.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="75" selection-start-line="19" selection-start-column="19" selection-end-line="19" selection-end-column="75" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///Library/Frameworks/Xamarin.iOS.framework/Versions/11.14.0.14/src/Xamarin.iOS/AVFoundation/AVCapturePhotoCaptureDelegate.g.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="274">
+          <caret line="220" column="28" selection-start-line="220" selection-start-column="28" selection-end-line="220" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/4AB8DB04-6AF6-4AB0-AE03-6378DAE8BFD3/05/fbff353f/IAVCaptureFileOutputRecordingDelegate.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="34" lean-forward="true" selection-start-line="21" selection-start-column="34" selection-end-line="21" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///Library/Frameworks/Xamarin.iOS.framework/Versions/11.14.0.14/src/Xamarin.iOS/AVFoundation/AVCaptureVideoDataOutput.g.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="274">
+          <caret line="156" column="28" selection-start-line="156" selection-start-column="28" selection-end-line="156" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/YSImagePicker/Media/VideoOutputSampleBufferDelegate.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="11" column="30" selection-start-line="11" selection-start-column="30" selection-end-line="11" selection-end-column="30" />
+          <folding>
+            <marker date="1537379925824" expanded="false" signature="6:106" ph="..." />
+            <marker date="1537379925824" expanded="true" signature="137:2484" ph="{...}" />
+            <marker date="1537379925824" expanded="true" signature="235:2482" ph="{...}" />
+            <marker date="1537379925824" expanded="true" signature="588:639" ph="{...}" />
+            <marker date="1537379925824" expanded="true" signature="797:865" ph="{...}" />
+            <marker date="1537379925824" expanded="true" signature="875:1015" ph="/// Converts Sample Buffer to UIImage with backing CGImage. This conversion ... " />
+            <marker date="1537379925824" expanded="true" signature="1059:2476" ph="{...}" />
+            <marker date="1537379925824" expanded="true" signature="1085:2466" ph="{...}" />
+            <marker date="1537379925824" expanded="true" signature="1213:1282" ph="{...}" />
+            <marker date="1537379925824" expanded="true" signature="1829:2200" ph="/* TODO: consider using CIFilter also for bluring and saturating ... */" />
+            <marker date="1537379925824" expanded="true" signature="2331:2422" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/YSImagePicker/Media/PhotoCaptureDelegate.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="307">
+          <caret line="110" selection-start-line="110" selection-end-line="110" />
+          <folding>
+            <marker date="1537377732024" expanded="false" signature="6:82" ph="..." />
+            <marker date="1537377732024" expanded="true" signature="113:6556" ph="{...}" />
+            <marker date="1537377732024" expanded="true" signature="185:6554" ph="{...}" />
+            <marker date="1537377732024" expanded="true" signature="1117:1356" ph="{...}" />
+            <marker date="1537377732024" expanded="true" signature="1390:2034" ph="{...}" />
+            <marker date="1537377732024" expanded="true" signature="1459:1985" ph="{...}" />
+            <marker date="1537377732024" expanded="true" signature="1568:1971" ph="{...}" />
+            <marker date="1537377732024" expanded="true" signature="1610:1751" ph="{...}" />
+            <marker date="1537377732024" expanded="true" signature="1798:1953" ph="{...}" />
+            <marker date="1537377732024" expanded="true" signature="2178:2417" ph="{...}" />
+            <marker date="1537377732024" expanded="true" signature="2329:2407" ph="{...}" />
+            <marker date="1537377732024" expanded="true" signature="2561:2631" ph="{...}" />
+            <marker date="1537377732024" expanded="true" signature="3029:3462" ph="{...}" />
+            <marker date="1537377732024" expanded="true" signature="3082:3256" ph="{...}" />
+            <marker date="1537377732024" expanded="true" signature="3292:3452" ph="{...}" />
+            <marker date="1537377732024" expanded="true" signature="3643:3711" ph="{...}" />
+            <marker date="1537377732024" expanded="true" signature="3962:4239" ph="{...}" />
+            <marker date="1537377732024" expanded="true" signature="4003:4171" ph="{...}" />
+            <marker date="1537377732024" expanded="true" signature="4411:6548" ph="{...}" />
+            <marker date="1537377732024" expanded="true" signature="4452:4627" ph="{...}" />
+            <marker date="1537377732024" expanded="true" signature="4663:4829" ph="{...}" />
+            <marker date="1537377732024" expanded="true" signature="4875:5043" ph="{...}" />
+            <marker date="1537377732024" expanded="true" signature="5102:6536" ph="{...}" />
+            <marker date="1537377732024" expanded="true" signature="5180:6432" ph="{...}" />
+            <marker date="1537377732024" expanded="true" signature="5273:6051" ph="{...}" />
+            <marker date="1537377732024" expanded="true" signature="5554:6029" ph="{...}" />
+            <marker date="1537377732024" expanded="true" signature="5721:5806" ph="{...}" />
+            <marker date="1537377732024" expanded="true" signature="6068:6412" ph="{...}" />
+            <marker date="1537377732024" expanded="true" signature="6133:6352" ph="{...}" />
+            <marker date="1537377732024" expanded="true" signature="6453:6522" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/6A026A65-03CA-4935-B5BB-3ED241D053FE/b3/867073d6/PHAssetMediaType.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="14" selection-start-line="14" selection-start-column="14" selection-end-line="14" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/YSImagePicker/Public/CaptureSettings.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="26" column="16" selection-start-line="26" selection-start-column="16" selection-end-line="26" selection-end-column="16" />
+          <folding>
+            <marker date="1537287188488" expanded="true" signature="30:1315" ph="{...}" />
+            <marker date="1537287188488" expanded="true" signature="65:965" ph="{...}" />
+            <marker date="1537287188488" expanded="true" signature="80:301" ph="/// Capture session uses this preset when configuring. Select a preset of ... " />
+            <marker date="1537287188488" expanded="true" signature="349:775" ph="/// Return true if captured photos will be saved to photo library. Image picker ... " />
+            <marker date="1537287188488" expanded="true" signature="993:1313" ph="{...}" />
+            <marker date="1537287188488" expanded="true" signature="1008:1094" ph="/// If you support only photos use this preset. Default value. ... " />
+            <marker date="1537287188488" expanded="true" signature="1119:1200" ph="/// If you know you will use live photos use this preset. ... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/YSImagePicker/Views/ActionCell.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="7" column="25" selection-start-line="7" selection-start-column="25" selection-end-line="7" selection-end-column="25" />
+          <folding>
+            <marker date="1537205312888" expanded="false" signature="6:58" ph="..." />
+            <marker date="1537205312888" expanded="true" signature="89:1895" ph="{...}" />
+            <marker date="1537205312888" expanded="true" signature="179:1893" ph="{...}" />
+            <marker date="1537205312888" expanded="true" signature="253:361" ph="{...}" />
+            <marker date="1537205312888" expanded="true" signature="441:1887" ph="{...}" />
+            <marker date="1537205312888" expanded="true" signature="702:1085" ph="{...}" />
+            <marker date="1537205312888" expanded="true" signature="1233:1877" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/YSImagePicker/Public/Appearance.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="11" selection-start-line="11" selection-start-column="11" selection-end-line="11" selection-end-column="11" />
+          <folding>
+            <marker date="1537426416120" expanded="true" signature="44:354" ph="{...}" />
+            <marker date="1537426416120" expanded="true" signature="51:125" ph="/// Provides access to styling attributes of Image Picker. ... " />
+            <marker date="1537426416120" expanded="true" signature="153:352" ph="{...}" />
+            <marker date="1537426416120" expanded="true" signature="168:226" ph="/// Image picker background color. ... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///Library/Frameworks/Xamarin.iOS.framework/Versions/12.0.0.15/src/Xamarin.iOS/mcs/class/corlib/System/Nullable.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="417">
+          <caret line="101" column="17" selection-start-line="101" selection-start-column="17" selection-end-line="101" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/YSImagePicker/Public/CellRegistrator.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="907">
+          <caret line="297" selection-start-line="297" selection-end-line="297" />
+          <folding>
+            <marker date="1537435472839" expanded="true" signature="6:138" ph="..." />
+            <marker date="1537435472839" expanded="true" signature="170:12054" ph="{...}" />
+            <marker date="1537435472839" expanded="true" signature="177:615" ph="/// Convenient API to register custom cell classes or nibs for each item type. ... " />
+            <marker date="1537435472839" expanded="true" signature="648:7281" ph="{...}" />
+            <marker date="1537435472839" expanded="true" signature="1694:2178" ph="{...}" />
+            <marker date="1537435472839" expanded="true" signature="1886:1944" ph="{...}" />
+            <marker date="1537435472839" expanded="true" signature="1983:2040" ph="{...}" />
+            <marker date="1537435472839" expanded="true" signature="2459:2843" ph="{...}" />
+            <marker date="1537435472839" expanded="true" signature="2551:2633" ph="{...}" />
+            <marker date="1537435472839" expanded="true" signature="2722:2807" ph="{...}" />
+            <marker date="1537435472839" expanded="true" signature="2886:3029" ph="/// Register a cell nib for all action items. Use this method if all action items ... " />
+            <marker date="1537435472839" expanded="true" signature="3086:3147" ph="{...}" />
+            <marker date="1537435472839" expanded="true" signature="3157:3302" ph="/// Register a cell class for all action items. Use this method if all action items ... " />
+            <marker date="1537435472839" expanded="true" signature="3386:3453" ph="{...}" />
+            <marker date="1537435472839" expanded="true" signature="3463:3628" ph="/// Register a cell nib for an action item at particular index. Use this method if ... " />
+            <marker date="1537435472839" expanded="true" signature="3679:3985" ph="{...}" />
+            <marker date="1537435472839" expanded="true" signature="3733:3838" ph="{...}" />
+            <marker date="1537435472839" expanded="true" signature="3995:4162" ph="/// Register a cell class for an action item at particular index. Use this method if ... " />
+            <marker date="1537435472839" expanded="true" signature="4234:4570" ph="{...}" />
+            <marker date="1537435472839" expanded="true" signature="4291:4414" ph="{...}" />
+            <marker date="1537435472839" expanded="true" signature="4580:4646" ph="/// Register a cell class for camera item. ... " />
+            <marker date="1537435472839" expanded="true" signature="4733:4794" ph="{...}" />
+            <marker date="1537435472839" expanded="true" signature="4804:4998" ph="/// Register a cell nib for camera item. ... " />
+            <marker date="1537435472839" expanded="true" signature="5054:5107" ph="{...}" />
+            <marker date="1537435472839" expanded="true" signature="5117:5489" ph="/// Register a cell nib for asset items of specific type (image or video). ... " />
+            <marker date="1537435472839" expanded="true" signature="5552:5876" ph="{...}" />
+            <marker date="1537435472839" expanded="true" signature="5605:5722" ph="{...}" />
+            <marker date="1537435472839" expanded="true" signature="5886:6260" ph="/// Register a cell class for asset items of specific type (image or video). ... " />
+            <marker date="1537435472839" expanded="true" signature="6333:6676" ph="{...}" />
+            <marker date="1537435472839" expanded="true" signature="6389:6524" ph="{...}" />
+            <marker date="1537435472839" expanded="true" signature="6686:6780" ph="/// Register a cell class for all asset items types (image and video). ... " />
+            <marker date="1537435472839" expanded="true" signature="6863:6923" ph="{...}" />
+            <marker date="1537435472839" expanded="true" signature="6933:7167" ph="/// Register a cell nib for all asset items types (image and video). ... " />
+            <marker date="1537435472839" expanded="true" signature="7223:7275" ph="{...}" />
+            <marker date="1537435472839" expanded="true" signature="7329:12052" ph="{...}" />
+            <marker date="1537435472839" expanded="true" signature="7344:7528" ph="/// Used by datasource when registering all cells to the collection view. If user ... " />
+            <marker date="1537435472839" expanded="true" signature="7663:11048" ph="{...}" />
+            <marker date="1537435472839" expanded="true" signature="7686:7806" ph="/* register action items considering type ... */" />
+            <marker date="1537435472839" expanded="true" signature="7872:8425" ph="{...}" />
+            <marker date="1537435472839" expanded="true" signature="8126:8264" ph="{...}" />
+            <marker date="1537435472839" expanded="true" signature="8442:8633" ph="{...}" />
+            <marker date="1537435472839" expanded="true" signature="8724:9507" ph="{...}" />
+            <marker date="1537435472839" expanded="true" signature="8774:9493" ph="{...}" />
+            <marker date="1537435472839" expanded="true" signature="9602:9749" ph="{...}" />
+            <marker date="1537435472839" expanded="true" signature="9766:9913" ph="{...}" />
+            <marker date="1537435472839" expanded="true" signature="10208:10602" ph="{...}" />
+            <marker date="1537435472839" expanded="true" signature="10695:10841" ph="{...}" />
+            <marker date="1537435472839" expanded="true" signature="10858:11038" ph="{...}" />
+            <marker date="1537435472839" expanded="true" signature="11058:11164" ph="/// Helper func that takes nib,cellId pair and registers them on a collection view ... " />
+            <marker date="1537435472839" expanded="true" signature="11277:11532" ph="{...}" />
+            <marker date="1537435472839" expanded="true" signature="11320:11372" ph="{...}" />
+            <marker date="1537435472839" expanded="true" signature="11417:11522" ph="{...}" />
+            <marker date="1537435472839" expanded="true" signature="11542:11648" ph="/// Helper func that takes nib,cellid pair and registers them on a collection view ... " />
+            <marker date="1537435472839" expanded="true" signature="11777:12046" ph="{...}" />
+            <marker date="1537435472839" expanded="true" signature="11821:11873" ph="{...}" />
+            <marker date="1537435472839" expanded="true" signature="11919:12036" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/YSImagePicker/Views/AssetCell.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="13" column="64" selection-start-line="13" selection-start-column="64" selection-end-line="13" selection-end-column="64" />
+          <folding>
+            <marker date="1537435609040" expanded="false" signature="6:78" ph="..." />
+            <marker date="1537435609040" expanded="true" signature="109:6764" ph="{...}" />
+            <marker date="1537435609040" expanded="true" signature="116:195" ph="/// Each image picker asset cell must conform to this protocol. ... " />
+            <marker date="1537435609040" expanded="true" signature="265:618" ph="{...}" />
+            <marker date="1537435609040" expanded="true" signature="624:848" ph="/// A default collection view cell that represents asset item. It supports: ... " />
+            <marker date="1537435609040" expanded="true" signature="892:4278" ph="{...}" />
+            <marker date="1537435609040" expanded="true" signature="1106:1809" ph="{...}" />
+            <marker date="1537435609040" expanded="true" signature="1856:2359" ph="{...}" />
+            <marker date="1537435609040" expanded="true" signature="2402:3824" ph="{...}" />
+            <marker date="1537435609040" expanded="true" signature="2449:3814" ph="{...}" />
+            <marker date="1537435609040" expanded="true" signature="2586:2952" ph="{...}" />
+            <marker date="1537435609040" expanded="true" signature="2977:3177" ph="{...}" />
+            <marker date="1537435609040" expanded="true" signature="3887:4272" ph="{...}" />
+            <marker date="1537435609040" expanded="true" signature="3968:4231" ph="{...}" />
+            <marker date="1537435609040" expanded="true" signature="4285:4492" ph="/// A default implementation of `ImagePickerAssetCell`. If user does not register ... " />
+            <marker date="1537435609040" expanded="true" signature="4542:6235" ph="{...}" />
+            <marker date="1537435609040" expanded="true" signature="4850:5317" ph="{...}" />
+            <marker date="1537435609040" expanded="true" signature="4908:5307" ph="{...}" />
+            <marker date="1537435609040" expanded="true" signature="5074:5293" ph="{...}" />
+            <marker date="1537435609040" expanded="true" signature="5371:5722" ph="{...}" />
+            <marker date="1537435609040" expanded="true" signature="5770:5863" ph="{...}" />
+            <marker date="1537435609040" expanded="true" signature="5910:6229" ph="{...}" />
+            <marker date="1537435609040" expanded="true" signature="6277:6762" ph="{...}" />
+            <marker date="1537435609040" expanded="true" signature="6409:6521" ph="{...}" />
+            <marker date="1537435609040" expanded="true" signature="6575:6756" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/YSImagePicker/Public/LayoutConfiguration.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <marker date="1537202917278" expanded="false" signature="6:26" ph="..." />
+            <marker date="1537202917278" expanded="true" signature="58:1397" ph="{...}" />
+            <marker date="1537202917278" expanded="true" signature="97:1395" ph="{...}" />
+            <marker date="1537202917278" expanded="true" signature="302:357" ph="/// Scroll and layout direction ... " />
+            <marker date="1537202917278" expanded="true" signature="476:563" ph="/// Defines how many image assets will be in a row. Must be &gt; 0 ... " />
+            <marker date="1537202917278" expanded="true" signature="621:687" ph="/// Spacing between items within a section ... " />
+            <marker date="1537202917278" expanded="true" signature="741:819" ph="/// Spacing between actions section and camera section ... " />
+            <marker date="1537202917278" expanded="true" signature="877:954" ph="/// Spacing between camera section and assets section ... " />
+            <marker date="1537202917278" expanded="true" signature="1039:1125" ph="{...}" />
+            <marker date="1537202917278" expanded="true" signature="1323:1389" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/YSImagePicker/Media/VideoCaptureDelegate.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="147" selection-start-line="147" selection-end-line="147" />
+          <folding>
+            <marker date="1537435672782" expanded="false" signature="6:78" ph="..." />
+            <marker date="1537435672782" expanded="true" signature="109:6532" ph="{...}" />
+            <marker date="1537435672782" expanded="true" signature="188:6530" ph="{...}" />
+            <marker date="1537435672782" expanded="true" signature="1165:2149" ph="{...}" />
+            <marker date="1537435672782" expanded="true" signature="1339:2139" ph="{...}" />
+            <marker date="1537435672782" expanded="true" signature="1370:2026" ph="/* Setup background task. ... */" />
+            <marker date="1537435672782" expanded="true" signature="2237:4881" ph="{...}" />
+            <marker date="1537435672782" expanded="true" signature="2285:2995" ph="{...}" />
+            <marker date="1537435672782" expanded="true" signature="2340:2404" ph="{...}" />
+            <marker date="1537435672782" expanded="true" signature="2521:2981" ph="{...}" />
+            <marker date="1537435672782" expanded="true" signature="2563:2681" ph="{...}" />
+            <marker date="1537435672782" expanded="true" signature="2725:2963" ph="{...}" />
+            <marker date="1537435672782" expanded="true" signature="3043:3367" ph="{...}" />
+            <marker date="1537435672782" expanded="true" signature="3139:3275" ph="{...}" />
+            <marker date="1537435672782" expanded="true" signature="3398:4788" ph="{...}" />
+            <marker date="1537435672782" expanded="true" signature="3474:4772" ph="{...}" />
+            <marker date="1537435672782" expanded="true" signature="3586:4601" ph="{...}" />
+            <marker date="1537435672782" expanded="true" signature="3695:4139" ph="{...}" />
+            <marker date="1537435672782" expanded="true" signature="4160:4573" ph="{...}" />
+            <marker date="1537435672782" expanded="true" signature="4241:4543" ph="{...}" />
+            <marker date="1537435672782" expanded="true" signature="4630:4732" ph="{...}" />
+            <marker date="1537435672782" expanded="true" signature="4805:4871" ph="{...}" />
+            <marker date="1537435672782" expanded="true" signature="5021:5073" ph="{...}" />
+            <marker date="1537435672782" expanded="true" signature="5240:6524" ph="{...}" />
+            <marker date="1537435672782" expanded="true" signature="5281:6194" ph="{...}" />
+            <marker date="1537435672782" expanded="true" signature="5448:5630" ph="/* this can be true even if recording is stopped due to a reason (no disk space, ...) so the video can still be d ... */" />
+            <marker date="1537435672782" expanded="true" signature="5861:6017" ph="{...}" />
+            <marker date="1537435672782" expanded="true" signature="6038:6180" ph="{...}" />
+            <marker date="1537435672782" expanded="true" signature="6241:6362" ph="{...}" />
+            <marker date="1537435672782" expanded="true" signature="6379:6514" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/YSImagePicker/Media/CaptureSession.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1938">
+          <caret line="781" column="21" lean-forward="true" selection-start-line="781" selection-start-column="21" selection-end-line="781" selection-end-column="21" />
+          <folding>
+            <marker date="1537380043700" expanded="false" signature="6:178" ph="..." />
+            <marker date="1537380043700" expanded="true" signature="209:42854" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="358:1267" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="591:611" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="822:842" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="995:1015" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="1241:1261" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="1415:2632" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="1594:1614" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="1745:1765" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="1948:1968" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="2116:2136" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="2146:2356" ph="/// called when a recording was finished prematurely due to a system interruption ... " />
+            <marker date="1537380043700" expanded="true" signature="2458:2478" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="2606:2626" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="2673:4280" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="2833:2853" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="2988:3008" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="3171:3191" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="3407:3427" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="3604:3624" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="3800:3820" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="4056:4076" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="4254:4274" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="4316:4396" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="4440:4503" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="4534:4570" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="4614:42852" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="5241:5381" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="5781:5878" ph="/// Communicate with the session and other session objects on this queue. ... " />
+            <marker date="1537380043700" expanded="true" signature="6429:6540" ph="/* this is provided by argument of capturePhoto() ... */" />
+            <marker date="1537380043700" expanded="true" signature="6901:7154" ph="/// Set this method to orientation that mathches UI orientation before `prepare()` ... " />
+            <marker date="1537380043700" expanded="true" signature="7601:7665" ph="/// Updates orientation on video outputs ... " />
+            <marker date="1537380043700" expanded="true" signature="7744:8720" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="7906:8003" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="8017:8258" ph="/* TODO: we have to update orientation of video data output but it's blinking a bit which is ... */" />
+            <marker date="1537380043700" expanded="true" signature="8304:8708" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="8549:8694" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="8751:10844" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="8774:8993" ph="/* Check video authorization status. Video access is required and audio ... */" />
+            <marker date="1537380043700" expanded="true" signature="9112:10762" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="9365:9808" ph="/* The user has not yet been presented with the option to grant ... */" />
+            <marker date="1537380043700" expanded="true" signature="9957:10535" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="10016:10307" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="10114:10279" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="10336:10465" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="10874:12563" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="10929:12551" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="10981:11127" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="11166:12537" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="11535:11667" ph="/* We are not calling the delegate here explicitly, because we are observing ... */" />
+            <marker date="1537380043700" expanded="true" signature="11873:12099" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="12349:12486" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="12594:13405" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="12664:12716" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="12730:12852" ph="/* we need to capture self in order to postpone deallocation while ... */" />
+            <marker date="1537380043700" expanded="true" signature="12897:13393" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="12957:13100" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="13244:13379" ph="/* we are not calling delegate from here because ... */" />
+            <marker date="1537380043700" expanded="true" signature="13415:13721" ph="/// Cinfigures a session before it can be used, following steps are done: ... " />
+            <marker date="1537380043700" expanded="true" signature="13761:22394" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="13831:13883" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="14054:14455" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="14472:16425" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="14659:14940" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="15093:16093" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="15291:16073" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="15338:15847" ph="/* Why are we dispatching this to the main queue? ... */" />
+            <marker date="1537380043700" expanded="true" signature="15909:16051" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="16114:16411" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="16461:16732" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="16846:18124" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="16877:17215" ph="/* A capture session cannot support at the same time: ... */" />
+            <marker date="1537380043700" expanded="true" signature="17439:17798" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="17633:17778" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="17819:18110" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="18281:19244" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="18485:19049" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="18747:18851" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="18876:19031" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="19089:19230" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="19478:20944" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="19674:20618" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="19983:20433" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="20188:20411" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="20639:20930" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="21020:22340" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="21051:21356" ph="/* Add video data output - we use this to capture last video sample that is ... */" />
+            <marker date="1537380043700" expanded="true" signature="21483:22153" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="21939:22135" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="22174:22326" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="22464:23270" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="22665:22722" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="22920:22977" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="23176:23233" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="23347:25032" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="23398:23450" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="23680:23899" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="23711:23885" ph="/* let devicePoint = CGPoint(x: 0.5, y: 0.5) ... */" />
+            <marker date="1537380043700" expanded="true" signature="24142:24576" ph="/* A session can only run when the app is full screen. It will be interrupted ... */" />
+            <marker date="1537380043700" expanded="true" signature="25072:25589" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="25122:25174" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="25706:26682" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="25773:26556" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="25995:26059" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="26120:26540" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="26278:26387" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="26412:26522" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="26573:26672" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="26757:27160" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="26851:27038" ph="/* this is called automatically when interruption is done and session ... */" />
+            <marker date="1537380043700" expanded="true" signature="27230:28614" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="27332:27384" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="27480:27718" ph="/* Automatically try to restart the session running if media services were ... */" />
+            <marker date="1537380043700" expanded="true" signature="27853:27905" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="27963:28454" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="28026:28438" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="28086:28238" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="28263:28420" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="28471:28604" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="28687:29966" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="28710:29243" ph="/* In some scenarios we want to enable the user to resume the session running. ... */" />
+            <marker date="1537380043700" expanded="true" signature="29415:29810" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="29666:29794" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="29827:29956" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="30054:37545" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="30077:30345" ph="/* Retrieve the video preview layer's video orientation on the main queue before ... */" />
+            <marker date="1537380043700" expanded="true" signature="30413:30584" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="30720:37533" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="31000:31127" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="31302:37519" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="31484:31993" ph="/* TODO: we dont need preview photo, we need thumbnail format, read `previewPhotoFormat` docs ... */" />
+            <marker date="1537380043700" expanded="true" signature="32164:32716" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="32211:32332" ph="/* TODO: specify thumb size somehow, this does crash! ... */" />
+            <marker date="1537380043700" expanded="true" signature="32450:32693" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="32776:33808" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="32960:33485" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="33514:33786" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="34038:34317" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="34136:34289" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="34331:35924" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="34386:34676" ph="/* Because Live Photo captures can overlap, we need to keep track of the ... */" />
+            <marker date="1537380043700" expanded="true" signature="34737:35896" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="34814:34958" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="34995:35139" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="35216:35864" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="35330:35529" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="35570:35830" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="35942:36948" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="36029:36208" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="36283:36920" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="36382:36635" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="36712:36890" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="37016:37264" ph="/* The Photo Output keeps a weak reference to the photo capture delegate so ... */" />
+            <marker date="1537380043700" expanded="true" signature="37611:41679" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="37662:37802" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="37841:37977" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="37991:38275" ph="/* Retrieve the video preview layer's video orientation on the main queue ... */" />
+            <marker date="1537380043700" expanded="true" signature="38410:41667" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="38530:38715" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="38991:39122" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="39545:39807" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="39635:39783" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="39827:40594" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="40106:40570" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="40198:40359" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="40392:40544" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="40623:41391" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="40902:41367" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="41001:41160" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="41193:41341" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="41689:41906" ph="/// If there is any recording in progres it will be stopped. ... " />
+            <marker date="1537380043700" expanded="true" signature="41966:42846" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="42017:42165" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="42211:42834" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="42281:42466" ph="{...}" />
+            <marker date="1537380043700" expanded="true" signature="42517:42706" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
