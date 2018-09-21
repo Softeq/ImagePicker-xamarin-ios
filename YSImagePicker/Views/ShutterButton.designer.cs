@@ -10,18 +10,11 @@ using System.CodeDom.Compiler;
 
 namespace YSImagePicker.Views
 {
-    [Register ("ImagePickerView")]
-    partial class ImagePickerView
+    [Register ("ShutterButton")]
+    partial class ShutterButton
     {
-        [Outlet]
-        UIKit.UICollectionView CollectionView { get; set; }
-
         void ReleaseDesignerOutlets ()
         {
-            if (CollectionView != null) {
-                CollectionView.Dispose ();
-                CollectionView = null;
-            }
         }
     }
 }

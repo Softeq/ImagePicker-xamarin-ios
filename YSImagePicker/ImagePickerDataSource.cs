@@ -14,23 +14,23 @@ namespace YSImagePicker
     ///
     public class ImagePickerDataSource : UICollectionViewDataSource
     {
-        private readonly LayoutModel _layoutModel = LayoutModel.Empty();
+        public LayoutModel LayoutModel = LayoutModel.Empty();
         public CellRegistrator CellRegistrator;
-        private readonly ImagePickerAssetModel _assetsModel;
+        public readonly ImagePickerAssetModel AssetsModel;
 
         public ImagePickerDataSource(ImagePickerAssetModel assetsModel)
         {
-            _assetsModel = assetsModel;
+            AssetsModel = assetsModel;
         }
 
         public override nint GetItemsCount(UICollectionView collectionView, nint section)
         {
-            return _layoutModel.NumberOfItems((int) section);
+            return LayoutModel.NumberOfItems((int) section);
         }
         
         public override nint NumberOfSections(UICollectionView collectionView)
         {
-            return _layoutModel.NumberOfSections;
+            return LayoutModel.NumberOfSections;
         }
         
         public override UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath)
@@ -70,7 +70,7 @@ namespace YSImagePicker
                     return reusableCell;
 
                 case 2:
-                    var asset = Runtime.GetNSObject<PHAsset>(_assetsModel.FetchResult.ObjectAt(indexPath.Item).Handle);
+                    var asset = Runtime.GetNSObject<PHAsset>(AssetsModel.FetchResult.ObjectAt(indexPath.Item).Handle);
 
                     var cellIdentifier = CellRegistrator.CellIdentifier((int) asset.MediaType);
 
@@ -85,11 +85,11 @@ namespace YSImagePicker
                         throw new Exception($"asset item cell must conform to {nameof(ImagePickerAssetCell)} protocol");
                     }
 
-                    var thumbnailSize = _assetsModel.ThumbnailSize ?? CGSize.Empty;
+                    var thumbnailSize = AssetsModel.ThumbnailSize ?? CGSize.Empty;
 
                     // Request an image for the asset from the PHCachingImageManager.
                     cell.RepresentedAssetIdentifier = asset.LocalIdentifier;
-                    _assetsModel.ImageManager.RequestImageForAsset(asset, thumbnailSize, PHImageContentMode.AspectFill,
+                    AssetsModel.ImageManager.RequestImageForAsset(asset, thumbnailSize, PHImageContentMode.AspectFill,
                         null, (image, info) =>
                         {
                             // The cell may have been recycled by the time this handler gets called;

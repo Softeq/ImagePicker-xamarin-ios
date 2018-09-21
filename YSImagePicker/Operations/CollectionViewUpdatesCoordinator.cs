@@ -23,24 +23,23 @@ namespace YSImagePicker.Operations
         }
 
         /// Provides opportunuty to update collectionView's dataSource in underlaying queue.
-        public void performDataSourceUpdate(Action updates)
+        public void PerformDataSourceUpdate(Action updates)
         {
             serialMainQueue.AddOperation(updates);
         }
 
         /// Updates collection view.
-        public void PerformChanges<PHAsset>(PHFetchResultChangeDetails changes,int inSection)
+        public void PerformChanges(PHFetchResultChangeDetails changes,int inSection)
         {
-            if (changes.HasIncrementalChanges) {
-                var operation = CollectionViewBatchAnimation(collectionView: collectionView, sectionIndex: inSection,
-                        changes: changes)
+            if (changes.HasIncrementalChanges)
+            {
+                var operation = new CollectionViewBatchAnimation(СollectionView, inSection, changes);
 
-                serialMainQueue.addOperation(operation)
+                serialMainQueue.AddOperation(() => operation.Execute());
             }
-            else {
-                serialMainQueue.addOperation { [unowned self] in
-                    self.collectionView.reloadData()
-                }
+            else
+            {
+                serialMainQueue.AddOperation(() => { СollectionView.ReloadData(); });
             }
         }
     }

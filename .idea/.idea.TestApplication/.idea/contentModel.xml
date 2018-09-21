@@ -35,6 +35,7 @@
         <e p="bin" t="ExcludeRecursive" />
         <e p="ImagePickerAssetModel.cs" t="Include" />
         <e p="ImagePickerDataSource.cs" t="Include" />
+        <e p="ImagePickerDelegate.cs" t="Include" />
         <e p="ImagePickerLayout.cs" t="Include" />
         <e p="ImagePickerSelectionPolicy.cs" t="Include" />
         <e p="LayoutModel.cs" t="Include" />

@@ -1,6 +1,7 @@
 ﻿using System;
-using ImagePicker;
+using CoreFoundation;
 using UIKit;
+using YSImagePicker.Public;
 
 namespace TestApplication
 {
@@ -11,15 +12,32 @@ namespace TestApplication
             // Note: this .ctor should not contain any initialization Console.WriteLineic.
         }
 
-        public override void ViewDidLoad()
+        public override void ViewDidAppear(bool animated)
         {
+            base.ViewDidAppear(animated);
 
-            base.ViewDidLoad();
-            var imagePicker = new ImagePickerController();
-            imagePicker.Delegate = new TestDelegate();
+            DispatchQueue.MainQueue.DispatchAsync(() =>
+            {
+                var imagePicker = new ImagePickerController
+                {
+                    LayoutConfiguration = {ScrollDirection = UICollectionViewScrollDirection.Vertical}
+                };
 
-            var nav = new UINavigationController(new ImagePickerController());
-            PresentViewController(nav, true, () => { });
+                var nav = new UINavigationController(imagePicker);
+                PresentViewController(nav, true, null);
+            });
+            //var nav = new UINavigationController(new TestViewCOntroller());
+            //PresentViewController(nav, true, null);
+        }
+
+        public class TestViewCOntroller : UIViewController
+        {
+            public override void ViewDidLoad()
+            {
+                base.ViewDidLoad();
+
+                View.BackgroundColor = UIColor.Gray;
+            }
         }
 
         public override void DidReceiveMemoryWarning()

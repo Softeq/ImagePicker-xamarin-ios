@@ -20,6 +20,7 @@ namespace YSImagePicker.Views
             }
         }
 
+        //TODO: CHeck how to applie setters
         public CALayer IndicatorLayer
         {
             get

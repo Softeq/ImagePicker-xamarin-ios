@@ -6,7 +6,6 @@ using YSImagePicker.Public;
 
 namespace YSImagePicker.Views
 {
-    [Register("LivePhotoCameraCell")]
     public partial class LivePhotoCameraCell : CameraCollectionViewCell
     {
         public LivePhotoCameraCell(CGRect frame) : base(frame)

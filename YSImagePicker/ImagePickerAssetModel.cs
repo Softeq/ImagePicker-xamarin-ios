@@ -17,10 +17,10 @@ namespace YSImagePicker
             set => userDefinedFetchResult = value;
         }
 
-        public PHCachingImageManager ImageManager = new PHCachingImageManager();
+        public readonly PHCachingImageManager ImageManager = new PHCachingImageManager();
         public CGSize? ThumbnailSize;
 
-        /// Tryies to access smart album .smartAlbumUserLibrary that should be `Camera Roll` and uses just fetchAssets as fallback
+        /// Tries to access smart album .smartAlbumUserLibrary that should be `Camera Roll` and uses just fetchAssets as fallback
         private PHFetchResult defaultFetchResult
         {
             get

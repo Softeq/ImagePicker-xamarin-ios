@@ -14,11 +14,11 @@ namespace YSImagePicker
     ///
     public class ImagePickerLayout
     {
-        private readonly LayoutConfiguration _configuration;
+        public readonly LayoutConfiguration Configuration;
 
         public ImagePickerLayout(LayoutConfiguration configuration)
         {
-            _configuration = configuration;
+            Configuration = configuration;
         }
 
         /// Returns size for item considering number of rows and scroll direction, if preferredWidthOrHeight is nil, square size is returned
@@ -31,14 +31,14 @@ namespace YSImagePicker
                 case UICollectionViewScrollDirection.Horizontal:
                     var itemHeight = collectionView.Frame.Height;
                     itemHeight -= collectionView.ContentInset.Top + collectionView.ContentInset.Bottom;
-                    itemHeight -= (numberOfItemsInRow - 1) * _configuration.InteritemSpacing;
+                    itemHeight -= (numberOfItemsInRow - 1) * Configuration.InteritemSpacing;
                     itemHeight /= numberOfItemsInRow;
                     return new CGSize(preferredWidthOrHeight ?? itemHeight, itemHeight);
 
                 case UICollectionViewScrollDirection.Vertical:
                     var itemWidth = collectionView.Frame.Width;
                     itemWidth -= collectionView.ContentInset.Left + collectionView.ContentInset.Right;
-                    itemWidth -= (numberOfItemsInRow - 1) * _configuration.InteritemSpacing;
+                    itemWidth -= (numberOfItemsInRow - 1) * Configuration.InteritemSpacing;
                     itemWidth /= numberOfItemsInRow;
                     return new CGSize(itemWidth, preferredWidthOrHeight ?? itemWidth);
                 default:
@@ -54,7 +54,7 @@ namespace YSImagePicker
                 throw new Exception("currently only UICollectionViewFlowLayout is supported");
             }
 
-            var layoutModel = new LayoutModel(_configuration, 0);
+            var layoutModel = new LayoutModel(Configuration, 0);
 
             switch (indexPath.Section)
             {
@@ -64,7 +64,7 @@ namespace YSImagePicker
                     //let width = sizeForItem(numberOfItemsInRow: 2, preferredWidthOrHeight: nil, collectionView: collectionView, scrollDirection: layout.scrollDirection).width
                     nfloat ratio = 0.25f;
                     nfloat width = collectionView.Frame.Width * ratio;
-                    return SizeForItem(layoutModel.NumberOfItems(_configuration.SectionIndexForActions),
+                    return SizeForItem(layoutModel.NumberOfItems(Configuration.SectionIndexForActions),
                         width, collectionView, layout.ScrollDirection);
 
                 case 1:
@@ -88,17 +88,17 @@ namespace YSImagePicker
                     }
 
                     var widthOrHeight = collectionView.Frame.Height * ratio;
-                    return SizeForItem(layoutModel.NumberOfItems(_configuration.SectionIndexForCamera),
+                    return SizeForItem(layoutModel.NumberOfItems(Configuration.SectionIndexForCamera),
                         widthOrHeight, collectionView, layout.ScrollDirection);
                 case 2:
                     //make sure there is at least 1 item, othewise invalid layout
-                    if (_configuration.NumberOfAssetItemsInRow < 0)
+                    if (Configuration.NumberOfAssetItemsInRow < 0)
                     {
                         throw new Exception(
                             "invalid layout - numberOfAssetItemsInRow must be > 0, check your layout configuration ");
                     }
 
-                    return SizeForItem(_configuration.NumberOfAssetItemsInRow, null, collectionView,
+                    return SizeForItem(Configuration.NumberOfAssetItemsInRow, null, collectionView,
                         layout.ScrollDirection);
                 default:
                     throw new Exception("unexpected sections count");
@@ -127,14 +127,14 @@ namespace YSImagePicker
                 }
             }
 
-            var layoutModel = new LayoutModel(_configuration, 0);
+            var layoutModel = new LayoutModel(Configuration, 0);
 
             switch (section)
             {
                 case 0 when layoutModel.NumberOfItems(section) > 0:
-                    return sectionInsets(_configuration.ActionSectionSpacing);
+                    return sectionInsets(Configuration.ActionSectionSpacing);
                 case 1 when layoutModel.NumberOfItems(section) > 0:
-                    return sectionInsets(_configuration.CameraSectionSpacing);
+                    return sectionInsets(Configuration.CameraSectionSpacing);
                 default:
                     return UIEdgeInsets.Zero;
             }

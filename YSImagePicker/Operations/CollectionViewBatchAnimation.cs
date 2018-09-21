@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using Foundation;
 using Photos;
 using UIKit;
 
@@ -5,41 +8,62 @@ namespace YSImagePicker.Operations
 {
     public class CollectionViewBatchAnimation
     {
-        private UICollectionView CollectionView;
-        private int SectionIndex;
-        private PHFetchResultChangeDetails Changes;
+        private readonly UICollectionView _collectionView;
+        private readonly int _sectionIndex;
+        private readonly PHFetchResultChangeDetails _changes;
 
-        public CollectionViewBatchAnimation(UICollectionView collectionView,int sectionIndex,PHFetchResultChangeDetails changes)
+        public CollectionViewBatchAnimation(UICollectionView collectionView, int sectionIndex,
+            PHFetchResultChangeDetails changes)
         {
-
-            CollectionView = collectionView;
-            SectionIndex = sectionIndex;
-            Changes = changes;
+            _collectionView = collectionView;
+            _sectionIndex = sectionIndex;
+            _changes = changes;
         }
-    
-        void Execute() {
+
+        public void Execute()
+        {
             // If we have incremental diffs, animate them in the collection view
-            CollectionView.PerformBatchUpdates(()=>{
-                
-            
+            _collectionView.PerformBatchUpdates(() =>
+            {
                 // For indexes to make sense, updates must be in this order:
                 // delete, insert, reload, move
-                if (Changes.RemovedIndexes!=null && Changes.RemovedIndexes.Count >0)
+                if (_changes.RemovedIndexes != null && _changes.RemovedIndexes.Count > 0)
                 {
-                    CollectionView.DeleteItems(Changes.RemovedIndexes.map({ IndexPath(item: $0, section: self.sectionIndex) }))
+                    var result = new List<NSIndexPath>();
+                    _changes.RemovedIndexes.EnumerateIndexes((nuint idx, ref bool stop) =>
+                        result.Add(NSIndexPath.FromItemSection((nint) idx, _sectionIndex)));
+
+                    _collectionView.DeleteItems(result.ToArray());
                 }
-                if let inserted = changes.insertedIndexes, inserted.isEmpty == false {
-                    self.collectionView.insertItems(at: inserted.map({ IndexPath(item: $0, section: self.sectionIndex) }))
+
+                if (_changes.InsertedIndexes.Count > 0)
+                {
+                    var result = new List<NSIndexPath>();
+
+                    _changes.InsertedIndexes.EnumerateIndexes((nuint idx, ref bool stop) =>
+                        result.Add(NSIndexPath.FromItemSection((nint) idx, _sectionIndex)));
+
+                    _collectionView.InsertItems(result.ToArray());
                 }
-                if let changed = changes.changedIndexes, changed.isEmpty == false {
-                    self.collectionView.reloadItems(at: changed.map({ IndexPath(item: $0, section: self.sectionIndex) }))
+
+                if (_changes.ChangedIndexes.Count > 0)
+                {
+                    var result = new List<NSIndexPath>();
+                    _changes.ChangedIndexes.EnumerateIndexes((nuint idx, ref bool stop) =>
+                        result.Add(NSIndexPath.FromItemSection((nint) idx, _sectionIndex)));
+
+                    _collectionView.ReloadItems(result.ToArray());
                 }
-                changes.enumerateMoves { fromIndex, toIndex in
-                    self.collectionView.moveItem(at: IndexPath(item: fromIndex, section: self.sectionIndex), to: IndexPath(item: toIndex, section: self.sectionIndex))
-                }
-            }, completion: { finished in
-                self.completeOperation()
-            })
+
+                _changes.EnumerateMoves((fromIndex, toIndex) =>
+                {
+                    _collectionView.MoveItem(NSIndexPath.FromItemSection((nint) fromIndex, _sectionIndex),
+                        NSIndexPath.FromItemSection((nint) toIndex, _sectionIndex));
+                });
+            }, finished =>
+            {
+//TODO: CHECK
+            });
         }
     }
 }

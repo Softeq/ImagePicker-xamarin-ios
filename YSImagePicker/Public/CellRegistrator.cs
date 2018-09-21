@@ -63,7 +63,7 @@ namespace YSImagePicker.Public
 
         public string CellIdentifierForAssetItems => _assetItemIdentifierPrefix;
 
-        string CellIdentifier(PHAssetMediaType type)
+        private string CellIdentifier(PHAssetMediaType type)
         {
             if (AssetItemNibsData != null && AssetItemNibsData.ContainsKey(type))
             {
@@ -225,7 +225,7 @@ namespace YSImagePicker.Public
                 }
 
                 //TODO: Check
-                collectionView.RegisterNibForCell(UINib.FromName("ActionCell", null), identifier.Value.ToString());
+                collectionView.RegisterNibForCell(UINib.FromName("ActionCell", null), nameof(actionCell));
             }
             else
             {
@@ -240,7 +240,7 @@ namespace YSImagePicker.Public
                     case CameraMode.Photo:
                     case CameraMode.PhotoAndLivePhoto:
                         collectionView.RegisterNibForCell(UINib.FromName("LivePhotoCameraCell", null),
-                            registrator.CellIdentifierForCameraItem);
+                            nameof(LivePhotoCameraCell));
                         break;
                     case CameraMode.PhotoAndVideo:
                         collectionView.RegisterNibForCell(UINib.FromName("VideoCameraCell", null),
@@ -260,8 +260,8 @@ namespace YSImagePicker.Public
             }
 
             //register asset items considering type
-            collectionView.Register(registrator.AssetItemNibsData.Values);
-            collectionView.Register(registrator.AssetItemClassesData.Values);
+            collectionView.Register(registrator.AssetItemNibsData?.Values);
+            collectionView.Register(registrator.AssetItemClassesData?.Values);
 
             if (registrator.AssetItemNib == null && registrator.AssetItemClass == null)
             {
@@ -285,6 +285,11 @@ namespace YSImagePicker.Public
         ///
         public static void Register(this UICollectionView collectionView, IEnumerable<(UINib, string)> nibsData)
         {
+            if (nibsData == null)
+            {
+                return;
+            }
+
             if (!nibsData.Any())
             {
                 return;
@@ -299,8 +304,14 @@ namespace YSImagePicker.Public
         ///
         /// Helper func that takes nib,cellid pair and registers them on a collection view
         ///
-        public static void Register(this UICollectionView collectionView, IEnumerable<(UICollectionViewCell, string)> classData)
+        public static void Register(this UICollectionView collectionView,
+            IEnumerable<(UICollectionViewCell, string)> classData)
         {
+            if (classData == null)
+            {
+                return;
+            }
+
             if (!classData.Any())
             {
                 return;

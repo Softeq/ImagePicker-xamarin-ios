@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="ImagePickerAssetModel.cs" />
     <Compile Include="ImagePickerDataSource.cs" />
+    <Compile Include="ImagePickerDelegate.cs" />
     <Compile Include="ImagePickerLayout.cs" />
     <Compile Include="ImagePickerSelectionPolicy.cs" />
     <Compile Include="Media\AVPreviewView.cs" />

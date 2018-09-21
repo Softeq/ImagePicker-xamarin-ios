@@ -14,10 +14,10 @@ namespace YSImagePicker.Views
         public ImagePickerAssetCell(CGRect frame) : base(frame){}
         
         /// This image view will be used when setting an asset's image
-        public UIImageView ImageView { get; }
+        public abstract UIImageView ImageView { get; }
 
         /// This is a helper identifier that is used when properly displaying cells asynchronously
-        public string RepresentedAssetIdentifier { get; set; }
+        public abstract string RepresentedAssetIdentifier { get; set; }
     }
 
     ///
@@ -123,9 +123,9 @@ namespace YSImagePicker.Views
         private readonly CheckView _selectedImageView = new CheckView(CGRect.Empty);
         private bool _isSelected;
 
-        public UIImageView ImageView { get; } = new UIImageView(CGRect.Empty);
+        public override UIImageView ImageView { get; } = new UIImageView(CGRect.Empty);
 
-        public string RepresentedAssetIdentifier { get; set; }
+        public override string RepresentedAssetIdentifier { get; set; }
 
         public override bool Selected
         {

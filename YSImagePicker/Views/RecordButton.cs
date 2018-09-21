@@ -14,6 +14,7 @@ namespace YSImagePicker.Views
         private float _pressDepthFactor = 0.9f;
         private bool _highlighted;
 
+        //TODO: CHeck how to applie setters
         public float OuterBorderWidth
         {
             get => _outerBorderWidth;
