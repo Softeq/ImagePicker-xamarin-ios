@@ -33,14 +33,14 @@ namespace YSImagePicker
                     itemHeight -= collectionView.ContentInset.Top + collectionView.ContentInset.Bottom;
                     itemHeight -= (numberOfItemsInRow - 1) * Configuration.InteritemSpacing;
                     itemHeight /= numberOfItemsInRow;
-                    return new CGSize(preferredWidthOrHeight ?? itemHeight, itemHeight);
+                    return new CGSize(20, 20);
 
                 case UICollectionViewScrollDirection.Vertical:
                     var itemWidth = collectionView.Frame.Width;
                     itemWidth -= collectionView.ContentInset.Left + collectionView.ContentInset.Right;
                     itemWidth -= (numberOfItemsInRow - 1) * Configuration.InteritemSpacing;
                     itemWidth /= numberOfItemsInRow;
-                    return new CGSize(itemWidth, preferredWidthOrHeight ?? itemWidth);
+                    return new CGSize(20, 20);
                 default:
                     throw new ArgumentException("Should be invoked only with UICollectionViewScrollDirection");
             }

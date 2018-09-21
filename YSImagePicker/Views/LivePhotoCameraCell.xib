@@ -84,7 +84,7 @@
             <viewLayoutGuide key="safeArea" id="hhB-fB-d84"/>
             <size key="customSize" width="219" height="259"/>
             <connections>
-                <outlet property="EnableLivePhotoButton" destination="eMk-y2-nzd" id="Bqu-Es-gjX"/>
+                <outlet property="EnableLivePhotoButton" destination="eMk-y2-nzd" id="8ai-85-HjG"/>
                 <outlet property="LiveIndicator" destination="OHT-YT-HK2" id="PwA-Rg-YvV"/>
                 <outlet property="SnapButton" destination="XWp-o0-bWK" id="ddf-gT-clC"/>
             </connections>

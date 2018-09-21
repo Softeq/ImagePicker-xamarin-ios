@@ -27,12 +27,12 @@ namespace YSImagePicker
         {
             return LayoutModel.NumberOfItems((int) section);
         }
-        
+
         public override nint NumberOfSections(UICollectionView collectionView)
         {
             return LayoutModel.NumberOfSections;
         }
-        
+
         public override UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath)
         {
             if (CellRegistrator == null)
@@ -53,8 +53,7 @@ namespace YSImagePicker
                             $"there is an action item at index {indexPath.Row} but no cell is registered.");
                     }
 
-                    return collectionView.DequeueReusableCell(new NSString(identifier.Value.ToString()), indexPath) as
-                        CameraCollectionViewCell;
+                    return collectionView.DequeueReusableCell(identifier, indexPath) as UICollectionViewCell;
 
                 case 1:
                     var id = CellRegistrator.CellIdentifierForCameraItem;
@@ -75,9 +74,7 @@ namespace YSImagePicker
                     var cellIdentifier = CellRegistrator.CellIdentifier((int) asset.MediaType);
 
                     var cell = collectionView.DequeueReusableCell(
-                        cellIdentifier.HasValue
-                            ? cellIdentifier.Value.ToString()
-                            : CellRegistrator.CellIdentifierForAssetItems, indexPath) as ImagePickerAssetCell;
+                        cellIdentifier ?? CellRegistrator.CellIdentifierForAssetItems, indexPath) as ImagePickerAssetCell;
 
 
                     if (cell == null)

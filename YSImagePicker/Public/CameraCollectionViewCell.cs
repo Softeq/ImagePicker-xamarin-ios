@@ -19,6 +19,7 @@ namespace YSImagePicker.Public
         void FlipCamera(Action action);
     }
     
+    [Register ("CameraCollectionViewCell")]
     public class CameraCollectionViewCell : UICollectionViewCell
     {
         private AVAuthorizationStatus? _authorizationStatus;

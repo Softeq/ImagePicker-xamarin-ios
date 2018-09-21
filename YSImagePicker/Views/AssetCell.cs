@@ -26,6 +26,7 @@ namespace YSImagePicker.Views
     /// - icon and duration for videos
     /// - selected icon when isSelected is true
     ///
+    [Register ("VideoAssetCell")]
     public class VideoAssetCell : AssetCell
     {
         private readonly UILabel _durationLabel;
@@ -118,6 +119,7 @@ namespace YSImagePicker.Views
     /// a custom cell, Image Picker will use this one. Also contains
     /// default icon for selected state.
     ///
+    [Register ("AssetCell")]
     public class AssetCell : ImagePickerAssetCell
     {
         private readonly CheckView _selectedImageView = new CheckView(CGRect.Empty);

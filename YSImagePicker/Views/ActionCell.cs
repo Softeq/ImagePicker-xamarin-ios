@@ -1,3 +1,4 @@
+using System;
 using Foundation;
 using UIKit;
 using YSImagePicker.Public;
@@ -6,6 +7,10 @@ namespace YSImagePicker.Views
 {
     public partial class ActionCell : UICollectionViewCell
     {
+        public ActionCell(IntPtr handle) : base(handle)
+        {
+        }
+        
         [Export("awakeFromNib")]
         public override void AwakeFromNib()
         {

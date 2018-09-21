@@ -1,3 +1,4 @@
+using System;
 using Foundation;
 using UIKit;
 
@@ -46,6 +47,10 @@ namespace YSImagePicker.Views
             }
 
             SelectionDidChange(animated);
+        }
+
+        public StationaryButton(IntPtr intPtr):base(intPtr){
+
         }
 
         public StationaryButton(NSCoder aDecoder) : base(aDecoder)
