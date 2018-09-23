@@ -2,22 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9fb2ab32-4559-4499-b79b-69ce6a329abc" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.TestApplication/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TestApplication/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/YSImagePicker/ImagePickerDataSource.cs" beforeDir="false" afterPath="$PROJECT_DIR$/YSImagePicker/ImagePickerDataSource.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/YSImagePicker/ImagePickerLayout.cs" beforeDir="false" afterPath="$PROJECT_DIR$/YSImagePicker/ImagePickerLayout.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/YSImagePicker/Media/AVPreviewView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/YSImagePicker/Media/AVPreviewView.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/YSImagePicker/Public/CameraCollectionViewCell.cs" beforeDir="false" afterPath="$PROJECT_DIR$/YSImagePicker/Public/CameraCollectionViewCell.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/YSImagePicker/Public/CellRegistrator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/YSImagePicker/Public/CellRegistrator.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/YSImagePicker/Public/ImagePickerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/YSImagePicker/Public/ImagePickerController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/YSImagePicker/Views/AssetCell.cs" beforeDir="false" afterPath="$PROJECT_DIR$/YSImagePicker/Views/AssetCell.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/YSImagePicker/Views/CarvedLabel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/YSImagePicker/Views/CarvedLabel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/YSImagePicker/Views/LivePhotoCameraCell.cs" beforeDir="false" afterPath="$PROJECT_DIR$/YSImagePicker/Views/LivePhotoCameraCell.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/YSImagePicker/Views/LivePhotoCameraCell.designer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/YSImagePicker/Views/LivePhotoCameraCell.designer.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/YSImagePicker/Views/LivePhotoCameraCell.xib" beforeDir="false" afterPath="$PROJECT_DIR$/YSImagePicker/Views/LivePhotoCameraCell.xib" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/YSImagePicker/Views/RecordDurationLabel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/YSImagePicker/Views/RecordDurationLabel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/YSImagePicker/Views/ShutterButton.cs" beforeDir="false" afterPath="$PROJECT_DIR$/YSImagePicker/Views/ShutterButton.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/YSImagePicker/Views/StationaryButton.cs" beforeDir="false" afterPath="$PROJECT_DIR$/YSImagePicker/Views/StationaryButton.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/YSImagePicker/Views/VideoCameraCell.cs" beforeDir="false" afterPath="$PROJECT_DIR$/YSImagePicker/Views/VideoCameraCell.cs" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -120,148 +106,148 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/YSImagePicker/Public/ImagePickerController.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="621">
-              <caret line="570" lean-forward="true" selection-start-line="570" selection-end-line="570" />
+            <state relative-caret-position="194">
+              <caret line="534" column="13" lean-forward="true" selection-start-line="534" selection-start-column="13" selection-end-line="534" selection-end-column="13" />
               <folding>
-                <marker date="1537698397218" expanded="false" signature="6:278" ph="..." />
-                <marker date="1537698397218" expanded="true" signature="310:31218" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="317:400" ph="/// Group of methods informing what image picker is currently doing ... " />
-                <marker date="1537698397218" expanded="true" signature="447:2210" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="462:580" ph="/// Called when user taps on an action item, index is either 0 or 1 depending which was tapped ... " />
-                <marker date="1537698397218" expanded="true" signature="675:695" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="705:766" ph="/// Called when user select an asset. ... " />
-                <marker date="1537698397218" expanded="true" signature="853:873" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="883:963" ph="/// Called when user unselect previously selected asset. ... " />
-                <marker date="1537698397218" expanded="true" signature="1052:1072" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="1082:1143" ph="/// Called when user takes new photo. ... " />
-                <marker date="1537698397218" expanded="true" signature="1228:1248" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="1258:1536" ph="/* Called when user takes new photo. ... */" />
-                <marker date="1537698397218" expanded="true" signature="1546:1695" ph="/// Called right before an action item collection view cell is displayed. Use this method ... " />
-                <marker date="1537698397218" expanded="true" signature="1829:1849" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="1859:2047" ph="/// Called right before an asset item collection view cell is displayed. Use this method ... " />
-                <marker date="1537698397218" expanded="true" signature="2184:2204" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="2216:2345" ph="/// Image picker may ask for additional resources, implement this protocol to fully support ... " />
-                <marker date="1537698397218" expanded="true" signature="2403:2707" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="2418:2593" ph="/// Asks for a view that is placed as overlay view with permissions info ... " />
-                <marker date="1537698397218" expanded="true" signature="2981:31216" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="3043:3280" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="3319:3417" ph="/// Use this object to configure layout of action, camera and asset items. ... " />
-                <marker date="1537698397218" expanded="true" signature="3515:3606" ph="/// Use this to register a cell classes or nibs for each item types ... " />
-                <marker date="1537698397218" expanded="true" signature="3688:3779" ph="/// Use these settings to configure how the capturing should behave ... " />
-                <marker date="1537698397218" expanded="true" signature="3861:3936" ph="/// Get informed about user interaction and changes ... " />
-                <marker date="1537698397218" expanded="true" signature="4001:4083" ph="/// Provide additional data when requested by Image Picker ... " />
-                <marker date="1537698397218" expanded="true" signature="4152:4234" ph="/// A collection view that is used for displaying content. ... " />
-                <marker date="1537698397218" expanded="true" signature="4405:4462" ph="/// Programatically select asset. ... " />
-                <marker date="1537698397218" expanded="true" signature="4567:4760" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="4770:4829" ph="/// Programatically deselect asset. ... " />
-                <marker date="1537698397218" expanded="true" signature="4889:5068" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="5078:5151" ph="/// Programatically deselect all selected assets. ... " />
-                <marker date="1537698397218" expanded="true" signature="5204:5525" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="5317:5369" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="5418:5515" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="5535:5599" ph="/// Access all currently selected images ... " />
-                <marker date="1537698397218" expanded="true" signature="5758:5866" ph="/// Returns an array of assets at index set. An exception will be thrown if it fails ... " />
-                <marker date="1537698397218" expanded="true" signature="5918:6226" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="6003:6117" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="6236:6354" ph="/// Returns an asset at index. If there is no asset at the index, an exception will be thrown. ... " />
-                <marker date="1537698397218" expanded="true" signature="6394:6739" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="6479:6588" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="6749:6971" ph="/// Fetch result of assets that will be used for picking. ... " />
-                <marker date="1537698397218" expanded="true" signature="7040:7273" ph="/// Global appearance proxy object. Use this object to set appearance ... " />
-                <marker date="1537698397218" expanded="true" signature="7355:7564" ph="/// Instance appearance proxy object. Use this object to set appearance ... " />
-                <marker date="1537698397218" expanded="true" signature="7611:7816" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="7671:7760" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="8259:8978" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="8325:8377" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="9021:9325" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="9097:9315" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="9128:9301" ph="/* TODO: Check ... */" />
-                <marker date="1537698397218" expanded="true" signature="9335:9503" ph="/// View is used when there is a need for an overlay view over whole image picker ... " />
-                <marker date="1537698397218" expanded="true" signature="9697:10914" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="9735:10904" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="10394:10545" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="10710:10861" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="11075:11303" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="11187:11239" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="11386:11559" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="11833:12030" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="12074:15649" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="13348:13688" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="13755:13897" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="14078:14138" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="14611:14782" ph="/* register for photo library updates - this is needed when changing permissions to photo library ... */" />
-                <marker date="1537698397218" expanded="true" signature="15076:15639" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="15709:15802" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="15857:16022" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="16144:16590" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="16661:17130" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="16735:16787" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="16890:16942" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="17061:17120" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="17227:17747" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="17263:17737" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="17852:18620" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="17895:18610" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="18688:19643" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="18919:18971" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="19041:19483" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="19738:19815" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="19909:19982" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="20078:20153" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="20275:20500" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="20333:20425" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="20615:22769" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="20699:21734" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="20865:20983" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="21001:21482" ph="/* when using videos preset, we are using different technique for ... */" />
-                <marker date="1537698397218" expanded="true" signature="21617:21720" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="21795:21904" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="22508:22587" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="22688:22759" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="22901:23980" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="23134:23970" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="23287:23954" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="23418:23714" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="23465:23692" ph="/* TODO: add blur ... */" />
-                <marker date="1537698397218" expanded="true" signature="23739:23936" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="24113:24481" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="24178:24306" ph="/* if the cell is default cell provided by Image Picker, it's our responsibility ... */" />
-                <marker date="1537698397218" expanded="true" signature="24578:24598" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="24667:24770" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="24840:24942" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="25010:25073" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="25144:25219" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="25316:25442" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="25538:25663" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="25740:25806" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="25884:25957" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="26011:26373" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="26123:26175" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="26217:26269" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="26429:26535" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="26634:26728" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="26866:27039" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="27125:27207" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="27304:27608" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="27416:27468" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="27685:27886" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="27954:28099" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="28168:28315" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="28400:28547" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="28651:28852" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="28934:29079" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="29174:29334" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="29369:29502" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="29539:29675" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="29718:29859" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="29901:29977" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="30028:31210" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="30079:30131" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="30233:30343" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="30440:30548" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="30632:31198" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="30757:31164" ph="{...}" />
-                <marker date="1537698397218" expanded="true" signature="30910:31059" ph="{...}" />
+                <marker date="1537698545630" expanded="false" signature="6:278" ph="..." />
+                <marker date="1537698545630" expanded="true" signature="310:31210" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="317:400" ph="/// Group of methods informing what image picker is currently doing ... " />
+                <marker date="1537698545630" expanded="true" signature="447:2210" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="462:580" ph="/// Called when user taps on an action item, index is either 0 or 1 depending which was tapped ... " />
+                <marker date="1537698545630" expanded="true" signature="675:695" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="705:766" ph="/// Called when user select an asset. ... " />
+                <marker date="1537698545630" expanded="true" signature="853:873" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="883:963" ph="/// Called when user unselect previously selected asset. ... " />
+                <marker date="1537698545630" expanded="true" signature="1052:1072" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="1082:1143" ph="/// Called when user takes new photo. ... " />
+                <marker date="1537698545630" expanded="true" signature="1228:1248" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="1258:1536" ph="/* Called when user takes new photo. ... */" />
+                <marker date="1537698545630" expanded="true" signature="1546:1695" ph="/// Called right before an action item collection view cell is displayed. Use this method ... " />
+                <marker date="1537698545630" expanded="true" signature="1829:1849" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="1859:2047" ph="/// Called right before an asset item collection view cell is displayed. Use this method ... " />
+                <marker date="1537698545630" expanded="true" signature="2184:2204" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="2216:2345" ph="/// Image picker may ask for additional resources, implement this protocol to fully support ... " />
+                <marker date="1537698545630" expanded="true" signature="2403:2707" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="2418:2593" ph="/// Asks for a view that is placed as overlay view with permissions info ... " />
+                <marker date="1537698545630" expanded="true" signature="2981:31208" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="3043:3280" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="3319:3417" ph="/// Use this object to configure layout of action, camera and asset items. ... " />
+                <marker date="1537698545630" expanded="true" signature="3515:3606" ph="/// Use this to register a cell classes or nibs for each item types ... " />
+                <marker date="1537698545630" expanded="true" signature="3688:3779" ph="/// Use these settings to configure how the capturing should behave ... " />
+                <marker date="1537698545630" expanded="true" signature="3861:3936" ph="/// Get informed about user interaction and changes ... " />
+                <marker date="1537698545630" expanded="true" signature="4001:4083" ph="/// Provide additional data when requested by Image Picker ... " />
+                <marker date="1537698545630" expanded="true" signature="4152:4234" ph="/// A collection view that is used for displaying content. ... " />
+                <marker date="1537698545630" expanded="true" signature="4405:4462" ph="/// Programatically select asset. ... " />
+                <marker date="1537698545630" expanded="true" signature="4567:4760" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="4770:4829" ph="/// Programatically deselect asset. ... " />
+                <marker date="1537698545630" expanded="true" signature="4889:5068" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="5078:5151" ph="/// Programatically deselect all selected assets. ... " />
+                <marker date="1537698545630" expanded="true" signature="5204:5525" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="5317:5369" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="5418:5515" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="5535:5599" ph="/// Access all currently selected images ... " />
+                <marker date="1537698545630" expanded="true" signature="5758:5866" ph="/// Returns an array of assets at index set. An exception will be thrown if it fails ... " />
+                <marker date="1537698545630" expanded="true" signature="5918:6226" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="6003:6117" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="6236:6354" ph="/// Returns an asset at index. If there is no asset at the index, an exception will be thrown. ... " />
+                <marker date="1537698545630" expanded="true" signature="6394:6739" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="6479:6588" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="6749:6971" ph="/// Fetch result of assets that will be used for picking. ... " />
+                <marker date="1537698545630" expanded="true" signature="7040:7273" ph="/// Global appearance proxy object. Use this object to set appearance ... " />
+                <marker date="1537698545630" expanded="true" signature="7355:7564" ph="/// Instance appearance proxy object. Use this object to set appearance ... " />
+                <marker date="1537698545630" expanded="true" signature="7611:7816" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="7671:7760" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="8259:8978" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="8325:8377" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="9021:9325" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="9097:9315" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="9128:9301" ph="/* TODO: Check ... */" />
+                <marker date="1537698545630" expanded="true" signature="9335:9503" ph="/// View is used when there is a need for an overlay view over whole image picker ... " />
+                <marker date="1537698545630" expanded="true" signature="9697:10914" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="9735:10904" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="10394:10545" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="10710:10861" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="11075:11303" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="11187:11239" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="11386:11559" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="11833:12030" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="12074:15649" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="13348:13688" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="13755:13897" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="14078:14138" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="14611:14782" ph="/* register for photo library updates - this is needed when changing permissions to photo library ... */" />
+                <marker date="1537698545630" expanded="true" signature="15076:15639" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="15709:15802" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="15857:16022" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="16144:16590" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="16661:17130" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="16735:16787" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="16890:16942" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="17061:17120" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="17227:17747" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="17263:17737" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="17852:18620" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="17895:18610" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="18688:19643" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="18919:18971" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="19041:19483" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="19738:19815" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="19909:19982" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="20078:20153" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="20275:20500" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="20333:20425" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="20615:22769" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="20699:21734" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="20865:20983" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="21001:21482" ph="/* when using videos preset, we are using different technique for ... */" />
+                <marker date="1537698545630" expanded="true" signature="21617:21720" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="21795:21904" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="22508:22587" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="22688:22759" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="22901:23972" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="23134:23962" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="23287:23946" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="23418:23706" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="23465:23684" ph="/* TODO: add blur ... */" />
+                <marker date="1537698545630" expanded="true" signature="23731:23928" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="24105:24473" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="24170:24298" ph="/* if the cell is default cell provided by Image Picker, it's our responsibility ... */" />
+                <marker date="1537698545630" expanded="true" signature="24570:24590" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="24659:24762" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="24832:24934" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="25002:25065" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="25136:25211" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="25308:25434" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="25530:25655" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="25732:25798" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="25876:25949" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="26003:26365" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="26115:26167" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="26209:26261" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="26421:26527" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="26626:26720" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="26858:27031" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="27117:27199" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="27296:27600" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="27408:27460" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="27677:27878" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="27946:28091" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="28160:28307" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="28392:28539" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="28643:28844" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="28926:29071" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="29166:29326" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="29361:29494" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="29531:29667" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="29710:29851" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="29893:29969" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="30020:31202" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="30071:30123" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="30225:30335" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="30432:30540" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="30624:31190" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="30749:31156" ph="{...}" />
+                <marker date="1537698545630" expanded="true" signature="30902:31051" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -359,7 +345,7 @@
         <entry file="file://$PROJECT_DIR$/YSImagePicker/ImagePickerLayout.cs">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="481">
-              <caret line="46" column="9" lean-forward="true" selection-start-line="46" selection-start-column="9" selection-end-line="46" selection-end-column="9" />
+              <caret line="46" column="9" selection-start-line="46" selection-start-column="9" selection-end-line="46" selection-end-column="9" />
               <folding>
                 <marker date="1537698112545" expanded="false" signature="6:92" ph="..." />
                 <marker date="1537698112545" expanded="true" signature="117:6834" ph="{...}" />
@@ -826,7 +812,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="123352000" />
+    <option name="totallyTimeSpent" value="123637000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -839,7 +825,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="2560" height="1369" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2515625" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -2163,7 +2148,7 @@
     <entry file="file://$PROJECT_DIR$/YSImagePicker/ImagePickerLayout.cs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="481">
-          <caret line="46" column="9" lean-forward="true" selection-start-line="46" selection-start-column="9" selection-end-line="46" selection-end-column="9" />
+          <caret line="46" column="9" selection-start-line="46" selection-start-column="9" selection-end-line="46" selection-end-column="9" />
           <folding>
             <marker date="1537698112545" expanded="false" signature="6:92" ph="..." />
             <marker date="1537698112545" expanded="true" signature="117:6834" ph="{...}" />
@@ -2189,148 +2174,148 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/YSImagePicker/Public/ImagePickerController.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="621">
-          <caret line="570" lean-forward="true" selection-start-line="570" selection-end-line="570" />
+        <state relative-caret-position="194">
+          <caret line="534" column="13" lean-forward="true" selection-start-line="534" selection-start-column="13" selection-end-line="534" selection-end-column="13" />
           <folding>
-            <marker date="1537698397218" expanded="false" signature="6:278" ph="..." />
-            <marker date="1537698397218" expanded="true" signature="310:31218" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="317:400" ph="/// Group of methods informing what image picker is currently doing ... " />
-            <marker date="1537698397218" expanded="true" signature="447:2210" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="462:580" ph="/// Called when user taps on an action item, index is either 0 or 1 depending which was tapped ... " />
-            <marker date="1537698397218" expanded="true" signature="675:695" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="705:766" ph="/// Called when user select an asset. ... " />
-            <marker date="1537698397218" expanded="true" signature="853:873" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="883:963" ph="/// Called when user unselect previously selected asset. ... " />
-            <marker date="1537698397218" expanded="true" signature="1052:1072" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="1082:1143" ph="/// Called when user takes new photo. ... " />
-            <marker date="1537698397218" expanded="true" signature="1228:1248" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="1258:1536" ph="/* Called when user takes new photo. ... */" />
-            <marker date="1537698397218" expanded="true" signature="1546:1695" ph="/// Called right before an action item collection view cell is displayed. Use this method ... " />
-            <marker date="1537698397218" expanded="true" signature="1829:1849" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="1859:2047" ph="/// Called right before an asset item collection view cell is displayed. Use this method ... " />
-            <marker date="1537698397218" expanded="true" signature="2184:2204" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="2216:2345" ph="/// Image picker may ask for additional resources, implement this protocol to fully support ... " />
-            <marker date="1537698397218" expanded="true" signature="2403:2707" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="2418:2593" ph="/// Asks for a view that is placed as overlay view with permissions info ... " />
-            <marker date="1537698397218" expanded="true" signature="2981:31216" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="3043:3280" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="3319:3417" ph="/// Use this object to configure layout of action, camera and asset items. ... " />
-            <marker date="1537698397218" expanded="true" signature="3515:3606" ph="/// Use this to register a cell classes or nibs for each item types ... " />
-            <marker date="1537698397218" expanded="true" signature="3688:3779" ph="/// Use these settings to configure how the capturing should behave ... " />
-            <marker date="1537698397218" expanded="true" signature="3861:3936" ph="/// Get informed about user interaction and changes ... " />
-            <marker date="1537698397218" expanded="true" signature="4001:4083" ph="/// Provide additional data when requested by Image Picker ... " />
-            <marker date="1537698397218" expanded="true" signature="4152:4234" ph="/// A collection view that is used for displaying content. ... " />
-            <marker date="1537698397218" expanded="true" signature="4405:4462" ph="/// Programatically select asset. ... " />
-            <marker date="1537698397218" expanded="true" signature="4567:4760" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="4770:4829" ph="/// Programatically deselect asset. ... " />
-            <marker date="1537698397218" expanded="true" signature="4889:5068" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="5078:5151" ph="/// Programatically deselect all selected assets. ... " />
-            <marker date="1537698397218" expanded="true" signature="5204:5525" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="5317:5369" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="5418:5515" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="5535:5599" ph="/// Access all currently selected images ... " />
-            <marker date="1537698397218" expanded="true" signature="5758:5866" ph="/// Returns an array of assets at index set. An exception will be thrown if it fails ... " />
-            <marker date="1537698397218" expanded="true" signature="5918:6226" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="6003:6117" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="6236:6354" ph="/// Returns an asset at index. If there is no asset at the index, an exception will be thrown. ... " />
-            <marker date="1537698397218" expanded="true" signature="6394:6739" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="6479:6588" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="6749:6971" ph="/// Fetch result of assets that will be used for picking. ... " />
-            <marker date="1537698397218" expanded="true" signature="7040:7273" ph="/// Global appearance proxy object. Use this object to set appearance ... " />
-            <marker date="1537698397218" expanded="true" signature="7355:7564" ph="/// Instance appearance proxy object. Use this object to set appearance ... " />
-            <marker date="1537698397218" expanded="true" signature="7611:7816" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="7671:7760" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="8259:8978" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="8325:8377" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="9021:9325" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="9097:9315" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="9128:9301" ph="/* TODO: Check ... */" />
-            <marker date="1537698397218" expanded="true" signature="9335:9503" ph="/// View is used when there is a need for an overlay view over whole image picker ... " />
-            <marker date="1537698397218" expanded="true" signature="9697:10914" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="9735:10904" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="10394:10545" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="10710:10861" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="11075:11303" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="11187:11239" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="11386:11559" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="11833:12030" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="12074:15649" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="13348:13688" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="13755:13897" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="14078:14138" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="14611:14782" ph="/* register for photo library updates - this is needed when changing permissions to photo library ... */" />
-            <marker date="1537698397218" expanded="true" signature="15076:15639" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="15709:15802" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="15857:16022" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="16144:16590" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="16661:17130" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="16735:16787" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="16890:16942" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="17061:17120" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="17227:17747" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="17263:17737" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="17852:18620" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="17895:18610" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="18688:19643" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="18919:18971" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="19041:19483" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="19738:19815" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="19909:19982" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="20078:20153" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="20275:20500" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="20333:20425" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="20615:22769" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="20699:21734" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="20865:20983" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="21001:21482" ph="/* when using videos preset, we are using different technique for ... */" />
-            <marker date="1537698397218" expanded="true" signature="21617:21720" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="21795:21904" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="22508:22587" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="22688:22759" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="22901:23980" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="23134:23970" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="23287:23954" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="23418:23714" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="23465:23692" ph="/* TODO: add blur ... */" />
-            <marker date="1537698397218" expanded="true" signature="23739:23936" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="24113:24481" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="24178:24306" ph="/* if the cell is default cell provided by Image Picker, it's our responsibility ... */" />
-            <marker date="1537698397218" expanded="true" signature="24578:24598" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="24667:24770" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="24840:24942" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="25010:25073" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="25144:25219" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="25316:25442" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="25538:25663" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="25740:25806" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="25884:25957" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="26011:26373" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="26123:26175" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="26217:26269" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="26429:26535" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="26634:26728" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="26866:27039" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="27125:27207" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="27304:27608" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="27416:27468" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="27685:27886" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="27954:28099" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="28168:28315" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="28400:28547" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="28651:28852" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="28934:29079" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="29174:29334" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="29369:29502" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="29539:29675" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="29718:29859" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="29901:29977" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="30028:31210" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="30079:30131" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="30233:30343" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="30440:30548" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="30632:31198" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="30757:31164" ph="{...}" />
-            <marker date="1537698397218" expanded="true" signature="30910:31059" ph="{...}" />
+            <marker date="1537698545630" expanded="false" signature="6:278" ph="..." />
+            <marker date="1537698545630" expanded="true" signature="310:31210" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="317:400" ph="/// Group of methods informing what image picker is currently doing ... " />
+            <marker date="1537698545630" expanded="true" signature="447:2210" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="462:580" ph="/// Called when user taps on an action item, index is either 0 or 1 depending which was tapped ... " />
+            <marker date="1537698545630" expanded="true" signature="675:695" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="705:766" ph="/// Called when user select an asset. ... " />
+            <marker date="1537698545630" expanded="true" signature="853:873" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="883:963" ph="/// Called when user unselect previously selected asset. ... " />
+            <marker date="1537698545630" expanded="true" signature="1052:1072" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="1082:1143" ph="/// Called when user takes new photo. ... " />
+            <marker date="1537698545630" expanded="true" signature="1228:1248" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="1258:1536" ph="/* Called when user takes new photo. ... */" />
+            <marker date="1537698545630" expanded="true" signature="1546:1695" ph="/// Called right before an action item collection view cell is displayed. Use this method ... " />
+            <marker date="1537698545630" expanded="true" signature="1829:1849" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="1859:2047" ph="/// Called right before an asset item collection view cell is displayed. Use this method ... " />
+            <marker date="1537698545630" expanded="true" signature="2184:2204" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="2216:2345" ph="/// Image picker may ask for additional resources, implement this protocol to fully support ... " />
+            <marker date="1537698545630" expanded="true" signature="2403:2707" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="2418:2593" ph="/// Asks for a view that is placed as overlay view with permissions info ... " />
+            <marker date="1537698545630" expanded="true" signature="2981:31208" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="3043:3280" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="3319:3417" ph="/// Use this object to configure layout of action, camera and asset items. ... " />
+            <marker date="1537698545630" expanded="true" signature="3515:3606" ph="/// Use this to register a cell classes or nibs for each item types ... " />
+            <marker date="1537698545630" expanded="true" signature="3688:3779" ph="/// Use these settings to configure how the capturing should behave ... " />
+            <marker date="1537698545630" expanded="true" signature="3861:3936" ph="/// Get informed about user interaction and changes ... " />
+            <marker date="1537698545630" expanded="true" signature="4001:4083" ph="/// Provide additional data when requested by Image Picker ... " />
+            <marker date="1537698545630" expanded="true" signature="4152:4234" ph="/// A collection view that is used for displaying content. ... " />
+            <marker date="1537698545630" expanded="true" signature="4405:4462" ph="/// Programatically select asset. ... " />
+            <marker date="1537698545630" expanded="true" signature="4567:4760" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="4770:4829" ph="/// Programatically deselect asset. ... " />
+            <marker date="1537698545630" expanded="true" signature="4889:5068" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="5078:5151" ph="/// Programatically deselect all selected assets. ... " />
+            <marker date="1537698545630" expanded="true" signature="5204:5525" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="5317:5369" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="5418:5515" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="5535:5599" ph="/// Access all currently selected images ... " />
+            <marker date="1537698545630" expanded="true" signature="5758:5866" ph="/// Returns an array of assets at index set. An exception will be thrown if it fails ... " />
+            <marker date="1537698545630" expanded="true" signature="5918:6226" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="6003:6117" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="6236:6354" ph="/// Returns an asset at index. If there is no asset at the index, an exception will be thrown. ... " />
+            <marker date="1537698545630" expanded="true" signature="6394:6739" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="6479:6588" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="6749:6971" ph="/// Fetch result of assets that will be used for picking. ... " />
+            <marker date="1537698545630" expanded="true" signature="7040:7273" ph="/// Global appearance proxy object. Use this object to set appearance ... " />
+            <marker date="1537698545630" expanded="true" signature="7355:7564" ph="/// Instance appearance proxy object. Use this object to set appearance ... " />
+            <marker date="1537698545630" expanded="true" signature="7611:7816" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="7671:7760" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="8259:8978" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="8325:8377" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="9021:9325" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="9097:9315" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="9128:9301" ph="/* TODO: Check ... */" />
+            <marker date="1537698545630" expanded="true" signature="9335:9503" ph="/// View is used when there is a need for an overlay view over whole image picker ... " />
+            <marker date="1537698545630" expanded="true" signature="9697:10914" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="9735:10904" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="10394:10545" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="10710:10861" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="11075:11303" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="11187:11239" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="11386:11559" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="11833:12030" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="12074:15649" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="13348:13688" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="13755:13897" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="14078:14138" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="14611:14782" ph="/* register for photo library updates - this is needed when changing permissions to photo library ... */" />
+            <marker date="1537698545630" expanded="true" signature="15076:15639" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="15709:15802" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="15857:16022" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="16144:16590" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="16661:17130" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="16735:16787" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="16890:16942" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="17061:17120" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="17227:17747" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="17263:17737" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="17852:18620" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="17895:18610" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="18688:19643" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="18919:18971" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="19041:19483" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="19738:19815" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="19909:19982" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="20078:20153" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="20275:20500" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="20333:20425" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="20615:22769" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="20699:21734" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="20865:20983" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="21001:21482" ph="/* when using videos preset, we are using different technique for ... */" />
+            <marker date="1537698545630" expanded="true" signature="21617:21720" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="21795:21904" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="22508:22587" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="22688:22759" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="22901:23972" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="23134:23962" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="23287:23946" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="23418:23706" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="23465:23684" ph="/* TODO: add blur ... */" />
+            <marker date="1537698545630" expanded="true" signature="23731:23928" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="24105:24473" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="24170:24298" ph="/* if the cell is default cell provided by Image Picker, it's our responsibility ... */" />
+            <marker date="1537698545630" expanded="true" signature="24570:24590" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="24659:24762" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="24832:24934" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="25002:25065" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="25136:25211" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="25308:25434" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="25530:25655" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="25732:25798" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="25876:25949" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="26003:26365" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="26115:26167" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="26209:26261" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="26421:26527" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="26626:26720" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="26858:27031" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="27117:27199" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="27296:27600" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="27408:27460" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="27677:27878" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="27946:28091" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="28160:28307" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="28392:28539" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="28643:28844" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="28926:29071" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="29166:29326" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="29361:29494" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="29531:29667" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="29710:29851" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="29893:29969" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="30020:31202" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="30071:30123" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="30225:30335" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="30432:30540" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="30624:31190" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="30749:31156" ph="{...}" />
+            <marker date="1537698545630" expanded="true" signature="30902:31051" ph="{...}" />
           </folding>
         </state>
       </provider>

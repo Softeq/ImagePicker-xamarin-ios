@@ -18,7 +18,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="219" height="259"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eMk-y2-nzd" customClass="StationaryButton" customModule="YSImagePicker" customModuleProvider="target">
+                    <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eMk-y2-nzd" customClass="StationaryButton">
                         <rect key="frame" x="87.5" y="12" width="44" height="44"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="44" id="QFs-fC-MVS"/>
@@ -28,7 +28,7 @@
                         <state key="normal" image="icon-live-off"/>
                         <state key="selected" image="icon-live-on"/>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XWp-o0-bWK" customClass="ShutterButton" customModule="ImagePicker">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XWp-o0-bWK" customClass="ShutterButton">
                         <rect key="frame" x="87.5" y="210" width="44" height="44"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="44" id="Lmu-Ph-K0b"/>
@@ -51,7 +51,7 @@
                             <action selector="FlipButtonTapped:" destination="KUc-Pb-VFJ" eventType="touchUpInside" id="vup-QA-n2y"/>
                         </connections>
                     </button>
-                    <view opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OHT-YT-HK2" customClass="CarvedLabel" customModule="YSImagePicker" customModuleProvider="target">
+                    <view opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OHT-YT-HK2" customClass="CarvedLabel">
                         <rect key="frame" x="92" y="53" width="35" height="18.5"/>
                         <accessibility key="accessibilityConfiguration">
                             <accessibilityTraits key="traits" notEnabled="YES"/>

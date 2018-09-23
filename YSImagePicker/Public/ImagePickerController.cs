@@ -609,8 +609,8 @@ namespace YSImagePicker.Public
                     if (image != null)
                     {
                         //TODO: add blur
-//                        var blurred = UIImageEffects.imageByApplyingLightEffect(to: image);
-//                        DispatchQueue.MainQueue.DispatchAsync(() => { cell.BlurIfNeeded(blurred, false, null); });
+                    //var blurred = UIImageEffects.imageByApplyingLightEffect(to: image);
+                    //DispatchQueue.MainQueue.DispatchAsync(() => { cell.BlurIfNeeded(blurred, false, null); });
                     }
                     else
                     {
