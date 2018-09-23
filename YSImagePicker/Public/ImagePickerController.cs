@@ -296,6 +296,7 @@ namespace YSImagePicker.Public
                 case PHAuthorizationStatus.NotDetermined:
                     PHPhotoLibrary.RequestAuthorization(authorizationStatus =>
                     {
+                        Console.WriteLine("Tests:1");
                         DispatchQueue.MainQueue.DispatchAsync(() => { ReloadData(authorizationStatus); });
                     });
                     break;
@@ -604,18 +605,23 @@ namespace YSImagePicker.Public
 
                 DispatchQueue.GetGlobalQueue(DispatchQueuePriority.High).DispatchAsync(() =>
                 {
+                    Console.WriteLine("Tests:2");
                     var image = _captureSession?.LatestVideoBufferImage;
 
                     if (image != null)
                     {
                         //TODO: add blur
-                    //var blurred = UIImageEffects.imageByApplyingLightEffect(to: image);
-                    //DispatchQueue.MainQueue.DispatchAsync(() => { cell.BlurIfNeeded(blurred, false, null); });
+                        //var blurred = UIImageEffects.imageByApplyingLightEffect(to: image);
+                        DispatchQueue.MainQueue.DispatchAsync(() => { cell.BlurIfNeeded(image, false, null); });
                     }
                     else
                     {
                         //TODO: add blur
-                        DispatchQueue.MainQueue.DispatchAsync(() => { cell.BlurIfNeeded(null, false, null); });
+                        DispatchQueue.MainQueue.DispatchAsync(() =>
+                        {
+                            Console.WriteLine("Tests:3");
+                            cell.BlurIfNeeded(null, false, null);
+                        });
                     }
                 });
             }

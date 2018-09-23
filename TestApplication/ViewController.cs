@@ -16,16 +16,14 @@ namespace TestApplication
         {
             base.ViewDidAppear(animated);
 
-            DispatchQueue.MainQueue.DispatchAsync(() =>
+            Console.WriteLine("Tests:34");
+            var imagePicker = new ImagePickerController
             {
-                var imagePicker = new ImagePickerController
-                {
-                    LayoutConfiguration = {ScrollDirection = UICollectionViewScrollDirection.Vertical}
-                };
+                LayoutConfiguration = {ScrollDirection = UICollectionViewScrollDirection.Vertical}
+            };
 
-                var nav = new UINavigationController(imagePicker);
-                PresentViewController(nav, true, null);
-            });
+            var nav = new UINavigationController(imagePicker);
+            PresentViewController(nav, true, null);
             //var nav = new UINavigationController(new TestViewCOntroller());
             //PresentViewController(nav, true, null);
         }
@@ -48,6 +46,5 @@ namespace TestApplication
 
     public class TestDelegate : ImagePickerControllerDelegate
     {
-
     }
 }

@@ -207,8 +207,8 @@ namespace YSImagePicker.Public
 
             if (animated == false)
             {
-                animationBlock();
-                animationCompletionBlock();
+                animationBlock.Invoke();
+                animationCompletionBlock.Invoke();
             }
             else
             {
