@@ -71,7 +71,7 @@ namespace YSImagePicker
                 case 2:
                     var asset = Runtime.GetNSObject<PHAsset>(AssetsModel.FetchResult.ObjectAt(indexPath.Item).Handle);
 
-                    var cellIdentifier = CellRegistrator.CellIdentifier((int) asset.MediaType);
+                    var cellIdentifier = CellRegistrator.CellIdentifier(asset.MediaType);
 
                     var cell = collectionView.DequeueReusableCell(
                         cellIdentifier ?? CellRegistrator.CellIdentifierForAssetItems, indexPath) as ImagePickerAssetCell;

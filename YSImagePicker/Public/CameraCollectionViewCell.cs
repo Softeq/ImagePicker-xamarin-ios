@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 using AVFoundation;
 using CoreGraphics;
 using Foundation;
-using ObjCRuntime;
 using UIKit;
 using YSImagePicker.Media;
-using YSImagePicker.Public;
 
 namespace YSImagePicker.Public
 {
@@ -18,8 +15,8 @@ namespace YSImagePicker.Public
         void StopVideoRecording();
         void FlipCamera(Action action);
     }
-    
-    [Register ("CameraCollectionViewCell")]
+
+    [Register("CameraCollectionViewCell")]
     public class CameraCollectionViewCell : UICollectionViewCell
     {
         private AVAuthorizationStatus? _authorizationStatus;
@@ -29,13 +26,7 @@ namespace YSImagePicker.Public
         public bool IsVisualEffectViewUsedForBlurring { get; set; }
         public ICameraCollectionViewCellDelegate Delegate { get; set; }
 
-        public CameraCollectionViewCell(CGRect frame) : base(frame)
-        {
-            BackgroundView = PreviewView;
-            PreviewView.AddSubview(ImageView);
-        }
-
-        public CameraCollectionViewCell(NSCoder aDecoder) : base(aDecoder)
+        public CameraCollectionViewCell(IntPtr handle) : base(handle)
         {
             BackgroundView = PreviewView;
             PreviewView.AddSubview(ImageView);

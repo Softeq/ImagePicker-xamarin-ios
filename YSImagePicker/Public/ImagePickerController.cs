@@ -571,8 +571,6 @@ namespace YSImagePicker.Public
 
             //update live photos
             var inProgressLivePhotos = _captureSession?.InProgressLivePhotoCapturesCount ?? 0;
-
-            inProgressLivePhotos = _captureSession?.InProgressLivePhotoCapturesCount ?? 0;
             cell.UpdateLivePhotoStatus(inProgressLivePhotos > 0, false);
 
             //update video recording status

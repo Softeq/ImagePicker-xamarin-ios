@@ -33,14 +33,14 @@ namespace YSImagePicker
                     itemHeight -= collectionView.ContentInset.Top + collectionView.ContentInset.Bottom;
                     itemHeight -= (numberOfItemsInRow - 1) * Configuration.InteritemSpacing;
                     itemHeight /= numberOfItemsInRow;
-                    return new CGSize(20, 20);
+                    return new CGSize(preferredWidthOrHeight ?? itemHeight, itemHeight);
 
                 case UICollectionViewScrollDirection.Vertical:
                     var itemWidth = collectionView.Frame.Width;
                     itemWidth -= collectionView.ContentInset.Left + collectionView.ContentInset.Right;
                     itemWidth -= (numberOfItemsInRow - 1) * Configuration.InteritemSpacing;
                     itemWidth /= numberOfItemsInRow;
-                    return new CGSize(20, 20);
+                    return new CGSize(itemWidth, preferredWidthOrHeight ?? itemWidth);
                 default:
                     throw new ArgumentException("Should be invoked only with UICollectionViewScrollDirection");
             }
@@ -72,16 +72,16 @@ namespace YSImagePicker
 
                     var traitCollection = collectionView.TraitCollection;
 
-                    ratio = 160 / 212;
+                    ratio = 160f / 212f;
 
                     switch (traitCollection.UserInterfaceIdiom)
                     {
                         case var _
-                            when traitCollection.HorizontalSizeClass == UIUserInterfaceSizeClass.Unspecified  ||
+                            when traitCollection.HorizontalSizeClass == UIUserInterfaceSizeClass.Unspecified &&
                                  traitCollection.VerticalSizeClass == UIUserInterfaceSizeClass.Compact:
-                        case var _ when traitCollection.HorizontalSizeClass == UIUserInterfaceSizeClass.Regular ||
+                        case var _ when traitCollection.HorizontalSizeClass == UIUserInterfaceSizeClass.Regular &&
                                         traitCollection.VerticalSizeClass == UIUserInterfaceSizeClass.Compact:
-                        case var _ when traitCollection.HorizontalSizeClass == UIUserInterfaceSizeClass.Compact ||
+                        case var _ when traitCollection.HorizontalSizeClass == UIUserInterfaceSizeClass.Compact &&
                                         traitCollection.VerticalSizeClass == UIUserInterfaceSizeClass.Compact:
                             ratio = 1 / ratio;
                             break;

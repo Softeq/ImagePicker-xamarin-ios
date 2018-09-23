@@ -1,3 +1,4 @@
+using System;
 using CoreAnimation;
 using CoreGraphics;
 using Foundation;
@@ -52,6 +53,10 @@ namespace YSImagePicker.Views
         public RecordDurationLabel(NSCoder aDecoder) : base(aDecoder)
         {
             CommonInit();
+        }
+
+        public RecordDurationLabel(IntPtr handle) : base(handle)
+        {
         }
 
         public override void LayoutSubviews()
@@ -110,7 +115,7 @@ namespace YSImagePicker.Views
 
             var animation = new CAAnimationGroup
             {
-                Animations = new[] { appear, disappear },
+                Animations = new[] {appear, disappear},
                 Duration = appear.Duration + disappear.Duration + appearDelay + disappearDelay,
                 RemovedOnCompletion = true
             };

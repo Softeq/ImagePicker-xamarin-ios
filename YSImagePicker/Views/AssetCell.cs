@@ -11,13 +11,19 @@ namespace YSImagePicker.Views
     ///
     public abstract class ImagePickerAssetCell : UICollectionViewCell
     {
-        public ImagePickerAssetCell(CGRect frame) : base(frame){}
-        
+        public ImagePickerAssetCell(CGRect frame) : base(frame)
+        {
+        }
+
         /// This image view will be used when setting an asset's image
         public abstract UIImageView ImageView { get; }
 
         /// This is a helper identifier that is used when properly displaying cells asynchronously
         public abstract string RepresentedAssetIdentifier { get; set; }
+
+        public ImagePickerAssetCell(IntPtr handle) : base(handle)
+        {
+        }
     }
 
     ///
@@ -26,14 +32,14 @@ namespace YSImagePicker.Views
     /// - icon and duration for videos
     /// - selected icon when isSelected is true
     ///
-    [Register ("VideoAssetCell")]
+    [Register("VideoAssetCell")]
     public class VideoAssetCell : AssetCell
     {
         private readonly UILabel _durationLabel;
         private readonly UIImageView _iconView;
         private readonly UIImageView _gradientView;
 
-        public VideoAssetCell(CGRect frame) : base(frame)
+        public VideoAssetCell(IntPtr handle) : base(handle)
         {
             _durationLabel = new UILabel(CGRect.Empty);
             _gradientView = new UIImageView(CGRect.Empty);
@@ -119,7 +125,7 @@ namespace YSImagePicker.Views
     /// a custom cell, Image Picker will use this one. Also contains
     /// default icon for selected state.
     ///
-    [Register ("AssetCell")]
+    [Register("AssetCell")]
     public class AssetCell : ImagePickerAssetCell
     {
         private readonly CheckView _selectedImageView = new CheckView(CGRect.Empty);
@@ -143,6 +149,18 @@ namespace YSImagePicker.Views
                     _selectedImageView.ForegroundImage = UIImage.FromBundle("icon-check");
                 }
             }
+        }
+
+        public AssetCell(IntPtr handle) : base(handle)
+        {
+            ImageView.ContentMode = UIViewContentMode.ScaleAspectFill;
+            ImageView.ClipsToBounds = true;
+            ContentView.AddSubview(ImageView);
+
+            _selectedImageView.Frame = new CGRect(0, 0, 31, 31);
+
+            ContentView.AddSubview(_selectedImageView);
+            _selectedImageView.Hidden = true;
         }
 
         public AssetCell(CGRect frame) : base(frame)

@@ -29,6 +29,26 @@ namespace YSImagePicker.Views
         private readonly CALayer _outerCircleLayer;
         private readonly CALayer _innerCircleLayer;
 
+        public ShutterButton(IntPtr handle):base(handle)
+        {
+            _outerCircleLayer = new CALayer();
+            _innerCircleLayer = new CALayer();
+            BackgroundColor = UIColor.Clear;
+            Layer.AddSublayer(_outerCircleLayer);
+            Layer.AddSublayer(_innerCircleLayer);
+
+            CATransaction.DisableActions = true;
+
+            _outerCircleLayer.BackgroundColor = UIColor.Clear.CGColor;
+            _outerCircleLayer.CornerRadius = Bounds.Width / 2;
+            _outerCircleLayer.BorderWidth = _outerBorderWidth;
+            _outerCircleLayer.BorderColor = TintColor.CGColor;
+
+            _innerCircleLayer.BackgroundColor = TintColor.CGColor;
+
+            CATransaction.Commit();
+        }
+        
         public ShutterButton(NSCoder aDecoder) : base(aDecoder)
         {
             _outerCircleLayer = new CALayer();

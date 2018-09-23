@@ -20,7 +20,7 @@ namespace YSImagePicker.Media
             get => PreviewLayer.Session;
             set
             {
-                if (PreviewLayer.Session.Equals(value))
+                if (PreviewLayer.Session != null && PreviewLayer.Session.Equals(value))
                 {
                     return;
                 }

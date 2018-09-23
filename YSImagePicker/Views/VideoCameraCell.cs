@@ -8,14 +8,10 @@ namespace YSImagePicker.Views
 {
     public partial class VideoCameraCell : CameraCollectionViewCell
     {
-        public VideoCameraCell(CGRect frame) : base(frame)
+        public VideoCameraCell(IntPtr handle) : base(handle)
         {
         }
-
-        public VideoCameraCell(NSCoder aDecoder) : base(aDecoder)
-        {
-        }
-
+        
         public override void AwakeFromNib()
         {
             base.AwakeFromNib();

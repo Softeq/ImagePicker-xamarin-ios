@@ -57,6 +57,7 @@ namespace YSImagePicker.Views
         {
         }
 
+        [Export("awakeFromNib")]
         public override void AwakeFromNib()
         {
             base.AwakeFromNib();

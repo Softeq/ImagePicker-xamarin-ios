@@ -67,7 +67,7 @@ namespace YSImagePicker.Public
 
         public string CellIdentifierForAssetItems => _assetItemIdentifierPrefix;
 
-        private string CellIdentifier(PHAssetMediaType type)
+        public string CellIdentifier(PHAssetMediaType type)
         {
             if (AssetItemNibsData != null && AssetItemNibsData.ContainsKey(type))
             {
@@ -244,7 +244,7 @@ namespace YSImagePicker.Public
                     case CameraMode.Photo:
                     case CameraMode.PhotoAndLivePhoto:
                         collectionView.RegisterNibForCell(
-                            UINib.FromName("LivePhotoCameraCell", NSBundle.FromIdentifier(nameof(LivePhotoCameraCell))),
+                            UINib.FromName(nameof(LivePhotoCameraCell), NSBundle.FromIdentifier(nameof(LivePhotoCameraCell))),
                             registrator.CellIdentifierForCameraItem);
                         break;
                     case CameraMode.PhotoAndVideo:
