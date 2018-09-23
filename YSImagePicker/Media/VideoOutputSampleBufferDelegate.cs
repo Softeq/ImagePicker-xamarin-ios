@@ -35,7 +35,7 @@ namespace YSImagePicker.Media
         {
             get
             {
-                var pixelBuffer = _latestSampleBuffer.GetImageBuffer();
+                var pixelBuffer = _latestSampleBuffer?.GetImageBuffer();
 
                 if (pixelBuffer == null)
                 {
