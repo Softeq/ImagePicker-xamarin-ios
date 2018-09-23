@@ -516,7 +516,7 @@ namespace YSImagePicker.Public
 
         public void DidSelectActionItemAt(ImagePickerDelegate imagePickerDelegate, int index)
         {
-            Delegate.DidSelectActionItemAt(this, index);
+            Delegate?.DidSelectActionItemAt(this, index);
         }
 
         public void DidSelectAssetItemAt(ImagePickerDelegate imagePickerDelegate, int index)
