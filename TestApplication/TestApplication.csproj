@@ -65,7 +65,7 @@
     <DefineConstants>DEBUG;ENABLE_TEST_CLOUD;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodesignKey>iPhone Developer: ysampir@gmail.com (F5XWHK96UH)</CodesignKey>
+    <CodesignKey>iPhone Developer: Yauhen Sampir (ZB7D4G95KH)</CodesignKey>
     <DeviceSpecificBuild>true</DeviceSpecificBuild>
     <MtouchDebug>true</MtouchDebug>
     <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
@@ -78,7 +78,6 @@
     <MtouchArch>ARM64</MtouchArch>
     <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
     <PlatformTarget>x86</PlatformTarget>
-    <CodesignProvision>iOS Team Provisioning Profile: com.softeq.blabla1</CodesignProvision>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -171,9 +170,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ImagePicker\ImagePicker.csproj">
-      <Project>{AF94BCBF-D2EC-4C84-A26E-5A8922E15C79}</Project>
-      <Name>ImagePicker</Name>
+    <ProjectReference Include="..\YSImagePicker\YSImagePicker.csproj">
+      <Project>{78713d60-595d-4f7b-b9d7-2e81746a11e3}</Project>
+      <Name>YSImagePicker</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

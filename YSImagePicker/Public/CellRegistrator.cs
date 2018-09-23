@@ -22,7 +22,7 @@ namespace YSImagePicker.Public
         // MARK: Private Methods
         private string _actionItemIdentifierPrefix = "eu.inloop.action-item.cell-id";
         public Dictionary<int, (UINib, string)> ActionItemNibsData;
-        public Dictionary<int, (UICollectionViewCell, string)> ActionItemClassesData;
+        public Dictionary<int, (Type, string)> ActionItemClassesData;
 
         //camera item has only 1 cell so no need for identifiers
         public UINib CameraItemNib;
@@ -30,7 +30,7 @@ namespace YSImagePicker.Public
 
         private string _assetItemIdentifierPrefix = "eu.inloop.asset-item.cell-id";
         public Dictionary<PHAssetMediaType, (UINib, string)> AssetItemNibsData;
-        public Dictionary<PHAssetMediaType, (UICollectionViewCell, string)> AssetItemClassesData;
+        public Dictionary<PHAssetMediaType, (Type, string)> AssetItemClassesData;
 
         //we use these if there is no asset media type specified
         public UINib AssetItemNib;
@@ -41,15 +41,19 @@ namespace YSImagePicker.Public
         public string CellIdentifierForCameraItem = "eu.inloop.camera-item.cell-id";
 
         //TODO: Check logic
-        public int? CellIdentifier(int index)
+        public string CellIdentifier(int index)
         {
-            if (ActionItemNibsData == null || !ActionItemNibsData.ContainsKey(index) &&
-                (ActionItemClassesData == null || !ActionItemClassesData.ContainsKey(index)))
+            if (ActionItemNibsData != null && ActionItemNibsData.ContainsKey(index))
             {
-                return index;
+                return ActionItemNibsData[index].Item2;
             }
 
-            if (index < int.MaxValue)
+            if (ActionItemClassesData != null && ActionItemClassesData.ContainsKey(index))
+            {
+                return ActionItemClassesData[index].Item2;
+            }
+
+            if (index == int.MaxValue)
             {
                 return null;
             }
@@ -63,7 +67,7 @@ namespace YSImagePicker.Public
 
         public string CellIdentifierForAssetItems => _assetItemIdentifierPrefix;
 
-        string CellIdentifier(PHAssetMediaType type)
+        public string CellIdentifier(PHAssetMediaType type)
         {
             if (AssetItemNibsData != null && AssetItemNibsData.ContainsKey(type))
             {
@@ -93,7 +97,7 @@ namespace YSImagePicker.Public
         /// Register a cell class for all action items. Use this method if all action items
         /// have the same cell class.
         ///
-        public void RegisterCellClassForActionItems(UICollectionViewCell cellClass)
+        public void RegisterCellClassForActionItems(Type cellClass)
         {
             Register(cellClass, int.MaxValue);
         }
@@ -117,11 +121,11 @@ namespace YSImagePicker.Public
         /// Register a cell class for an action item at particular index. Use this method if
         /// you wish to use different cells at each index.
         ///
-        public void Register(UICollectionViewCell cellClass, int index)
+        public void Register(Type cellClass, int index)
         {
             if (ActionItemClassesData == null)
             {
-                ActionItemClassesData = new Dictionary<int, (UICollectionViewCell, string)>();
+                ActionItemClassesData = new Dictionary<int, (Type, string)>();
             }
 
             var cellIdentifier = _actionItemIdentifierPrefix + index;
@@ -172,11 +176,11 @@ namespace YSImagePicker.Public
         /// also other types that you did not register an exception will be thrown. Always register cells
         /// for all media types you support.
         ///
-        public void Register(AssetCell cellClass, PHAssetMediaType type)
+        public void Register(Type cellClass, PHAssetMediaType type)
         {
             if (AssetItemClassesData == null)
             {
-                AssetItemClassesData = new Dictionary<PHAssetMediaType, (UICollectionViewCell, string)>();
+                AssetItemClassesData = new Dictionary<PHAssetMediaType, (Type, string)>();
             }
 
             var cellIdentifier = _assetItemIdentifierPrefix + type;
@@ -215,8 +219,7 @@ namespace YSImagePicker.Public
             //if user did not register any nib or cell, use default action cell
             if (registrator.HasUserRegisteredActionCell == false)
             {
-                var actionCell = new ActionCell();
-                registrator.RegisterCellClassForActionItems(actionCell);
+                registrator.RegisterCellClassForActionItems(typeof(ActionCell));
                 var identifier = registrator.CellIdentifier(int.MaxValue);
 
                 if (identifier == null)
@@ -224,8 +227,9 @@ namespace YSImagePicker.Public
                     throw new Exception("Image Picker: unable to register default action item cell");
                 }
 
-                //TODO: Check
-                collectionView.RegisterNibForCell(UINib.FromName("ActionCell", null), identifier.Value.ToString());
+                collectionView.RegisterNibForCell(
+                    UINib.FromName("ActionCell", NSBundle.FromIdentifier(nameof(ActionCell))),
+                    identifier);
             }
             else
             {
@@ -239,11 +243,13 @@ namespace YSImagePicker.Public
                 {
                     case CameraMode.Photo:
                     case CameraMode.PhotoAndLivePhoto:
-                        collectionView.RegisterNibForCell(UINib.FromName("LivePhotoCameraCell", null),
+                        collectionView.RegisterNibForCell(
+                            UINib.FromName(nameof(LivePhotoCameraCell), NSBundle.FromIdentifier(nameof(LivePhotoCameraCell))),
                             registrator.CellIdentifierForCameraItem);
                         break;
                     case CameraMode.PhotoAndVideo:
-                        collectionView.RegisterNibForCell(UINib.FromName("VideoCameraCell", null),
+                        collectionView.RegisterNibForCell(
+                            UINib.FromName("VideoCameraCell", NSBundle.FromIdentifier(nameof(VideoCameraCell))),
                             registrator.CellIdentifierForCameraItem);
                         break;
                     default:
@@ -256,12 +262,13 @@ namespace YSImagePicker.Public
             }
             else
             {
-                collectionView.RegisterNibForCell(registrator.CameraItemNib, registrator.CellIdentifierForCameraItem);
+                collectionView.RegisterClassForCell(registrator.CameraItemClass.GetType(),
+                    registrator.CellIdentifierForCameraItem);
             }
 
             //register asset items considering type
-            collectionView.Register(registrator.AssetItemNibsData.Values);
-            collectionView.Register(registrator.AssetItemClassesData.Values);
+            collectionView.Register(registrator.AssetItemNibsData?.Values);
+            collectionView.Register(registrator.AssetItemClassesData?.Values);
 
             if (registrator.AssetItemNib == null && registrator.AssetItemClass == null)
             {
@@ -285,6 +292,11 @@ namespace YSImagePicker.Public
         ///
         public static void Register(this UICollectionView collectionView, IEnumerable<(UINib, string)> nibsData)
         {
+            if (nibsData == null)
+            {
+                return;
+            }
+
             if (!nibsData.Any())
             {
                 return;
@@ -299,8 +311,14 @@ namespace YSImagePicker.Public
         ///
         /// Helper func that takes nib,cellid pair and registers them on a collection view
         ///
-        public static void Register(this UICollectionView collectionView, IEnumerable<(UICollectionViewCell, string)> classData)
+        public static void Register(this UICollectionView collectionView,
+            IEnumerable<(Type, string)> classData)
         {
+            if (classData == null)
+            {
+                return;
+            }
+
             if (!classData.Any())
             {
                 return;
@@ -308,7 +326,7 @@ namespace YSImagePicker.Public
 
             foreach (var tuple in classData)
             {
-                collectionView.RegisterClassForCell(tuple.Item1.GetType(), tuple.Item2);
+                collectionView.RegisterClassForCell(tuple.Item1, tuple.Item2);
             }
         }
     }

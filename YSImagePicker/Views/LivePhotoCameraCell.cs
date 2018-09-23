@@ -6,13 +6,13 @@ using YSImagePicker.Public;
 
 namespace YSImagePicker.Views
 {
-    [Register("LivePhotoCameraCell")]
     public partial class LivePhotoCameraCell : CameraCollectionViewCell
     {
-        public LivePhotoCameraCell(CGRect frame) : base(frame)
+        public LivePhotoCameraCell(IntPtr handle) : base(handle)
         {
         }
 
+        [Export("awakeFromNib")]
         public override void AwakeFromNib()
         {
             base.AwakeFromNib();

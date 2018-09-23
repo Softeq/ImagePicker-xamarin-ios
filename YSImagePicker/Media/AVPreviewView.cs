@@ -13,14 +13,14 @@ namespace YSImagePicker.Media
     public class AVPreviewView : UIView
     {
         private VideoDisplayMode _displayMode = VideoDisplayMode.AspectFill;
-        AVCaptureVideoPreviewLayer PreviewLayer => Layer as AVCaptureVideoPreviewLayer;
+        public AVCaptureVideoPreviewLayer PreviewLayer => Layer as AVCaptureVideoPreviewLayer;
 
-        private AVCaptureSession Session
+        public AVCaptureSession Session
         {
             get => PreviewLayer.Session;
             set
             {
-                if (PreviewLayer.Session.Equals(value))
+                if (PreviewLayer.Session != null && PreviewLayer.Session.Equals(value))
                 {
                     return;
                 }

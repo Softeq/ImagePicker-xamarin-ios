@@ -8,7 +8,6 @@ packages/
 TestResults/
 
 # globs
-.idea/
 Makefile.in
 *.DS_Store
 *.sln.cache
@@ -40,3 +39,5 @@ Thumbs.db
 
 # dotCover
 *.dotCover
+
+\.idea/\.idea\.TestApplication/\.idea/workspace\.xml

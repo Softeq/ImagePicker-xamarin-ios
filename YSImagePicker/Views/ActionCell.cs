@@ -1,20 +1,24 @@
+using System;
 using Foundation;
 using UIKit;
 using YSImagePicker.Public;
 
 namespace YSImagePicker.Views
 {
-    [Register("ActionCell")]
     public partial class ActionCell : UICollectionViewCell
     {
+        public ActionCell(IntPtr handle) : base(handle)
+        {
+        }
+        
         [Export("awakeFromNib")]
-        public void AwakeFromNib()
+        public override void AwakeFromNib()
         {
             base.AwakeFromNib();
             ImageView.BackgroundColor = UIColor.Clear;
         }
 
-        public void update(int index, LayoutConfiguration layoutConfiguration)
+        public void Update(int index, LayoutConfiguration layoutConfiguration)
         {
             var layoutModel = new LayoutModel(layoutConfiguration, 0);
             var actionCount = layoutModel.NumberOfItems(layoutConfiguration.SectionIndexForActions);

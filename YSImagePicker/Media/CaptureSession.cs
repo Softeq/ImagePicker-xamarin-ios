@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using AVFoundation;
 using CoreFoundation;
@@ -9,22 +10,38 @@ using UIKit;
 
 namespace YSImagePicker.Media
 {
-    /// Groups a method that informs a delegate about progress and state of photo capturing.
-    public class CaptureSessionPhotoCapturingDelegate
+    public interface ICaptureSessionPhotoCapturingDelegate
     {
         /// called as soon as the photo was taken, use this to update UI - for example show flash animation or live photo icon
-        public virtual void CaptureSession(CaptureSession session, AVCapturePhotoSettings settings)
+        void WillCapturePhotoWith(CaptureSession session, AVCapturePhotoSettings settings);
+
+        /// called when captured photo is processed and ready for use
+        void DidCapturePhotoData(CaptureSession session, NSData didCapturePhotoData,
+            AVCapturePhotoSettings settings);
+
+        /// called when captured photo is processed and ready for use
+        void DidFailCapturingPhotoWith(CaptureSession session, NSError error);
+
+        /// called when number of processing live photos changed, see inProgressLivePhotoCapturesCount for current count
+        void CaptureSessionDidChangeNumberOfProcessingLivePhotos(CaptureSession session);
+    }
+
+    /// Groups a method that informs a delegate about progress and state of photo capturing.
+    public class CaptureSessionPhotoCapturingDelegate : ICaptureSessionPhotoCapturingDelegate
+    {
+        /// called as soon as the photo was taken, use this to update UI - for example show flash animation or live photo icon
+        public virtual void WillCapturePhotoWith(CaptureSession session, AVCapturePhotoSettings settings)
         {
         }
 
         /// called when captured photo is processed and ready for use
-        public virtual void CaptureSession(CaptureSession session, NSData didCapturePhotoData,
+        public virtual void DidCapturePhotoData(CaptureSession session, NSData didCapturePhotoData,
             AVCapturePhotoSettings settings)
         {
         }
 
         /// called when captured photo is processed and ready for use
-        public virtual void CaptureSession(CaptureSession session, NSError error)
+        public virtual void DidFailCapturingPhotoWith(CaptureSession session, NSError error)
         {
         }
 
@@ -34,43 +51,93 @@ namespace YSImagePicker.Media
         }
     }
 
-    /// Groups a method that informs a delegate about progress and state of video recording.
-    public class CaptureSessionVideoRecordingDelegate
+    public interface ICaptureSessionVideoRecordingDelegate
     {
         ///called when video file recording output is added to the session
-        public virtual void CaptureSessionDidBecomeReadyForVideoRecording(CaptureSession session)
+        void DidBecomeReadyForVideoRecording(CaptureSession session);
+
+        ///called when recording started
+        void DidStartVideoRecording(CaptureSession session);
+
+        ///called when cancel recording as a result of calling `cancelVideoRecording` func.
+        void DidCancelVideoRecording(CaptureSession session);
+
+        ///called when a recording was successfully finished
+        void DidFinishVideoRecording(CaptureSession session, NSUrl videoUrl);
+
+        ///called when a recording was finished prematurely due to a system interruption
+        ///(empty disk, app put on bg, etc). Video is however saved on provided URL or in
+        ///assets library if turned on.
+        void DidInterruptVideoRecording(CaptureSession session, NSUrl videoUrl, NSError reason);
+
+        ///called when a recording failed
+        void DidFailVideoRecording(CaptureSession session, NSError error);
+    }
+
+    /// Groups a method that informs a delegate about progress and state of video recording.
+    public class CaptureSessionVideoRecordingDelegate : ICaptureSessionVideoRecordingDelegate
+    {
+        ///called when video file recording output is added to the session
+        public virtual void DidBecomeReadyForVideoRecording(CaptureSession session)
         {
         }
 
         ///called when recording started
-        public virtual void CaptureSessionDidStartVideoRecording(CaptureSession session)
+        public virtual void DidStartVideoRecording(CaptureSession session)
         {
         }
 
         ///called when cancel recording as a result of calling `cancelVideoRecording` func.
-        public virtual void CaptureSessionDidCancelVideoRecording(CaptureSession session)
+        public virtual void DidCancelVideoRecording(CaptureSession session)
         {
         }
 
         ///called when a recording was successfully finished
-        public virtual void CaptureSessionDid(CaptureSession session, NSUrl videoUrl)
+        public virtual void DidFinishVideoRecording(CaptureSession session, NSUrl videoUrl)
         {
         }
 
         ///called when a recording was finished prematurely due to a system interruption
         ///(empty disk, app put on bg, etc). Video is however saved on provided URL or in
         ///assets library if turned on.
-        public virtual void CaptureSessionDid(CaptureSession session, NSUrl videoUrl, NSError reason)
+        public virtual void DidInterruptVideoRecording(CaptureSession session, NSUrl videoUrl, NSError reason)
         {
         }
 
         ///called when a recording failed
-        public virtual void CaptureSessionDid(CaptureSession session, NSError error)
+        public virtual void DidFailVideoRecording(CaptureSession session, NSError error)
         {
         }
     }
 
-    public class CaptureSessionDelegate
+    public interface ICaptureSessionDelegate
+    {
+        ///called when session is successfully configured and started running
+        void CaptureSessionDidResume(CaptureSession session);
+
+        ///called when session is was manually suspended
+        void CaptureSessionDidSuspend(CaptureSession session);
+
+        ///capture session was running but did fail due to any AV error reason.
+        void DidFail(CaptureSession session, AVError error);
+
+        ///called when creating and configuring session but something failed (e.g. input or output could not be added, etc
+        void DidFailConfiguringSession(CaptureSession session);
+
+        ///called when user denied access to video device when prompted
+        void CaptureGrantedSession(CaptureSession session, AVAuthorizationStatus status);
+
+        ///Called when user grants access to video device when prompted
+        void CaptureFailedSession(CaptureSession session, AVAuthorizationStatus status);
+
+        ///called when session is interrupted due to various reasons, for example when a phone call or user starts an audio using control center, etc.
+        void WasInterrupted(CaptureSession session, NSString reason);
+
+        ///called when and interruption is ended and the session was automatically resumed.
+        void CaptureSessionInterruptionDidEnd(CaptureSession session);
+    }
+
+    public class CaptureSessionDelegate : ICaptureSessionDelegate
     {
         ///called when session is successfully configured and started running
         public virtual void CaptureSessionDidResume(CaptureSession session)
@@ -83,12 +150,12 @@ namespace YSImagePicker.Media
         }
 
         ///capture session was running but did fail due to any AV error reason.
-        public virtual void CaptureSession(CaptureSession session, AVError error)
+        public virtual void DidFail(CaptureSession session, AVError error)
         {
         }
 
         ///called when creating and configuring session but something failed (e.g. input or output could not be added, etc
-        public virtual void CaptureSessionDidFailConfiguringSession(CaptureSession session)
+        public virtual void DidFailConfiguringSession(CaptureSession session)
         {
         }
 
@@ -103,7 +170,7 @@ namespace YSImagePicker.Media
         }
 
         ///called when session is interrupted due to various reasons, for example when a phone call or user starts an audio using control center, etc.
-        public virtual void CaptureSession(CaptureSession session, NSString reason)
+        public virtual void WasInterrupted(CaptureSession session, NSString reason)
         {
         }
 
@@ -120,7 +187,7 @@ namespace YSImagePicker.Media
         ConfigurationFailed
     }
 
-    public enum SessionPresetConfiguration
+    public enum GetSessionPresetConfiguration
     {
         Photos,
         LivePhotos,
@@ -135,13 +202,13 @@ namespace YSImagePicker.Media
 
     public class CaptureSession : NSObject
     {
-        public CaptureSessionDelegate Delegate = null;
+        public ICaptureSessionDelegate Delegate = null;
 
-        public AVCaptureSession Session = new AVCaptureSession();
-        public bool IsSessionRunning = false;
+        public readonly AVCaptureSession Session = new AVCaptureSession();
+        private bool _isSessionRunning = false;
         public AVCaptureVideoPreviewLayer PreviewLayer = null;
 
-        private SessionPresetConfiguration _presetConfiguration = SessionPresetConfiguration.Photos;
+        public GetSessionPresetConfiguration PresetConfiguration = GetSessionPresetConfiguration.Photos;
         private SessionSetupResult _setupResult = SessionSetupResult.Success;
         private AVCaptureDeviceInput _videoDeviceInput;
 
@@ -155,45 +222,46 @@ namespace YSImagePicker.Media
 
         private AVCaptureVideoDataOutput _videoDataOutput;
 
-        private VideoOutputSampleBufferDelegate videoOutpuSampleBufferDelegate = new VideoOutputSampleBufferDelegate();
+        private readonly VideoOutputSampleBufferDelegate _videoOutputSampleBufferDelegate =
+            new VideoOutputSampleBufferDelegate();
 
         // returns latest captured image
-        public UIImage latestVideoBufferImage => videoOutpuSampleBufferDelegate.LatestImage;
+        public UIImage LatestVideoBufferImage => _videoOutputSampleBufferDelegate.LatestImage;
 
         /// Communicate with the session and other session objects on this queue.
         /// TODO: Check
-        private DispatchQueue sessionQueue = new DispatchQueue("session queue");
+        private readonly DispatchQueue _sessionQueue = new DispatchQueue("session queue");
 
         // MARK: Video Recoding
 
-        public CaptureSessionVideoRecordingDelegate videoRecordingDelegate;
-        public AVCaptureMovieFileOutput videoFileOutput;
-        public VideoCaptureDelegate videoCaptureDelegate;
+        public ICaptureSessionVideoRecordingDelegate VideoRecordingDelegate;
+        public AVCaptureMovieFileOutput VideoFileOutput;
+        public VideoCaptureDelegate VideoCaptureDelegate;
 
-        public bool isReadyForVideoRecording => videoFileOutput != null;
+        public bool IsReadyForVideoRecording => VideoFileOutput != null;
 
-        public bool isRecordingVideo => videoFileOutput?.Recording ?? false;
-        public CaptureSessionPhotoCapturingDelegate photoCapturingDelegate = null;
+        public bool IsRecordingVideo => VideoFileOutput?.Recording ?? false;
+        public ICaptureSessionPhotoCapturingDelegate PhotoCapturingDelegate = null;
 
         // this is provided by argument of capturePhoto()
         //fileprivate var livePhotoMode: LivePhotoMode = .off
-        private AVCapturePhotoOutput photoOutput = new AVCapturePhotoOutput();
+        private readonly AVCapturePhotoOutput _photoOutput = new AVCapturePhotoOutput();
 
-        private Dictionary<long, PhotoCaptureDelegate> inProgressPhotoCaptureDelegates =
+        private readonly Dictionary<long, PhotoCaptureDelegate> _inProgressPhotoCaptureDelegates =
             new Dictionary<long, PhotoCaptureDelegate>();
 
         /// contains number of currently processing live photos
-        private int _inProgressLivePhotoCapturesCount = 0;
+        public int InProgressLivePhotoCapturesCount = 0;
 
         ///
         /// Set this method to orientation that mathches UI orientation before `prepare()`
         /// method is called. If you need to update orientation when session is running,
         /// use `updateVideoOrientation()` method instead
         ///
-        private AVCaptureVideoOrientation _videoOrientation = AVCaptureVideoOrientation.Portrait;
+        public AVCaptureVideoOrientation VideoOrientation = AVCaptureVideoOrientation.Portrait;
 
-        private IntPtr sessionRunningObserveContext = IntPtr.Zero;
-        private bool addedObservers = false;
+        private readonly IntPtr _sessionRunningObserveContext = IntPtr.Zero;
+        private bool _addedObservers = false;
         private NSObject _observeSubjectAreaDidChange;
         private NSObject _subjectAreaDidChangeNotification;
         private NSObject _wasInterruptedNotification;
@@ -204,7 +272,7 @@ namespace YSImagePicker.Media
         ///
         public void UpdateVideoOrientation(AVCaptureVideoOrientation newValue)
         {
-            _videoOrientation = newValue;
+            VideoOrientation = newValue;
 
             //we need to change orientation on all outputs
             if (PreviewLayer?.Connection != null)
@@ -216,7 +284,7 @@ namespace YSImagePicker.Media
             //ugly, I have no idea how to fix this
             //note: when I added these 2 updates into a configuration block the lag was even worse
 
-            sessionQueue.DispatchAsync(() =>
+            _sessionQueue.DispatchAsync(() =>
             {
                 //when device is disconnected also video data output connection orientation is reset, so we need to set to new proper value
 
@@ -251,7 +319,7 @@ namespace YSImagePicker.Media
                      Note that audio access will be implicitly requested when we
                      create an AVCaptureDeviceInput for audio during session setup.
                      */
-                    sessionQueue.Suspend();
+                    _sessionQueue.Suspend();
                     AVCaptureDevice.RequestAccessForMediaType(AVAuthorizationMediaType.Video, granted =>
                     {
                         if (granted)
@@ -266,7 +334,7 @@ namespace YSImagePicker.Media
                             _setupResult = SessionSetupResult.NotAuthorized;
                         }
 
-                        sessionQueue.Resume();
+                        _sessionQueue.Resume();
                     });
 
                     break;
@@ -276,16 +344,17 @@ namespace YSImagePicker.Media
                     break;
             }
 
-            sessionQueue.DispatchAsync(() => { ConfigureSession(); });
+            _sessionQueue.DispatchAsync(ConfigureSession);
         }
 
         public void Resume()
         {
-            sessionQueue.DispatchAsync(() =>
+            _sessionQueue.DispatchAsync(() =>
             {
-                if (IsSessionRunning)
+                if (_isSessionRunning)
                 {
                     Console.WriteLine("capture session: warning - trying to resume already running session");
+                    return;
                 }
 
                 switch (_setupResult)
@@ -294,7 +363,7 @@ namespace YSImagePicker.Media
                         // Only setup observers and start the session running if setup succeeded.
                         AddObservers();
                         Session.StartRunning();
-                        IsSessionRunning = Session.Running;
+                        _isSessionRunning = Session.Running;
                         break;
                     // We are not calling the delegate here explicitly, because we are observing
                     // `running` KVO on session itself.
@@ -309,10 +378,7 @@ namespace YSImagePicker.Media
                         break;
                     case SessionSetupResult.ConfigurationFailed:
                         Console.WriteLine("capture session: configuration failed");
-                        DispatchQueue.MainQueue.DispatchAsync(() =>
-                        {
-                            Delegate?.CaptureSessionDidFailConfiguringSession(this);
-                        });
+                        DispatchQueue.MainQueue.DispatchAsync(() => { Delegate?.DidFailConfiguringSession(this); });
                         break;
                 }
             });
@@ -327,15 +393,16 @@ namespace YSImagePicker.Media
 
             //we need to capture self in order to postpone deallocation while
             //session is properly stopped and cleaned up
-            sessionQueue.DispatchAsync(() =>
+            _sessionQueue.DispatchAsync(() =>
             {
-                if (IsSessionRunning != true)
+                if (_isSessionRunning != true)
                 {
                     Console.WriteLine("capture session: warning - trying to suspend non running session");
+                    return;
                 }
 
                 Session.StopRunning();
-                IsSessionRunning = Session.Running;
+                _isSessionRunning = Session.Running;
                 RemoveObservers();
                 //we are not calling delegate from here because
                 //we are KVOing `isRunning` on session itself so it's called from there
@@ -347,7 +414,7 @@ namespace YSImagePicker.Media
         /// 1. adds video input
         /// 2. adds video output (for recording videos)
         /// 3. adds audio input (for video recording with audio)
-        /// 4. adds photo output (for capturing photos)
+        /// 4. adds photo output (for capturing photos)capture session: trying to record a video but no preview layer is set
         ///
         private void ConfigureSession()
         {
@@ -360,13 +427,13 @@ namespace YSImagePicker.Media
 
             Session.BeginConfiguration();
 
-            switch (_presetConfiguration)
+            switch (PresetConfiguration)
             {
-                case SessionPresetConfiguration.LivePhotos:
-                case SessionPresetConfiguration.Photos:
+                case GetSessionPresetConfiguration.LivePhotos:
+                case GetSessionPresetConfiguration.Photos:
                     Session.SessionPreset = AVCaptureSession.PresetPhoto;
                     break;
-                case SessionPresetConfiguration.Videos:
+                case GetSessionPresetConfiguration.Videos:
                     Session.SessionPreset = AVCaptureSession.PresetHigh;
                     break;
             }
@@ -401,7 +468,7 @@ namespace YSImagePicker.Media
                          */
                         if (PreviewLayer?.Connection != null)
                         {
-                            PreviewLayer.Connection.VideoOrientation = _videoOrientation;
+                            PreviewLayer.Connection.VideoOrientation = VideoOrientation;
                         }
                     });
                 }
@@ -422,7 +489,7 @@ namespace YSImagePicker.Media
             }
 
             // Add movie file output.
-            if (_presetConfiguration == SessionPresetConfiguration.Videos)
+            if (PresetConfiguration == GetSessionPresetConfiguration.Videos)
             {
                 // A capture session cannot support at the same time:
                 // - Live Photo capture and
@@ -437,11 +504,11 @@ namespace YSImagePicker.Media
                 if (Session.CanAddOutput(movieFileOutput))
                 {
                     Session.AddOutput(movieFileOutput);
-                    videoFileOutput = movieFileOutput;
+                    VideoFileOutput = movieFileOutput;
 
                     DispatchQueue.MainQueue.DispatchAsync(() =>
                     {
-                        videoRecordingDelegate?.CaptureSessionDidBecomeReadyForVideoRecording(this);
+                        VideoRecordingDelegate?.DidBecomeReadyForVideoRecording(this);
                     });
                 }
                 else
@@ -453,8 +520,8 @@ namespace YSImagePicker.Media
                 }
             }
 
-            if (_presetConfiguration == SessionPresetConfiguration.LivePhotos ||
-                _presetConfiguration == SessionPresetConfiguration.Videos)
+            if (PresetConfiguration == GetSessionPresetConfiguration.LivePhotos ||
+                PresetConfiguration == GetSessionPresetConfiguration.Videos)
             {
                 Console.WriteLine("capture session: configuring - adding audio input");
 
@@ -479,23 +546,23 @@ namespace YSImagePicker.Media
                 }
             }
 
-            if (_presetConfiguration == SessionPresetConfiguration.LivePhotos ||
-                _presetConfiguration == SessionPresetConfiguration.Photos ||
-                _presetConfiguration == SessionPresetConfiguration.Videos)
+            if (PresetConfiguration == GetSessionPresetConfiguration.LivePhotos ||
+                PresetConfiguration == GetSessionPresetConfiguration.Photos ||
+                PresetConfiguration == GetSessionPresetConfiguration.Videos)
             {
                 // Add photo output.
                 Console.WriteLine("capture session: configuring - adding photo output");
 
-                if (Session.CanAddOutput(photoOutput))
+                if (Session.CanAddOutput(_photoOutput))
                 {
-                    Session.AddOutput(photoOutput);
-                    photoOutput.IsHighResolutionCaptureEnabled = true;
+                    Session.AddOutput(_photoOutput);
+                    _photoOutput.IsHighResolutionCaptureEnabled = true;
 
                     //enable live photos only if we intend to use it explicitly
-                    if (_presetConfiguration == SessionPresetConfiguration.LivePhotos)
+                    if (PresetConfiguration == GetSessionPresetConfiguration.LivePhotos)
                     {
-                        photoOutput.IsLivePhotoCaptureEnabled = photoOutput.IsLivePhotoCaptureSupported;
-                        if (photoOutput.IsLivePhotoCaptureSupported == false)
+                        _photoOutput.IsLivePhotoCaptureEnabled = _photoOutput.IsLivePhotoCaptureSupported;
+                        if (_photoOutput.IsLivePhotoCaptureSupported == false)
                         {
                             Console.WriteLine(
                                 "capture session: configuring - requested live photo mode is not supported by the device");
@@ -503,7 +570,7 @@ namespace YSImagePicker.Media
                     }
 
                     Console.WriteLine(
-                        $"capture session: configuring - live photo mode is {nameof(photoOutput.IsLivePhotoCaptureEnabled)}");
+                        $"capture session: configuring - live photo mode is {nameof(_photoOutput.IsLivePhotoCaptureEnabled)}");
                 }
                 else
                 {
@@ -514,7 +581,7 @@ namespace YSImagePicker.Media
                 }
             }
 
-            if (_presetConfiguration != SessionPresetConfiguration.Videos)
+            if (PresetConfiguration != GetSessionPresetConfiguration.Videos)
             {
                 // Add video data output - we use this to capture last video sample that is
                 // used when blurring video layer - for example when capture session is suspended, changing configuration etc.
@@ -524,13 +591,12 @@ namespace YSImagePicker.Media
                 {
                     Session.AddOutput(_videoDataOutput);
                     _videoDataOutput.AlwaysDiscardsLateVideoFrames = true;
-                    _videoDataOutput.SetSampleBufferDelegate(videoOutpuSampleBufferDelegate,
-                        videoOutpuSampleBufferDelegate.ProcessQueue);
+                    _videoDataOutput.SetSampleBufferDelegateQueue(_videoOutputSampleBufferDelegate, _videoOutputSampleBufferDelegate.ProcessQueue);
 
                     var connection = _videoDataOutput.ConnectionFromMediaType(AVMediaType.Video);
                     if (connection != null)
                     {
-                        connection.VideoOrientation = _videoOrientation;
+                        connection.VideoOrientation = VideoOrientation;
                         connection.AutomaticallyAdjustsVideoMirroring = false;
                     }
                 }
@@ -575,12 +641,12 @@ namespace YSImagePicker.Media
 
         private void AddObservers()
         {
-            if (addedObservers != false)
+            if (_addedObservers != false)
             {
                 return;
             }
 
-            Session.AddObserver(this, "running", NSKeyValueObservingOptions.New, sessionRunningObserveContext);
+            Session.AddObserver(this, "running", NSKeyValueObservingOptions.New, _sessionRunningObserveContext);
 
             _observeSubjectAreaDidChange = AVCaptureDevice.Notifications.ObserveSubjectAreaDidChange((sender, e) =>
             {
@@ -590,6 +656,10 @@ namespace YSImagePicker.Media
 
             _subjectAreaDidChangeNotification = NSNotificationCenter.DefaultCenter.AddObserver(
                 AVCaptureDevice.SubjectAreaDidChangeNotification,
+                SubjectAreaDidChange, _videoDeviceInput.Device);
+
+            _subjectAreaDidChangeNotification = NSNotificationCenter.DefaultCenter.AddObserver(
+                AVCaptureSession.RuntimeErrorNotification,
                 SessionRuntimeError, _videoDeviceInput.Device);
 
             /*
@@ -607,12 +677,12 @@ namespace YSImagePicker.Media
                 AVCaptureSession.InterruptionEndedNotification,
                 SessionInterruptionEnded, Session);
 
-            addedObservers = true;
+            _addedObservers = true;
         }
 
         private void RemoveObservers()
         {
-            if (addedObservers != true)
+            if (_addedObservers != true)
             {
                 return;
             }
@@ -623,14 +693,14 @@ namespace YSImagePicker.Media
             _wasInterruptedNotification.Dispose();
             _interruptionEndedNotification.Dispose();
 
-            Session.RemoveObserver(this, "running", sessionRunningObserveContext);
+            Session.RemoveObserver(this, "running", _sessionRunningObserveContext);
 
-            addedObservers = false;
+            _addedObservers = false;
         }
 
         public override void ObserveValue(NSString keyPath, NSObject ofObject, NSDictionary change, IntPtr context)
         {
-            if (context == sessionRunningObserveContext)
+            if (context == _sessionRunningObserveContext)
             {
                 var observableChange = new NSObservedChange(change);
 
@@ -695,22 +765,22 @@ namespace YSImagePicker.Media
 
             if (error == AVError.MediaServicesWereReset)
             {
-                sessionQueue.DispatchAsync(() =>
+                _sessionQueue.DispatchAsync(() =>
                 {
-                    if (IsSessionRunning)
+                    if (_isSessionRunning)
                     {
                         Session.StartRunning();
-                        IsSessionRunning = Session.Running;
+                        _isSessionRunning = Session.Running;
                     }
                     else
                     {
-                        DispatchQueue.MainQueue.DispatchAsync(() => { Delegate?.CaptureSession(this, error); });
+                        DispatchQueue.MainQueue.DispatchAsync(() => { Delegate?.DidFail(this, error); });
                     }
                 });
             }
             else
             {
-                DispatchQueue.MainQueue.DispatchAsync(() => { Delegate?.CaptureSession(this, error); });
+                DispatchQueue.MainQueue.DispatchAsync(() => { Delegate?.DidFail(this, error); });
             }
         }
 
@@ -731,13 +801,137 @@ namespace YSImagePicker.Media
                     $"capture session: session was interrupted with reason {notification.UserInfo[AVCaptureSession.InterruptionReasonKey]}");
                 DispatchQueue.MainQueue.DispatchAsync(() =>
                 {
-                    Delegate?.CaptureSession(this, AVCaptureSession.InterruptionReasonKey);
+                    Delegate?.WasInterrupted(this, AVCaptureSession.InterruptionReasonKey);
                 });
             }
             else
             {
                 Console.WriteLine("capture session: session was interrupted due to unknown reason");
             }
+        }
+
+        public void ChangeCamera(Action completion)
+        {
+            if (_setupResult != SessionSetupResult.Success)
+            {
+                Console.WriteLine(
+                    "capture session: warning - trying to change camera but capture session setup failed");
+                return;
+            }
+
+            _sessionQueue.DispatchAsync(() =>
+            {
+                var currentVideoDevice = _videoDeviceInput.Device;
+                var currentPosition = currentVideoDevice.Position;
+
+                AVCaptureDevicePosition preferredPosition;
+                AVCaptureDeviceType preferredDeviceType;
+
+                switch (currentPosition)
+                {
+                    case AVCaptureDevicePosition.Unspecified:
+                    case AVCaptureDevicePosition.Front:
+                        preferredPosition = AVCaptureDevicePosition.Back;
+                        preferredDeviceType = AVCaptureDeviceType.BuiltInDuoCamera;
+                        break;
+                    case AVCaptureDevicePosition.Back:
+                        preferredPosition = AVCaptureDevicePosition.Front;
+                        preferredDeviceType = AVCaptureDeviceType.BuiltInWideAngleCamera;
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+
+                var devices = _videoDeviceDiscoverySession.Devices;
+
+                // First, look for a device with both the preferred position and device type. Otherwise, look for a device with only the preferred position.
+                var videoDevice = devices.FirstOrDefault(x =>
+                    x.Position == preferredPosition && x.DeviceType == preferredDeviceType);
+
+                if (videoDevice == null)
+                {
+                    videoDevice = devices.FirstOrDefault(x => x.Position == preferredPosition);
+                }
+
+                if (videoDevice != null)
+                {
+                    var videoDeviceInput = new AVCaptureDeviceInput(videoDevice, out var error);
+
+                    if (error != null)
+                    {
+                        Console.WriteLine($"Error occured while creating video device input: {error}");
+                        return;
+                    }
+
+                    Session.BeginConfiguration();
+
+                    // Remove the existing device input first, since using the front and back camera simultaneously is not supported.
+                    Session.RemoveInput(videoDeviceInput);
+
+                    if (Session.CanAddInput(videoDeviceInput))
+                    {
+                        _subjectAreaDidChangeNotification.Dispose();
+
+                        _subjectAreaDidChangeNotification = NSNotificationCenter.DefaultCenter.AddObserver(
+                            AVCaptureDevice.SubjectAreaDidChangeNotification, SubjectAreaDidChange,
+                            _videoDeviceInput.Device);
+
+                        Session.AddInput(videoDeviceInput);
+                        _videoDeviceInput = videoDeviceInput;
+                    }
+                    else
+                    {
+                        Session.AddInput(videoDeviceInput);
+                    }
+
+                    var connection = VideoFileOutput?.ConnectionFromMediaType(AVMediaType.Video);
+                    if (connection != null)
+                    {
+                        if (connection.SupportsVideoStabilization)
+                        {
+                            connection.PreferredVideoStabilizationMode = AVCaptureVideoStabilizationMode.Auto;
+                        }
+                    }
+
+                    /*
+                     Set Live Photo capture enabled if it is supported. When changing cameras, the
+                     `isLivePhotoCaptureEnabled` property of the AVCapturePhotoOutput gets set to NO when
+                     a video device is disconnected from the session. After the new video device is
+                     added to the session, re-enable Live Photo capture on the AVCapturePhotoOutput if it is supported.
+                     */
+                    _photoOutput.IsLivePhotoCaptureEnabled =
+                        _photoOutput.IsLivePhotoCaptureSupported &&
+                        PresetConfiguration == GetSessionPresetConfiguration.LivePhotos;
+
+                    // when device is disconnected:
+                    // - video data output connection orientation is reset, so we need to set to new proper value
+                    // - video mirroring is set to true if camera is front, make sure we use no mirroring
+                    var videoDataOutputConnection = _videoDataOutput?.ConnectionFromMediaType(AVMediaType.Video);
+                    if (videoDataOutputConnection != null)
+                    {
+                        videoDataOutputConnection.VideoOrientation = VideoOrientation;
+                        if (videoDataOutputConnection.SupportsVideoMirroring)
+                        {
+                            videoDataOutputConnection.VideoMirrored = true;
+                        }
+                        else
+                        {
+                            Console.WriteLine(
+                                "capture session: warning - video mirroring on video data output is not supported");
+                        }
+                    }
+
+                    Session.CommitConfiguration();
+
+                    DispatchQueue.MainQueue.DispatchAsync(() => { completion?.Invoke(); });
+                }
+            });
+        }
+
+        public void SubjectAreaDidChange(NSNotification notification)
+        {
+            //let devicePoint = CGPoint(x: 0.5, y: 0.5)
+            //focus(with: .autoFocus, exposureMode: .continuousAutoExposure, at: devicePoint, monitorSubjectAreaChange: false)
         }
 
         public void CapturePhoto(LivePhotoMode livePhotoMode, bool saveToPhotoLibrary)
@@ -755,9 +949,9 @@ namespace YSImagePicker.Media
 
             var videoPreviewLayerOrientation = PreviewLayer.Connection.VideoOrientation;
 
-            sessionQueue.DispatchAsync(() =>
+            _sessionQueue.DispatchAsync(() =>
             {
-                var photoOutputConnection = photoOutput.ConnectionFromMediaType(AVMediaType.Video);
+                var photoOutputConnection = _photoOutput.ConnectionFromMediaType(AVMediaType.Video);
                 // Update the photo output's connection to match the video orientation of the video preview layer.
                 if (photoOutputConnection != null)
                 {
@@ -778,7 +972,7 @@ namespace YSImagePicker.Media
 
                     //TODO: I dont know how it works, need to find out
                     if (UIDevice.CurrentDevice.CheckSystemVersion(10, 0) &&
-                        photoSettings.GetAvailableEmbeddedThumbnailPhotoCodecTypes.Length > 0)
+                        photoSettings.AvailableEmbeddedThumbnailPhotoCodecTypes.Length > 0)
                     {
                         //TODO: specify thumb size somehow, this does crash!
                         //let size = CGSize(width: 200, height: 200)
@@ -786,15 +980,15 @@ namespace YSImagePicker.Media
                         {
                             {
                                 AVVideo.CodecKey,
-                                FromObject(photoSettings.GetAvailableEmbeddedThumbnailPhotoCodecTypes[0])
+                                FromObject(photoSettings.AvailableEmbeddedThumbnailPhotoCodecTypes[0])
                             }
                         };
                     }
 
                     if (livePhotoMode == LivePhotoMode.On)
                     {
-                        if (_presetConfiguration == SessionPresetConfiguration.LivePhotos &&
-                            photoOutput.IsLivePhotoCaptureSupported)
+                        if (PresetConfiguration == GetSessionPresetConfiguration.LivePhotos &&
+                            _photoOutput.IsLivePhotoCaptureSupported)
                         {
                             var livePhotoMovieFileName = new NSString(new NSUuid().AsString());
                             var livePhotoMovieFilePath = new NSString(System.IO.Path.GetTempPath())
@@ -815,7 +1009,7 @@ namespace YSImagePicker.Media
                         {
                             DispatchQueue.MainQueue.DispatchAsync(() =>
                             {
-                                photoCapturingDelegate?.CaptureSession(this, photoSettings);
+                                PhotoCapturingDelegate?.WillCapturePhotoWith(this, photoSettings);
                             });
                         }, capturing =>
                         {
@@ -824,22 +1018,23 @@ namespace YSImagePicker.Media
                          number of in progress Live Photo captures to ensure that the
                          Live Photo label stays visible during these captures.
                          */
-                            sessionQueue.DispatchAsync(() =>
+                            _sessionQueue.DispatchAsync(() =>
                             {
                                 if (capturing)
                                 {
-                                    _inProgressLivePhotoCapturesCount += 1;
+                                    InProgressLivePhotoCapturesCount += 1;
                                 }
                                 else
                                 {
-                                    _inProgressLivePhotoCapturesCount -= 1;
+                                    InProgressLivePhotoCapturesCount -= 1;
                                 }
 
                                 DispatchQueue.MainQueue.DispatchAsync(() =>
                                 {
-                                    if (_inProgressLivePhotoCapturesCount >= 0)
+                                    if (InProgressLivePhotoCapturesCount >= 0)
                                     {
-                                        photoCapturingDelegate?.CaptureSessionDidChangeNumberOfProcessingLivePhotos(this);
+                                        PhotoCapturingDelegate?.CaptureSessionDidChangeNumberOfProcessingLivePhotos(
+                                            this);
                                     }
                                     else
                                     {
@@ -850,21 +1045,22 @@ namespace YSImagePicker.Media
                             });
                         }, photoDelegate =>
                         {
-                            sessionQueue.DispatchAsync(() =>
+                            _sessionQueue.DispatchAsync(() =>
                             {
-                                inProgressPhotoCaptureDelegates[photoDelegate.RequestedPhotoSettings.UniqueID] = null;
+                                _inProgressPhotoCaptureDelegates[photoDelegate.RequestedPhotoSettings.UniqueID] =
+                                    null;
                             });
 
                             DispatchQueue.MainQueue.DispatchAsync(() =>
                             {
                                 if (photoDelegate.PhotoData != null)
                                 {
-                                    photoCapturingDelegate?.CaptureSession(this, photoDelegate.PhotoData,
+                                    PhotoCapturingDelegate?.DidCapturePhotoData(this, photoDelegate.PhotoData,
                                         photoDelegate.RequestedPhotoSettings);
                                 }
                                 else if (photoDelegate.ProcessError != null)
                                 {
-                                    photoCapturingDelegate?.CaptureSession(this, photoDelegate.ProcessError);
+                                    PhotoCapturingDelegate?.DidFailCapturingPhotoWith(this, photoDelegate.ProcessError);
                                 }
                             });
                         }) {SavesPhotoToLibrary = saveToPhotoLibrary};
@@ -875,23 +1071,25 @@ namespace YSImagePicker.Media
                  we store it in an array to maintain a strong reference to this object
                  until the capture is completed.
                  */
-                    inProgressPhotoCaptureDelegates[photoCaptureDelegate.RequestedPhotoSettings.UniqueID] =
+                    _inProgressPhotoCaptureDelegates[photoCaptureDelegate.RequestedPhotoSettings.UniqueID] =
                         photoCaptureDelegate;
-                    photoOutput.CapturePhoto(photoSettings, photoCaptureDelegate);
+                    _photoOutput.CapturePhoto(photoSettings, photoCaptureDelegate);
                 }
             });
         }
 
         public void StartVideoRecording(bool saveToPhotoLibrary)
         {
-            if (videoFileOutput == null)
+            if (VideoFileOutput == null)
             {
                 Console.WriteLine("capture session: trying to record a video but no movie file output is set");
+                return;
             }
 
             if (PreviewLayer == null)
             {
                 Console.WriteLine("capture session: trying to record a video but no preview layer is set");
+                return;
             }
 
             /*
@@ -901,17 +1099,18 @@ namespace YSImagePicker.Media
              */
             var videoPreviewLayerOrientation = PreviewLayer.Connection.VideoOrientation;
 
-            sessionQueue.DispatchAsync(() =>
+            _sessionQueue.DispatchAsync(() =>
             {
                 // if already recording do nothing
-                if (videoFileOutput.Recording == true)
+                if (VideoFileOutput.Recording == true)
                 {
                     Console.WriteLine(
                         "capture session: trying to record a video but there is one already being recorded");
+                    return;
                 }
 
                 // update the orientation on the movie file output video connection before starting recording.
-                var movieFileOutputConnection = videoFileOutput?.ConnectionFromMediaType(AVMediaType.Video);
+                var movieFileOutputConnection = VideoFileOutput?.ConnectionFromMediaType(AVMediaType.Video);
                 if (movieFileOutputConnection != null)
                 {
                     movieFileOutputConnection.VideoOrientation = videoPreviewLayerOrientation;
@@ -919,7 +1118,7 @@ namespace YSImagePicker.Media
 
                 // start recording to a temporary file.
                 var outputFileName = new NSUuid().AsString();
-                var outputURL = NSUrl.FromString(System.IO.Path.GetTempPath()).AppendPathExtension(outputFileName)
+                var outputUrl = NSUrl.FromString(System.IO.Path.GetTempPath()).AppendPathExtension(outputFileName)
                     .AppendPathExtension("mov");
 
                 // create a recording delegate
@@ -928,46 +1127,46 @@ namespace YSImagePicker.Media
                     {
                         DispatchQueue.MainQueue.DispatchAsync(() =>
                         {
-                            videoRecordingDelegate?.CaptureSessionDidStartVideoRecording(this);
+                            VideoRecordingDelegate?.DidStartVideoRecording(this);
                         });
                     }, captureDelegate =>
                     {
                         // we need to remove reference to the delegate so it can be deallocated
-                        sessionQueue.DispatchAsync(() => { videoCaptureDelegate = null; });
+                        _sessionQueue.DispatchAsync(() => { VideoCaptureDelegate = null; });
 
                         DispatchQueue.MainQueue.DispatchAsync(() =>
                         {
                             if (captureDelegate.IsBeingCancelled)
                             {
-                                videoRecordingDelegate?.CaptureSessionDidCancelVideoRecording(this);
+                                VideoRecordingDelegate?.DidCancelVideoRecording(this);
                             }
                             else
                             {
-                                videoRecordingDelegate?.CaptureSessionDid(this, outputURL);
+                                VideoRecordingDelegate?.DidFinishVideoRecording(this, outputUrl);
                             }
                         });
                     }, (captureDelegate, error) =>
                     {
                         // we need to remove reference to the delegate so it can be deallocated
-                        sessionQueue.DispatchAsync(() => { videoCaptureDelegate = null; });
+                        _sessionQueue.DispatchAsync(() => { VideoCaptureDelegate = null; });
 
                         DispatchQueue.MainQueue.DispatchAsync(() =>
                         {
                             if (captureDelegate.RecordingWasInterrupted)
                             {
-                                videoRecordingDelegate?.CaptureSessionDid(this, outputURL, error);
+                                VideoRecordingDelegate?.DidInterruptVideoRecording(this, outputUrl, error);
                             }
                             else
                             {
-                                videoRecordingDelegate?.CaptureSessionDid(this, error);
+                                VideoRecordingDelegate?.DidFailVideoRecording(this, error);
                             }
                         });
                     });
                 recordingDelegate.SavesVideoToLibrary = saveToPhotoLibrary;
 
                 // start recording
-                videoFileOutput.StartRecordingToOutputFile(outputURL, recordingDelegate);
-                videoCaptureDelegate = recordingDelegate;
+                VideoFileOutput.StartRecordingToOutputFile(outputUrl, recordingDelegate);
+                VideoCaptureDelegate = recordingDelegate;
             });
         }
 
@@ -978,27 +1177,29 @@ namespace YSImagePicker.Media
         ///
         public void StopVideoRecording(bool cancel = false)
         {
-            if (videoFileOutput == null)
+            if (VideoFileOutput == null)
             {
                 Console.WriteLine("capture session: trying to stop a video recording but no movie file output is set");
+                return;
             }
 
-            sessionQueue.DispatchAsync(() =>
+            _sessionQueue.DispatchAsync(() =>
             {
-                if (videoFileOutput.Recording == false)
+                if (VideoFileOutput.Recording == false)
                 {
                     Console.WriteLine(
                         "capture session: trying to stop a video recording but no recording is in progress");
+                    return;
                 }
 
-                if (videoCaptureDelegate == null)
+                if (VideoCaptureDelegate == null)
                 {
                     throw new Exception(
                         "capture session: trying to stop a video recording but video capture delegate is nil");
                 }
 
-                videoCaptureDelegate.IsBeingCancelled = cancel;
-                videoFileOutput.StopRecording();
+                VideoCaptureDelegate.IsBeingCancelled = cancel;
+                VideoFileOutput.StopRecording();
             });
         }
     }

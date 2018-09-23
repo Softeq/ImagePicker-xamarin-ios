@@ -1,7 +1,6 @@
 using System;
 using System.ComponentModel;
 using CoreGraphics;
-using CoreText;
 using Foundation;
 using UIKit;
 
@@ -27,7 +26,7 @@ namespace YSImagePicker.Views
                 SetNeedsDisplay();
             }
         }
-        
+
         public UIFont Font
         {
             get => _font;
@@ -80,6 +79,11 @@ namespace YSImagePicker.Views
         public NSAttributedString AttributedString => new NSAttributedString(Text ?? string.Empty,
             Font ?? UIFont.SystemFontOfSize(12, UIFontWeight.Regular));
 
+
+        public CarvedLabel(IntPtr handle) : base(handle)
+        {
+
+        }
 
         public CarvedLabel(CGRect frame) : base(frame)
         {

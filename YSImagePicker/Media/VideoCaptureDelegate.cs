@@ -8,11 +8,9 @@ namespace YSImagePicker.Media
 {
     public class VideoCaptureDelegate : AVCaptureFileOutputRecordingDelegate
     {
-        public IntPtr Handle { get; }
-
         // MARK: Public Methods
 
-        /// set this to false if you dont wish to save video to photo library
+        /// set this to false if you don't wish to save video to photo library
         public bool SavesVideoToLibrary = true;
 
         /// true if user manually requested to cancel recording (stop without saving)
@@ -22,19 +20,19 @@ namespace YSImagePicker.Media
         public bool RecordingWasInterrupted = false;
 
         /// non nil if failed or interrupted, nil if cancelled
-        private NSError recordingError { get; set; }
+        private NSError RecordingError { get; set; }
 
-        private nint? BackgroundRecordingID;
-        private readonly Action DidStart;
-        private Action<VideoCaptureDelegate> DidFinish;
-        private Action<VideoCaptureDelegate, NSError> DidFail;
+        private nint? _backgroundRecordingId;
+        private readonly Action _didStart;
+        private readonly Action<VideoCaptureDelegate> _didFinish;
+        private readonly Action<VideoCaptureDelegate, NSError> _didFail;
 
         public VideoCaptureDelegate(Action didStart, Action<VideoCaptureDelegate> didFinish,
             Action<VideoCaptureDelegate, NSError> didFail)
         {
-            DidStart = didStart;
-            DidFinish = didFinish;
-            DidFail = didFail;
+            _didStart = didStart;
+            _didFinish = didFinish;
+            _didFail = didFail;
 
             if (UIDevice.CurrentDevice.IsMultitaskingSupported)
             {
@@ -46,12 +44,12 @@ namespace YSImagePicker.Media
                  To conclude this background execution, endBackgroundTask(_:) is called in
                  `capture(_:, didFinishRecordingToOutputFileAt:, fromConnections:, error:)` after the recorded file has been saved.
                  */
-                BackgroundRecordingID = UIApplication.SharedApplication.BeginBackgroundTask(null);
+                _backgroundRecordingId = UIApplication.SharedApplication.BeginBackgroundTask(null);
             }
         }
 
 
-        private void CleanUp(bool deleteFile, bool saveToAssets, NSUrl outputFileURL)
+        private void CleanUp(bool deleteFile, bool saveToAssets, NSUrl outputFileUrl)
         {
             void DeleteFileIfNeeded()
             {
@@ -60,7 +58,7 @@ namespace YSImagePicker.Media
                     return;
                 }
 
-                var path = outputFileURL.Path;
+                var path = outputFileUrl.Path;
 
                 if (!NSFileManager.DefaultManager.FileExists(path))
                 {
@@ -70,20 +68,20 @@ namespace YSImagePicker.Media
                     }
                     catch (Exception error)
                     {
-                        Console.WriteLine($"capture session: could not remove recording at url: {outputFileURL}");
+                        Console.WriteLine($"capture session: could not remove recording at url: {outputFileUrl}");
                         Console.WriteLine($"capture session: error: {error}");
                     }
                 }
             }
 
-            if (BackgroundRecordingID != null)
+            if (_backgroundRecordingId != null)
             {
-                if (BackgroundRecordingID != UIApplication.BackgroundTaskInvalid)
+                if (_backgroundRecordingId != UIApplication.BackgroundTaskInvalid)
                 {
-                    UIApplication.SharedApplication.EndBackgroundTask(BackgroundRecordingID.Value);
+                    UIApplication.SharedApplication.EndBackgroundTask(_backgroundRecordingId.Value);
                 }
 
-                BackgroundRecordingID = UIApplication.BackgroundTaskInvalid;
+                _backgroundRecordingId = UIApplication.BackgroundTaskInvalid;
             }
 
             if (saveToAssets)
@@ -97,7 +95,7 @@ namespace YSImagePicker.Media
                             {
                                 var creationRequest = PHAssetCreationRequest.CreationRequestForAsset();
                                 var videoResourceOptions = new PHAssetResourceCreationOptions {ShouldMoveFile = true};
-                                creationRequest.AddResource(PHAssetResourceType.Video, outputFileURL,
+                                creationRequest.AddResource(PHAssetResourceType.Video, outputFileUrl,
                                     videoResourceOptions);
                             }, (handler, error) =>
                             {
@@ -125,7 +123,7 @@ namespace YSImagePicker.Media
         public override void DidStartRecording(AVCaptureFileOutput captureOutput, NSUrl outputFileUrl,
             NSObject[] connections)
         {
-            DidStart?.Invoke();
+            _didStart?.Invoke();
         }
 
         public override void FinishedRecording(AVCaptureFileOutput captureOutput, NSUrl outputFileUrl,
@@ -134,7 +132,7 @@ namespace YSImagePicker.Media
         {
             if (error != null)
             {
-                recordingError = error;
+                RecordingError = error;
 
                 Console.WriteLine($"capture session: movie recording failed error: {error}");
 
@@ -146,23 +144,23 @@ namespace YSImagePicker.Media
                 if (successfullyFinished.HasValue && successfullyFinished == true)
                 {
                     CleanUp(true, SavesVideoToLibrary, outputFileUrl);
-                    DidFail.Invoke(this, error);
+                    _didFail.Invoke(this, error);
                 }
                 else
                 {
                     CleanUp(true, false, outputFileUrl);
-                    DidFail.Invoke(this, error);
+                    _didFail.Invoke(this, error);
                 }
             }
             else if (IsBeingCancelled == true)
             {
                 CleanUp(true, false, outputFileUrl);
-                DidFinish.Invoke(this);
+                _didFinish.Invoke(this);
             }
             else
             {
                 CleanUp(true, SavesVideoToLibrary, outputFileUrl);
-                DidFinish.Invoke(this);
+                _didFinish.Invoke(this);
             }
         }
     }
