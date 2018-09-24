@@ -17,10 +17,21 @@
         <e p="bin" t="ExcludeRecursive" />
         <e p="Entitlements.plist" t="Include" />
         <e p="ImagePicker.Sample.csproj" t="IncludeRecursive" />
+        <e p="ImagePickerConfigurationHandlerClass.cs" t="Include" />
+        <e p="ImagePickerControllerDataSourceTest.cs" t="Include" />
+        <e p="ImagePickerControllerTest.cs" t="Include" />
         <e p="Info.plist" t="Include" />
         <e p="LaunchScreen.storyboard" t="Include" />
         <e p="Main.cs" t="Include" />
         <e p="Main.storyboard" t="Include" />
+        <e p="Models" t="Include">
+          <e p="CellItemModel.cs" t="Include" />
+          <e p="Enums" t="Include">
+            <e p="AssetsSource.cs" t="Include" />
+            <e p="CameraItemConfig.cs" t="Include" />
+            <e p="SelectorArgument.cs" t="Include" />
+          </e>
+        </e>
         <e p="obj" t="ExcludeRecursive" />
         <e p="Resources" t="Include" />
         <e p="ViewController.cs" t="Include" />

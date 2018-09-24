@@ -100,12 +100,19 @@
     <None Include="Entitlements.plist" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ImagePickerControllerDataSourceTest.cs" />
+    <Compile Include="ImagePickerControllerTest.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
+    <Compile Include="Models\CellItemModel.cs" />
+    <Compile Include="Models\Enums\AssetsSource.cs" />
+    <Compile Include="Models\Enums\CameraItemConfig.cs" />
+    <Compile Include="Models\Enums\SelectorArgument.cs" />
     <Compile Include="ViewController.cs" />
     <Compile Include="ViewController.designer.cs">
       <DependentUpon>ViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="ImagePickerConfigurationHandlerClass.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\YSImagePicker\YSImagePicker.csproj">
