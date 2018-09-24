@@ -36,7 +36,7 @@ namespace YSImagePicker.Operations
                     _collectionView.DeleteItems(result.ToArray());
                 }
 
-                if (_changes.InsertedIndexes.Count > 0)
+                if (_changes.InsertedIndexes?.Count > 0)
                 {
                     var result = new List<NSIndexPath>();
 
