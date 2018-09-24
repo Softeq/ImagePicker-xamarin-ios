@@ -76,6 +76,7 @@
     <Compile Include="Public\CaptureSettings.cs" />
     <Compile Include="Public\CellRegistrator.cs" />
     <Compile Include="Public\ImagePickerController.cs" />
+    <Compile Include="UIIMageEffects.cs" />
     <Compile Include="Views\ActionCell.cs" />
     <Compile Include="LayoutModel.cs" />
     <Compile Include="Public\LayoutConfiguration.cs" />

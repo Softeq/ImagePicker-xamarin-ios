@@ -5,9 +5,6 @@
     <e p="$USER_HOME$/Library/Caches/Rider2018.2/resharper-host/local/Transient/ReSharperHost/v182/SolutionCaches/_TestApplication.998325892.00" t="ExcludeRecursive" />
     <e p="$APPLICATION_CONFIG_DIR$/extensions" t="IncludeRecursive" />
     <e p="$PROJECT_DIR$" t="IncludeFlat">
-      <e p="ImagePicker" t="IncludeRecursive">
-        <e p="ImagePicker.csproj" t="IncludeRecursive" />
-      </e>
       <e p="packages" t="ExcludeRecursive" />
       <e p="TestApplication" t="IncludeRecursive">
         <e p="AppDelegate.cs" t="Include" />
@@ -19,14 +16,24 @@
         </e>
         <e p="bin" t="ExcludeRecursive" />
         <e p="Entitlements.plist" t="Include" />
+        <e p="ImagePicker.Sample.csproj" t="IncludeRecursive" />
+        <e p="ImagePickerConfigurationHandlerClass.cs" t="Include" />
+        <e p="ImagePickerControllerDataSourceTest.cs" t="Include" />
+        <e p="ImagePickerControllerTest.cs" t="Include" />
         <e p="Info.plist" t="Include" />
         <e p="LaunchScreen.storyboard" t="Include" />
         <e p="Main.cs" t="Include" />
         <e p="Main.storyboard" t="Include" />
+        <e p="Models" t="Include">
+          <e p="CellItemModel.cs" t="Include" />
+          <e p="Enums" t="Include">
+            <e p="AssetsSource.cs" t="Include" />
+            <e p="CameraItemConfig.cs" t="Include" />
+            <e p="SelectorArgument.cs" t="Include" />
+          </e>
+        </e>
         <e p="obj" t="ExcludeRecursive" />
-        <e p="packages.config" t="Include" />
         <e p="Resources" t="Include" />
-        <e p="TestApplication.csproj" t="IncludeRecursive" />
         <e p="ViewController.cs" t="Include" />
         <e p="ViewController.designer.cs" t="Include" />
       </e>
@@ -114,6 +121,7 @@
             </e>
           </e>
         </e>
+        <e p="UIIMageEffects.cs" t="Include" />
         <e p="Views" t="Include">
           <e p="ActionCell.cs" t="Include" />
           <e p="ActionCell.designer.cs" t="Include" />

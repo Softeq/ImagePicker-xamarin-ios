@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using CoreGraphics;
 using Foundation;
@@ -13,43 +12,38 @@ namespace YSImagePicker
     {
         public PHFetchResult FetchResult
         {
-            get => userDefinedFetchResult ?? defaultFetchResult;
-            set => userDefinedFetchResult = value;
+            get => _userDefinedFetchResult ?? _defaultFetchResult.Value;
+            set => _userDefinedFetchResult = value;
         }
 
         public readonly PHCachingImageManager ImageManager = new PHCachingImageManager();
         public CGSize? ThumbnailSize;
 
         /// Tries to access smart album .smartAlbumUserLibrary that should be `Camera Roll` and uses just fetchAssets as fallback
-        private PHFetchResult defaultFetchResult
+        private readonly Lazy<PHFetchResult> _defaultFetchResult = new Lazy<PHFetchResult>(() =>
         {
-            get
+            var assetsOptions = new PHFetchOptions
             {
-                var assetsOptions = new PHFetchOptions
-                {
-                    SortDescriptors = new[] {new NSSortDescriptor("creationDate", false)}, FetchLimit = 1000
-                };
+                SortDescriptors = new[] {new NSSortDescriptor("creationDate", false)},
+                FetchLimit = 1000
+            };
 
-                var collections = PHAssetCollection.FetchAssetCollections(PHAssetCollectionType.SmartAlbum,
-                    PHAssetCollectionSubtype.SmartAlbumUserLibrary, null);
+            var collections = PHAssetCollection.FetchAssetCollections(PHAssetCollectionType.SmartAlbum,
+                PHAssetCollectionSubtype.SmartAlbumUserLibrary, null);
 
-                //TODO: Recheck
-                if (collections.firstObject != null)
-                {
-                    //TODO: Should be return PHAsset.fetchAssets(in: cameraRoll, options: assetsOptions)
-                    return PHAsset.FetchAssets(assetsOptions);
-                }
-                else
-                {
-                    return PHAsset.FetchAssets(assetsOptions);
-                }
+            if (collections.firstObject != null)
+            {
+                //TODO: Should be return PHAsset.fetchAssets(in: cameraRoll, options: assetsOptions)
+                return PHAsset.FetchAssets(assetsOptions);
             }
-        }
 
-        private PHFetchResult userDefinedFetchResult;
+            return PHAsset.FetchAssets(assetsOptions);
+        });
+
+        private PHFetchResult _userDefinedFetchResult;
 
         //will be use for caching
-        private CGRect previousPreheatRect = CGRect.Empty;
+        private CGRect _previousPreheatRect = CGRect.Empty;
 
         public void UpdateCachedAssets(UICollectionView collectionView)
         {
@@ -79,7 +73,7 @@ namespace YSImagePicker
                     preheatRect = visibleRect.Inset(0, (nfloat) (-0.75 * visibleRect.Height));
 
                     // Update only if the visible area is significantly different from the last preheated area.
-                    var delta = Math.Abs(preheatRect.GetMidY() - previousPreheatRect.GetMidY());
+                    var delta = Math.Abs(preheatRect.GetMidY() - _previousPreheatRect.GetMidY());
                     if (delta < collectionView.Bounds.Height / 3)
                     {
                         return;
@@ -91,7 +85,7 @@ namespace YSImagePicker
                     preheatRect = visibleRect.Inset(dx: -0.75f * visibleRect.Width, dy: 0);
 
                     // Update only if the visible area is significantly different from the last preheated area.
-                    var delta1 = Math.Abs(preheatRect.GetMidX() - previousPreheatRect.GetMidX());
+                    var delta1 = Math.Abs(preheatRect.GetMidX() - _previousPreheatRect.GetMidX());
                     if (delta1 < collectionView.Bounds.Width / 3)
                     {
                         return;
@@ -102,8 +96,8 @@ namespace YSImagePicker
 
             // Compute the assets to start caching and to stop caching.
             var (addedRects, removedRects) =
-                Miscellaneous.DifferencesBetweenRects(previousPreheatRect, preheatRect, layout.ScrollDirection);
-            
+                Miscellaneous.DifferencesBetweenRects(_previousPreheatRect, preheatRect, layout.ScrollDirection);
+
             var addedAssets = addedRects.Select(x => collectionView.CollectionViewLayout.IndexPathsForElements(x))
                 .SelectMany(item => item).Select(x => Runtime.GetNSObject<PHAsset>(FetchResult.ObjectAt(x.Item).Handle))
                 .ToArray();
@@ -122,7 +116,7 @@ namespace YSImagePicker
             Console.WriteLine($"asset model: uncaching, preheat rect {preheatRect}, items {removedAssets.Length}");
 
             // Store the preheat rect to compare against in the future.
-            previousPreheatRect = preheatRect;
+            _previousPreheatRect = preheatRect;
         }
     }
 }

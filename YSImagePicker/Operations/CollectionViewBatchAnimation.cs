@@ -36,7 +36,7 @@ namespace YSImagePicker.Operations
                     _collectionView.DeleteItems(result.ToArray());
                 }
 
-                if (_changes.InsertedIndexes.Count > 0)
+                if (_changes.InsertedIndexes?.Count > 0)
                 {
                     var result = new List<NSIndexPath>();
 
@@ -46,7 +46,7 @@ namespace YSImagePicker.Operations
                     _collectionView.InsertItems(result.ToArray());
                 }
 
-                if (_changes.ChangedIndexes.Count > 0)
+                if (_changes.ChangedIndexes?.Count > 0)
                 {
                     var result = new List<NSIndexPath>();
                     _changes.ChangedIndexes.EnumerateIndexes((nuint idx, ref bool stop) =>

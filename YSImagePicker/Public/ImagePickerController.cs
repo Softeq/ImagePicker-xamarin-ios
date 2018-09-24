@@ -5,7 +5,6 @@ using AVFoundation;
 using CoreFoundation;
 using CoreGraphics;
 using Foundation;
-using ObjCRuntime;
 using Photos;
 using UIKit;
 using YSImagePicker.Media;
@@ -196,8 +195,7 @@ namespace YSImagePicker.Public
                 throw new Exception($"Accessing asset at index {index} failed");
             }
 
-            return Runtime.GetNSObject<PHAsset>(
-                _collectionViewDataSource.AssetsModel.FetchResult.ObjectAt(index).Handle);
+            return (PHAsset) _collectionViewDataSource.AssetsModel.FetchResult.ElementAt(index);
         }
 
         ///
@@ -264,8 +262,8 @@ namespace YSImagePicker.Public
             if (UIDevice.CurrentDevice.CheckSystemVersion(11, 0))
             {
                 //TODO: Check
-//                CollectionView.ContentInset.Left = View.SafeAreaInsets.Left;
-//                CollectionView.ContentInset.Right = View.SafeAreaInsets.Right;
+                //                CollectionView.ContentInset.Left = View.SafeAreaInsets.Left;
+                //                CollectionView.ContentInset.Right = View.SafeAreaInsets.Right;
             }
         }
 
@@ -296,7 +294,11 @@ namespace YSImagePicker.Public
                 case PHAuthorizationStatus.NotDetermined:
                     PHPhotoLibrary.RequestAuthorization(authorizationStatus =>
                     {
-                        DispatchQueue.MainQueue.DispatchAsync(() => { ReloadData(authorizationStatus); });
+                        DispatchQueue.MainQueue.DispatchAsync(() =>
+                        {
+                            Console.WriteLine("Tests:1");
+                            ReloadData(authorizationStatus);
+                        });
                     });
                     break;
             }
@@ -516,7 +518,7 @@ namespace YSImagePicker.Public
 
         public void DidSelectActionItemAt(ImagePickerDelegate imagePickerDelegate, int index)
         {
-            Delegate.DidSelectActionItemAt(this, index);
+            Delegate?.DidSelectActionItemAt(this, index);
         }
 
         public void DidSelectAssetItemAt(ImagePickerDelegate imagePickerDelegate, int index)
@@ -604,18 +606,22 @@ namespace YSImagePicker.Public
 
                 DispatchQueue.GetGlobalQueue(DispatchQueuePriority.High).DispatchAsync(() =>
                 {
+                    Console.WriteLine("Tests:2");
                     var image = _captureSession?.LatestVideoBufferImage;
 
                     if (image != null)
                     {
                         //TODO: add blur
-                    //var blurred = UIImageEffects.imageByApplyingLightEffect(to: image);
-                    //DispatchQueue.MainQueue.DispatchAsync(() => { cell.BlurIfNeeded(blurred, false, null); });
+                        DispatchQueue.MainQueue.DispatchAsync(() => { cell.BlurIfNeeded(image.Blur(), false, null); });
                     }
                     else
                     {
                         //TODO: add blur
-                        DispatchQueue.MainQueue.DispatchAsync(() => { cell.BlurIfNeeded(null, false, null); });
+                        DispatchQueue.MainQueue.DispatchAsync(() =>
+                        {
+                            Console.WriteLine("Tests:3");
+                            cell.BlurIfNeeded(null, false, null);
+                        });
                     }
                 });
             }
@@ -815,10 +821,7 @@ namespace YSImagePicker.Public
 
             var image = _captureSession.LatestVideoBufferImage;
 
-            if (image != null)
-            {
-                //image = UIImageEffects.imageByApplyingLightEffect(to: image!)
-            }
+            image = image?.Blur();
 
             // 1. blur cell
             cameraCell.BlurIfNeeded(image, true, () =>
@@ -827,13 +830,19 @@ namespace YSImagePicker.Public
                     // 2. flip camera
                     _captureSession.ChangeCamera(() =>
                     {
-                        var bufferImage = _captureSession.LatestVideoBufferImage;
-                        if (bufferImage != null)
-                        {
-                            //bufferImage=UIImageEffects.imageByApplyingLightEffect(to: image!);
-                        }
+                        UIView.Transition(cameraCell.PreviewView, 0.25,
+                            UIViewAnimationOptions.TransitionFlipFromLeft | UIViewAnimationOptions.AllowAnimatedContent,
+                            null, () =>
+                            {
+                                var bufferImage = _captureSession.LatestVideoBufferImage;
+                                
+                                if (bufferImage != null)
+                                {
+                                    bufferImage = image.Blur();
+                                }
 
-                        cameraCell.UnblurIfNeeded(bufferImage, true, completion);
+                                cameraCell.UnblurIfNeeded(bufferImage, true, completion);
+                            });
                     });
                 }
             });
