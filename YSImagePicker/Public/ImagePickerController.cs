@@ -834,13 +834,16 @@ namespace YSImagePicker.Public
                     // 2. flip camera
                     _captureSession.ChangeCamera(() =>
                     {
-                        var bufferImage = _captureSession.LatestVideoBufferImage;
-                        if (bufferImage != null)
+                        UIView.Transition(cameraCell.PreviewView, 0.25, UIViewAnimationOptions.TransitionFlipFromLeft | UIViewAnimationOptions.AllowAnimatedContent, null, () =>
                         {
-                            //bufferImage=UIImageEffects.imageByApplyingLightEffect(to: image!);
-                        }
+                            var bufferImage = _captureSession.LatestVideoBufferImage;
+                            if (bufferImage != null)
+                            {
+                                //bufferImage=UIImageEffects.imageByApplyingLightEffect(to: image!);
+                            }
 
-                        cameraCell.UnblurIfNeeded(bufferImage, true, completion);
+                            cameraCell.UnblurIfNeeded(bufferImage, true, completion);
+                        });
                     });
                 }
             });
