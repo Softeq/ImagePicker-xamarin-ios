@@ -5,7 +5,6 @@ using AVFoundation;
 using CoreFoundation;
 using CoreGraphics;
 using Foundation;
-using ObjCRuntime;
 using Photos;
 using UIKit;
 using YSImagePicker.Media;
@@ -196,8 +195,7 @@ namespace YSImagePicker.Public
                 throw new Exception($"Accessing asset at index {index} failed");
             }
 
-            return Runtime.GetNSObject<PHAsset>(
-                _collectionViewDataSource.AssetsModel.FetchResult.ObjectAt(index).Handle);
+            return (PHAsset)_collectionViewDataSource.AssetsModel.FetchResult.ElementAt(index);
         }
 
         ///
@@ -264,8 +262,8 @@ namespace YSImagePicker.Public
             if (UIDevice.CurrentDevice.CheckSystemVersion(11, 0))
             {
                 //TODO: Check
-//                CollectionView.ContentInset.Left = View.SafeAreaInsets.Left;
-//                CollectionView.ContentInset.Right = View.SafeAreaInsets.Right;
+                //                CollectionView.ContentInset.Left = View.SafeAreaInsets.Left;
+                //                CollectionView.ContentInset.Right = View.SafeAreaInsets.Right;
             }
         }
 
@@ -281,7 +279,7 @@ namespace YSImagePicker.Public
                 case PHAuthorizationStatus.Authorized:
                     _collectionViewDataSource.AssetsModel.FetchResult = AssetsFetchResultBlock?.Invoke();
                     _collectionViewDataSource.LayoutModel = new LayoutModel(LayoutConfiguration,
-                        (int) _collectionViewDataSource.AssetsModel.FetchResult.Count);
+                        (int)_collectionViewDataSource.AssetsModel.FetchResult.Count);
                     break;
                 case PHAuthorizationStatus.Restricted:
                 case PHAuthorizationStatus.Denied:
@@ -296,8 +294,11 @@ namespace YSImagePicker.Public
                 case PHAuthorizationStatus.NotDetermined:
                     PHPhotoLibrary.RequestAuthorization(authorizationStatus =>
                     {
-                        Console.WriteLine("Tests:1");
-                        DispatchQueue.MainQueue.DispatchAsync(() => { ReloadData(authorizationStatus); });
+                        DispatchQueue.MainQueue.DispatchAsync(() =>
+                        {
+                            Console.WriteLine("Tests:1");
+                            ReloadData(authorizationStatus);
+                        });
                     });
                     break;
             }
@@ -508,7 +509,7 @@ namespace YSImagePicker.Public
                 ;
                 //update layout model because it changed
                 _collectionViewDataSource.LayoutModel = new LayoutModel(LayoutConfiguration,
-                    (int) _collectionViewDataSource.AssetsModel.FetchResult.Count);
+                    (int)_collectionViewDataSource.AssetsModel.FetchResult.Count);
             });
 
             //perform update animations
