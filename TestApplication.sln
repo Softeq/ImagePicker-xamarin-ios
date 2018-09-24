@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApplication", "TestApplication\TestApplication.csproj", "{A59CC788-2B05-4288-A942-D6A88BD88F36}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImagePicker", "ImagePicker\ImagePicker.csproj", "{AF94BCBF-D2EC-4C84-A26E-5A8922E15C79}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YSImagePicker", "YSImagePicker\YSImagePicker.csproj", "{78713D60-595D-4F7B-B9D7-2E81746A11E3}"
 EndProject
 Global
@@ -23,14 +21,6 @@ Global
 		{A59CC788-2B05-4288-A942-D6A88BD88F36}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
 		{A59CC788-2B05-4288-A942-D6A88BD88F36}.Debug|iPhone.ActiveCfg = Debug|iPhone
 		{A59CC788-2B05-4288-A942-D6A88BD88F36}.Debug|iPhone.Build.0 = Debug|iPhone
-		{AF94BCBF-D2EC-4C84-A26E-5A8922E15C79}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
-		{AF94BCBF-D2EC-4C84-A26E-5A8922E15C79}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
-		{AF94BCBF-D2EC-4C84-A26E-5A8922E15C79}.Release|iPhone.ActiveCfg = Release|Any CPU
-		{AF94BCBF-D2EC-4C84-A26E-5A8922E15C79}.Release|iPhone.Build.0 = Release|Any CPU
-		{AF94BCBF-D2EC-4C84-A26E-5A8922E15C79}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
-		{AF94BCBF-D2EC-4C84-A26E-5A8922E15C79}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
-		{AF94BCBF-D2EC-4C84-A26E-5A8922E15C79}.Debug|iPhone.ActiveCfg = Debug|Any CPU
-		{AF94BCBF-D2EC-4C84-A26E-5A8922E15C79}.Debug|iPhone.Build.0 = Debug|Any CPU
 		{78713D60-595D-4F7B-B9D7-2E81746A11E3}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
 		{78713D60-595D-4F7B-B9D7-2E81746A11E3}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
 		{78713D60-595D-4F7B-B9D7-2E81746A11E3}.Release|iPhone.ActiveCfg = Release|Any CPU
