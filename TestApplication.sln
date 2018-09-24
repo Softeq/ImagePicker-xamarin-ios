@@ -1,7 +1,7 @@
 
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApplication", "TestApplication\TestApplication.csproj", "{A59CC788-2B05-4288-A942-D6A88BD88F36}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImagePicker.Sample", "TestApplication\ImagePicker.Sample.csproj", "{A59CC788-2B05-4288-A942-D6A88BD88F36}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YSImagePicker", "YSImagePicker\YSImagePicker.csproj", "{78713D60-595D-4F7B-B9D7-2E81746A11E3}"
 EndProject
