@@ -388,7 +388,8 @@ namespace TestApplication
                         }
                         else
                         {
-                            imagePicker.LayoutConfiguration.ScrollDirection = UICollectionViewScrollDirection.Horizontal;
+                            imagePicker.LayoutConfiguration.ScrollDirection =
+                                UICollectionViewScrollDirection.Horizontal;
                             PresentPickerAsInputView(imagePicker);
                         }
                     });
@@ -538,7 +539,7 @@ namespace TestApplication
 
         public override string TitleForFooter(UITableView tableView, nint section)
         {
-            return _sectionsData.Keys.Skip((int) section).First();
+            return _sectionsData.Values.Skip((int) section).First();
         }
     }
 
