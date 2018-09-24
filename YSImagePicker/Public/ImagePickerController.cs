@@ -195,7 +195,7 @@ namespace YSImagePicker.Public
                 throw new Exception($"Accessing asset at index {index} failed");
             }
 
-            return (PHAsset)_collectionViewDataSource.AssetsModel.FetchResult.ElementAt(index);
+            return (PHAsset) _collectionViewDataSource.AssetsModel.FetchResult.ElementAt(index);
         }
 
         ///
@@ -279,7 +279,7 @@ namespace YSImagePicker.Public
                 case PHAuthorizationStatus.Authorized:
                     _collectionViewDataSource.AssetsModel.FetchResult = AssetsFetchResultBlock?.Invoke();
                     _collectionViewDataSource.LayoutModel = new LayoutModel(LayoutConfiguration,
-                        (int)_collectionViewDataSource.AssetsModel.FetchResult.Count);
+                        (int) _collectionViewDataSource.AssetsModel.FetchResult.Count);
                     break;
                 case PHAuthorizationStatus.Restricted:
                 case PHAuthorizationStatus.Denied:
@@ -509,7 +509,7 @@ namespace YSImagePicker.Public
                 ;
                 //update layout model because it changed
                 _collectionViewDataSource.LayoutModel = new LayoutModel(LayoutConfiguration,
-                    (int)_collectionViewDataSource.AssetsModel.FetchResult.Count);
+                    (int) _collectionViewDataSource.AssetsModel.FetchResult.Count);
             });
 
             //perform update animations
@@ -612,8 +612,7 @@ namespace YSImagePicker.Public
                     if (image != null)
                     {
                         //TODO: add blur
-                        //var blurred = UIImageEffects.imageByApplyingLightEffect(to: image);
-                        DispatchQueue.MainQueue.DispatchAsync(() => { cell.BlurIfNeeded(image, false, null); });
+                        DispatchQueue.MainQueue.DispatchAsync(() => { cell.BlurIfNeeded(image.Blur(), false, null); });
                     }
                     else
                     {
@@ -822,10 +821,7 @@ namespace YSImagePicker.Public
 
             var image = _captureSession.LatestVideoBufferImage;
 
-            if (image != null)
-            {
-                //image = UIImageEffects.imageByApplyingLightEffect(to: image!)
-            }
+            image = image?.Blur();
 
             // 1. blur cell
             cameraCell.BlurIfNeeded(image, true, () =>
@@ -834,16 +830,19 @@ namespace YSImagePicker.Public
                     // 2. flip camera
                     _captureSession.ChangeCamera(() =>
                     {
-                        UIView.Transition(cameraCell.PreviewView, 0.25, UIViewAnimationOptions.TransitionFlipFromLeft | UIViewAnimationOptions.AllowAnimatedContent, null, () =>
-                        {
-                            var bufferImage = _captureSession.LatestVideoBufferImage;
-                            if (bufferImage != null)
+                        UIView.Transition(cameraCell.PreviewView, 0.25,
+                            UIViewAnimationOptions.TransitionFlipFromLeft | UIViewAnimationOptions.AllowAnimatedContent,
+                            null, () =>
                             {
-                                //bufferImage=UIImageEffects.imageByApplyingLightEffect(to: image!);
-                            }
+                                var bufferImage = _captureSession.LatestVideoBufferImage;
+                                
+                                if (bufferImage != null)
+                                {
+                                    bufferImage = image.Blur();
+                                }
 
-                            cameraCell.UnblurIfNeeded(bufferImage, true, completion);
-                        });
+                                cameraCell.UnblurIfNeeded(bufferImage, true, completion);
+                            });
                     });
                 }
             });

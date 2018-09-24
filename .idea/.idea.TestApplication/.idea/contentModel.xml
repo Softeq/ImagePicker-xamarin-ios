@@ -114,6 +114,7 @@
             </e>
           </e>
         </e>
+        <e p="UIIMageEffects.cs" t="Include" />
         <e p="Views" t="Include">
           <e p="ActionCell.cs" t="Include" />
           <e p="ActionCell.designer.cs" t="Include" />

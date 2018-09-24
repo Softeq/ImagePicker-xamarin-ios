@@ -335,6 +335,22 @@ namespace YSImagePicker.Media
 
             Console.WriteLine("capture session: configuring - adding video input");
 
+            DispatchQueue.MainQueue.DispatchAsync(() =>
+            {
+                Console.WriteLine("Tests:11");
+                /*
+                 Why are we dispatching this to the main queue?
+                 Because AVCaptureVideoPreviewLayer is the backing layer for PreviewView and UIView
+                 can only be manipulated on the main thread.
+                 Note: As an exception to the above rule, it is not necessary to serialize video orientation changes
+                 on the AVCaptureVideoPreviewLayer’s connection with other session manipulation.
+                 */
+                if (PreviewLayer?.Connection != null)
+                {
+                    PreviewLayer.Connection.VideoOrientation = VideoOrientation;
+                }
+            });
+
             Session.BeginConfiguration();
 
             switch (PresetConfiguration)
@@ -369,22 +385,6 @@ namespace YSImagePicker.Media
                 Session.AddInput(videoDeviceInput);
 
                 _videoDeviceInput = videoDeviceInput;
-
-                DispatchQueue.MainQueue.DispatchAsync(() =>
-                {
-                    Console.WriteLine("Tests:11");
-                    /*
-                     Why are we dispatching this to the main queue?
-                     Because AVCaptureVideoPreviewLayer is the backing layer for PreviewView and UIView
-                     can only be manipulated on the main thread.
-                     Note: As an exception to the above rule, it is not necessary to serialize video orientation changes
-                     on the AVCaptureVideoPreviewLayer’s connection with other session manipulation.
-                     */
-                    if (PreviewLayer?.Connection != null)
-                    {
-                        //PreviewLayer.Connection.VideoOrientation = VideoOrientation;
-                    }
-                });
             }
             else
             {
@@ -788,6 +788,35 @@ namespace YSImagePicker.Media
 
                 Session.BeginConfiguration();
 
+                /*
+                  Set Live Photo capture enabled if it is supported. When changing cameras, the
+                  `isLivePhotoCaptureEnabled` property of the AVCapturePhotoOutput gets set to NO when
+                  a video device is disconnected from the session. After the new video device is
+                  added to the session, re-enable Live Photo capture on the AVCapturePhotoOutput if it is supported.
+                  */
+                _photoOutput.IsLivePhotoCaptureEnabled =
+                    _photoOutput.IsLivePhotoCaptureSupported &&
+                    PresetConfiguration == GetSessionPresetConfiguration.LivePhotos;
+
+                // when device is disconnected:
+                // - video data output connection orientation is reset, so we need to set to new proper value
+                // - video mirroring is set to true if camera is front, make sure we use no mirroring
+                var videoDataOutputConnection = _videoDataOutput?.ConnectionFromMediaType(AVMediaType.Video);
+                if (videoDataOutputConnection != null)
+                {
+                    //TODO:Need investigation why camera freezes
+                    videoDataOutputConnection.VideoOrientation = VideoOrientation;
+                    if (videoDataOutputConnection.SupportsVideoMirroring)
+                    {
+                        videoDataOutputConnection.VideoMirrored = true;
+                    }
+                    else
+                    {
+                        Console.WriteLine(
+                            "capture session: warning - video mirroring on video data output is not supported");
+                    }
+                }
+
                 // Remove the existing device input first, since using the front and back camera simultaneously is not supported.
                 Session.RemoveInput(_videoDeviceInput);
 
@@ -817,36 +846,7 @@ namespace YSImagePicker.Media
                         connection.PreferredVideoStabilizationMode = AVCaptureVideoStabilizationMode.Auto;
                     }
                 }
-
-                /*
-                     Set Live Photo capture enabled if it is supported. When changing cameras, the
-                     `isLivePhotoCaptureEnabled` property of the AVCapturePhotoOutput gets set to NO when
-                     a video device is disconnected from the session. After the new video device is
-                     added to the session, re-enable Live Photo capture on the AVCapturePhotoOutput if it is supported.
-                     */
-                _photoOutput.IsLivePhotoCaptureEnabled =
-                    _photoOutput.IsLivePhotoCaptureSupported &&
-                    PresetConfiguration == GetSessionPresetConfiguration.LivePhotos;
-
-                // when device is disconnected:
-                // - video data output connection orientation is reset, so we need to set to new proper value
-                // - video mirroring is set to true if camera is front, make sure we use no mirroring
-                var videoDataOutputConnection = _videoDataOutput?.ConnectionFromMediaType(AVMediaType.Video);
-                if (videoDataOutputConnection != null)
-                {
-                    //TODO:Need investigation why camera freezes
-                    //videoDataOutputConnection.VideoOrientation = VideoOrientation;
-                    if (videoDataOutputConnection.SupportsVideoMirroring)
-                    {
-                        videoDataOutputConnection.VideoMirrored = true;
-                    }
-                    else
-                    {
-                        Console.WriteLine(
-                            "capture session: warning - video mirroring on video data output is not supported");
-                    }
-                }
-
+             
                 Session.CommitConfiguration();
 
                 DispatchQueue.MainQueue.DispatchAsync(() =>
