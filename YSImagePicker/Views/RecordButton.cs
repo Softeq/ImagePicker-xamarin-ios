@@ -10,10 +10,9 @@ namespace YSImagePicker.Views
     [Register("RecordButton")]
     public class RecordButton : StationaryButton
     {
-        private float _outerBorderWidth = 3;
+        private float _outerBorderWidth = 3f;
         private float _innerBorderWidth = 1.5f;
         private float _pressDepthFactor = 0.9f;
-        private bool _highlighted;
 
         //TODO: CHeck how to applie setters
         public float OuterBorderWidth
@@ -48,7 +47,7 @@ namespace YSImagePicker.Views
 
         public override bool Highlighted
         {
-            get => _highlighted;
+            get => base.Highlighted;
             set
             {
                 if (Selected == false && value != Highlighted && value == true)
@@ -56,7 +55,7 @@ namespace YSImagePicker.Views
                     UpdateCircleLayers(Views.State.Pressed, true);
                 }
 
-                _highlighted = value;
+                base.Highlighted = value;
             }
         }
 
@@ -142,12 +141,12 @@ namespace YSImagePicker.Views
         {
             if (animated)
             {
-                _innerCircleLayer.AddAnimation(TransformAnimation(_pressDepthFactor, 0.25), null);
+                _innerCircleLayer.AddAnimation(TransformAnimation(PressDepthFactor, 0.25), null);
             }
             else
             {
                 CATransaction.DisableActions = true;
-                _innerCircleLayer.SetValueForKeyPath(FromObject(_pressDepthFactor), new NSString("transform.scale"));
+                _innerCircleLayer.SetValueForKeyPath(FromObject(PressDepthFactor), new NSString("transform.scale"));
                 CATransaction.Commit();
             }
         }
