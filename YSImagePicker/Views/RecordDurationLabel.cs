@@ -45,18 +45,9 @@ namespace YSImagePicker.Views
         public NSTimer SecondTimer;
         public NSTimer IndicatorTimer;
 
-        public RecordDurationLabel(CGRect frame) : base(frame)
-        {
-            CommonInit();
-        }
-
-        public RecordDurationLabel(NSCoder aDecoder) : base(aDecoder)
-        {
-            CommonInit();
-        }
-
         public RecordDurationLabel(IntPtr handle) : base(handle)
         {
+            CommonInit();
         }
 
         public override void LayoutSubviews()
