@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using CoreGraphics;
 using Foundation;
 using Photos;
@@ -63,14 +63,24 @@ namespace YSImagePicker.Views
         public override void LayoutSubviews()
         {
             base.LayoutSubviews();
+
+            var frame = _gradientView.Frame;
+            frame.Size = new CGSize(Bounds.Width, 40);
+            frame.Location = new CGPoint(0, Bounds.Height - 40);
+            _gradientView.Frame = frame;
+
             var margin = 5;
 
-            _gradientView.Frame = new CGRect(0, Bounds.Height - 40, Bounds.Width, 40);
+            frame = _durationLabel.Frame;
+            frame.Size = new CGSize(50, 20);
+            frame.Location = new CGPoint(ContentView.Bounds.Width -frame.Size.Width - margin,
+                                       ContentView.Bounds.Height - frame.Size.Height - margin);
+            _durationLabel.Frame = frame;
 
-            _durationLabel.Frame = new CGRect(ContentView.Bounds.Width - _durationLabel.Frame.Size.Width - margin,
-                ContentView.Bounds.Height - _durationLabel.Frame.Size.Height - margin, 50, 20);
-
-            _iconView.Frame = new CGRect(margin, ContentView.Bounds.Height - _iconView.Frame.Height - margin, 21, 21);
+            frame = _iconView.Frame;
+            frame.Size = new CGSize(21, 21);
+            frame.Location = new CGPoint(margin, ContentView.Bounds.Height - frame.Height - margin);
+            _iconView.Frame = frame;
         }
 
         public void Update(PHAsset asset)

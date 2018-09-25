@@ -1,4 +1,5 @@
-﻿using CoreAnimation;
+﻿using System;
+using CoreAnimation;
 using CoreGraphics;
 using Foundation;
 using UIKit;
@@ -67,7 +68,7 @@ namespace YSImagePicker.Views
 
         private State _layersState = Views.State.Initial;
 
-        public RecordButton(NSCoder aDecoder) : base(aDecoder)
+        public RecordButton(IntPtr handler) : base(handler)
         {
             _outerCircleLayer = new CALayer();
             _innerCircleLayer = new CALayer();
