@@ -21,26 +21,22 @@ namespace YSImagePicker.Views
             }
         }
 
-        //TODO: CHeck how to applie setters
-        public CALayer IndicatorLayer
-        {
-            get
-            {
-                var layer = new CALayer()
-                {
-                    MasksToBounds = true,
-                    BackgroundColor = UIColor.FromRGBA(234 / 255f, 53 / 255f, 52 / 255f, 1).CGColor,
-                };
+        public Lazy<CALayer> IndicatorLayer = new Lazy<CALayer>(() =>
+          {
+              var layer = new CALayer()
+              {
+                  MasksToBounds = true,
+                  BackgroundColor = UIColor.FromRGBA(234 / 255f, 53 / 255f, 52 / 255f, 1).CGColor,
+              };
 
-                var layerFrame = layer.Frame;
-                layerFrame.Size = new CGSize(6, 6);
-                layer.Frame = layerFrame;
-                layer.CornerRadius = layer.Frame.Width / 2;
-                layer.Opacity = 0;
+              var layerFrame = layer.Frame;
+              layerFrame.Size = new CGSize(6, 6);
+              layer.Frame = layerFrame;
+              layer.CornerRadius = layer.Frame.Width / 2;
+              layer.Opacity = 0;
 
-                return layer;
-            }
-        }
+              return layer;
+          });
 
         public NSTimer SecondTimer;
         public NSTimer IndicatorTimer;
@@ -53,7 +49,7 @@ namespace YSImagePicker.Views
         public override void LayoutSubviews()
         {
             base.LayoutSubviews();
-            IndicatorLayer.Position = new CGPoint(-7, Bounds.Height / 2);
+            IndicatorLayer.Value.Position = new CGPoint(-7, Bounds.Height / 2);
         }
 
         public void Start()
@@ -63,7 +59,7 @@ namespace YSImagePicker.Views
                 return;
             }
 
-            SecondTimer = NSTimer.CreateScheduledTimer(1, true, nsTimer => _backingSeconds++);
+            SecondTimer = NSTimer.CreateScheduledTimer(1, true, nsTimer => BackingSeconds++);
             SecondTimer.Tolerance += 1;
 
             IndicatorTimer = NSTimer.CreateScheduledTimer(1, true, nsTimer => { UpdateIndicator(0.2); });
@@ -82,17 +78,17 @@ namespace YSImagePicker.Views
             IndicatorTimer?.Invalidate();
             IndicatorTimer = null;
 
-            IndicatorLayer.RemoveAllAnimations();
-            IndicatorLayer.Opacity = 0;
+            IndicatorLayer.Value.RemoveAllAnimations();
+            IndicatorLayer.Value.Opacity = 0;
         }
 
         private void UpdateLabel()
         {
             //we are not using DateComponentsFormatter because it does not pad zero to hours component
             //so it regurns pattern 0:00:00, we need 00:00:00
-            var hours = _backingSeconds / 3600;
-            var minutes = _backingSeconds / 60 % 60;
-            var seconds = _backingSeconds % 60;
+            var hours = BackingSeconds / 3600;
+            var minutes = BackingSeconds / 60 % 60;
+            var seconds = BackingSeconds % 60;
 
             Text = $"{hours:00}:{minutes:00}:{seconds:00}";
         }
@@ -106,17 +102,17 @@ namespace YSImagePicker.Views
 
             var animation = new CAAnimationGroup
             {
-                Animations = new[] {appear, disappear},
+                Animations = new[] { appear, disappear },
                 Duration = appear.Duration + disappear.Duration + appearDelay + disappearDelay,
                 RemovedOnCompletion = true
             };
 
-            IndicatorLayer.AddAnimation(animation, "blinkAnimationKey");
+            IndicatorLayer.Value.AddAnimation(animation, "blinkAnimationKey");
         }
 
         private void CommonInit()
         {
-            Layer.AddSublayer(IndicatorLayer);
+            Layer.AddSublayer(IndicatorLayer.Value);
             ClipsToBounds = false;
         }
 
@@ -125,7 +121,7 @@ namespace YSImagePicker.Views
             var appear = new CABasicAnimation
             {
                 KeyPath = "opacity",
-                From = FromObject(IndicatorLayer.PresentationLayer.Opacity),
+                From = FromObject(IndicatorLayer.Value.PresentationLayer.Opacity),
                 To = FromObject(1),
                 Duration = 0.15,
                 TimingFunction = CAMediaTimingFunction.FromName(CAMediaTimingFunction.EaseInEaseOut),
@@ -141,7 +137,7 @@ namespace YSImagePicker.Views
             var disappear = new CABasicAnimation
             {
                 KeyPath = "opacity",
-                From = FromObject(IndicatorLayer.PresentationLayer.Opacity),
+                From = FromObject(IndicatorLayer.Value.PresentationLayer?.Opacity),
                 To = FromObject(0),
                 TimingFunction = CAMediaTimingFunction.FromName(CAMediaTimingFunction.EaseIn),
                 BeginTime = delay,

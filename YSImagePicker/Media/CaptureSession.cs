@@ -1055,68 +1055,63 @@ namespace YSImagePicker.Media
                 var outputFileName = new NSUuid().AsString();
                 VideoCaptureDelegate recordingDelegate;
 
-                var outputUrl = NSUrl.FromString(System.IO.Path.GetTempPath())
-                    .AppendPathExtension(outputFileName)
-                    .AppendPathExtension("mov");
+                var outputUrl = NSFileManager.DefaultManager.GetTemporaryDirectory().Append(outputFileName, false).AppendPathExtension("mov");
 
-                using (outputUrl)
-                {
-                    recordingDelegate = new VideoCaptureDelegate(
-                        () =>
+                recordingDelegate = new VideoCaptureDelegate(
+                    () =>
+                    {
+                        DispatchQueue.MainQueue.DispatchAsync(() =>
                         {
-                            DispatchQueue.MainQueue.DispatchAsync(() =>
-                            {
-                                Console.WriteLine("Tests:28");
-                                VideoRecordingDelegate?.DidStartVideoRecording(this);
-                            });
-                        }, captureDelegate =>
+                            Console.WriteLine("Tests:28");
+                            VideoRecordingDelegate?.DidStartVideoRecording(this);
+                        });
+                    }, captureDelegate =>
+                    {
+                        // we need to remove reference to the delegate so it can be deallocated
+                        _sessionQueue.DispatchAsync(() =>
+                    {
+                        Console.WriteLine("Tests:29");
+                        _videoCaptureDelegate = null;
+                    });
+
+                        DispatchQueue.MainQueue.DispatchAsync(() =>
                         {
-                            // we need to remove reference to the delegate so it can be deallocated
-                            _sessionQueue.DispatchAsync(() =>
+                            Console.WriteLine("Tests:30");
+                            if (captureDelegate.IsBeingCancelled)
                             {
-                                Console.WriteLine("Tests:29");
-                                _videoCaptureDelegate = null;
-                            });
-
-                            DispatchQueue.MainQueue.DispatchAsync(() =>
+                                VideoRecordingDelegate?.DidCancelVideoRecording(this);
+                            }
+                            else
                             {
-                                Console.WriteLine("Tests:30");
-                                if (captureDelegate.IsBeingCancelled)
-                                {
-                                    VideoRecordingDelegate?.DidCancelVideoRecording(this);
-                                }
-                                else
-                                {
-                                    VideoRecordingDelegate?.DidFinishVideoRecording(this, outputUrl);
-                                }
-                            });
-                        }, (captureDelegate, error) =>
+                                VideoRecordingDelegate?.DidFinishVideoRecording(this, outputUrl);
+                            }
+                        });
+                    }, (captureDelegate, error) =>
+                    {
+                        // we need to remove reference to the delegate so it can be deallocated
+                        _sessionQueue.DispatchAsync(() =>
                         {
-                            // we need to remove reference to the delegate so it can be deallocated
-                            _sessionQueue.DispatchAsync(() =>
-                            {
-                                Console.WriteLine("Tests:31");
-                                _videoCaptureDelegate = null;
-                            });
+                            Console.WriteLine("Tests:31");
+                            _videoCaptureDelegate = null;
+                        });
 
-                            DispatchQueue.MainQueue.DispatchAsync(() =>
+                        DispatchQueue.MainQueue.DispatchAsync(() =>
+                        {
+                            Console.WriteLine("Tests:32");
+                            if (captureDelegate.RecordingWasInterrupted)
                             {
-                                Console.WriteLine("Tests:32");
-                                if (captureDelegate.RecordingWasInterrupted)
-                                {
-                                    VideoRecordingDelegate?.DidInterruptVideoRecording(this, outputUrl, error);
-                                }
-                                else
-                                {
-                                    VideoRecordingDelegate?.DidFailVideoRecording(this, error);
-                                }
-                            });
-                        })
-                    { SavesVideoToLibrary = saveToPhotoLibrary };
+                                VideoRecordingDelegate?.DidInterruptVideoRecording(this, outputUrl, error);
+                            }
+                            else
+                            {
+                                VideoRecordingDelegate?.DidFailVideoRecording(this, error);
+                            }
+                        });
+                    })
+                { SavesVideoToLibrary = saveToPhotoLibrary };
 
-                    // start recording
-                    _videoFileOutput.StartRecordingToOutputFile(outputUrl, recordingDelegate);
-                }
+                // start recording
+                _videoFileOutput.StartRecordingToOutputFile(outputUrl, recordingDelegate);
 
                 _videoCaptureDelegate = recordingDelegate;
             });
