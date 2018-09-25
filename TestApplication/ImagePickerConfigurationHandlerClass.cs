@@ -16,10 +16,6 @@ namespace TestApplication
         private int _assetItemsInRow = 2;
         private CameraMode _captureMode = CameraMode.PhotoAndLivePhoto;
         private bool _savesCapturedAssets;
-        private readonly ImagePickerControllerTest _imagePickerControllerTest = new ImagePickerControllerTest();
-
-        private readonly ImagePickerControllerDataSourceTest _imagePickerControllerDataSourceTest =
-            new ImagePickerControllerDataSourceTest();
 
         public readonly List<(string GroupTitle, string GroupDescription)> SectionsData =
             new List<(string groupTitle, string groupDescription)>
@@ -47,11 +43,7 @@ namespace TestApplication
         public ImagePickerController GenerateImagePicker()
         {
             // create new instance
-            var imagePicker = new ImagePickerController
-            {
-                Delegate = _imagePickerControllerTest,
-                DataSource = _imagePickerControllerDataSourceTest
-            };
+            var imagePicker = new ImagePickerController();
 
             // set action items
             switch (_numberOfActionItems)

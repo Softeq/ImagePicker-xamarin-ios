@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using CoreFoundation;
 using CoreGraphics;
@@ -12,7 +13,13 @@ namespace TestApplication
 {
     public partial class ViewController : UITableViewController
     {
-        private readonly ImagePickerConfigurationHandlerClass _imagePickerConfigurationHandlerClass = new ImagePickerConfigurationHandlerClass();
+        private readonly ImagePickerConfigurationHandlerClass _imagePickerConfigurationHandlerClass =
+            new ImagePickerConfigurationHandlerClass();
+        private  ImagePickerControllerDelegateTest _imagePickerControllerTest;
+
+        private  ImagePickerControllerDataSourceTest _imagePickerControllerDataSourceTest =
+            new ImagePickerControllerDataSourceTest();
+        
         private UIView _currentInputView;
         private UIButton _presentButton;
 
@@ -67,7 +74,8 @@ namespace TestApplication
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
             var cell = tableView.DequeueReusableCell("cellId", indexPath);
-            cell.TextLabel.Text = _imagePickerConfigurationHandlerClass.CellsData[indexPath.Section][indexPath.Row].Title;
+            cell.TextLabel.Text =
+                _imagePickerConfigurationHandlerClass.CellsData[indexPath.Section][indexPath.Row].Title;
 
             _imagePickerConfigurationHandlerClass.CellsData[indexPath.Section][indexPath.Row].ConfigBlock?.Invoke(cell);
 
@@ -81,7 +89,8 @@ namespace TestApplication
 
             // perform selector
             var selector = _imagePickerConfigurationHandlerClass.CellsData[indexPath.Section][indexPath.Row].Selector;
-            var argumentType = _imagePickerConfigurationHandlerClass.CellsData[indexPath.Section][indexPath.Row].SelectorArgument;
+            var argumentType = _imagePickerConfigurationHandlerClass.CellsData[indexPath.Section][indexPath.Row]
+                .SelectorArgument;
             if (argumentType == SelectorArgument.IndexPath)
             {
                 selector?.Invoke(indexPath);
@@ -116,6 +125,17 @@ namespace TestApplication
 
             var imagePicker = _imagePickerConfigurationHandlerClass.GenerateImagePicker();
 
+
+            _imagePickerControllerTest = new ImagePickerControllerDelegateTest()
+            {
+                DidSelectActionItemAction = DidSelectActionItemAt,
+                DidDeselectAssetAction = DidDeselectAsset
+                
+            };
+            
+            imagePicker.Delegate = _imagePickerControllerTest;
+            imagePicker.DataSource = _imagePickerControllerDataSourceTest;
+            
             // presentation
             // before we present VC we can ask for authorization to photo library,
             // if we don't do it now, Image Picker will ask for it automatically
@@ -155,7 +175,8 @@ namespace TestApplication
 
         private void PresentPickerModally(ImagePickerController vc)
         {
-            vc.NavigationItem.LeftBarButtonItem = new UIBarButtonItem("Dismiss", UIBarButtonItemStyle.Done, DismissPresentedImagePicker);
+            vc.NavigationItem.LeftBarButtonItem =
+                new UIBarButtonItem("Dismiss", UIBarButtonItemStyle.Done, DismissPresentedImagePicker);
             var nc = new UINavigationController(vc);
             PresentViewController(nc, true, null);
         }
@@ -217,6 +238,50 @@ namespace TestApplication
             button.SetTitle("Dismiss", UIControlState.Selected);
             button.AddTarget(PresentButtonTapped, UIControlEvent.TouchUpInside);
             return button;
+        }
+
+        private void DidSelectActionItemAt(int index)
+        {
+            Console.WriteLine($"did select action {index}");
+
+            //before we present system image picker, we must update present button
+            //because first responder will be dismissed
+
+            _presentButton.Selected = false;
+
+            switch (index)
+            {
+                case 0 when UIImagePickerController.IsSourceTypeAvailable(UIImagePickerControllerSourceType.Camera):
+                {
+                    var vc = new UIImagePickerController
+                    {
+                        SourceType = UIImagePickerControllerSourceType.Camera, AllowsEditing = true
+                    };
+                    var mediaTypes =
+                        UIImagePickerController.AvailableMediaTypes(UIImagePickerControllerSourceType.Camera);
+                    if (mediaTypes != null)
+                    {
+                        vc.MediaTypes = mediaTypes;
+                    }
+
+                    NavigationController?.VisibleViewController?.PresentViewController(vc, true, null);
+                    break;
+                }
+                case 1 when UIImagePickerController.IsSourceTypeAvailable(
+                    UIImagePickerControllerSourceType.PhotoLibrary):
+                {
+                    var vc = new UIImagePickerController {SourceType = UIImagePickerControllerSourceType.PhotoLibrary};
+
+                    NavigationController?.VisibleViewController?.PresentViewController(vc, true, null);
+                    break;
+                }
+            }
+        }
+        
+        private void DidDeselectAsset(IReadOnlyList<PHAsset> readOnlyList)
+        {
+            Console.WriteLine($"selected assets: {readOnlyList.Count}");
+            UpdateNavigationItem(readOnlyList.Count);
         }
     }
 }

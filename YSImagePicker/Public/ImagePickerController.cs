@@ -35,7 +35,7 @@ namespace YSImagePicker.Public
         ///
         /// Called when user unselect previously selected asset.
         ///
-        public virtual void DidDeselect(ImagePickerController controller, PHAsset asset)
+        public virtual void DidDeselectAsset(ImagePickerController controller, PHAsset asset)
         {
         }
 
@@ -169,7 +169,7 @@ namespace YSImagePicker.Public
         ///
         /// Access all currently selected images
         ///
-        public IEnumerable<PHAsset> SelectedAssets =>
+        public IReadOnlyList<PHAsset> SelectedAssets =>
             CollectionView.GetIndexPathsForSelectedItems().Select(x => Asset(x.Row)).ToList();
 
         ///
@@ -528,7 +528,7 @@ namespace YSImagePicker.Public
 
         public void DidDeselectAssetItemAt(ImagePickerDelegate imagePickerDelegate, int index)
         {
-            Delegate?.DidDeselect(this, Asset(index));
+            Delegate?.DidDeselectAsset(this, Asset(index));
         }
 
         public void WillDisplayActionCell(ImagePickerDelegate imagePickerDelegate, UICollectionViewCell cell, int index)

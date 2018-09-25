@@ -19,7 +19,7 @@
         <e p="ImagePicker.Sample.csproj" t="IncludeRecursive" />
         <e p="ImagePickerConfigurationHandlerClass.cs" t="Include" />
         <e p="ImagePickerControllerDataSourceTest.cs" t="Include" />
-        <e p="ImagePickerControllerTest.cs" t="Include" />
+        <e p="ImagePickerControllerDelegateTest.cs" t="Include" />
         <e p="Info.plist" t="Include" />
         <e p="LaunchScreen.storyboard" t="Include" />
         <e p="Main.cs" t="Include" />
