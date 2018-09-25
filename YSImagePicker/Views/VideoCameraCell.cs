@@ -49,7 +49,7 @@ namespace YSImagePicker.Views
                 RecordDurationLabel.Stop();
             }
 
-            Action updates = () => FlipButton.Alpha = isRecording ? 1 : 0;
+            Action updates = () => FlipButton.Alpha = isRecording ? 0 : 1;
 
             if (shouldAnimate)
             {
