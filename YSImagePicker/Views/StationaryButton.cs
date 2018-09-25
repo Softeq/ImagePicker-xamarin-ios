@@ -16,16 +16,6 @@ namespace YSImagePicker.Views
         private bool _selected;
         private bool _highlighted;
 
-        public override bool Selected
-        {
-            get => _selected;
-            set
-            {
-                _selected = value;
-                SetSelected(value, false);
-            }
-        }
-
         public override bool Highlighted
         {
             get => _highlighted;
@@ -46,15 +36,12 @@ namespace YSImagePicker.Views
                 return;
             }
 
+            Selected = value;
             SelectionDidChange(animated);
         }
 
         public StationaryButton(IntPtr intPtr):base(intPtr){
 
-        }
-
-        public StationaryButton(NSCoder aDecoder) : base(aDecoder)
-        {
         }
 
         [Export("awakeFromNib")]
