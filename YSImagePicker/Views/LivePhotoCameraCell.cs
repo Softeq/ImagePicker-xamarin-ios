@@ -1,5 +1,4 @@
 ﻿using System;
-using CoreGraphics;
 using Foundation;
 using UIKit;
 using YSImagePicker.Public;
@@ -17,11 +16,11 @@ namespace YSImagePicker.Views
         {
             base.AwakeFromNib();
             LiveIndicator.Alpha = 0;
-            LiveIndicator.TintColor = UIColor.FromRGBA(245 / 255, 203 / 255, 47 / 255, 1);
+            LiveIndicator.TintColor = UIColor.FromRGBA(245 / 255f, 203 / 255f, 47 / 255f, 1);
 
             EnableLivePhotoButton.UnselectedTintColor = UIColor.White;
             EnableLivePhotoButton.SelectedTintColor =
-                UIColor.FromRGBA(245 / 255, 203 / 255, 47 / 255, 1);
+                UIColor.FromRGBA(245 / 255f, 203 / 255f, 47 / 255f, 1);
         }
 
         partial void SnapButtonTapped(NSObject sender)

@@ -29,7 +29,7 @@ namespace YSImagePicker.Views
                 var layer = new CALayer()
                 {
                     MasksToBounds = true,
-                    BackgroundColor = UIColor.FromRGBA(234 / 255, 53 / 255, 52 / 255, 1).CGColor,
+                    BackgroundColor = UIColor.FromRGBA(234 / 255f, 53 / 255f, 52 / 255f, 1).CGColor,
                 };
 
                 var layerFrame = layer.Frame;

@@ -10,6 +10,6 @@ namespace YSImagePicker.Public
         ///
         /// Image picker background color.
         ///
-        public UIColor BackgroundColor = UIColor.FromRGBA(red: 208 / 255, green: 213 / 255, blue: 218 / 255, alpha: 1);
+        public UIColor BackgroundColor = UIColor.FromRGBA(red: 208 / 255f, green: 213 / 255f, blue: 218 / 255f, alpha: 1);
     }
 }
