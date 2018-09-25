@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using CoreGraphics;
 using Foundation;
 using Photos;
@@ -163,18 +163,6 @@ namespace YSImagePicker.Views
             _selectedImageView.Hidden = true;
         }
 
-        public AssetCell(CGRect frame) : base(frame)
-        {
-            ImageView.ContentMode = UIViewContentMode.ScaleAspectFill;
-            ImageView.ClipsToBounds = true;
-            ContentView.AddSubview(ImageView);
-
-            _selectedImageView.Frame = new CGRect(0, 0, 31, 31);
-
-            ContentView.AddSubview(_selectedImageView);
-            _selectedImageView.Hidden = true;
-        }
-
         public override void PrepareForReuse()
         {
             base.PrepareForReuse();
@@ -189,8 +177,9 @@ namespace YSImagePicker.Views
 
             var margin = 5;
 
-            _selectedImageView.Frame = new CGRect(margin, Bounds.Width - _selectedImageView.Frame.Width - margin,
-                _selectedImageView.Frame.Width, _selectedImageView.Frame.Height);
+            var frame = _selectedImageView.Frame;
+            frame.Location = new CGPoint(Bounds.Width - _selectedImageView.Frame.Width - margin, margin);
+            _selectedImageView.Frame = frame;
         }
     }
 
@@ -209,6 +198,12 @@ namespace YSImagePicker.Views
             AddSubview(_foregroundView);
             ContentMode = UIViewContentMode.Center;
             _foregroundView.ContentMode = UIViewContentMode.Center;
+        }
+
+        public override void LayoutSubviews()
+        {
+            base.LayoutSubviews();
+            _foregroundView.Frame = Bounds;
         }
     }
 }
