@@ -101,7 +101,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ImagePickerControllerDataSourceTest.cs" />
-    <Compile Include="ImagePickerControllerTest.cs" />
+    <Compile Include="ImagePickerControllerDelegateTest.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Models\CellItemModel.cs" />

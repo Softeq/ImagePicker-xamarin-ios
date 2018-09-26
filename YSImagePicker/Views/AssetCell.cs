@@ -63,14 +63,24 @@ namespace YSImagePicker.Views
         public override void LayoutSubviews()
         {
             base.LayoutSubviews();
+
+            var frame = _gradientView.Frame;
+            frame.Size = new CGSize(Bounds.Width, 40);
+            frame.Location = new CGPoint(0, Bounds.Height - 40);
+            _gradientView.Frame = frame;
+
             var margin = 5;
 
-            _gradientView.Frame = new CGRect(0, Bounds.Height - 40, Bounds.Width, 40);
+            frame = _durationLabel.Frame;
+            frame.Size = new CGSize(50, 20);
+            frame.Location = new CGPoint(ContentView.Bounds.Width -frame.Size.Width - margin,
+                                       ContentView.Bounds.Height - frame.Size.Height - margin);
+            _durationLabel.Frame = frame;
 
-            _durationLabel.Frame = new CGRect(ContentView.Bounds.Width - _durationLabel.Frame.Size.Width - margin,
-                ContentView.Bounds.Height - _durationLabel.Frame.Size.Height - margin, 50, 20);
-
-            _iconView.Frame = new CGRect(margin, ContentView.Bounds.Height - _iconView.Frame.Height - margin, 21, 21);
+            frame = _iconView.Frame;
+            frame.Size = new CGSize(21, 21);
+            frame.Location = new CGPoint(margin, ContentView.Bounds.Height - frame.Height - margin);
+            _iconView.Frame = frame;
         }
 
         public void Update(PHAsset asset)
@@ -163,18 +173,6 @@ namespace YSImagePicker.Views
             _selectedImageView.Hidden = true;
         }
 
-        public AssetCell(CGRect frame) : base(frame)
-        {
-            ImageView.ContentMode = UIViewContentMode.ScaleAspectFill;
-            ImageView.ClipsToBounds = true;
-            ContentView.AddSubview(ImageView);
-
-            _selectedImageView.Frame = new CGRect(0, 0, 31, 31);
-
-            ContentView.AddSubview(_selectedImageView);
-            _selectedImageView.Hidden = true;
-        }
-
         public override void PrepareForReuse()
         {
             base.PrepareForReuse();
@@ -189,8 +187,9 @@ namespace YSImagePicker.Views
 
             var margin = 5;
 
-            _selectedImageView.Frame = new CGRect(margin, Bounds.Width - _selectedImageView.Frame.Width - margin,
-                _selectedImageView.Frame.Width, _selectedImageView.Frame.Height);
+            var frame = _selectedImageView.Frame;
+            frame.Location = new CGPoint(Bounds.Width - _selectedImageView.Frame.Width - margin, margin);
+            _selectedImageView.Frame = frame;
         }
     }
 
@@ -209,6 +208,12 @@ namespace YSImagePicker.Views
             AddSubview(_foregroundView);
             ContentMode = UIViewContentMode.Center;
             _foregroundView.ContentMode = UIViewContentMode.Center;
+        }
+
+        public override void LayoutSubviews()
+        {
+            base.LayoutSubviews();
+            _foregroundView.Frame = Bounds;
         }
     }
 }

@@ -1,5 +1,4 @@
 using System;
-using CoreGraphics;
 using Foundation;
 using UIKit;
 using YSImagePicker.Public;
@@ -11,7 +10,8 @@ namespace YSImagePicker.Views
         public VideoCameraCell(IntPtr handle) : base(handle)
         {
         }
-        
+
+        [Export("awakeFromNib")]
         public override void AwakeFromNib()
         {
             base.AwakeFromNib();
@@ -49,7 +49,7 @@ namespace YSImagePicker.Views
                 RecordDurationLabel.Stop();
             }
 
-            Action updates = () => FlipButton.Alpha = isRecording ? 1 : 0;
+            Action updates = () => FlipButton.Alpha = isRecording ? 0 : 1;
 
             if (shouldAnimate)
             {
@@ -59,6 +59,15 @@ namespace YSImagePicker.Views
             {
                 updates.Invoke();
             }
+        }
+
+        public override void VideoRecodingDidBecomeReady()
+        {
+            RecordVideoButton.Enabled = true;
+            Animate(0.25, () =>
+            {
+                RecordVideoButton.Alpha = 1;
+            });
         }
     }
 }

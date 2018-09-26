@@ -67,7 +67,6 @@
     <Compile Include="Media\CaptureSession.cs" />
     <Compile Include="Media\PhotoCaptureDelegate.cs" />
     <Compile Include="Media\VideoCaptureDelegate.cs" />
-    <Compile Include="Media\VideoOutputSampleBufferDelegate.cs" />
     <Compile Include="Miscellaneous.cs" />
     <Compile Include="Operations\CollectionViewBatchAnimation.cs" />
     <Compile Include="Operations\CollectionViewUpdatesCoordinator.cs" />
@@ -76,7 +75,6 @@
     <Compile Include="Public\CaptureSettings.cs" />
     <Compile Include="Public\CellRegistrator.cs" />
     <Compile Include="Public\ImagePickerController.cs" />
-    <Compile Include="UIIMageEffects.cs" />
     <Compile Include="Views\ActionCell.cs" />
     <Compile Include="LayoutModel.cs" />
     <Compile Include="Public\LayoutConfiguration.cs" />

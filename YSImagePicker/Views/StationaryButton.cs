@@ -13,25 +13,12 @@ namespace YSImagePicker.Views
         public UIColor UnselectedTintColor;
         public UIColor SelectedTintColor;
 
-        private bool _selected;
-        private bool _highlighted;
-
-        public override bool Selected
-        {
-            get => _selected;
-            set
-            {
-                _selected = value;
-                SetSelected(value, false);
-            }
-        }
-
         public override bool Highlighted
         {
-            get => _highlighted;
+            get => base.Highlighted;
             set
             {
-                _highlighted = value;
+                base.Highlighted = value;
                 if (Highlighted == false)
                 {
                     SetSelected(!Selected, true);
@@ -46,15 +33,13 @@ namespace YSImagePicker.Views
                 return;
             }
 
+            Selected = value;
             SelectionDidChange(animated);
         }
 
-        public StationaryButton(IntPtr intPtr):base(intPtr){
-
-        }
-
-        public StationaryButton(NSCoder aDecoder) : base(aDecoder)
+        public StationaryButton(IntPtr intPtr) : base(intPtr)
         {
+
         }
 
         [Export("awakeFromNib")]

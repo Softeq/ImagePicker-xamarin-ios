@@ -38,19 +38,14 @@ namespace YSImagePicker.Media
                 ApplyVideoDisplayMode();
             }
         }
-
+        
         [Export("layerClass")]
-        static Class LayerClass()
+        public static Class LayerClass()
         {
             return new Class(typeof(AVCaptureVideoPreviewLayer));
         }
 
         public AVPreviewView(CGRect frame) : base(frame)
-        {
-            ApplyVideoDisplayMode();
-        }
-
-        public AVPreviewView(NSCoder aDecoder) : base(aDecoder)
         {
             ApplyVideoDisplayMode();
         }

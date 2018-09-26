@@ -249,7 +249,7 @@ namespace YSImagePicker.Public
                         break;
                     case CameraMode.PhotoAndVideo:
                         collectionView.RegisterNibForCell(
-                            UINib.FromName("VideoCameraCell", NSBundle.FromIdentifier(nameof(VideoCameraCell))),
+                            UINib.FromName(nameof(VideoCameraCell), NSBundle.FromIdentifier(nameof(VideoCameraCell))),
                             registrator.CellIdentifierForCameraItem);
                         break;
                     default:

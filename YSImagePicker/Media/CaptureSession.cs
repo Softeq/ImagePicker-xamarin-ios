@@ -119,12 +119,6 @@ namespace YSImagePicker.Media
 
         private AVCaptureVideoDataOutput _videoDataOutput;
 
-        private readonly VideoOutputSampleBufferDelegate _videoOutputSampleBufferDelegate =
-            new VideoOutputSampleBufferDelegate();
-
-        // returns latest captured image
-        public UIImage LatestVideoBufferImage => _videoOutputSampleBufferDelegate.LatestImage;
-
         /// Communicate with the session and other session objects on this queue.
         /// TODO: Check
         private readonly DispatchQueue _sessionQueue = new DispatchQueue("session queue");
@@ -176,21 +170,6 @@ namespace YSImagePicker.Media
             {
                 PreviewLayer.Connection.VideoOrientation = newValue;
             }
-
-            //TODO: we have to update orientation of video data output but it's blinking a bit which is
-            //ugly, I have no idea how to fix this
-            //note: when I added these 2 updates into a configuration block the lag was even worse
-
-            _sessionQueue.DispatchAsync(() =>
-            {
-                //when device is disconnected also video data output connection orientation is reset, so we need to set to new proper value
-
-                Console.WriteLine("Tests:4");
-                if (_videoDataOutput?.ConnectionFromMediaType(AVMediaType.Video) != null)
-                {
-                    _videoDataOutput.ConnectionFromMediaType(AVMediaType.Video).VideoOrientation = newValue;
-                }
-            });
         }
 
         public void Prepare()
@@ -335,22 +314,6 @@ namespace YSImagePicker.Media
 
             Console.WriteLine("capture session: configuring - adding video input");
 
-            DispatchQueue.MainQueue.DispatchAsync(() =>
-            {
-                Console.WriteLine("Tests:11");
-                /*
-                 Why are we dispatching this to the main queue?
-                 Because AVCaptureVideoPreviewLayer is the backing layer for PreviewView and UIView
-                 can only be manipulated on the main thread.
-                 Note: As an exception to the above rule, it is not necessary to serialize video orientation changes
-                 on the AVCaptureVideoPreviewLayer’s connection with other session manipulation.
-                 */
-                if (PreviewLayer?.Connection != null)
-                {
-                    PreviewLayer.Connection.VideoOrientation = VideoOrientation;
-                }
-            });
-
             Session.BeginConfiguration();
 
             switch (PresetConfiguration)
@@ -385,6 +348,22 @@ namespace YSImagePicker.Media
                 Session.AddInput(videoDeviceInput);
 
                 _videoDeviceInput = videoDeviceInput;
+
+                UIApplication.SharedApplication.InvokeOnMainThread(() =>
+                {
+                    Console.WriteLine("Tests:11");
+                    /*
+                     Why are we dispatching this to the main queue?
+                     Because AVCaptureVideoPreviewLayer is the backing layer for PreviewView and UIView
+                     can only be manipulated on the main thread.
+                     Note: As an exception to the above rule, it is not necessary to serialize video orientation changes
+                     on the AVCaptureVideoPreviewLayer’s connection with other session manipulation.
+                     */
+                    if (PreviewLayer?.Connection != null)
+                    {
+                        PreviewLayer.Connection.VideoOrientation = VideoOrientation;
+                    }
+                });
             }
             else
             {
@@ -492,16 +471,6 @@ namespace YSImagePicker.Media
                 {
                     Session.AddOutput(_videoDataOutput);
                     _videoDataOutput.AlwaysDiscardsLateVideoFrames = true;
-                    _videoDataOutput.SetSampleBufferDelegateQueue(_videoOutputSampleBufferDelegate,
-                        _videoOutputSampleBufferDelegate.ProcessQueue);
-
-                    var connection = _videoDataOutput.ConnectionFromMediaType(AVMediaType.Video);
-                    if (connection != null)
-                    {
-                        //TODO:Need investigation why camera freezes
-                        //connection.VideoOrientation = VideoOrientation;
-                        connection.AutomaticallyAdjustsVideoMirroring = false;
-                    }
                 }
                 else
                 {
@@ -788,35 +757,6 @@ namespace YSImagePicker.Media
 
                 Session.BeginConfiguration();
 
-                /*
-                  Set Live Photo capture enabled if it is supported. When changing cameras, the
-                  `isLivePhotoCaptureEnabled` property of the AVCapturePhotoOutput gets set to NO when
-                  a video device is disconnected from the session. After the new video device is
-                  added to the session, re-enable Live Photo capture on the AVCapturePhotoOutput if it is supported.
-                  */
-                _photoOutput.IsLivePhotoCaptureEnabled =
-                    _photoOutput.IsLivePhotoCaptureSupported &&
-                    PresetConfiguration == GetSessionPresetConfiguration.LivePhotos;
-
-                // when device is disconnected:
-                // - video data output connection orientation is reset, so we need to set to new proper value
-                // - video mirroring is set to true if camera is front, make sure we use no mirroring
-                var videoDataOutputConnection = _videoDataOutput?.ConnectionFromMediaType(AVMediaType.Video);
-                if (videoDataOutputConnection != null)
-                {
-                    //TODO:Need investigation why camera freezes
-                    videoDataOutputConnection.VideoOrientation = VideoOrientation;
-                    if (videoDataOutputConnection.SupportsVideoMirroring)
-                    {
-                        videoDataOutputConnection.VideoMirrored = true;
-                    }
-                    else
-                    {
-                        Console.WriteLine(
-                            "capture session: warning - video mirroring on video data output is not supported");
-                    }
-                }
-
                 // Remove the existing device input first, since using the front and back camera simultaneously is not supported.
                 Session.RemoveInput(_videoDeviceInput);
 
@@ -846,7 +786,17 @@ namespace YSImagePicker.Media
                         connection.PreferredVideoStabilizationMode = AVCaptureVideoStabilizationMode.Auto;
                     }
                 }
-             
+
+                /*
+                  Set Live Photo capture enabled if it is supported. When changing cameras, the
+                  `isLivePhotoCaptureEnabled` property of the AVCapturePhotoOutput gets set to NO when
+                  a video device is disconnected from the session. After the new video device is
+                  added to the session, re-enable Live Photo capture on the AVCapturePhotoOutput if it is supported.
+                  */
+                _photoOutput.IsLivePhotoCaptureEnabled =
+                    _photoOutput.IsLivePhotoCaptureSupported &&
+                    PresetConfiguration == GetSessionPresetConfiguration.LivePhotos;
+
                 Session.CommitConfiguration();
 
                 DispatchQueue.MainQueue.DispatchAsync(() =>
@@ -876,21 +826,17 @@ namespace YSImagePicker.Media
                 return;
             }
 
-            var videoPreviewLayerOrientation = PreviewLayer.Connection.VideoOrientation;
-
             _sessionQueue.DispatchAsync(() =>
             {
                 Console.WriteLine("Tests:21");
-                var photoOutputConnection = _photoOutput.ConnectionFromMediaType(AVMediaType.Video);
-                // Update the photo output's connection to match the video orientation of the video preview layer.
-                if (photoOutputConnection != null)
-                {
-                    photoOutputConnection.VideoOrientation = videoPreviewLayerOrientation;
-                }
 
                 // Capture a JPEG photo with flash set to auto and high resolution photo enabled.
                 AVCapturePhotoSettings photoSettings = AVCapturePhotoSettings.Create();
-                photoSettings.FlashMode = AVCaptureFlashMode.Auto;
+
+                if (_photoOutput.SupportedFlashModes.Contains(NSNumber.FromInt32((int)AVCaptureFlashMode.Auto)))
+                {
+                    photoSettings.FlashMode = AVCaptureFlashMode.Auto;
+                }
                 photoSettings.IsHighResolutionPhotoEnabled = true;
 
                 //TODO: we dont need preview photo, we need thumbnail format, read `previewPhotoFormat` docs
@@ -1026,13 +972,6 @@ namespace YSImagePicker.Media
                 return;
             }
 
-            /*
-             Retrieve the video preview layer's video orientation on the main queue
-             before entering the session queue. We do this to ensure UI elements are
-             accessed on the main thread and session configuration is done on the session queue.
-             */
-            var videoPreviewLayerOrientation = PreviewLayer.Connection.VideoOrientation;
-
             _sessionQueue.DispatchAsync(() =>
             {
                 Console.WriteLine("Tests:27");
@@ -1044,79 +983,67 @@ namespace YSImagePicker.Media
                     return;
                 }
 
-                // update the orientation on the movie file output video connection before starting recording.
-                var movieFileOutputConnection = _videoFileOutput?.ConnectionFromMediaType(AVMediaType.Video);
-                if (movieFileOutputConnection != null)
-                {
-                    movieFileOutputConnection.VideoOrientation = videoPreviewLayerOrientation;
-                }
-
                 // start recording to a temporary file.
                 var outputFileName = new NSUuid().AsString();
                 VideoCaptureDelegate recordingDelegate;
 
-                var outputUrl = NSUrl.FromString(System.IO.Path.GetTempPath())
-                    .AppendPathExtension(outputFileName)
-                    .AppendPathExtension("mov");
+                var outputUrl = NSFileManager.DefaultManager.GetTemporaryDirectory().Append(outputFileName, false).AppendPathExtension("mov");
 
-                using (outputUrl)
-                {
-                    recordingDelegate = new VideoCaptureDelegate(
-                        () =>
+                recordingDelegate = new VideoCaptureDelegate(
+                    () =>
+                    {
+                        DispatchQueue.MainQueue.DispatchAsync(() =>
                         {
-                            DispatchQueue.MainQueue.DispatchAsync(() =>
-                            {
-                                Console.WriteLine("Tests:28");
-                                VideoRecordingDelegate?.DidStartVideoRecording(this);
-                            });
-                        }, captureDelegate =>
+                            Console.WriteLine("Tests:28");
+                            VideoRecordingDelegate?.DidStartVideoRecording(this);
+                        });
+                    }, captureDelegate =>
+                    {
+                        // we need to remove reference to the delegate so it can be deallocated
+                        _sessionQueue.DispatchAsync(() =>
+                    {
+                        Console.WriteLine("Tests:29");
+                        _videoCaptureDelegate = null;
+                    });
+
+                        DispatchQueue.MainQueue.DispatchAsync(() =>
                         {
-                            // we need to remove reference to the delegate so it can be deallocated
-                            _sessionQueue.DispatchAsync(() =>
+                            Console.WriteLine("Tests:30");
+                            if (captureDelegate.IsBeingCancelled)
                             {
-                                Console.WriteLine("Tests:29");
-                                _videoCaptureDelegate = null;
-                            });
-
-                            DispatchQueue.MainQueue.DispatchAsync(() =>
+                                VideoRecordingDelegate?.DidCancelVideoRecording(this);
+                            }
+                            else
                             {
-                                Console.WriteLine("Tests:30");
-                                if (captureDelegate.IsBeingCancelled)
-                                {
-                                    VideoRecordingDelegate?.DidCancelVideoRecording(this);
-                                }
-                                else
-                                {
-                                    VideoRecordingDelegate?.DidFinishVideoRecording(this, outputUrl);
-                                }
-                            });
-                        }, (captureDelegate, error) =>
+                                VideoRecordingDelegate?.DidFinishVideoRecording(this, outputUrl);
+                            }
+                        });
+                    }, (captureDelegate, error) =>
+                    {
+                        // we need to remove reference to the delegate so it can be deallocated
+                        _sessionQueue.DispatchAsync(() =>
                         {
-                            // we need to remove reference to the delegate so it can be deallocated
-                            _sessionQueue.DispatchAsync(() =>
-                            {
-                                Console.WriteLine("Tests:31");
-                                _videoCaptureDelegate = null;
-                            });
+                            Console.WriteLine("Tests:31");
+                            _videoCaptureDelegate = null;
+                        });
 
-                            DispatchQueue.MainQueue.DispatchAsync(() =>
+                        DispatchQueue.MainQueue.DispatchAsync(() =>
+                        {
+                            Console.WriteLine("Tests:32");
+                            if (captureDelegate.RecordingWasInterrupted)
                             {
-                                Console.WriteLine("Tests:32");
-                                if (captureDelegate.RecordingWasInterrupted)
-                                {
-                                    VideoRecordingDelegate?.DidInterruptVideoRecording(this, outputUrl, error);
-                                }
-                                else
-                                {
-                                    VideoRecordingDelegate?.DidFailVideoRecording(this, error);
-                                }
-                            });
-                        })
-                    { SavesVideoToLibrary = saveToPhotoLibrary };
+                                VideoRecordingDelegate?.DidInterruptVideoRecording(this, outputUrl, error);
+                            }
+                            else
+                            {
+                                VideoRecordingDelegate?.DidFailVideoRecording(this, error);
+                            }
+                        });
+                    })
+                { SavesVideoToLibrary = saveToPhotoLibrary };
 
-                    // start recording
-                    _videoFileOutput.StartRecordingToOutputFile(outputUrl, recordingDelegate);
-                }
+                // start recording
+                _videoFileOutput.StartRecordingToOutputFile(outputUrl, recordingDelegate);
 
                 _videoCaptureDelegate = recordingDelegate;
             });
