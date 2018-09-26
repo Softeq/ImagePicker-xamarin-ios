@@ -59,6 +59,7 @@
     <Folder Include="Views\CustomControls\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Defines.cs" />
     <Compile Include="ImagePickerAssetModel.cs" />
     <Compile Include="ImagePickerDataSource.cs" />
     <Compile Include="ImagePickerDelegate.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="Views\AssetCell.cs" />
     <Compile Include="Views\CustomControls\CarvedLabel.cs" />
     <Compile Include="Views\CustomControls\CheckView.cs" />
+    <Compile Include="Views\CustomControls\LayersState.cs" />
     <Compile Include="Views\CustomControls\RecordButton.cs" />
     <Compile Include="Views\CustomControls\RecordDurationLabel.cs" />
     <Compile Include="Views\CustomControls\ShutterButton.cs" />
