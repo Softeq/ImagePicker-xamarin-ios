@@ -7,86 +7,82 @@ using UIKit;
 namespace YSImagePicker.Views.CustomControls
 {
     [Register("ShutterButton")]
-    public class ShutterButton : UIButton
+    public sealed class ShutterButton : UIButton
     {
         private readonly nfloat _outerBorderWidth = 3;
         private readonly nfloat _innerBorderWidth = 1.5f;
         private readonly nfloat _pressDepthFactor = 0.9f;
-        private bool _highlighted;
-
+        private readonly CALayer _outerCircleLayer;
+        private readonly CALayer _innerCircleLayer;
+        private nfloat InnerCircleLayerInset => _outerBorderWidth + _innerBorderWidth;
+        
+        private const string PressAnimationKeyPath = "transform.scale";
+        
         public override bool Highlighted
         {
-            get => _highlighted;
+            get => base.Highlighted;
             set
             {
-                _highlighted = value;
-                SetInnerLayer(Highlighted, true);
+                base.Highlighted = value;
+                SetInnerLayer(value, true);
             }
         }
 
-        private nfloat InnerCircleLayerInset => _outerBorderWidth + _innerBorderWidth;
-
-        private readonly CALayer _outerCircleLayer;
-        private readonly CALayer _innerCircleLayer;
-
-        public ShutterButton(IntPtr handle):base(handle)
+        public ShutterButton(IntPtr handle) : base(handle)
         {
-            _outerCircleLayer = new CALayer();
-            _innerCircleLayer = new CALayer();
             BackgroundColor = UIColor.Clear;
+
+            _outerCircleLayer = new CALayer
+            {
+                BackgroundColor = UIColor.Clear.CGColor,
+                CornerRadius = Bounds.Width / 2,
+                BorderWidth = _outerBorderWidth,
+                BorderColor = TintColor.CGColor
+            };
+            _innerCircleLayer = new CALayer
+            {
+                BackgroundColor = TintColor.CGColor
+            };
+
             Layer.AddSublayer(_outerCircleLayer);
             Layer.AddSublayer(_innerCircleLayer);
 
             CATransaction.DisableActions = true;
-
-            _outerCircleLayer.BackgroundColor = UIColor.Clear.CGColor;
-            _outerCircleLayer.CornerRadius = Bounds.Width / 2;
-            _outerCircleLayer.BorderWidth = _outerBorderWidth;
-            _outerCircleLayer.BorderColor = TintColor.CGColor;
-
-            _innerCircleLayer.BackgroundColor = TintColor.CGColor;
-
             CATransaction.Commit();
         }
         
-        public ShutterButton(NSCoder aDecoder) : base(aDecoder)
+        public override void LayoutSubviews()
         {
-            _outerCircleLayer = new CALayer();
-            _innerCircleLayer = new CALayer();
-            BackgroundColor = UIColor.Clear;
-            Layer.AddSublayer(_outerCircleLayer);
-            Layer.AddSublayer(_innerCircleLayer);
+            base.LayoutSubviews();
 
             CATransaction.DisableActions = true;
-
-            _outerCircleLayer.BackgroundColor = UIColor.Clear.CGColor;
-            _outerCircleLayer.CornerRadius = Bounds.Width / 2;
-            _outerCircleLayer.BorderWidth = _outerBorderWidth;
-            _outerCircleLayer.BorderColor = TintColor.CGColor;
-
-            _innerCircleLayer.BackgroundColor = TintColor.CGColor;
-
+            _outerCircleLayer.Frame = Bounds;
+            _innerCircleLayer.Frame = Bounds.Inset(InnerCircleLayerInset, InnerCircleLayerInset);
+            _innerCircleLayer.CornerRadius =
+                Bounds.Inset(InnerCircleLayerInset, InnerCircleLayerInset).Width / 2;
             CATransaction.Commit();
         }
 
-        public void SetInnerLayer(bool tapped, bool animated)
+        private void SetInnerLayer(bool tapped, bool animated)
         {
             if (animated)
             {
-                var animation = new CABasicAnimation {KeyPath = "transform.scale"};
+                var animation = new CABasicAnimation
+                {
+                    KeyPath = PressAnimationKeyPath,
+                    Duration = 0.25
+                };
 
                 if (tapped)
                 {
                     animation.From =
-                        _innerCircleLayer.PresentationLayer.ValueForKeyPath(new NSString("transform.scale"));
+                        _innerCircleLayer.PresentationLayer.ValueForKeyPath(new NSString(PressAnimationKeyPath));
                     animation.To = FromObject(_pressDepthFactor);
-                    animation.Duration = 0.25;
                 }
                 else
                 {
                     animation.From = FromObject(_pressDepthFactor);
                     animation.To = FromObject(1.0);
-                    animation.Duration = 0.25;
                 }
 
                 animation.TimingFunction = CAMediaTimingFunction.FromName(CAMediaTimingFunction.EaseInEaseOut);
@@ -99,29 +95,11 @@ namespace YSImagePicker.Views.CustomControls
             else
             {
                 CATransaction.DisableActions = true;
-                if (tapped)
-                {
-                    _innerCircleLayer.SetValueForKeyPath(FromObject(_pressDepthFactor), new NSString("transform.scale"));
-                }
-                else
-                {
-                    _innerCircleLayer.SetValueForKeyPath(FromObject(1), new NSString("transform.scale"));
-                }
+                _innerCircleLayer.SetValueForKeyPath(tapped ? FromObject(_pressDepthFactor) : FromObject(1),
+                    new NSString(PressAnimationKeyPath));
 
                 CATransaction.Commit();
             }
-        }
-
-        public override void LayoutSubviews()
-        {
-            base.LayoutSubviews();
-
-            CATransaction.DisableActions = true;
-            _outerCircleLayer.Frame = Bounds;
-            _innerCircleLayer.Frame = Bounds.Inset(InnerCircleLayerInset, InnerCircleLayerInset);
-            _innerCircleLayer.CornerRadius =
-                Bounds.Inset(InnerCircleLayerInset, InnerCircleLayerInset).Width / 2;
-            CATransaction.Commit();
         }
     }
 }

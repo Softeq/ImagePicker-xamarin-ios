@@ -65,6 +65,8 @@ namespace YSImagePicker.Views.CustomControls
 
         public RecordButton(IntPtr handler) : base(handler)
         {
+            BackgroundColor = UIColor.Clear;
+
             _outerCircleLayer = new CALayer
             {
                 BackgroundColor = UIColor.Clear.CGColor,
