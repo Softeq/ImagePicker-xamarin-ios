@@ -20,8 +20,8 @@ namespace YSImagePicker.Public
     public class CameraCollectionViewCell : UICollectionViewCell
     {
         private AVAuthorizationStatus? _authorizationStatus;
-        public AVPreviewView PreviewView = new AVPreviewView(CGRect.Empty) {BackgroundColor = UIColor.Black};
-        public UIImageView ImageView = new UIImageView(CGRect.Empty) {ContentMode = UIViewContentMode.ScaleAspectFill};
+        public AVPreviewView PreviewView = new AVPreviewView(CGRect.Empty) { BackgroundColor = UIColor.Black };
+        public UIImageView ImageView = new UIImageView(CGRect.Empty) { ContentMode = UIViewContentMode.ScaleAspectFill };
         public UIVisualEffectView BlurView { get; set; }
         public bool IsVisualEffectViewUsedForBlurring { get; set; }
         public ICameraCollectionViewCellDelegate Delegate { get; set; }
@@ -128,82 +128,43 @@ namespace YSImagePicker.Public
             Delegate?.StopVideoRecording();
         }
 
-        public void BlurIfNeeded(UIImage blurImage, bool animated, Action completion)
+        public void BlurIfNeeded(bool animated, Action completion)
         {
-            UIView view;
-
-            if (IsVisualEffectViewUsedForBlurring == false)
+            if (BlurView == null)
             {
-                if (ImageView.Image != null)
-                {
-                    return;
-                }
-
-                ImageView.Image = blurImage;
-                view = ImageView;
-            }
-            else
-            {
-                if (BlurView == null)
-                {
-                    BlurView = new UIVisualEffectView(UIBlurEffect.FromStyle(UIBlurEffectStyle.Light));
-                    PreviewView.AddSubview(BlurView);
-                }
-
-                view = BlurView;
-                view.Frame = PreviewView.Bounds;
+                BlurView = new UIVisualEffectView(UIBlurEffect.FromStyle(UIBlurEffectStyle.Light));
+                PreviewView.AddSubview(BlurView);
             }
 
-            view.Alpha = 0;
+            BlurView.Frame = PreviewView.Bounds;
+
+            BlurView.Alpha = 0;
             if (animated == false)
             {
-                view.Alpha = 1;
+                BlurView.Alpha = 1;
                 completion?.Invoke();
             }
             else
             {
-                Animate(0.1, 0, UIViewAnimationOptions.AllowAnimatedContent, () => { view.Alpha = 1; },
+                Animate(0.2, 0, UIViewAnimationOptions.AllowAnimatedContent, () => BlurView.Alpha = 1,
                     completion);
             }
         }
 
-        public void UnblurIfNeeded(UIImage unblurImage, bool animated, Action completion)
+        public void UnblurIfNeeded(bool animated, Action completion)
         {
             Action animationBlock = null;
             Action animationCompletionBlock = null;
 
-            if (IsVisualEffectViewUsedForBlurring == false)
+            animationBlock = () =>
             {
-                if (ImageView.Image == null)
+                if (BlurView != null)
                 {
-                    return;
+                    BlurView.Alpha = 0;
                 }
+            };
 
-                if (unblurImage != null)
-                {
-                    ImageView.Image = unblurImage;
-                }
-
-                animationBlock = () => ImageView.Alpha = 0;
-
-                animationCompletionBlock = () =>
-                {
-                    ImageView.Image = null;
-                    completion?.Invoke();
-                };
-            }
-            else
-            {
-                animationBlock = () =>
-                {
-                    if (BlurView != null)
-                    {
-                        BlurView.Alpha = 0;
-                    }
-                };
-
-                animationCompletionBlock = () => completion?.Invoke();
-            }
+            animationCompletionBlock = () => completion?.Invoke();
 
             if (animated == false)
             {
@@ -212,7 +173,7 @@ namespace YSImagePicker.Public
             }
             else
             {
-                Animate(0.1, 0, UIViewAnimationOptions.AllowAnimatedContent, animationBlock,
+                Animate(0.2, 0, UIViewAnimationOptions.AllowAnimatedContent, animationBlock,
                     animationCompletionBlock);
             }
         }

@@ -127,7 +127,7 @@ namespace YSImagePicker.Public
         ///
         /// A collection view that is used for displaying content.
         ///
-        public UICollectionView CollectionView => ImagePickerView.UICollectionView;
+        public UICollectionView CollectionView { get { return ImagePickerView.UICollectionView; } }
 
         private ImagePickerView ImagePickerView => View as ImagePickerView;
 
@@ -195,7 +195,7 @@ namespace YSImagePicker.Public
                 throw new Exception($"Accessing asset at index {index} failed");
             }
 
-            return (PHAsset) _collectionViewDataSource.AssetsModel.FetchResult.ElementAt(index);
+            return (PHAsset)_collectionViewDataSource.AssetsModel.FetchResult.ElementAt(index);
         }
 
         ///
@@ -261,9 +261,8 @@ namespace YSImagePicker.Public
         {
             if (UIDevice.CurrentDevice.CheckSystemVersion(11, 0))
             {
-                //TODO: Check
-                //                CollectionView.ContentInset.Left = View.SafeAreaInsets.Left;
-                //                CollectionView.ContentInset.Right = View.SafeAreaInsets.Right;
+                CollectionView.ContentInset = 
+                    new UIEdgeInsets(CollectionView.ContentInset.Top, View.SafeAreaInsets.Left, CollectionView.ContentInset.Bottom, View.SafeAreaInsets.Right);
             }
         }
 
@@ -279,7 +278,7 @@ namespace YSImagePicker.Public
                 case PHAuthorizationStatus.Authorized:
                     _collectionViewDataSource.AssetsModel.FetchResult = AssetsFetchResultBlock?.Invoke();
                     _collectionViewDataSource.LayoutModel = new LayoutModel(LayoutConfiguration,
-                        (int) _collectionViewDataSource.AssetsModel.FetchResult.Count);
+                        (int)_collectionViewDataSource.AssetsModel.FetchResult.Count);
                     break;
                 case PHAuthorizationStatus.Restricted:
                 case PHAuthorizationStatus.Denied:
@@ -509,7 +508,7 @@ namespace YSImagePicker.Public
                 ;
                 //update layout model because it changed
                 _collectionViewDataSource.LayoutModel = new LayoutModel(LayoutConfiguration,
-                    (int) _collectionViewDataSource.AssetsModel.FetchResult.Count);
+                    (int)_collectionViewDataSource.AssetsModel.FetchResult.Count);
             });
 
             //perform update animations
@@ -603,27 +602,7 @@ namespace YSImagePicker.Public
             {
                 _captureSession?.Suspend();
 
-
-                DispatchQueue.GetGlobalQueue(DispatchQueuePriority.High).DispatchAsync(() =>
-                {
-                    Console.WriteLine("Tests:2");
-                    var image = _captureSession?.LatestVideoBufferImage;
-
-                    if (image != null)
-                    {
-                        //TODO: add blur
-                        DispatchQueue.MainQueue.DispatchAsync(() => { cell.BlurIfNeeded(image.Blur(), false, null); });
-                    }
-                    else
-                    {
-                        //TODO: add blur
-                        DispatchQueue.MainQueue.DispatchAsync(() =>
-                        {
-                            Console.WriteLine("Tests:3");
-                            cell.BlurIfNeeded(null, false, null);
-                        });
-                    }
-                });
+                DispatchQueue.MainQueue.DispatchAsync(() => { cell.BlurIfNeeded(false, null); });
             }
         }
 
@@ -703,12 +682,12 @@ namespace YSImagePicker.Public
                 return;
             }
 
-            cameraCell.BlurIfNeeded(_captureSession.LatestVideoBufferImage, animated, null);
+            cameraCell.BlurIfNeeded(animated, null);
         }
 
         private void UnblurCellIfNeeded(bool animated)
         {
-            GetCameraCell(LayoutConfiguration)?.UnblurIfNeeded(null, animated, null);
+            GetCameraCell(LayoutConfiguration)?.UnblurIfNeeded(animated, null);
         }
 
         public void WillCapturePhotoWith(CaptureSession session, AVCapturePhotoSettings settings)
@@ -818,13 +797,8 @@ namespace YSImagePicker.Public
                 _captureSession.ChangeCamera(completion);
                 return;
             }
-
-            var image = _captureSession.LatestVideoBufferImage;
-
-            image = image?.Blur();
-
             // 1. blur cell
-            cameraCell.BlurIfNeeded(image, true, () =>
+            cameraCell.BlurIfNeeded(true, () =>
             {
                 {
                     // 2. flip camera
@@ -834,14 +808,7 @@ namespace YSImagePicker.Public
                             UIViewAnimationOptions.TransitionFlipFromLeft | UIViewAnimationOptions.AllowAnimatedContent,
                             null, () =>
                             {
-                                var bufferImage = _captureSession.LatestVideoBufferImage;
-                                
-                                if (bufferImage != null)
-                                {
-                                    bufferImage = image.Blur();
-                                }
-
-                                cameraCell.UnblurIfNeeded(bufferImage, true, completion);
+                                cameraCell.UnblurIfNeeded(true, completion);
                             });
                     });
                 }

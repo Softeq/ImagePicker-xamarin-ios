@@ -52,7 +52,7 @@ namespace YSImagePicker.Views
             {
                 if (Selected == false && value != Highlighted && value == true)
                 {
-                    UpdateCircleLayers(Views.State.Pressed, true);
+                    UpdateCircleLayers(Views.LayersState.Pressed, true);
                 }
 
                 base.Highlighted = value;
@@ -65,7 +65,7 @@ namespace YSImagePicker.Views
 
         public float InnerCircleLayerInset => OuterBorderWidth + InnerBorderWidth;
 
-        private State _layersState = Views.State.Initial;
+        private LayersState _layersState = Views.LayersState.Initial;
 
         public RecordButton(IntPtr handler) : base(handler)
         {
@@ -90,7 +90,7 @@ namespace YSImagePicker.Views
         public override void SelectionDidChange(bool animated)
         {
             base.SelectionDidChange(animated);
-            UpdateCircleLayers(Selected ? Views.State.Recording : Views.State.Initial, animated);
+            UpdateCircleLayers(Selected ? Views.LayersState.Recording : Views.LayersState.Initial, animated);
         }
 
         public override void LayoutSubviews()
@@ -114,7 +114,7 @@ namespace YSImagePicker.Views
             SetNeedsLayout();
         }
 
-        public void UpdateCircleLayers(State state, bool animated)
+        public void UpdateCircleLayers(LayersState state, bool animated)
         {
             if (_layersState == state)
             {
@@ -125,13 +125,13 @@ namespace YSImagePicker.Views
 
             switch (_layersState)
             {
-                case Views.State.Initial:
+                case Views.LayersState.Initial:
                     SetInnerLayer(false, animated);
                     break;
-                case Views.State.Pressed:
+                case Views.LayersState.Pressed:
                     SetInnerLayerPressed(animated);
                     break;
-                case Views.State.Recording:
+                case Views.LayersState.Recording:
                     SetInnerLayer(true, animated);
                     break;
             }
@@ -183,7 +183,7 @@ namespace YSImagePicker.Views
         }
     }
 
-    public enum State
+    public enum LayersState
     {
         Initial,
         Pressed,

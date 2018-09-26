@@ -13,15 +13,12 @@ namespace YSImagePicker.Views
         public UIColor UnselectedTintColor;
         public UIColor SelectedTintColor;
 
-        private bool _selected;
-        private bool _highlighted;
-
         public override bool Highlighted
         {
-            get => _highlighted;
+            get => base.Highlighted;
             set
             {
-                _highlighted = value;
+                base.Highlighted = value;
                 if (Highlighted == false)
                 {
                     SetSelected(!Selected, true);
@@ -40,7 +37,8 @@ namespace YSImagePicker.Views
             SelectionDidChange(animated);
         }
 
-        public StationaryButton(IntPtr intPtr):base(intPtr){
+        public StationaryButton(IntPtr intPtr) : base(intPtr)
+        {
 
         }
 

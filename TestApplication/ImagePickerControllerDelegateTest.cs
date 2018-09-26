@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Photos;
 using UIKit;
 using YSImagePicker.Public;
-using YSImagePicker.Views;
 
 namespace TestApplication
 {
@@ -31,7 +30,7 @@ namespace TestApplication
 
         public override void DidTake(ImagePickerController controller, UIImage image)
         {
-            DidTakeAssetAction(image);
+            DidTakeAssetAction?.Invoke(image);
         }
 
 //        public override void WillDisplayActionItem(ImagePickerController controller, UICollectionViewCell cell, int index)
