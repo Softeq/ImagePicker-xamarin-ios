@@ -1,6 +1,7 @@
 using System;
 using Foundation;
 using UIKit;
+using YSImagePicker.Extensions;
 using YSImagePicker.Public;
 
 namespace YSImagePicker.Views
@@ -10,7 +11,7 @@ namespace YSImagePicker.Views
         public ActionCell(IntPtr handle) : base(handle)
         {
         }
-        
+
         [Export("awakeFromNib")]
         public override void AwakeFromNib()
         {
@@ -29,11 +30,11 @@ namespace YSImagePicker.Views
             {
                 case 0:
                     TitleLabel.Text = "Camera";
-                    ImageView.Image = UIImage.FromBundle("button-camera");
+                    ImageView.Image = UIImageExtensions.FromBundle(BundleAssets.ButtonCamera);
                     break;
                 case 1:
                     TitleLabel.Text = "Photos";
-                    ImageView.Image = UIImage.FromBundle("button-photo-library");
+                    ImageView.Image = UIImageExtensions.FromBundle(BundleAssets.ButtonPhotoLibrary);
                     break;
             }
 
@@ -54,6 +55,8 @@ namespace YSImagePicker.Views
                     LeadingOffset.Constant = isFirst ? 10 : 5;
                     TrailingOffset.Constant = isLast ? 10 : 5;
                     break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
     }

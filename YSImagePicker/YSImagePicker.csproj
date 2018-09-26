@@ -56,8 +56,11 @@
     <Folder Include="Resources\" />
     <Folder Include="Views\" />
     <Folder Include="Public\" />
+    <Folder Include="Views\CustomControls\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Defines.cs" />
+    <Compile Include="Extensions\UIImageExtensions.cs" />
     <Compile Include="ImagePickerAssetModel.cs" />
     <Compile Include="ImagePickerDataSource.cs" />
     <Compile Include="ImagePickerDelegate.cs" />
@@ -82,17 +85,21 @@
       <DependentUpon>ActionCell.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\AssetCell.cs" />
-    <Compile Include="Views\CarvedLabel.cs" />
+    <Compile Include="Views\CustomControls\CarvedLabel.cs" />
+    <Compile Include="Views\CustomControls\CheckView.cs" />
+    <Compile Include="Views\CustomControls\LayersState.cs" />
+    <Compile Include="Views\CustomControls\RecordButton.cs" />
+    <Compile Include="Views\CustomControls\RecordDurationLabel.cs" />
+    <Compile Include="Views\CustomControls\ShutterButton.cs" />
+    <Compile Include="Views\CustomControls\StationaryButton.cs" />
+    <Compile Include="Views\ImagePickerAssetCell.cs" />
     <Compile Include="Views\ImagePickerView.cs" />
     <Compile Include="Views\LivePhotoCameraCell.cs" />
     <Compile Include="Public\CameraCollectionViewCell.cs" />
     <Compile Include="Views\LivePhotoCameraCell.designer.cs">
       <DependentUpon>LivePhotoCameraCell.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\RecordButton.cs" />
-    <Compile Include="Views\RecordDurationLabel.cs" />
-    <Compile Include="Views\ShutterButton.cs" />
-    <Compile Include="Views\StationaryButton.cs" />
+    <Compile Include="Views\VideoAssetCell.cs" />
     <Compile Include="Views\VideoCameraCell.cs" />
     <Compile Include="Views\VideoCameraCell.designer.cs">
       <DependentUpon>VideoCameraCell.cs</DependentUpon>

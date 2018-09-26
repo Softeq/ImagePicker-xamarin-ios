@@ -3,18 +3,22 @@ using CoreAnimation;
 using CoreGraphics;
 using Foundation;
 using UIKit;
-using CFTimeInterval = System.Double;
 
-namespace YSImagePicker.Views
+namespace YSImagePicker.Views.CustomControls
 {
     [Register("RecordButton")]
-    public class RecordButton : StationaryButton
+    public sealed class RecordButton : StationaryButton
     {
         private float _outerBorderWidth = 3f;
         private float _innerBorderWidth = 1.5f;
         private float _pressDepthFactor = 0.9f;
+        private bool _needsUpdateCircleLayers = true;
+        private readonly CALayer _outerCircleLayer;
+        private readonly CALayer _innerCircleLayer;
+        private LayersState _layersState;
 
-        //TODO: CHeck how to applie setters
+        private float InnerCircleLayerInset => OuterBorderWidth + InnerBorderWidth;
+
         public float OuterBorderWidth
         {
             get => _outerBorderWidth;
@@ -52,60 +56,59 @@ namespace YSImagePicker.Views
             {
                 if (Selected == false && value != Highlighted && value == true)
                 {
-                    UpdateCircleLayers(Views.LayersState.Pressed, true);
+                    UpdateCircleLayers(LayersState.Pressed, true);
                 }
 
                 base.Highlighted = value;
             }
         }
 
-        private bool _needsUpdateCircleLayers = true;
-        private CALayer _outerCircleLayer;
-        private CALayer _innerCircleLayer;
-
-        public float InnerCircleLayerInset => OuterBorderWidth + InnerBorderWidth;
-
-        private LayersState _layersState = Views.LayersState.Initial;
-
         public RecordButton(IntPtr handler) : base(handler)
         {
-            _outerCircleLayer = new CALayer();
-            _innerCircleLayer = new CALayer();
-
             BackgroundColor = UIColor.Clear;
+
+            _outerCircleLayer = new CALayer
+            {
+                BackgroundColor = UIColor.Clear.CGColor,
+                CornerRadius = Bounds.Width / 2,
+                BorderWidth = OuterBorderWidth,
+                BorderColor = TintColor.CGColor,
+            };
+            
+            _innerCircleLayer = new CALayer()
+            {
+                BackgroundColor = UIColor.Red.CGColor
+            };
+
             Layer.AddSublayer(_outerCircleLayer);
             Layer.AddSublayer(_innerCircleLayer);
+            
             CATransaction.DisableActions = true;
-
-            _outerCircleLayer.BackgroundColor = UIColor.Clear.CGColor;
-            _outerCircleLayer.CornerRadius = Bounds.Width / 2;
-            _outerCircleLayer.BorderWidth = OuterBorderWidth;
-            _outerCircleLayer.BorderColor = TintColor.CGColor;
-
-            _innerCircleLayer.BackgroundColor = UIColor.Red.CGColor;
-
             CATransaction.Commit();
         }
 
-        public override void SelectionDidChange(bool animated)
+        protected override void SelectionDidChange(bool animated)
         {
             base.SelectionDidChange(animated);
-            UpdateCircleLayers(Selected ? Views.LayersState.Recording : Views.LayersState.Initial, animated);
+            
+            UpdateCircleLayers(Selected ? LayersState.Recording : LayersState.Initial, animated);
         }
 
         public override void LayoutSubviews()
         {
             base.LayoutSubviews();
 
-            if (_needsUpdateCircleLayers)
+            if (!_needsUpdateCircleLayers)
             {
-                CATransaction.DisableActions = true;
-                _outerCircleLayer.Frame = Bounds;
-                _innerCircleLayer.Frame = Bounds.Inset(InnerCircleLayerInset, InnerCircleLayerInset);
-                _innerCircleLayer.CornerRadius = Bounds.Inset(InnerCircleLayerInset, InnerCircleLayerInset).Width / 2;
-                _needsUpdateCircleLayers = false;
-                CATransaction.Commit();
+                return;
             }
+            
+            CATransaction.DisableActions = true;
+            _outerCircleLayer.Frame = Bounds;
+            _innerCircleLayer.Frame = Bounds.Inset(InnerCircleLayerInset, InnerCircleLayerInset);
+            _innerCircleLayer.CornerRadius = Bounds.Inset(InnerCircleLayerInset, InnerCircleLayerInset).Width / 2;
+            _needsUpdateCircleLayers = false;
+            CATransaction.Commit();
         }
 
         private void SetNeedsUpdateCircleLayers()
@@ -114,7 +117,7 @@ namespace YSImagePicker.Views
             SetNeedsLayout();
         }
 
-        public void UpdateCircleLayers(LayersState state, bool animated)
+        private void UpdateCircleLayers(LayersState state, bool animated)
         {
             if (_layersState == state)
             {
@@ -125,13 +128,13 @@ namespace YSImagePicker.Views
 
             switch (_layersState)
             {
-                case Views.LayersState.Initial:
+                case LayersState.Initial:
                     SetInnerLayer(false, animated);
                     break;
-                case Views.LayersState.Pressed:
+                case LayersState.Pressed:
                     SetInnerLayerPressed(animated);
                     break;
-                case Views.LayersState.Recording:
+                case LayersState.Recording:
                     SetInnerLayer(true, animated);
                     break;
             }
@@ -146,7 +149,8 @@ namespace YSImagePicker.Views
             else
             {
                 CATransaction.DisableActions = true;
-                _innerCircleLayer.SetValueForKeyPath(FromObject(PressDepthFactor), new NSString("transform.scale"));
+                _innerCircleLayer.Transform.Scale(PressDepthFactor);
+
                 CATransaction.Commit();
             }
         }
@@ -166,12 +170,14 @@ namespace YSImagePicker.Views
             }
         }
 
-        private CAAnimation TransformAnimation(float value, CFTimeInterval duration)
+        private CAAnimation TransformAnimation(float value, double duration)
         {
+            const string keyPath = "transform.scale";
+
             var animation = new CABasicAnimation
             {
-                KeyPath = "transform.scale",
-                From = _innerCircleLayer.PresentationLayer.ValueForKeyPath(new NSString("transform.scale")),
+                KeyPath = keyPath,
+                From = _innerCircleLayer.PresentationLayer.ValueForKeyPath(new NSString(keyPath)),
                 To = FromObject(value),
                 Duration = duration,
                 TimingFunction = CAMediaTimingFunction.FromName(CAMediaTimingFunction.EaseInEaseOut),
@@ -179,14 +185,8 @@ namespace YSImagePicker.Views
                 FillMode = CAFillMode.Forwards,
                 RemovedOnCompletion = false
             };
+
             return animation;
         }
-    }
-
-    public enum LayersState
-    {
-        Initial,
-        Pressed,
-        Recording
     }
 }

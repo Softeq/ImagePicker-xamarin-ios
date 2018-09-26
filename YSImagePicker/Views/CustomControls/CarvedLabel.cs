@@ -4,17 +4,20 @@ using CoreGraphics;
 using Foundation;
 using UIKit;
 
-namespace YSImagePicker.Views
+namespace YSImagePicker.Views.CustomControls
 {
     [Register("CarvedLabel"), DesignTimeVisible(true)]
-    public class CarvedLabel : UIView
+    public sealed class CarvedLabel : UIView
     {
         private string _text;
         private UIFont _font;
         private nfloat _cornerRadius = 0f;
         private nfloat _verticalInset = 0f;
         private nfloat _horizontalInset = 0f;
-
+        
+        private NSAttributedString AttributedString => new NSAttributedString(Text ?? string.Empty,
+            Font ?? UIFont.SystemFontOfSize(12, UIFontWeight.Regular));
+        
         [Export("text"), Browsable(true)]
         public string Text
         {
@@ -27,6 +30,7 @@ namespace YSImagePicker.Views
             }
         }
 
+        [Export("font"), Browsable(true)]
         public UIFont Font
         {
             get => _font;
@@ -75,25 +79,11 @@ namespace YSImagePicker.Views
 
         public override UIColor BackgroundColor => UIColor.Clear;
 
-
-        public NSAttributedString AttributedString => new NSAttributedString(Text ?? string.Empty,
-            Font ?? UIFont.SystemFontOfSize(12, UIFontWeight.Regular));
-
+        public override CGSize IntrinsicContentSize => SizeThatFits(CGSize.Empty);
 
         public CarvedLabel(IntPtr handle) : base(handle)
         {
-
-        }
-
-        public CarvedLabel(CGRect frame) : base(frame)
-        {
-            var _ = BackgroundColor;
-            Opaque = false;
-        }
-
-        public CarvedLabel(NSCoder aDecoder) : base(aDecoder)
-        {
-            var _ = BackgroundColor;
+            //var _ = BackgroundColor;
             Opaque = false;
         }
 
@@ -129,7 +119,5 @@ namespace YSImagePicker.Views
             var stringSize = AttributedString.Size;
             return new CGSize(stringSize.Width + HorizontalInset * 2, stringSize.Height + VerticalInset * 2);
         }
-
-        public override CGSize IntrinsicContentSize => SizeThatFits(CGSize.Empty);
     }
 }

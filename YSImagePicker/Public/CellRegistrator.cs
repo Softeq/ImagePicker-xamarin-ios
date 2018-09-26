@@ -233,8 +233,8 @@ namespace YSImagePicker.Public
             }
             else
             {
-                collectionView.Register(registrator.ActionItemNibsData.Values);
-                collectionView.Register(registrator.ActionItemClassesData.Values);
+                collectionView.Register(registrator.ActionItemNibsData?.Values);
+                collectionView.Register(registrator.ActionItemClassesData?.Values);
             }
 
             if (registrator.CameraItemNib == null && registrator.CameraItemClass == null)
