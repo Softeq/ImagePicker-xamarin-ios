@@ -1,16 +1,12 @@
-﻿using System;
+using System;
 using CoreGraphics;
 using Foundation;
 using UIKit;
+using YSImagePicker.Extensions;
 using YSImagePicker.Views.CustomControls;
 
 namespace YSImagePicker.Views
 {
-    ///
-    /// A default implementation of `ImagePickerAssetCell`. If user does not register
-    /// a custom cell, Image Picker will use this one. Also contains
-    /// default icon for selected state.
-    ///
     [Register("AssetCell")]
     public class AssetCell : ImagePickerAssetCell
     {
@@ -53,15 +49,15 @@ namespace YSImagePicker.Views
 
         public override void LayoutSubviews()
         {
+            const int margin = 5;
+
             base.LayoutSubviews();
 
             ImageView.Frame = Bounds;
 
-            const int margin = 5;
-
-            var frame = _selectedImageView.Frame;
-            frame.Location = new CGPoint(Bounds.Width - _selectedImageView.Frame.Width - margin, margin);
-            _selectedImageView.Frame = frame;
+            _selectedImageView.Frame =
+                new CGRect(new CGPoint(Bounds.Width - _selectedImageView.Frame.Width - margin, margin),
+                    _selectedImageView.Frame.Size);
         }
 
         private void UpdateState()
@@ -71,8 +67,8 @@ namespace YSImagePicker.Views
                 return;
             }
 
-            _selectedImageView.Image = UIImage.FromBundle("icon-check-background");
-            _selectedImageView.ForegroundImage = UIImage.FromBundle("icon-check");
+            _selectedImageView.Image = UIImageExtensions.FromBundle(BundleAssets.IconCheckBackground);
+            _selectedImageView.ForegroundImage = UIImageExtensions.FromBundle(BundleAssets.IconCheck);
         }
     }
 }

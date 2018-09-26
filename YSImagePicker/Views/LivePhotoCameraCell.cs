@@ -16,11 +16,10 @@ namespace YSImagePicker.Views
         {
             base.AwakeFromNib();
             LiveIndicator.Alpha = 0;
-            LiveIndicator.TintColor = UIColor.FromRGBA(245 / 255f, 203 / 255f, 47 / 255f, 1);
-
+            LiveIndicator.TintColor = Defines.Colors.YellowColor;
+            
             EnableLivePhotoButton.UnselectedTintColor = UIColor.White;
-            EnableLivePhotoButton.SelectedTintColor =
-                UIColor.FromRGBA(245 / 255f, 203 / 255f, 47 / 255f, 1);
+            EnableLivePhotoButton.SelectedTintColor = Defines.Colors.YellowColor;
         }
 
         partial void SnapButtonTapped(NSObject sender)

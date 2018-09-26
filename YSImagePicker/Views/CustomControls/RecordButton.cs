@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using CoreAnimation;
 using CoreGraphics;
 using Foundation;
@@ -15,7 +15,7 @@ namespace YSImagePicker.Views.CustomControls
         private bool _needsUpdateCircleLayers = true;
         private readonly CALayer _outerCircleLayer;
         private readonly CALayer _innerCircleLayer;
-        private LayersState _layersState = LayersState.Initial;
+        private LayersState _layersState;
 
         private float InnerCircleLayerInset => OuterBorderWidth + InnerBorderWidth;
 
@@ -87,7 +87,7 @@ namespace YSImagePicker.Views.CustomControls
             CATransaction.Commit();
         }
 
-        public override void SelectionDidChange(bool animated)
+        protected override void SelectionDidChange(bool animated)
         {
             base.SelectionDidChange(animated);
             
@@ -172,11 +172,12 @@ namespace YSImagePicker.Views.CustomControls
 
         private CAAnimation TransformAnimation(float value, double duration)
         {
+            const string keyPath = "transform.scale";
 
             var animation = new CABasicAnimation
             {
-                KeyPath = "transform.scale",
-                From = _innerCircleLayer.PresentationLayer.ValueForKeyPath(new NSString("transform.scale")),
+                KeyPath = keyPath,
+                From = _innerCircleLayer.PresentationLayer.ValueForKeyPath(new NSString(keyPath)),
                 To = FromObject(value),
                 Duration = duration,
                 TimingFunction = CAMediaTimingFunction.FromName(CAMediaTimingFunction.EaseInEaseOut),

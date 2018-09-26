@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Defines.cs" />
+    <Compile Include="Extensions\UIImageExtensions.cs" />
     <Compile Include="ImagePickerAssetModel.cs" />
     <Compile Include="ImagePickerDataSource.cs" />
     <Compile Include="ImagePickerDelegate.cs" />

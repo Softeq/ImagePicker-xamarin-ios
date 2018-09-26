@@ -19,16 +19,15 @@ namespace YSImagePicker.Views.CustomControls
             set
             {
                 base.Highlighted = value;
-                if (Highlighted == false)
+                if (!Highlighted)
                 {
-                    SetSelected(!Selected, true);
+                    SetSelected(!Selected);
                 }
             }
         }
 
-        public StationaryButton(IntPtr intPtr) : base(intPtr)
+        protected StationaryButton(IntPtr intPtr) : base(intPtr)
         {
-
         }
 
         [Export("awakeFromNib")]
@@ -38,17 +37,17 @@ namespace YSImagePicker.Views.CustomControls
             UpdateTint();
         }
 
-        public virtual void SelectionDidChange(bool animated)
+        protected virtual void SelectionDidChange(bool animated)
         {
             UpdateTint();
         }
 
-        private void SetSelected(bool value, bool animated)
+        private void SetSelected(bool value)
         {
             if (Selected != value)
             {
                 Selected = value;
-                SelectionDidChange(animated);
+                SelectionDidChange(true);
             }
         }
 

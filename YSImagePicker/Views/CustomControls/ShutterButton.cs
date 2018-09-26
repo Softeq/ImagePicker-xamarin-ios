@@ -57,9 +57,11 @@ namespace YSImagePicker.Views.CustomControls
 
             CATransaction.DisableActions = true;
             _outerCircleLayer.Frame = Bounds;
+            
             _innerCircleLayer.Frame = Bounds.Inset(InnerCircleLayerInset, InnerCircleLayerInset);
             _innerCircleLayer.CornerRadius =
                 Bounds.Inset(InnerCircleLayerInset, InnerCircleLayerInset).Width / 2;
+            
             CATransaction.Commit();
         }
 

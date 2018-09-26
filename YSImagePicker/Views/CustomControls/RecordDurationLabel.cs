@@ -12,14 +12,14 @@ namespace YSImagePicker.Views.CustomControls
         private double _backingSeconds;
         private NSTimer _secondTimer;
         private NSTimer _indicatorTimer;
-        private const string AppearDissapearKeypathString = "opacity";
+        private const string AppearDisappearKeyPathString = "opacity";
 
         private readonly Lazy<CALayer> _indicatorLayer = new Lazy<CALayer>(() =>
         {
             var layer = new CALayer()
             {
                 MasksToBounds = true,
-                BackgroundColor = Defines.Colors.OrangeColor,
+                BackgroundColor = Defines.Colors.OrangeColor.CGColor,
             };
 
             var layerFrame = layer.Frame;
@@ -107,7 +107,7 @@ namespace YSImagePicker.Views.CustomControls
         {
             var appear = new CABasicAnimation
             {
-                KeyPath = AppearDissapearKeypathString,
+                KeyPath = AppearDisappearKeyPathString,
                 From = FromObject(_indicatorLayer.Value.PresentationLayer.Opacity),
                 To = FromObject(1),
                 Duration = 0.15,
@@ -123,7 +123,7 @@ namespace YSImagePicker.Views.CustomControls
         {
             var disappear = new CABasicAnimation
             {
-                KeyPath = AppearDissapearKeypathString,
+                KeyPath = AppearDisappearKeyPathString,
                 From = FromObject(_indicatorLayer.Value.PresentationLayer?.Opacity),
                 To = FromObject(0),
                 TimingFunction = CAMediaTimingFunction.FromName(CAMediaTimingFunction.EaseIn),

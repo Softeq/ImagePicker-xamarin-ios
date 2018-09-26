@@ -13,7 +13,8 @@ namespace YSImagePicker
         
         public static class Colors
         {
-            public static readonly CGColor OrangeColor = UIColor.FromRGBA(234 / 255f, 53 / 255f, 52 / 255f, 1).CGColor;
+            public static readonly UIColor OrangeColor = UIColor.FromRGBA(234 / 255f, 53 / 255f, 52 / 255f, 1);
+            public static readonly UIColor YellowColor = UIColor.FromRGBA(245 / 255f, 203 / 255f, 47 / 255f, 1);
         }
     }
 }

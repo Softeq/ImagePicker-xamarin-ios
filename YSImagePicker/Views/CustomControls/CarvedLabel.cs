@@ -7,14 +7,17 @@ using UIKit;
 namespace YSImagePicker.Views.CustomControls
 {
     [Register("CarvedLabel"), DesignTimeVisible(true)]
-    public class CarvedLabel : UIView
+    public sealed class CarvedLabel : UIView
     {
         private string _text;
         private UIFont _font;
         private nfloat _cornerRadius = 0f;
         private nfloat _verticalInset = 0f;
         private nfloat _horizontalInset = 0f;
-
+        
+        private NSAttributedString AttributedString => new NSAttributedString(Text ?? string.Empty,
+            Font ?? UIFont.SystemFontOfSize(12, UIFontWeight.Regular));
+        
         [Export("text"), Browsable(true)]
         public string Text
         {
@@ -77,9 +80,6 @@ namespace YSImagePicker.Views.CustomControls
         public override UIColor BackgroundColor => UIColor.Clear;
 
         public override CGSize IntrinsicContentSize => SizeThatFits(CGSize.Empty);
-
-        public NSAttributedString AttributedString => new NSAttributedString(Text ?? string.Empty,
-            Font ?? UIFont.SystemFontOfSize(12, UIFontWeight.Regular));
 
         public CarvedLabel(IntPtr handle) : base(handle)
         {
