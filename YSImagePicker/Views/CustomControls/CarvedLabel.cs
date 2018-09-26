@@ -4,7 +4,7 @@ using CoreGraphics;
 using Foundation;
 using UIKit;
 
-namespace YSImagePicker.Views
+namespace YSImagePicker.Views.CustomControls
 {
     [Register("CarvedLabel"), DesignTimeVisible(true)]
     public class CarvedLabel : UIView
@@ -27,6 +27,7 @@ namespace YSImagePicker.Views
             }
         }
 
+        [Export("font"), Browsable(true)]
         public UIFont Font
         {
             get => _font;
@@ -75,25 +76,14 @@ namespace YSImagePicker.Views
 
         public override UIColor BackgroundColor => UIColor.Clear;
 
+        public override CGSize IntrinsicContentSize => SizeThatFits(CGSize.Empty);
 
         public NSAttributedString AttributedString => new NSAttributedString(Text ?? string.Empty,
             Font ?? UIFont.SystemFontOfSize(12, UIFontWeight.Regular));
 
-
         public CarvedLabel(IntPtr handle) : base(handle)
         {
-
-        }
-
-        public CarvedLabel(CGRect frame) : base(frame)
-        {
-            var _ = BackgroundColor;
-            Opaque = false;
-        }
-
-        public CarvedLabel(NSCoder aDecoder) : base(aDecoder)
-        {
-            var _ = BackgroundColor;
+            //var _ = BackgroundColor;
             Opaque = false;
         }
 
@@ -129,7 +119,5 @@ namespace YSImagePicker.Views
             var stringSize = AttributedString.Size;
             return new CGSize(stringSize.Width + HorizontalInset * 2, stringSize.Height + VerticalInset * 2);
         }
-
-        public override CGSize IntrinsicContentSize => SizeThatFits(CGSize.Empty);
     }
 }

@@ -54,6 +54,8 @@ namespace YSImagePicker.Views
                     LeadingOffset.Constant = isFirst ? 10 : 5;
                     TrailingOffset.Constant = isLast ? 10 : 5;
                     break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
     }

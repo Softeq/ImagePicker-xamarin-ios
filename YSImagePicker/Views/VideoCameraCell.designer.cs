@@ -7,6 +7,7 @@
 using Foundation;
 using System;
 using System.CodeDom.Compiler;
+using YSImagePicker.Views.CustomControls;
 
 namespace YSImagePicker.Views
 {
@@ -18,11 +19,11 @@ namespace YSImagePicker.Views
 
 
         [Outlet]
-        YSImagePicker.Views.RecordDurationLabel RecordDurationLabel { get; set; }
+        RecordDurationLabel RecordDurationLabel { get; set; }
 
 
         [Outlet]
-        YSImagePicker.Views.RecordButton RecordVideoButton { get; set; }
+        RecordButton RecordVideoButton { get; set; }
 
 
         [Action ("FlipButtonTapped:")]

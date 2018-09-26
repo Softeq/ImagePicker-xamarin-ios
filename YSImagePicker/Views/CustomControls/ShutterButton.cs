@@ -4,7 +4,7 @@ using CoreGraphics;
 using Foundation;
 using UIKit;
 
-namespace YSImagePicker.Views
+namespace YSImagePicker.Views.CustomControls
 {
     [Register("ShutterButton")]
     public class ShutterButton : UIButton

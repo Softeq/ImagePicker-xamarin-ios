@@ -85,15 +85,15 @@
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\Contents.json" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Resources\" />
+    <Folder Include="CustomViews\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
     <InterfaceDefinition Include="Main.storyboard" />
+    <InterfaceDefinition Include="CustomViews\CustomImageCell.xib" />
+    <InterfaceDefinition Include="CustomViews\CustomVideoCell.xib" />
+    <InterfaceDefinition Include="CustomViews\IconWithTextCell.xib" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -113,12 +113,59 @@
       <DependentUpon>ViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="ImagePickerConfigurationHandlerClass.cs" />
+    <Compile Include="CustomViews\CustomImageCell.cs" />
+    <Compile Include="CustomViews\CustomImageCell.designer.cs">
+      <DependentUpon>CustomImageCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomViews\CustomVideoCell.cs" />
+    <Compile Include="CustomViews\CustomVideoCell.designer.cs">
+      <DependentUpon>CustomVideoCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomViews\IconWithTextCell.cs" />
+    <Compile Include="CustomViews\IconWithTextCell.designer.cs">
+      <DependentUpon>IconWithTextCell.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\YSImagePicker\YSImagePicker.csproj">
       <Project>{78713d60-595d-4f7b-b9d7-2e81746a11e3}</Project>
       <Name>YSImagePicker</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ImageAsset Include="Assets.xcassets\Contents.json" />
+    <ImageAsset Include="Resources\Assets.xcassets\AppIcon.appiconset\Contents.json" />
+    <ImageAsset Include="Resources\Assets.xcassets\AppIcon.appiconset\Icon-App-20x20%402x.png" />
+    <ImageAsset Include="Resources\Assets.xcassets\AppIcon.appiconset\Icon-App-20x20%403x.png" />
+    <ImageAsset Include="Resources\Assets.xcassets\AppIcon.appiconset\Icon-App-29x29%402x.png" />
+    <ImageAsset Include="Resources\Assets.xcassets\AppIcon.appiconset\Icon-App-29x29%403x.png" />
+    <ImageAsset Include="Resources\Assets.xcassets\AppIcon.appiconset\Icon-App-40x40%402x.png" />
+    <ImageAsset Include="Resources\Assets.xcassets\AppIcon.appiconset\Icon-App-40x40%403x.png" />
+    <ImageAsset Include="Resources\Assets.xcassets\AppIcon.appiconset\Icon-App-60x60%402x.png" />
+    <ImageAsset Include="Resources\Assets.xcassets\AppIcon.appiconset\Icon-App-60x60%403x.png" />
+    <ImageAsset Include="Resources\Assets.xcassets\AppIcon.appiconset\iTunesArtwork%402x.png" />
+    <ImageAsset Include="Resources\Assets.xcassets\background-rounded.imageset\Contents.json" />
+    <ImageAsset Include="Resources\Assets.xcassets\background-rounded.imageset\background-rounded.pdf" />
+    <ImageAsset Include="Resources\Assets.xcassets\button-camera.imageset\Contents.json" />
+    <ImageAsset Include="Resources\Assets.xcassets\button-camera.imageset\button-camera.pdf" />
+    <ImageAsset Include="Resources\Assets.xcassets\button-photo-library.imageset\Contents.json" />
+    <ImageAsset Include="Resources\Assets.xcassets\button-photo-library.imageset\button-photo-library.pdf" />
+    <ImageAsset Include="Resources\Assets.xcassets\button_snap.imageset\Contents.json" />
+    <ImageAsset Include="Resources\Assets.xcassets\button_snap.imageset\button_snap.pdf" />
+    <ImageAsset Include="Resources\Assets.xcassets\ic-camera.imageset\Contents.json" />
+    <ImageAsset Include="Resources\Assets.xcassets\ic-camera.imageset\ic-camera.pdf" />
+    <ImageAsset Include="Resources\Assets.xcassets\ic-check.imageset\Contents.json" />
+    <ImageAsset Include="Resources\Assets.xcassets\ic-check.imageset\ic-check.pdf" />
+    <ImageAsset Include="Resources\Assets.xcassets\ic-photo.imageset\Contents.json" />
+    <ImageAsset Include="Resources\Assets.xcassets\ic-photo.imageset\ic-photo.pdf" />
+    <ImageAsset Include="Resources\Assets.xcassets\icon-depth.imageset\Contents.json" />
+    <ImageAsset Include="Resources\Assets.xcassets\icon-depth.imageset\icon-depth.pdf" />
+    <ImageAsset Include="Resources\Assets.xcassets\icon-live.imageset\Contents.json" />
+    <ImageAsset Include="Resources\Assets.xcassets\icon-live.imageset\icon-live.pdf" />
+    <ImageAsset Include="Resources\Assets.xcassets\icon-pano.imageset\Contents.json" />
+    <ImageAsset Include="Resources\Assets.xcassets\icon-pano.imageset\icon-pano.pdf" />
+    <ImageAsset Include="Resources\Assets.xcassets\icon_flip_camera.imageset\Contents.json" />
+    <ImageAsset Include="Resources\Assets.xcassets\icon_flip_camera.imageset\icon_flip_camera.pdf" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

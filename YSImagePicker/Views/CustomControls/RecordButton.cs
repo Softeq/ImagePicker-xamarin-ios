@@ -1,11 +1,12 @@
 ﻿using System;
+using System.ComponentModel;
 using CoreAnimation;
 using CoreGraphics;
 using Foundation;
 using UIKit;
 using CFTimeInterval = System.Double;
 
-namespace YSImagePicker.Views
+namespace YSImagePicker.Views.CustomControls
 {
     [Register("RecordButton")]
     public class RecordButton : StationaryButton
@@ -15,6 +16,7 @@ namespace YSImagePicker.Views
         private float _pressDepthFactor = 0.9f;
 
         //TODO: CHeck how to applie setters
+        [Export("outerBorderWidth"), Browsable(true)]
         public float OuterBorderWidth
         {
             get => _outerBorderWidth;
@@ -25,6 +27,7 @@ namespace YSImagePicker.Views
             }
         }
 
+        [Export("innerBorderWidth"), Browsable(true)]
         public float InnerBorderWidth
         {
             get => _innerBorderWidth;
@@ -35,6 +38,7 @@ namespace YSImagePicker.Views
             }
         }
 
+        [Export("pressDepthFactor"), Browsable(true)]
         public float PressDepthFactor
         {
             get => _pressDepthFactor;
@@ -52,7 +56,7 @@ namespace YSImagePicker.Views
             {
                 if (Selected == false && value != Highlighted && value == true)
                 {
-                    UpdateCircleLayers(Views.LayersState.Pressed, true);
+                    UpdateCircleLayers(LayersState.Pressed, true);
                 }
 
                 base.Highlighted = value;
@@ -65,7 +69,7 @@ namespace YSImagePicker.Views
 
         public float InnerCircleLayerInset => OuterBorderWidth + InnerBorderWidth;
 
-        private LayersState _layersState = Views.LayersState.Initial;
+        private LayersState _layersState = LayersState.Initial;
 
         public RecordButton(IntPtr handler) : base(handler)
         {
@@ -90,7 +94,7 @@ namespace YSImagePicker.Views
         public override void SelectionDidChange(bool animated)
         {
             base.SelectionDidChange(animated);
-            UpdateCircleLayers(Selected ? Views.LayersState.Recording : Views.LayersState.Initial, animated);
+            UpdateCircleLayers(Selected ? LayersState.Recording : LayersState.Initial, animated);
         }
 
         public override void LayoutSubviews()
@@ -125,13 +129,13 @@ namespace YSImagePicker.Views
 
             switch (_layersState)
             {
-                case Views.LayersState.Initial:
+                case LayersState.Initial:
                     SetInnerLayer(false, animated);
                     break;
-                case Views.LayersState.Pressed:
+                case LayersState.Pressed:
                     SetInnerLayerPressed(animated);
                     break;
-                case Views.LayersState.Recording:
+                case LayersState.Recording:
                     SetInnerLayer(true, animated);
                     break;
             }
@@ -182,7 +186,7 @@ namespace YSImagePicker.Views
             return animation;
         }
     }
-
+     
     public enum LayersState
     {
         Initial,

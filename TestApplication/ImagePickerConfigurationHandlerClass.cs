@@ -51,17 +51,17 @@ namespace TestApplication
                 case 1:
                     imagePicker.LayoutConfiguration.ShowsFirstActionItem = true;
                     imagePicker.LayoutConfiguration.ShowsSecondActionItem = false;
+                    //if you wish to register your own action cell register it here,
+                    //it can by any UICollectionViewCell
+                    imagePicker.CellRegistrator.Register(UINib.FromName("IconWithTextCell", null), 0);
                     break;
-                //if you wish to register your own action cell register it here,
-                //it can by any UICollectionViewCell
-                //imagePicker.cellRegistrator.register(nib: UINib(nibName: "IconWithTextCell", bundle: nil), forActionItemAt: 0)
                 case 2:
                     imagePicker.LayoutConfiguration.ShowsFirstActionItem = true;
                     imagePicker.LayoutConfiguration.ShowsSecondActionItem = true;
+                    //if you wish to register your own action cell register it here,
+                    //it can by any UICollectionViewCell
+                    imagePicker.CellRegistrator.RegisterNibForActionItems(UINib.FromName("IconWithTextCell", null));
                     break;
-                //if you wish to register your own action cell register it here,
-                //it can by any UICollectionViewCell
-                //imagePicker.cellRegistrator.registerNibForActionItems(UINib(nibName: "IconWithTextCell", bundle: nil))
                 default:
                     imagePicker.LayoutConfiguration.ShowsFirstActionItem = false;
                     imagePicker.LayoutConfiguration.ShowsSecondActionItem = false;
@@ -88,8 +88,8 @@ namespace TestApplication
                 case AssetsSource.OnlyVideos:
                     //registering custom video cell to demonstrate how to use custom cells
                     //please note that custom asset cells must conform to  ImagePickerAssetCell protocol
-//                        imagePicker.CellRegistrator.Register(UINib.FromName("CustomVideoCell", null),
-//                            PHAssetMediaType.Video);
+                    imagePicker.CellRegistrator.Register(UINib.FromName("CustomVideoCell", null),
+                        PHAssetMediaType.Video);
                     imagePicker.AssetsFetchResultBlock = () =>
                     {
                         var collection = PHAssetCollection.FetchAssetCollections(PHAssetCollectionType.SmartAlbum,
@@ -99,15 +99,13 @@ namespace TestApplication
                             return
                                 null; //you can return nil if you did not find desired fetch result, default fetch result will be used.
                         }
-
-                        return null;
-                        //return PHAsset.FetchAssets();
+                        return PHAsset.FetchAssets((PHAssetCollection)collection, null);
                     };
                     break;
                 case AssetsSource.OnlySelfies:
                     //registering custom image cell to demonstrate how to use custom cells
                     //please note that custom asset cells must conform to  ImagePickerAssetCell protocol
-                    //imagePicker.CellRegistrator.RegisterNibForAssetItems(UINib.FromName("CustomImageCell", null));
+                    imagePicker.CellRegistrator.RegisterNibForAssetItems(UINib.FromName("CustomImageCell", null));
                     imagePicker.AssetsFetchResultBlock = () =>
                     {
                         var collection = PHAssetCollection.FetchAssetCollections(PHAssetCollectionType.SmartAlbum,
@@ -118,8 +116,7 @@ namespace TestApplication
                             return null;
                         }
 
-                        return null;
-                        //return PHAsset.FetchAssets(collection, null);
+                        return PHAsset.FetchAssets((PHAssetCollection)collection, null);
                     };
                     break;
             }

@@ -6,6 +6,7 @@
 //
 using Foundation;
 using System.CodeDom.Compiler;
+using YSImagePicker.Views.CustomControls;
 
 namespace YSImagePicker.Views
 {
@@ -13,13 +14,13 @@ namespace YSImagePicker.Views
 	partial class LivePhotoCameraCell
 	{
 		[Outlet]
-		YSImagePicker.Views.StationaryButton EnableLivePhotoButton { get; set; }
+		StationaryButton EnableLivePhotoButton { get; set; }
 
 		[Outlet]
-		YSImagePicker.Views.CarvedLabel LiveIndicator { get; set; }
+		CarvedLabel LiveIndicator { get; set; }
 
 		[Outlet]
-		YSImagePicker.Views.ShutterButton SnapButton { get; set; }
+		ShutterButton SnapButton { get; set; }
 
 		[Action ("FlipButtonTapped:")]
 		partial void FlipButtonTapped (Foundation.NSObject sender);

@@ -59,7 +59,10 @@ namespace YSImagePicker.Views
 
         public override void UpdateLivePhotoStatus(bool isProcessing, bool shouldAnimate)
         {
-            Action updates = () => { LiveIndicator.Alpha = isProcessing ? 1 : 0; };
+            Action updates = () =>
+            {
+                LiveIndicator.Alpha = isProcessing ? 1 : 0;
+            };
 
             if (shouldAnimate)
             {

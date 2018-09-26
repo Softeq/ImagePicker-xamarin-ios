@@ -4,7 +4,7 @@ using CoreGraphics;
 using Foundation;
 using UIKit;
 
-namespace YSImagePicker.Views
+namespace YSImagePicker.Views.CustomControls
 {
     [Register("RecordDurationLabel")]
     public class RecordDurationLabel : UILabel
