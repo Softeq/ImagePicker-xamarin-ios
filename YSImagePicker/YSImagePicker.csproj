@@ -61,16 +61,15 @@
   <ItemGroup>
     <Compile Include="Defines.cs" />
     <Compile Include="Extensions\UIImageExtensions.cs" />
+    <Compile Include="IImagePickerDelegate.cs" />
     <Compile Include="ImagePickerAssetModel.cs" />
     <Compile Include="ImagePickerDataSource.cs" />
     <Compile Include="ImagePickerDelegate.cs" />
     <Compile Include="ImagePickerLayout.cs" />
-    <Compile Include="ImagePickerSelectionPolicy.cs" />
     <Compile Include="Media\AVPreviewView.cs" />
     <Compile Include="Media\CaptureSession.cs" />
     <Compile Include="Media\PhotoCaptureDelegate.cs" />
     <Compile Include="Media\VideoCaptureDelegate.cs" />
-    <Compile Include="Miscellaneous.cs" />
     <Compile Include="Operations\CollectionViewBatchAnimation.cs" />
     <Compile Include="Operations\CollectionViewUpdatesCoordinator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

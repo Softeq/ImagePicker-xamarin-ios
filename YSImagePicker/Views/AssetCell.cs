@@ -23,7 +23,6 @@ namespace YSImagePicker.Views
             {
                 base.Selected = value;
                 _selectedImageView.Hidden = !base.Selected;
-
                 UpdateState();
             }
         }

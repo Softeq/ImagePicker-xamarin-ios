@@ -111,11 +111,11 @@
         <e p="extensions" t="Include">
           <e p="UIImageExtensions.cs" t="Include" />
         </e>
+        <e p="IImagePickerDelegate.cs" t="Include" />
         <e p="ImagePickerAssetModel.cs" t="Include" />
         <e p="ImagePickerDataSource.cs" t="Include" />
         <e p="ImagePickerDelegate.cs" t="Include" />
         <e p="ImagePickerLayout.cs" t="Include" />
-        <e p="ImagePickerSelectionPolicy.cs" t="Include" />
         <e p="LayoutModel.cs" t="Include" />
         <e p="Media" t="Include">
           <e p="AVPreviewView.cs" t="Include" />
@@ -123,7 +123,6 @@
           <e p="PhotoCaptureDelegate.cs" t="Include" />
           <e p="VideoCaptureDelegate.cs" t="Include" />
         </e>
-        <e p="Miscellaneous.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive" />
         <e p="Operations" t="Include">
           <e p="CollectionViewBatchAnimation.cs" t="Include" />

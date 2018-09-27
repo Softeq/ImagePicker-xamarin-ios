@@ -78,7 +78,7 @@ namespace YSImagePicker.Public
         public abstract UIView ImagePicker(ImagePickerController controller, PHAuthorizationStatus status);
     }
 
-    public class ImagePickerController : UIViewController, IPHPhotoLibraryChangeObserver, IImagePickerDelegateDelegate,
+    public class ImagePickerController : UIViewController, IPHPhotoLibraryChangeObserver, IImagePickerDelegate,
         ICaptureSessionDelegate, ICaptureSessionPhotoCapturingDelegate, ICaptureSessionVideoRecordingDelegate,
         ICameraCollectionViewCellDelegate
     {
@@ -95,7 +95,7 @@ namespace YSImagePicker.Public
         ///
         /// Use this object to configure layout of action, camera and asset items.
         ///
-        public LayoutConfiguration LayoutConfiguration = LayoutConfiguration.Default();
+        public LayoutConfiguration LayoutConfiguration = new LayoutConfiguration().Default();
 
         ///
         /// Use this to register a cell classes or nibs for each item types
@@ -120,7 +120,10 @@ namespace YSImagePicker.Public
         ///
         /// A collection view that is used for displaying content.
         ///
-        public UICollectionView CollectionView { get { return ImagePickerView.UICollectionView; } }
+        public UICollectionView CollectionView
+        {
+            get { return ImagePickerView.UICollectionView; }
+        }
 
         private ImagePickerView ImagePickerView => View as ImagePickerView;
 
@@ -188,7 +191,7 @@ namespace YSImagePicker.Public
                 throw new Exception($"Accessing asset at index {index} failed");
             }
 
-            return (PHAsset)_collectionViewDataSource.AssetsModel.FetchResult.ElementAt(index);
+            return (PHAsset) _collectionViewDataSource.AssetsModel.FetchResult.ElementAt(index);
         }
 
         ///
@@ -228,7 +231,7 @@ namespace YSImagePicker.Public
         private readonly ImagePickerDataSource _collectionViewDataSource =
             new ImagePickerDataSource(new ImagePickerAssetModel());
 
-        private readonly ImagePickerDelegate _collectionViewDelegate = new ImagePickerDelegate();
+        private ImagePickerDelegate _collectionViewDelegate;
 
         private CaptureSession _captureSession;
 
@@ -254,8 +257,9 @@ namespace YSImagePicker.Public
         {
             if (UIDevice.CurrentDevice.CheckSystemVersion(11, 0))
             {
-                CollectionView.ContentInset = 
-                    new UIEdgeInsets(CollectionView.ContentInset.Top, View.SafeAreaInsets.Left, CollectionView.ContentInset.Bottom, View.SafeAreaInsets.Right);
+                CollectionView.ContentInset =
+                    new UIEdgeInsets(CollectionView.ContentInset.Top, View.SafeAreaInsets.Left,
+                        CollectionView.ContentInset.Bottom, View.SafeAreaInsets.Right);
             }
         }
 
@@ -269,9 +273,9 @@ namespace YSImagePicker.Public
             switch (status)
             {
                 case PHAuthorizationStatus.Authorized:
-                    _collectionViewDataSource.AssetsModel.FetchResult = AssetsFetchResultBlock?.Invoke();
+                    _collectionViewDataSource.AssetsModel.UpdateFetchResult(AssetsFetchResultBlock?.Invoke());
                     _collectionViewDataSource.LayoutModel = new LayoutModel(LayoutConfiguration,
-                        (int)_collectionViewDataSource.AssetsModel.FetchResult.Count);
+                        (int) _collectionViewDataSource.AssetsModel.FetchResult.Count);
                     break;
                 case PHAuthorizationStatus.Restricted:
                 case PHAuthorizationStatus.Denied:
@@ -331,6 +335,7 @@ namespace YSImagePicker.Public
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
+            _collectionViewDelegate = new ImagePickerDelegate(new ImagePickerLayout(LayoutConfiguration), this);
 
             //apply appearance
             var appearance = _instanceAppearanceProxy ?? ClassAppearanceProxy;
@@ -343,8 +348,8 @@ namespace YSImagePicker.Public
             //configure flow layout
             var collectionViewLayout = CollectionView.CollectionViewLayout as UICollectionViewFlowLayout;
             collectionViewLayout.ScrollDirection = LayoutConfiguration.ScrollDirection;
-            collectionViewLayout.MinimumInteritemSpacing = LayoutConfiguration.InteritemSpacing;
-            collectionViewLayout.MinimumLineSpacing = LayoutConfiguration.InteritemSpacing;
+            collectionViewLayout.MinimumInteritemSpacing = LayoutConfiguration.InterItemSpacing;
+            collectionViewLayout.MinimumLineSpacing = LayoutConfiguration.InterItemSpacing;
 
             //finish configuring collection view
             CollectionView.DataSource = _collectionViewDataSource;
@@ -380,8 +385,6 @@ namespace YSImagePicker.Public
 
             //connect all remaining objects as needed
             _collectionViewDataSource.CellRegistrator = CellRegistrator;
-            _collectionViewDelegate.Delegate = this;
-            _collectionViewDelegate.Layout = new ImagePickerLayout(LayoutConfiguration);
 
             //register for photo library updates - this is needed when changing permissions to photo library
             //TODO: this is expensive (loading library for the first time)
@@ -497,11 +500,11 @@ namespace YSImagePicker.Public
             _collectionViewCoordinator.PerformDataSourceUpdate(() =>
             {
                 //update old fetch result with these updates
-                _collectionViewDataSource.AssetsModel.FetchResult = changes.FetchResultAfterChanges;
-                ;
+                _collectionViewDataSource.AssetsModel.UpdateFetchResult(changes.FetchResultAfterChanges);
+
                 //update layout model because it changed
                 _collectionViewDataSource.LayoutModel = new LayoutModel(LayoutConfiguration,
-                    (int)_collectionViewDataSource.AssetsModel.FetchResult.Count);
+                    (int) _collectionViewDataSource.AssetsModel.FetchResult.Count);
             });
 
             //perform update animations
@@ -790,6 +793,7 @@ namespace YSImagePicker.Public
                 _captureSession.ChangeCamera(completion);
                 return;
             }
+
             // 1. blur cell
             cameraCell.BlurIfNeeded(true, () =>
             {
@@ -799,10 +803,7 @@ namespace YSImagePicker.Public
                     {
                         UIView.Transition(cameraCell.PreviewView, 0.25,
                             UIViewAnimationOptions.TransitionFlipFromLeft | UIViewAnimationOptions.AllowAnimatedContent,
-                            null, () =>
-                            {
-                                cameraCell.UnblurIfNeeded(true, completion);
-                            });
+                            null, () => { cameraCell.UnblurIfNeeded(true, completion); });
                     });
                 }
             });

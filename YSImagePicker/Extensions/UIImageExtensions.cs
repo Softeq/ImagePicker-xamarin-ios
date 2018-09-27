@@ -20,7 +20,7 @@ namespace YSImagePicker.Extensions
 
             var attrs = memInfo[0].GetCustomAttributes(typeof(DescriptionAttribute), false);
 
-            return ((DescriptionAttribute)attrs[0]).Description;
+            return ((DescriptionAttribute) attrs[0]).Description;
         }
     }
 
@@ -30,5 +30,8 @@ namespace YSImagePicker.Extensions
         [Description("Button-photo-library")] ButtonPhotoLibrary,
         [Description("icon-check-background")] IconCheckBackground,
         [Description("icon-check")] IconCheck,
+        [Description("gradient")] Gradient,
+        [Description("icon-badge-livephoto")] IconBadgeLivePhoto,
+        [Description("icon-badge-video")] IconBadgeVideo,
     }
 }

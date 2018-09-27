@@ -3,54 +3,67 @@ using UIKit;
 
 namespace YSImagePicker.Public
 {
-    public class LayoutConfiguration
+    public struct LayoutConfiguration
     {
-        public bool ShowsFirstActionItem = true;
-        public bool ShowsSecondActionItem = true;
+        public bool ShowsFirstActionItem;
+        public bool ShowsSecondActionItem;
 
-        public bool ShowsCameraItem = true;
+        public bool ShowsCameraItem;
 
-        public bool ShowsAssetItems = true;
+        public bool ShowsAssetItems;
 
         ///
         /// Scroll and layout direction
         ///
-        public UICollectionViewScrollDirection ScrollDirection = UICollectionViewScrollDirection.Horizontal;
+        public UICollectionViewScrollDirection ScrollDirection;
 
         ///
         /// Defines how many image assets will be in a row. Must be > 0
         ///
-        public int NumberOfAssetItemsInRow = 2;
+        public int NumberOfAssetItemsInRow;
 
         ///
         /// Spacing between items within a section
         ///
-        public nfloat InteritemSpacing = 1;
+        public nfloat InterItemSpacing;
 
         ///
         /// Spacing between actions section and camera section
         ///
-        public nfloat ActionSectionSpacing = 1;
+        public nfloat ActionSectionSpacing;
 
         ///
         /// Spacing between camera section and assets section
         ///
-        public nfloat CameraSectionSpacing = 10;
+        public nfloat CameraSectionSpacing;
 
         public bool HasAnyAction()
         {
             return ShowsFirstActionItem || ShowsSecondActionItem;
         }
 
-        public int SectionIndexForActions = 0;
+        public int SectionIndexForActions;
 
-        public int SectionIndexForCamera = 1;
+        public int SectionIndexForCamera;
 
-        public int SectionIndexForAssets = 2;
+        public int SectionIndexForAssets;
 
-        public static LayoutConfiguration Default()
+        public LayoutConfiguration Default()
         {
-            return new LayoutConfiguration();
+            ShowsFirstActionItem = true;
+            ShowsSecondActionItem = true;
+            ShowsCameraItem = true;
+            ShowsAssetItems = true;
+            ScrollDirection = UICollectionViewScrollDirection.Horizontal;
+            NumberOfAssetItemsInRow = 2;
+            InterItemSpacing = 1;
+            ActionSectionSpacing = 1;
+            CameraSectionSpacing = 10;
+            SectionIndexForActions = 0;
+            SectionIndexForCamera = 1;
+            SectionIndexForAssets = 2;
+
+            return this;
         }
     }
 }

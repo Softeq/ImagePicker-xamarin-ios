@@ -3,24 +3,22 @@ using CoreGraphics;
 using Foundation;
 using Photos;
 using UIKit;
+using YSImagePicker.Extensions;
 
 namespace YSImagePicker.Views
 {
-    ///
-    /// A default collection view cell that represents asset item. It supports:
-    /// - shows image view of image thumbnail
-    /// - icon and duration for videos
-    /// - selected icon when isSelected is true
-    ///
     [Register("VideoAssetCell")]
-    public class VideoAssetCell : AssetCell
+    public sealed class VideoAssetCell : AssetCell
     {
         private readonly UILabel _durationLabel;
         private readonly UIImageView _iconView;
         private readonly UIImageView _gradientView;
+        private readonly NSDateComponentsFormatter _durationFormatter;
 
         public VideoAssetCell(IntPtr handle) : base(handle)
         {
+            _durationFormatter = GetDurationFormatter();
+
             _durationLabel = new UILabel(CGRect.Empty);
             _gradientView = new UIImageView(CGRect.Empty);
             _iconView = new UIImageView(CGRect.Empty);
@@ -44,20 +42,16 @@ namespace YSImagePicker.Views
         {
             base.LayoutSubviews();
 
-            var frame = _gradientView.Frame;
-            frame.Size = new CGSize(Bounds.Width, 40);
-            frame.Location = new CGPoint(0, Bounds.Height - 40);
-            _gradientView.Frame = frame;
+            _gradientView.Frame = new CGRect(new CGPoint(0, Bounds.Height - 40), new CGSize(Bounds.Width, 40));
 
-            var margin = 5;
+            const int margin = 5;
 
-            frame = _durationLabel.Frame;
+            var frame = CGRect.Empty;
             frame.Size = new CGSize(50, 20);
             frame.Location = new CGPoint(ContentView.Bounds.Width - frame.Size.Width - margin,
                 ContentView.Bounds.Height - frame.Size.Height - margin);
             _durationLabel.Frame = frame;
 
-            frame = _iconView.Frame;
             frame.Size = new CGSize(21, 21);
             frame.Location = new CGPoint(margin, ContentView.Bounds.Height - frame.Height - margin);
             _iconView.Frame = frame;
@@ -71,10 +65,10 @@ namespace YSImagePicker.Views
                     if (asset.MediaSubtypes == PHAssetMediaSubtype.PhotoLive)
                     {
                         _gradientView.Hidden = false;
-                        _gradientView.Image = UIImage.FromBundle("gradient");
+                        _gradientView.Image = UIImageExtensions.FromBundle(BundleAssets.Gradient);
                         _iconView.Hidden = false;
                         _durationLabel.Hidden = true;
-                        _iconView.Image = UIImage.FromBundle("icon-badge-livephoto");
+                        _iconView.Image = UIImageExtensions.FromBundle(BundleAssets.IconBadgeLivePhoto);
                     }
                     else
                     {
@@ -87,17 +81,17 @@ namespace YSImagePicker.Views
                 case PHAssetMediaType.Video:
                     _gradientView.Hidden = false;
                     _gradientView.Image =
-                        UIImage.FromBundle("gradient")
+                        UIImageExtensions.FromBundle(BundleAssets.Gradient)
                             .CreateResizableImage(UIEdgeInsets.Zero, UIImageResizingMode.Stretch);
                     _iconView.Hidden = false;
                     _durationLabel.Hidden = false;
-                    _iconView.Image = UIImage.FromBundle("icon-badge-video");
-                    _durationLabel.Text = DurationFormatter().StringFromTimeInterval(asset.Duration);
+                    _iconView.Image = UIImageExtensions.FromBundle(BundleAssets.IconBadgeVideo);
+                    _durationLabel.Text = _durationFormatter.StringFromTimeInterval(asset.Duration);
                     break;
             }
         }
 
-        private NSDateComponentsFormatter DurationFormatter()
+        private NSDateComponentsFormatter GetDurationFormatter()
         {
             var formatter = new NSDateComponentsFormatter
             {

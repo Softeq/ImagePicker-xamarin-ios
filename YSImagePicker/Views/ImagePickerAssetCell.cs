@@ -3,9 +3,6 @@ using UIKit;
 
 namespace YSImagePicker.Views
 {
-    ///
-    /// Each image picker asset cell must conform to this protocol.
-    ///
     public abstract class ImagePickerAssetCell : UICollectionViewCell
     {
         /// This image view will be used when setting an asset's image
