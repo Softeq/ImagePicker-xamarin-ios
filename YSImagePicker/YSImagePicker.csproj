@@ -69,8 +69,15 @@
     <Compile Include="Interfaces\IImagePickerDelegate.cs" />
     <Compile Include="Media\AVPreviewView.cs" />
     <Compile Include="Media\CaptureSession.cs" />
+    <Compile Include="Media\Capture\VideoCaptureSession.cs" />
+    <Compile Include="Media\SessionPresetConfiguration.cs" />
+    <Compile Include="Media\ICaptureSessionDelegate.cs" />
+    <Compile Include="Media\ICaptureSessionPhotoCapturingDelegate.cs" />
+    <Compile Include="Media\ICaptureSessionVideoRecordingDelegate.cs" />
+    <Compile Include="Media\LivePhotoMode.cs" />
     <Compile Include="Media\PHAssetManager.cs" />
     <Compile Include="Media\PhotoCaptureDelegate.cs" />
+    <Compile Include="Media\SessionSetupResult.cs" />
     <Compile Include="Media\VideoCaptureDelegate.cs" />
     <Compile Include="Media\VideoDisplayMode.cs" />
     <Compile Include="Operations\CollectionViewBatchAnimation.cs" />

@@ -9,6 +9,7 @@ using Photos;
 using UIKit;
 using YSImagePicker.Interfaces;
 using YSImagePicker.Media;
+using YSImagePicker.Media.Capture;
 using YSImagePicker.Operations;
 using YSImagePicker.Views;
 
@@ -455,16 +456,16 @@ namespace YSImagePicker.Public
             }
         }
 
-        public GetSessionPresetConfiguration CaptureSessionPresetConfiguration(CameraMode mode)
+        public SessionPresetConfiguration CaptureSessionPresetConfiguration(CameraMode mode)
         {
             switch (mode)
             {
                 case CameraMode.Photo:
-                    return GetSessionPresetConfiguration.Photos;
+                    return SessionPresetConfiguration.Photos;
                 case CameraMode.PhotoAndLivePhoto:
-                    return GetSessionPresetConfiguration.LivePhotos;
+                    return SessionPresetConfiguration.LivePhotos;
                 case CameraMode.PhotoAndVideo:
-                    return GetSessionPresetConfiguration.Videos;
+                    return SessionPresetConfiguration.Videos;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(mode), mode, null);
             }
@@ -556,7 +557,7 @@ namespace YSImagePicker.Public
                 //we have 2 different blurring techniques is that the faster solution
                 //can not be used when we have .video preset configuration.
                 var config = _captureSession?.PresetConfiguration;
-                if (config == GetSessionPresetConfiguration.Videos)
+                if (config == SessionPresetConfiguration.Videos)
                 {
                     cell.IsVisualEffectViewUsedForBlurring = true;
                 }
@@ -572,7 +573,7 @@ namespace YSImagePicker.Public
             cell.UpdateLivePhotoStatus(inProgressLivePhotos > 0, false);
 
             //update video recording status
-            var isRecordingVideo = _captureSession?.IsRecordingVideo ?? false;
+            var isRecordingVideo = _captureSession?.VideoCaptureSession?.IsRecordingVideo ?? false;
             cell.UpdateRecordingVideoStatus(isRecordingVideo, false);
 
             //update authorization status if it's changed
@@ -592,7 +593,7 @@ namespace YSImagePicker.Public
         public void DidEndDisplayingCameraCell(ImagePickerDelegate imagePickerDelegate,
             CameraCollectionViewCell cell)
         {
-            var isRecordingVideo = _captureSession?.IsRecordingVideo ?? false;
+            var isRecordingVideo = _captureSession?.VideoCaptureSession?.IsRecordingVideo ?? false;
 
             //susped session only if not recording video, otherwise the recording would be stopped.
             if (isRecordingVideo == false)
@@ -717,7 +718,7 @@ namespace YSImagePicker.Public
             cameraCell.UpdateLivePhotoStatus(count > 0, true);
         }
 
-        public void DidBecomeReadyForVideoRecording(CaptureSession session)
+        public void DidBecomeReadyForVideoRecording(VideoCaptureSession session)
         {
             Console.WriteLine("ready for video recording");
             var cameraCell = GetCameraCell(LayoutConfiguration);
@@ -725,31 +726,31 @@ namespace YSImagePicker.Public
             cameraCell?.VideoRecodingDidBecomeReady();
         }
 
-        public void DidStartVideoRecording(CaptureSession session)
+        public void DidStartVideoRecording(VideoCaptureSession session)
         {
             Console.WriteLine("did start video recording");
             UpdateCameraCellRecordingStatusIfNeeded(true, true);
         }
 
-        public void DidCancelVideoRecording(CaptureSession session)
+        public void DidCancelVideoRecording(VideoCaptureSession session)
         {
             Console.WriteLine("did cancel video recording");
             UpdateCameraCellRecordingStatusIfNeeded(false, true);
         }
 
-        public void DidFinishVideoRecording(CaptureSession session, NSUrl videoUrl)
+        public void DidFinishVideoRecording(VideoCaptureSession session, NSUrl videoUrl)
         {
             Console.WriteLine("did finish video recording");
             UpdateCameraCellRecordingStatusIfNeeded(false, true);
         }
 
-        public void DidInterruptVideoRecording(CaptureSession session, NSUrl videoUrl, NSError reason)
+        public void DidInterruptVideoRecording(VideoCaptureSession session, NSUrl videoUrl, NSError reason)
         {
             Console.WriteLine($"did interruCameraCollectionViewCellDelegatept video recording, reason: {reason}");
             UpdateCameraCellRecordingStatusIfNeeded(false, true);
         }
 
-        public void DidFailVideoRecording(CaptureSession session, NSError error)
+        public void DidFailVideoRecording(VideoCaptureSession session, NSError error)
         {
             Console.WriteLine("did fail video recording");
             UpdateCameraCellRecordingStatusIfNeeded(false, true);
@@ -773,12 +774,12 @@ namespace YSImagePicker.Public
 
         public void StartVideoRecording()
         {
-            _captureSession?.StartVideoRecording(saveToPhotoLibrary: CaptureSettings.SavesCapturedVideosToPhotoLibrary);
+            _captureSession?.VideoCaptureSession?.StartVideoRecording(CaptureSettings.SavesCapturedVideosToPhotoLibrary);
         }
 
         public void StopVideoRecording()
         {
-            _captureSession?.StopVideoRecording(false);
+            _captureSession?.VideoCaptureSession?.StopVideoRecording();
         }
 
         public void FlipCamera(Action completion)

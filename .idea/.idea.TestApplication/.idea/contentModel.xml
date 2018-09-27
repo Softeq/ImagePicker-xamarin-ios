@@ -122,9 +122,18 @@
         <e p="LayoutModel.cs" t="Include" />
         <e p="Media" t="Include">
           <e p="AVPreviewView.cs" t="Include" />
+          <e p="Capture" t="Include">
+            <e p="VideoCaptureSession.cs" t="Include" />
+          </e>
           <e p="CaptureSession.cs" t="Include" />
+          <e p="ICaptureSessionDelegate.cs" t="Include" />
+          <e p="ICaptureSessionPhotoCapturingDelegate.cs" t="Include" />
+          <e p="ICaptureSessionVideoRecordingDelegate.cs" t="Include" />
+          <e p="LivePhotoMode.cs" t="Include" />
           <e p="PHAssetManager.cs" t="Include" />
           <e p="PhotoCaptureDelegate.cs" t="Include" />
+          <e p="SessionPresetConfiguration.cs" t="Include" />
+          <e p="SessionSetupResult.cs" t="Include" />
           <e p="VideoCaptureDelegate.cs" t="Include" />
           <e p="VideoDisplayMode.cs" t="Include" />
         </e>
