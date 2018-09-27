@@ -7,36 +7,27 @@ using YSImagePicker.Media;
 
 namespace YSImagePicker.Public
 {
-    public interface ICameraCollectionViewCellDelegate
-    {
-        void TakePicture();
-        void TakeLivePhoto();
-        void StartVideoRecording();
-        void StopVideoRecording();
-        void FlipCamera(Action action);
-    }
-
     [Register("CameraCollectionViewCell")]
     public class CameraCollectionViewCell : UICollectionViewCell
     {
         private AVAuthorizationStatus? _authorizationStatus;
-        public AVPreviewView PreviewView = new AVPreviewView(CGRect.Empty) { BackgroundColor = UIColor.Black };
-        public UIImageView ImageView = new UIImageView(CGRect.Empty) { ContentMode = UIViewContentMode.ScaleAspectFill };
-        public UIVisualEffectView BlurView { get; set; }
+        public readonly AVPreviewView PreviewView = new AVPreviewView(CGRect.Empty) { BackgroundColor = UIColor.Black };
+        private readonly UIImageView _imageView = new UIImageView(CGRect.Empty) { ContentMode = UIViewContentMode.ScaleAspectFill };
+        private UIVisualEffectView BlurView { get; set; }
         public bool IsVisualEffectViewUsedForBlurring { get; set; }
         public ICameraCollectionViewCellDelegate Delegate { get; set; }
 
         public CameraCollectionViewCell(IntPtr handle) : base(handle)
         {
             BackgroundView = PreviewView;
-            PreviewView.AddSubview(ImageView);
+            PreviewView.AddSubview(_imageView);
         }
 
         public override void LayoutSubviews()
         {
             base.LayoutSubviews();
 
-            ImageView.Frame = PreviewView.Bounds;
+            _imageView.Frame = PreviewView.Bounds;
             if (BlurView != null)
             {
                 BlurView.Frame = PreviewView.Bounds;
@@ -44,8 +35,8 @@ namespace YSImagePicker.Public
         }
 
         ///
-        /// The cell can have multiple visual states based on autorization status. Use
-        /// `updateCameraAuthorizationStatus()` func to udate UI.
+        /// The cell can have multiple visual states based on authorization status. Use
+        /// `updateCameraAuthorizationStatus()` func to update UI.
         ///
         public AVAuthorizationStatus? AuthorizationStatus
         {

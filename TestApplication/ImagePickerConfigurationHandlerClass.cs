@@ -15,7 +15,7 @@ namespace TestApplication
         private AssetsSource _assetsSource = AssetsSource.RecentlyAdded;
         private int _assetItemsInRow = 2;
         private CameraMode _captureMode = CameraMode.PhotoAndLivePhoto;
-        private bool _savesCapturedAssets;
+        private bool _savesCapturedAssets = true;
 
         public readonly List<(string GroupTitle, string GroupDescription)> SectionsData =
             new List<(string groupTitle, string groupDescription)>
@@ -97,9 +97,10 @@ namespace TestApplication
                         if (collection == null)
                         {
                             return
-                                null; //you can return nil if you did not find desired fetch result, default fetch result will be used.
+                                null; //you can return null if you did not find desired fetch result, default fetch result will be used.
                         }
-                        return PHAsset.FetchAssets((PHAssetCollection)collection, null);
+
+                        return PHAsset.FetchAssets((PHAssetCollection) collection, null);
                     };
                     break;
                 case AssetsSource.OnlySelfies:
@@ -116,7 +117,7 @@ namespace TestApplication
                             return null;
                         }
 
-                        return PHAsset.FetchAssets((PHAssetCollection)collection, null);
+                        return PHAsset.FetchAssets((PHAssetCollection) collection, null);
                     };
                     break;
             }
@@ -132,18 +133,18 @@ namespace TestApplication
                     break;
                 //if you wish to use your own cell for capturing photos register it here:
                 //please note that custom cell must sublcass `CameraCollectionViewCell`.
-                //imagePicker.cellRegistrator.registerNibForCameraItem(UINib(nibName: "CustomNibName", bundle: nil))
+                //imagePicker.cellRegistrator.registerNibForCameraItem(UINib(nibName: "CustomNibName", bundle: null))
                 case CameraMode.PhotoAndLivePhoto:
                     imagePicker.CaptureSettings.CameraMode = CameraMode.PhotoAndLivePhoto;
                     break;
                 //if you wish to use your own cell for photo and live photo register it here:
                 //please note that custom cell must sublcass `CameraCollectionViewCell`.
-                //imagePicker.cellRegistrator.registerNibForCameraItem(UINib(nibName: "CustomNibName", bundle: nil))
+                //imagePicker.cellRegistrator.registerNibForCameraItem(UINib(nibName: "CustomNibName", bundle: null))
                 case CameraMode.PhotoAndVideo:
                     imagePicker.CaptureSettings.CameraMode = CameraMode.PhotoAndVideo;
                     //if you wish to use your own cell for photo and video register it here:
                     //please note that custom cell must sublcass `CameraCollectionViewCell`.
-                    //imagePicker.cellRegistrator.registerNibForCameraItem(UINib(nibName: "CustomNibName", bundle: nil))
+                    //imagePicker.cellRegistrator.registerNibForCameraItem(UINib(nibName: "CustomNibName", bundle: null))
                     break;
             }
 

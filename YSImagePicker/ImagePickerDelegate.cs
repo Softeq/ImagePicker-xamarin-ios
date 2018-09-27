@@ -2,6 +2,7 @@ using System;
 using CoreGraphics;
 using Foundation;
 using UIKit;
+using YSImagePicker.Interfaces;
 using YSImagePicker.Public;
 using YSImagePicker.Views;
 

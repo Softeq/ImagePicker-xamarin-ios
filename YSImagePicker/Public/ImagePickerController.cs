@@ -7,6 +7,7 @@ using CoreGraphics;
 using Foundation;
 using Photos;
 using UIKit;
+using YSImagePicker.Interfaces;
 using YSImagePicker.Media;
 using YSImagePicker.Operations;
 using YSImagePicker.Views;

@@ -8,7 +8,10 @@ namespace YSImagePicker.Media
 {
     public class VideoCaptureDelegate : AVCaptureFileOutputRecordingDelegate
     {
-        // MARK: Public Methods
+        private nint? _backgroundRecordingId;
+        private readonly Action _didStart;
+        private readonly Action<VideoCaptureDelegate> _didFinish;
+        private readonly Action<VideoCaptureDelegate, NSError> _didFail;
 
         /// set this to false if you don't wish to save video to photo library
         public bool SavesVideoToLibrary = true;
@@ -19,13 +22,8 @@ namespace YSImagePicker.Media
         /// if system interrupts recording due to various reasons (empty space, phone call, background, ...)
         public bool RecordingWasInterrupted = false;
 
-        /// non nil if failed or interrupted, nil if cancelled
-        private NSError RecordingError { get; set; }
-
-        private nint? _backgroundRecordingId;
-        private readonly Action _didStart;
-        private readonly Action<VideoCaptureDelegate> _didFinish;
-        private readonly Action<VideoCaptureDelegate, NSError> _didFail;
+        /// non null if failed or interrupted, null if cancelled
+        public NSError RecordingError { get; set; }
 
         public VideoCaptureDelegate(Action didStart, Action<VideoCaptureDelegate> didFinish,
             Action<VideoCaptureDelegate, NSError> didFail)
@@ -48,78 +46,6 @@ namespace YSImagePicker.Media
             }
         }
 
-
-        private void CleanUp(bool deleteFile, bool saveToAssets, NSUrl outputFileUrl)
-        {
-            void DeleteFileIfNeeded()
-            {
-                if (deleteFile == false)
-                {
-                    return;
-                }
-
-                var path = outputFileUrl.Path;
-
-                if (!NSFileManager.DefaultManager.FileExists(path))
-                {
-                    try
-                    {
-                        NSFileManager.DefaultManager.Remove(path, out _);
-                    }
-                    catch (Exception error)
-                    {
-                        Console.WriteLine($"capture session: could not remove recording at url: {outputFileUrl}");
-                        Console.WriteLine($"capture session: error: {error}");
-                    }
-                }
-            }
-
-            if (_backgroundRecordingId != null)
-            {
-                if (_backgroundRecordingId != UIApplication.BackgroundTaskInvalid)
-                {
-                    UIApplication.SharedApplication.EndBackgroundTask(_backgroundRecordingId.Value);
-                }
-
-                _backgroundRecordingId = UIApplication.BackgroundTaskInvalid;
-            }
-
-            if (saveToAssets)
-            {
-                PHPhotoLibrary.RequestAuthorization(status =>
-                {
-                    {
-                        if (status == PHAuthorizationStatus.Authorized)
-                        {
-                            PHPhotoLibrary.SharedPhotoLibrary.PerformChanges(() =>
-                            {
-                                var creationRequest = PHAssetCreationRequest.CreationRequestForAsset();
-                                var videoResourceOptions = new PHAssetResourceCreationOptions {ShouldMoveFile = true};
-                                creationRequest.AddResource(PHAssetResourceType.Video, outputFileUrl,
-                                    videoResourceOptions);
-                            }, (handler, error) =>
-                            {
-                                if (error != null)
-                                {
-                                    Console.WriteLine(
-                                        $"capture session: Error occured while saving video to photo library: {error}");
-                                    DeleteFileIfNeeded();
-                                }
-                            });
-                        }
-                        else
-                        {
-                            DeleteFileIfNeeded();
-                        }
-                    }
-                });
-            }
-            else
-            {
-                DeleteFileIfNeeded();
-            }
-        }
-
         public override void DidStartRecording(AVCaptureFileOutput captureOutput, NSUrl outputFileUrl,
             NSObject[] connections)
         {
@@ -132,35 +58,85 @@ namespace YSImagePicker.Media
         {
             if (error != null)
             {
-                RecordingError = error;
-
-                Console.WriteLine($"capture session: movie recording failed error: {error}");
-
-                //this can be true even if recording is stopped due to a reason (no disk space, ...) so the video can still be delivered.
-                //TODO: Check case when true or always false
-                var successfullyFinished =
-                    (error.UserInfo[AVErrorKeys.RecordingSuccessfullyFinished] as NSNumber)?.BoolValue;
-
-                if (successfullyFinished.HasValue && successfullyFinished == true)
-                {
-                    CleanUp(true, SavesVideoToLibrary, outputFileUrl);
-                    _didFail.Invoke(this, error);
-                }
-                else
-                {
-                    CleanUp(true, false, outputFileUrl);
-                    _didFail.Invoke(this, error);
-                }
+                HandleCaptureResultWithError(error, outputFileUrl);
             }
-            else if (IsBeingCancelled == true)
+            else if (IsBeingCancelled)
             {
-                CleanUp(true, false, outputFileUrl);
+                CleanUp(false, outputFileUrl);
                 _didFinish.Invoke(this);
             }
             else
             {
-                CleanUp(true, SavesVideoToLibrary, outputFileUrl);
+                CleanUp(SavesVideoToLibrary, outputFileUrl);
                 _didFinish.Invoke(this);
+            }
+        }
+
+        private void SaveVideoToLibrary(NSUrl outputFileUrl)
+        {
+            var creationRequest = PHAssetCreationRequest.CreationRequestForAsset();
+            var videoResourceOptions = new PHAssetResourceCreationOptions {ShouldMoveFile = true};
+            creationRequest.AddResource(PHAssetResourceType.Video, outputFileUrl,
+                videoResourceOptions);
+        }
+
+        private void HandleCaptureResultWithError(NSError error, NSUrl outputFileUrl)
+        {
+            RecordingError = error;
+
+            Console.WriteLine($"capture session: movie recording failed error: {error}");
+
+            //this can be true even if recording is stopped due to a reason (no disk space, ...) so the video can still be delivered.
+            var successfullyFinished =
+                (error.UserInfo[AVErrorKeys.RecordingSuccessfullyFinished] as NSNumber)?.BoolValue;
+
+            if (successfullyFinished == true)
+            {
+                CleanUp(SavesVideoToLibrary, outputFileUrl);
+                _didFail.Invoke(this, error);
+            }
+            else
+            {
+                CleanUp(false, outputFileUrl);
+                _didFail.Invoke(this, error);
+            }
+        }
+
+        private void CleanUp(bool saveToAssets, NSUrl outputFileUrl)
+        {
+            if (_backgroundRecordingId != null)
+            {
+                if (_backgroundRecordingId != UIApplication.BackgroundTaskInvalid)
+                {
+                    UIApplication.SharedApplication.EndBackgroundTask(_backgroundRecordingId.Value);
+                }
+
+                _backgroundRecordingId = UIApplication.BackgroundTaskInvalid;
+            }
+
+            if (!saveToAssets)
+            {
+                DeleteFileIfNeeded(outputFileUrl);
+                return;
+            }
+
+            PHAssetManager.PerformChangesWithAuthorization(() => SaveVideoToLibrary(outputFileUrl),
+                () => DeleteFileIfNeeded(outputFileUrl));
+        }
+
+        private void DeleteFileIfNeeded(NSUrl outputFileUrl)
+        {
+            if (NSFileManager.DefaultManager.FileExists(outputFileUrl.Path))
+            {
+                return;
+            }
+
+            NSFileManager.DefaultManager.Remove(outputFileUrl.Path, out var nsError);
+
+            if (nsError != null)
+            {
+                Console.WriteLine($"capture session: could not remove recording at url: {outputFileUrl}");
+                Console.WriteLine($"capture session: error: {nsError}");
             }
         }
     }

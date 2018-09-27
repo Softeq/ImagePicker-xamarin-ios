@@ -426,6 +426,7 @@ namespace YSImagePicker.Media
                     Console.WriteLine("capture session: could not add audio device input to the session");
                 }
             }
+
             if (PresetConfiguration == GetSessionPresetConfiguration.LivePhotos ||
                 PresetConfiguration == GetSessionPresetConfiguration.Photos ||
                 PresetConfiguration == GetSessionPresetConfiguration.Videos)
@@ -479,6 +480,7 @@ namespace YSImagePicker.Media
             }
 
             #endregion
+
             Session.CommitConfiguration();
         }
 
@@ -762,14 +764,14 @@ namespace YSImagePicker.Media
 
                 if (Session.CanAddInput(videoDeviceInput))
                 {
-
                     if (_subjectAreaDidChangeNotification != null)
                     {
                         NSNotificationCenter.DefaultCenter.RemoveObserver(_subjectAreaDidChangeNotification);
                     }
+
                     _subjectAreaDidChangeNotification = NSNotificationCenter.DefaultCenter.AddObserver(
-                           AVCaptureDevice.SubjectAreaDidChangeNotification, SubjectAreaDidChange,
-                           _videoDeviceInput.Device);
+                        AVCaptureDevice.SubjectAreaDidChangeNotification, SubjectAreaDidChange,
+                        _videoDeviceInput.Device);
                     Session.AddInput(videoDeviceInput);
                     _videoDeviceInput = videoDeviceInput;
                 }
@@ -833,10 +835,11 @@ namespace YSImagePicker.Media
                 // Capture a JPEG photo with flash set to auto and high resolution photo enabled.
                 AVCapturePhotoSettings photoSettings = AVCapturePhotoSettings.Create();
 
-                if (_photoOutput.SupportedFlashModes.Contains(NSNumber.FromInt32((int)AVCaptureFlashMode.Auto)))
+                if (_photoOutput.SupportedFlashModes.Contains(NSNumber.FromInt32((int) AVCaptureFlashMode.Auto)))
                 {
                     photoSettings.FlashMode = AVCaptureFlashMode.Auto;
                 }
+
                 photoSettings.IsHighResolutionPhotoEnabled = true;
 
                 //TODO: we dont need preview photo, we need thumbnail format, read `previewPhotoFormat` docs
@@ -880,71 +883,71 @@ namespace YSImagePicker.Media
 
                 // Use a separate object for the photo capture delegate to isolate each capture life cycle.
                 var photoCaptureDelegate = new PhotoCaptureDelegate(photoSettings,
-                    () =>
-                    {
-                        DispatchQueue.MainQueue.DispatchAsync(() =>
+                        () =>
                         {
-                            Console.WriteLine("Tests:22");
-                            PhotoCapturingDelegate?.WillCapturePhotoWith(this, photoSettings);
-                        });
-                    }, capturing =>
-                    {
-                        /*
-                     Because Live Photo captures can overlap, we need to keep track of the
-                     number of in progress Live Photo captures to ensure that the
-                     Live Photo label stays visible during these captures.
-                     */
-                        _sessionQueue.DispatchAsync(() =>
-                        {
-                            Console.WriteLine("Tests:23");
-                            if (capturing)
-                            {
-                                InProgressLivePhotoCapturesCount += 1;
-                            }
-                            else
-                            {
-                                InProgressLivePhotoCapturesCount -= 1;
-                            }
-
                             DispatchQueue.MainQueue.DispatchAsync(() =>
                             {
-                                Console.WriteLine("Tests:24");
-                                if (InProgressLivePhotoCapturesCount >= 0)
+                                Console.WriteLine("Tests:22");
+                                PhotoCapturingDelegate?.WillCapturePhotoWith(this, photoSettings);
+                            });
+                        }, capturing =>
+                        {
+                            /*
+                         Because Live Photo captures can overlap, we need to keep track of the
+                         number of in progress Live Photo captures to ensure that the
+                         Live Photo label stays visible during these captures.
+                         */
+                            _sessionQueue.DispatchAsync(() =>
+                            {
+                                Console.WriteLine("Tests:23");
+                                if (capturing)
                                 {
-                                    PhotoCapturingDelegate?.CaptureSessionDidChangeNumberOfProcessingLivePhotos(
-                                        this);
+                                    InProgressLivePhotoCapturesCount += 1;
                                 }
                                 else
                                 {
-                                    Console.WriteLine(
-                                        "capture session: error - in progress live photo capture count is less than 0");
+                                    InProgressLivePhotoCapturesCount -= 1;
+                                }
+
+                                DispatchQueue.MainQueue.DispatchAsync(() =>
+                                {
+                                    Console.WriteLine("Tests:24");
+                                    if (InProgressLivePhotoCapturesCount >= 0)
+                                    {
+                                        PhotoCapturingDelegate?.CaptureSessionDidChangeNumberOfProcessingLivePhotos(
+                                            this);
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine(
+                                            "capture session: error - in progress live photo capture count is less than 0");
+                                    }
+                                });
+                            });
+                        }, photoDelegate =>
+                        {
+                            _sessionQueue.DispatchAsync(() =>
+                            {
+                                Console.WriteLine("Tests:25");
+                                _inProgressPhotoCaptureDelegates[photoDelegate.RequestedPhotoSettings.UniqueID] =
+                                    null;
+                            });
+
+                            DispatchQueue.MainQueue.DispatchAsync(() =>
+                            {
+                                Console.WriteLine("Tests:26");
+                                if (photoDelegate.PhotoData != null)
+                                {
+                                    PhotoCapturingDelegate?.DidCapturePhotoData(this, photoDelegate.PhotoData,
+                                        photoDelegate.RequestedPhotoSettings);
+                                }
+                                else if (photoDelegate.ProcessError != null)
+                                {
+                                    PhotoCapturingDelegate?.DidFailCapturingPhotoWith(this, photoDelegate.ProcessError);
                                 }
                             });
-                        });
-                    }, photoDelegate =>
-                    {
-                        _sessionQueue.DispatchAsync(() =>
-                        {
-                            Console.WriteLine("Tests:25");
-                            _inProgressPhotoCaptureDelegates[photoDelegate.RequestedPhotoSettings.UniqueID] =
-                                null;
-                        });
-
-                        DispatchQueue.MainQueue.DispatchAsync(() =>
-                        {
-                            Console.WriteLine("Tests:26");
-                            if (photoDelegate.PhotoData != null)
-                            {
-                                PhotoCapturingDelegate?.DidCapturePhotoData(this, photoDelegate.PhotoData,
-                                    photoDelegate.RequestedPhotoSettings);
-                            }
-                            else if (photoDelegate.ProcessError != null)
-                            {
-                                PhotoCapturingDelegate?.DidFailCapturingPhotoWith(this, photoDelegate.ProcessError);
-                            }
-                        });
-                    })
-                { SavesPhotoToLibrary = saveToPhotoLibrary };
+                        })
+                    {ShouldSavePhotoToLibrary = saveToPhotoLibrary};
 
 
                 /*
@@ -987,60 +990,61 @@ namespace YSImagePicker.Media
                 var outputFileName = new NSUuid().AsString();
                 VideoCaptureDelegate recordingDelegate;
 
-                var outputUrl = NSFileManager.DefaultManager.GetTemporaryDirectory().Append(outputFileName, false).AppendPathExtension("mov");
+                var outputUrl = NSFileManager.DefaultManager.GetTemporaryDirectory().Append(outputFileName, false)
+                    .AppendPathExtension("mov");
 
                 recordingDelegate = new VideoCaptureDelegate(
-                    () =>
-                    {
-                        DispatchQueue.MainQueue.DispatchAsync(() =>
+                        () =>
                         {
-                            Console.WriteLine("Tests:28");
-                            VideoRecordingDelegate?.DidStartVideoRecording(this);
-                        });
-                    }, captureDelegate =>
-                    {
-                        // we need to remove reference to the delegate so it can be deallocated
-                        _sessionQueue.DispatchAsync(() =>
-                    {
-                        Console.WriteLine("Tests:29");
-                        _videoCaptureDelegate = null;
-                    });
+                            DispatchQueue.MainQueue.DispatchAsync(() =>
+                            {
+                                Console.WriteLine("Tests:28");
+                                VideoRecordingDelegate?.DidStartVideoRecording(this);
+                            });
+                        }, captureDelegate =>
+                        {
+                            // we need to remove reference to the delegate so it can be deallocated
+                            _sessionQueue.DispatchAsync(() =>
+                            {
+                                Console.WriteLine("Tests:29");
+                                _videoCaptureDelegate = null;
+                            });
 
-                        DispatchQueue.MainQueue.DispatchAsync(() =>
-                        {
-                            Console.WriteLine("Tests:30");
-                            if (captureDelegate.IsBeingCancelled)
+                            DispatchQueue.MainQueue.DispatchAsync(() =>
                             {
-                                VideoRecordingDelegate?.DidCancelVideoRecording(this);
-                            }
-                            else
-                            {
-                                VideoRecordingDelegate?.DidFinishVideoRecording(this, outputUrl);
-                            }
-                        });
-                    }, (captureDelegate, error) =>
-                    {
-                        // we need to remove reference to the delegate so it can be deallocated
-                        _sessionQueue.DispatchAsync(() =>
+                                Console.WriteLine("Tests:30");
+                                if (captureDelegate.IsBeingCancelled)
+                                {
+                                    VideoRecordingDelegate?.DidCancelVideoRecording(this);
+                                }
+                                else
+                                {
+                                    VideoRecordingDelegate?.DidFinishVideoRecording(this, outputUrl);
+                                }
+                            });
+                        }, (captureDelegate, error) =>
                         {
-                            Console.WriteLine("Tests:31");
-                            _videoCaptureDelegate = null;
-                        });
+                            // we need to remove reference to the delegate so it can be deallocated
+                            _sessionQueue.DispatchAsync(() =>
+                            {
+                                Console.WriteLine("Tests:31");
+                                _videoCaptureDelegate = null;
+                            });
 
-                        DispatchQueue.MainQueue.DispatchAsync(() =>
-                        {
-                            Console.WriteLine("Tests:32");
-                            if (captureDelegate.RecordingWasInterrupted)
+                            DispatchQueue.MainQueue.DispatchAsync(() =>
                             {
-                                VideoRecordingDelegate?.DidInterruptVideoRecording(this, outputUrl, error);
-                            }
-                            else
-                            {
-                                VideoRecordingDelegate?.DidFailVideoRecording(this, error);
-                            }
-                        });
-                    })
-                { SavesVideoToLibrary = saveToPhotoLibrary };
+                                Console.WriteLine("Tests:32");
+                                if (captureDelegate.RecordingWasInterrupted)
+                                {
+                                    VideoRecordingDelegate?.DidInterruptVideoRecording(this, outputUrl, error);
+                                }
+                                else
+                                {
+                                    VideoRecordingDelegate?.DidFailVideoRecording(this, error);
+                                }
+                            });
+                        })
+                    {SavesVideoToLibrary = saveToPhotoLibrary};
 
                 // start recording
                 _videoFileOutput.StartRecordingToOutputFile(outputUrl, recordingDelegate);

@@ -2,7 +2,7 @@ using UIKit;
 using YSImagePicker.Public;
 using YSImagePicker.Views;
 
-namespace YSImagePicker
+namespace YSImagePicker.Interfaces
 {
     public interface IImagePickerDelegate
     {

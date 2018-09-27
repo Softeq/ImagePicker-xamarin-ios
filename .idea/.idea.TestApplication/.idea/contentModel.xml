@@ -111,17 +111,22 @@
         <e p="extensions" t="Include">
           <e p="UIImageExtensions.cs" t="Include" />
         </e>
-        <e p="IImagePickerDelegate.cs" t="Include" />
         <e p="ImagePickerAssetModel.cs" t="Include" />
         <e p="ImagePickerDataSource.cs" t="Include" />
         <e p="ImagePickerDelegate.cs" t="Include" />
         <e p="ImagePickerLayout.cs" t="Include" />
+        <e p="Interfaces" t="Include">
+          <e p="ICameraCollectionViewCellDelegate.cs" t="Include" />
+          <e p="IImagePickerDelegate.cs" t="Include" />
+        </e>
         <e p="LayoutModel.cs" t="Include" />
         <e p="Media" t="Include">
           <e p="AVPreviewView.cs" t="Include" />
           <e p="CaptureSession.cs" t="Include" />
+          <e p="PHAssetManager.cs" t="Include" />
           <e p="PhotoCaptureDelegate.cs" t="Include" />
           <e p="VideoCaptureDelegate.cs" t="Include" />
+          <e p="VideoDisplayMode.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive" />
         <e p="Operations" t="Include">
