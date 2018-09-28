@@ -2,7 +2,7 @@ using AVFoundation;
 using Foundation;
 using YSImagePicker.Media.Capture;
 
-namespace YSImagePicker.Media
+namespace YSImagePicker.Interfaces
 {
     public interface ISessionPhotoCapturingDelegate
     {

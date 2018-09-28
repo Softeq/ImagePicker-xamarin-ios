@@ -3,6 +3,7 @@ using AVFoundation;
 using CoreGraphics;
 using Foundation;
 using UIKit;
+using YSImagePicker.Interfaces;
 using YSImagePicker.Media;
 
 namespace YSImagePicker.Public

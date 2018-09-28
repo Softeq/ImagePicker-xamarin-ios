@@ -2,6 +2,9 @@ using System;
 using AVFoundation;
 using CoreFoundation;
 using Foundation;
+using YSImagePicker.Interfaces;
+using YSImagePicker.Media.Delegates;
+using YSImagePicker.Models;
 
 namespace YSImagePicker.Media.Capture
 {
@@ -126,7 +129,7 @@ namespace YSImagePicker.Media.Capture
 
             DispatchQueue.MainQueue.DispatchAsync(() =>
             {
-                if (captureDelegate.IsBeingCancelled)
+                if (captureDelegate?.IsBeingCancelled == true)
                 {
                     _videoRecordingDelegate?.DidCancelVideoRecording(this);
                 }

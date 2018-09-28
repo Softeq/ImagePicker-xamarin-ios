@@ -4,7 +4,7 @@ using Foundation;
 using Photos;
 using UIKit;
 
-namespace YSImagePicker.Media
+namespace YSImagePicker.Media.Delegates
 {
     public class VideoCaptureDelegate : AVCaptureFileOutputRecordingDelegate
     {

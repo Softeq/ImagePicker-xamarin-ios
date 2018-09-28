@@ -10,6 +10,8 @@ using UIKit;
 using YSImagePicker.Extensions;
 using YSImagePicker.Interfaces;
 using YSImagePicker.Media;
+using YSImagePicker.Media.Capture;
+using YSImagePicker.Models;
 using YSImagePicker.Operations;
 using YSImagePicker.Views;
 
@@ -448,12 +450,6 @@ namespace YSImagePicker.Public
                     _captureSession.PreviewLayer = cell.PreviewView.PreviewLayer;
                 }
 
-                //when using videos preset, we are using different technique for
-                //blurring the cell content. If isVisualEffectViewUsedForBlurring is
-                //true, then UIVisualEffectView is used for blurring. In other cases
-                //we manually blur video data output frame (it's faster). Reason why
-                //we have 2 different blurring techniques is that the faster solution
-                //can not be used when we have .video preset configuration.
                 var config = _captureSession?.PresetConfiguration;
                 if (config == SessionPresetConfiguration.Videos)
                 {

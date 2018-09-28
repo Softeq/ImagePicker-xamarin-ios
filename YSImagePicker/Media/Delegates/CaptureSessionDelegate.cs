@@ -1,11 +1,10 @@
 using System;
 using AVFoundation;
 using Foundation;
-using UIKit;
-using YSImagePicker.Extensions;
+using YSImagePicker.Interfaces;
 using YSImagePicker.Public;
 
-namespace YSImagePicker.Media
+namespace YSImagePicker.Media.Delegates
 {
     public class CaptureSessionDelegate : ICaptureSessionDelegate
     {

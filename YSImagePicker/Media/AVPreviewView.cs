@@ -3,6 +3,7 @@ using CoreGraphics;
 using Foundation;
 using ObjCRuntime;
 using UIKit;
+using YSImagePicker.Models;
 
 namespace YSImagePicker.Media
 {

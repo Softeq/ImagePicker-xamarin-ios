@@ -3,9 +3,10 @@ using System.Globalization;
 using AVFoundation;
 using CoreFoundation;
 using Foundation;
-using YSImagePicker.Media.Capture;
+using YSImagePicker.Interfaces;
+using YSImagePicker.Models;
 
-namespace YSImagePicker.Media
+namespace YSImagePicker.Media.Capture
 {
     public class CaptureSession : NSObject
     {
@@ -13,13 +14,12 @@ namespace YSImagePicker.Media
         private SessionSetupResult _setupResult = SessionSetupResult.Success;
         private readonly DispatchQueue _sessionQueue = new DispatchQueue("session queue");
         private readonly NotificationCenterHandler _notificationCenterHandler;
+        private readonly ICaptureSessionDelegate _captureSessionDelegate;
         public readonly VideoCaptureSession VideoCaptureSession;
         public readonly PhotoCaptureSession PhotoCaptureSession;
 
         public AVCaptureSession Session { get; } = new AVCaptureSession();
         public AVCaptureVideoPreviewLayer PreviewLayer { get; set; }
-        private readonly ICaptureSessionDelegate _captureSessionDelegate;
-
         public SessionPresetConfiguration PresetConfiguration = SessionPresetConfiguration.Photos;
 
         public CaptureSession(ICaptureSessionDelegate captureSessionDelegate,
@@ -50,33 +50,32 @@ namespace YSImagePicker.Media
 
         public void Prepare(AVCaptureVideoOrientation captureVideoOrientation)
         {
-            switch (AVCaptureDevice.GetAuthorizationStatus(AVMediaType.Video))
-            {
-                case AVAuthorizationStatus.Authorized:
-                    break;
-                case AVAuthorizationStatus.NotDetermined:
-                    _sessionQueue.Suspend();
-                    AVCaptureDevice.RequestAccessForMediaType(AVAuthorizationMediaType.Video, granted =>
-                    {
-                        if (granted)
-                        {
-                            DispatchQueue.MainQueue.DispatchAsync(() =>
-                            {
-                                _captureSessionDelegate.CaptureGrantedSession(AVAuthorizationStatus.Authorized);
-                            });
-                        }
-                        else
-                        {
-                            _setupResult = SessionSetupResult.NotAuthorized;
-                        }
+            var status = AVCaptureDevice.GetAuthorizationStatus(AVMediaType.Video);
 
-                        _sessionQueue.Resume();
-                    });
-                    break;
-                default:
-                    // The user has previously denied access.
-                    _setupResult = SessionSetupResult.NotAuthorized;
-                    break;
+            if (status == AVAuthorizationStatus.NotDetermined)
+            {
+                _sessionQueue.Suspend();
+                AVCaptureDevice.RequestAccessForMediaType(AVAuthorizationMediaType.Video, granted =>
+                {
+                    if (granted)
+                    {
+                        DispatchQueue.MainQueue.DispatchAsync(() =>
+                        {
+                            _captureSessionDelegate.CaptureGrantedSession(AVAuthorizationStatus.Authorized);
+                        });
+                    }
+                    else
+                    {
+                        _setupResult = SessionSetupResult.NotAuthorized;
+                    }
+
+                    _sessionQueue.Resume();
+                });
+            }
+            else if (status == AVAuthorizationStatus.Authorized) ;
+            else
+            {
+                _setupResult = SessionSetupResult.NotAuthorized;
             }
 
             _sessionQueue.DispatchAsync(() =>
@@ -99,7 +98,6 @@ namespace YSImagePicker.Media
                 switch (_setupResult)
                 {
                     case SessionSetupResult.Success:
-                        // Only setup observers and start the session running if setup succeeded.
                         _notificationCenterHandler.AddObservers(Session);
                         Session.StartRunning();
                         _isSessionRunning = Session.Running;
@@ -127,20 +125,15 @@ namespace YSImagePicker.Media
                 return;
             }
 
-            //we need to capture self in order to postpone deallocation while
-            //session is properly stopped and cleaned up
-            _sessionQueue.DispatchAsync(() =>
+            if (_isSessionRunning != true)
             {
-                if (_isSessionRunning != true)
-                {
-                    Console.WriteLine("capture session: warning - trying to suspend non running session");
-                    return;
-                }
+                Console.WriteLine("capture session: warning - trying to suspend non running session");
+                return;
+            }
 
-                Session.StopRunning();
-                _isSessionRunning = Session.Running;
-                _notificationCenterHandler.RemoveObservers(Session);
-            });
+            Session.StopRunning();
+            _isSessionRunning = Session.Running;
+            _notificationCenterHandler.RemoveObservers(Session);
         }
 
         private void ConfigureSession()

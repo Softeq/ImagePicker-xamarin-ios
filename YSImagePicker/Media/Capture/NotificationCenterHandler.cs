@@ -2,6 +2,7 @@
 using AVFoundation;
 using CoreFoundation;
 using Foundation;
+using YSImagePicker.Interfaces;
 
 namespace YSImagePicker.Media.Capture
 {

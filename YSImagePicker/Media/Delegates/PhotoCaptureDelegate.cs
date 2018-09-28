@@ -4,7 +4,7 @@ using CoreMedia;
 using Foundation;
 using Photos;
 
-namespace YSImagePicker.Media
+namespace YSImagePicker.Media.Delegates
 {
     public class PhotoCaptureDelegate : AVCapturePhotoCaptureDelegate
     {

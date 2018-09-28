@@ -5,6 +5,9 @@ using AVFoundation;
 using CoreFoundation;
 using Foundation;
 using UIKit;
+using YSImagePicker.Interfaces;
+using YSImagePicker.Media.Delegates;
+using YSImagePicker.Models;
 
 namespace YSImagePicker.Media.Capture
 {

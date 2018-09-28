@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace YSImagePicker.Public
+namespace YSImagePicker.Interfaces
 {
     public interface ICameraCollectionViewCellDelegate
     {

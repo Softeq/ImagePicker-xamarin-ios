@@ -1,7 +1,7 @@
 using AVFoundation;
 using Foundation;
 
-namespace YSImagePicker.Media
+namespace YSImagePicker.Interfaces
 {
     /// Groups a method that informs a delegate about progress and state of video recording.
     public interface ICaptureSessionDelegate

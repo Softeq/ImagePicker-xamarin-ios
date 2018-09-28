@@ -1,4 +1,4 @@
-namespace YSImagePicker.Media
+namespace YSImagePicker.Models
 {
     public enum LivePhotoMode
     {
