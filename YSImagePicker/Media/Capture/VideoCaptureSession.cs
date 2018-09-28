@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using AVFoundation;
 using CoreFoundation;
 using Foundation;
@@ -9,60 +8,29 @@ namespace YSImagePicker.Media.Capture
     public class VideoCaptureSession
     {
         private AVCaptureMovieFileOutput _videoFileOutput;
-        private readonly DispatchQueue _sessionQueue = new DispatchQueue("video session queue");
-        private AVCaptureDeviceInput _videoDeviceInput;
         private readonly ICaptureSessionVideoRecordingDelegate _videoRecordingDelegate;
         private VideoCaptureDelegate _videoCaptureDelegate;
-
-        public bool IsReadyForVideoRecording => _videoFileOutput != null;
-        private NSObject _runtimeErrorNotification;
         public bool IsRecordingVideo => _videoFileOutput?.Recording ?? false;
 
-        private readonly AVCaptureDeviceDiscoverySession _videoDeviceDiscoverySession =
-            AVCaptureDeviceDiscoverySession.Create(new[]
-                {
-                    AVCaptureDeviceType.BuiltInWideAngleCamera,
-                    AVCaptureDeviceType.BuiltInDuoCamera
-                },
-                AVMediaType.Video, AVCaptureDevicePosition.Unspecified);
+        private AudioCaptureSession _audioCaptureSession;
+        private readonly VideoDeviceInputManager _videoDeviceInputManager;
+        private readonly DispatchQueue _sessionQueue;
 
-        public VideoCaptureSession(ICaptureSessionVideoRecordingDelegate videoRecordingDelegate)
+        public VideoCaptureSession(Action<NSNotification> action,
+            ICaptureSessionVideoRecordingDelegate videoRecordingDelegate, DispatchQueue queue)
         {
             _videoRecordingDelegate = videoRecordingDelegate;
+            _videoDeviceInputManager = new VideoDeviceInputManager(action);
+            _sessionQueue = queue;
         }
 
-        ///
-        /// Configures a session before it can be used, following steps are done:
-        /// 1. adds video input
-        /// 2. adds video output (for recording videos)
-        /// 3. adds audio input (for video recording with audio)
-        /// 4. adds photo output (for capturing photos)capture session: trying to record a video but no preview layer is set
-        ///
         public SessionSetupResult ConfigureSession(AVCaptureSession session)
         {
-            // Choose the back dual camera if available, otherwise default to a wide angle camera.
-            if (!TryGetDefaultDevice(out var defaultVideoDevice))
-            {
-                Console.WriteLine("capture session: could not create capture device");
-                return SessionSetupResult.ConfigurationFailed;
-            }
+            var inputDeviceConfigureResult = _videoDeviceInputManager.ConfigureVideoDeviceInput(session);
 
-            var videoDeviceInput = new AVCaptureDeviceInput(defaultVideoDevice, out var error);
-
-            if (error != null)
+            if (inputDeviceConfigureResult != SessionSetupResult.Success)
             {
-                Console.WriteLine($"Error accrued {error}");
-            }
-
-            if (session.CanAddInput(videoDeviceInput))
-            {
-                session.AddInput(videoDeviceInput);
-                _videoDeviceInput = videoDeviceInput;
-            }
-            else
-            {
-                Console.WriteLine("capture session: could not add video device input to the session");
-                return SessionSetupResult.ConfigurationFailed;
+                return inputDeviceConfigureResult;
             }
 
             // Add movie file output.
@@ -85,10 +53,13 @@ namespace YSImagePicker.Media.Capture
                 return SessionSetupResult.ConfigurationFailed;
             }
 
+            _audioCaptureSession = new AudioCaptureSession();
+            _audioCaptureSession.ConfigureSession(session);
+
             return SessionSetupResult.Success;
         }
 
-        public void StartVideoRecording(bool saveToPhotoLibrary)
+        public void StartVideoRecording(bool shouldSaveVideoToLibrary)
         {
             if (_videoFileOutput == null)
             {
@@ -112,51 +83,57 @@ namespace YSImagePicker.Media.Capture
                 var outputUrl = NSFileManager.DefaultManager.GetTemporaryDirectory().Append(outputFileName, false)
                     .AppendPathExtension("mov");
 
-                var recordingDelegate = new VideoCaptureDelegate(
-                        () =>
-                        {
-                            DispatchQueue.MainQueue.DispatchAsync(() =>
-                            {
-                                _videoRecordingDelegate?.DidStartVideoRecording(this);
-                            });
-                        }, captureDelegate =>
-                        {
-                            // we need to remove reference to the delegate so it can be deallocated
-                            _sessionQueue.DispatchAsync(() => { _videoCaptureDelegate = null; });
-
-                            DispatchQueue.MainQueue.DispatchAsync(() =>
-                            {
-                                if (captureDelegate.IsBeingCancelled)
-                                {
-                                    _videoRecordingDelegate?.DidCancelVideoRecording(this);
-                                }
-                                else
-                                {
-                                    _videoRecordingDelegate?.DidFinishVideoRecording(this, outputUrl);
-                                }
-                            });
-                        }, (captureDelegate, error) =>
-                        {
-                            // we need to remove reference to the delegate so it can be deallocated
-                            _videoCaptureDelegate = null;
-
-                            DispatchQueue.MainQueue.DispatchAsync(() =>
-                            {
-                                if (captureDelegate.RecordingWasInterrupted)
-                                {
-                                    _videoRecordingDelegate?.DidInterruptVideoRecording(this, outputUrl, error);
-                                }
-                                else
-                                {
-                                    _videoRecordingDelegate?.DidFailVideoRecording(this, error);
-                                }
-                            });
-                        })
-                { SavesVideoToLibrary = saveToPhotoLibrary };
+                var recordingDelegate = new VideoCaptureDelegate(DidStartCaptureAction,
+                    captureDelegate => DidFinishCaptureAction(captureDelegate, outputUrl),
+                    (captureDelegate, error) => DidCaptureFail(captureDelegate, error, outputUrl))
+                {
+                    ShouldSaveVideoToLibrary = shouldSaveVideoToLibrary
+                };
 
                 _videoFileOutput.StartRecordingToOutputFile(outputUrl, recordingDelegate);
 
                 _videoCaptureDelegate = recordingDelegate;
+            });
+        }
+
+        private void DidCaptureFail(VideoCaptureDelegate captureDelegate, NSError error, NSUrl outputUrl)
+        {
+            // we need to remove reference to the delegate so it can be deallocated
+            _videoCaptureDelegate = null;
+
+            DispatchQueue.MainQueue.DispatchAsync(() =>
+            {
+                if (captureDelegate.RecordingWasInterrupted)
+                {
+                    _videoRecordingDelegate?.DidInterruptVideoRecording(this, outputUrl, error);
+                }
+                else
+                {
+                    _videoRecordingDelegate?.DidFailVideoRecording(this, error);
+                }
+            });
+        }
+
+        private void DidStartCaptureAction()
+        {
+            DispatchQueue.MainQueue.DispatchAsync(() => { _videoRecordingDelegate?.DidStartVideoRecording(this); });
+        }
+
+        private void DidFinishCaptureAction(VideoCaptureDelegate captureDelegate, NSUrl outputUrl)
+        {
+            // we need to remove reference to the delegate so it can be deallocated
+            _sessionQueue.DispatchAsync(() => { captureDelegate = null; });
+
+            DispatchQueue.MainQueue.DispatchAsync(() =>
+            {
+                if (captureDelegate.IsBeingCancelled)
+                {
+                    _videoRecordingDelegate?.DidCancelVideoRecording(this);
+                }
+                else
+                {
+                    _videoRecordingDelegate?.DidFinishVideoRecording(this, outputUrl);
+                }
             });
         }
 
@@ -195,121 +172,17 @@ namespace YSImagePicker.Media.Capture
 
         public void ChangeCamera(AVCaptureSession session)
         {
-            AVCaptureDevicePosition preferredPosition;
-            AVCaptureDeviceType preferredDeviceType;
+            _videoDeviceInputManager.ConfigureVideoDeviceInput(session);
 
-            _sessionQueue.DispatchAsync(() =>
+            var connection = _videoFileOutput?.ConnectionFromMediaType(AVMediaType.Video);
+
+            if (connection != null)
             {
-                var currentVideoDevice = _videoDeviceInput.Device;
-                var currentPosition = currentVideoDevice.Position;
-
-                switch (currentPosition)
+                if (connection.SupportsVideoStabilization)
                 {
-                    case AVCaptureDevicePosition.Unspecified:
-                    case AVCaptureDevicePosition.Front:
-                        preferredPosition = AVCaptureDevicePosition.Back;
-                        preferredDeviceType = AVCaptureDeviceType.BuiltInDuoCamera;
-                        break;
-                    case AVCaptureDevicePosition.Back:
-                        preferredPosition = AVCaptureDevicePosition.Front;
-                        preferredDeviceType = AVCaptureDeviceType.BuiltInWideAngleCamera;
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
+                    connection.PreferredVideoStabilizationMode = AVCaptureVideoStabilizationMode.Auto;
                 }
-
-                var devices = _videoDeviceDiscoverySession.Devices;
-
-                // First, look for a device with both the preferred position and device type. Otherwise, look for a device with only the preferred position.
-                var videoDevice = devices.FirstOrDefault(x =>
-                    x.Position == preferredPosition && x.DeviceType == preferredDeviceType);
-
-                if (videoDevice == null)
-                {
-                    videoDevice = devices.FirstOrDefault(x => x.Position == preferredPosition);
-                }
-
-                if (videoDevice == null)
-                {
-                    return;
-                }
-
-                var videoDeviceInput = new AVCaptureDeviceInput(videoDevice, out var error);
-
-                if (error != null)
-                {
-                    Console.WriteLine($"Error occured while creating video device input: {error}");
-                    return;
-                }
-
-                // Remove the existing device input first, since using the front and back camera simultaneously is not supported.
-                session.RemoveInput(_videoDeviceInput);
-
-                if (session.CanAddInput(videoDeviceInput))
-                {
-                    session.AddInput(videoDeviceInput);
-                    _videoDeviceInput = videoDeviceInput;
-                }
-                else
-                {
-                    session.AddInput(_videoDeviceInput);
-                }
-
-                var connection = _videoFileOutput?.ConnectionFromMediaType(AVMediaType.Video);
-                if (connection != null)
-                {
-                    if (connection.SupportsVideoStabilization)
-                    {
-                        connection.PreferredVideoStabilizationMode = AVCaptureVideoStabilizationMode.Auto;
-                    }
-                }
-            });
-        }
-
-        public void AddObservers()
-        {
-            _runtimeErrorNotification = NSNotificationCenter.DefaultCenter.AddObserver(
-                AVCaptureSession.RuntimeErrorNotification,
-                SessionRuntimeError, _videoDeviceInput.Device);
-        }
-
-        public void RemoveObservers()
-        {
-            NSNotificationCenter.DefaultCenter.RemoveObserver(_runtimeErrorNotification);
-        }
-
-        private static bool TryGetDefaultDevice(out AVCaptureDevice device)
-        {
-            device = AVCaptureDevice.GetDefaultDevice(AVCaptureDeviceType.BuiltInDualCamera, AVMediaType.Video,
-                AVCaptureDevicePosition.Back);
-
-            if (device != null)
-            {
-                return true;
             }
-
-            device = AVCaptureDevice.GetDefaultDevice(AVCaptureDeviceType.BuiltInWideAngleCamera, AVMediaType.Video,
-                AVCaptureDevicePosition.Back);
-
-            if (device != null)
-            {
-                return true;
-            }
-
-            device = AVCaptureDevice.GetDefaultDevice(AVCaptureDeviceType.BuiltInWideAngleCamera, AVMediaType.Video,
-                AVCaptureDevicePosition.Front);
-
-            if (device != null)
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        private void SessionRuntimeError(NSNotification obj)
-        {
-            throw new NotImplementedException();
         }
     }
 }

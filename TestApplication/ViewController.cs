@@ -15,6 +15,7 @@ namespace TestApplication
     {
         private readonly ImagePickerConfigurationHandlerClass _imagePickerConfigurationHandlerClass =
             new ImagePickerConfigurationHandlerClass();
+        private ImagePickerController _imagePicker;
         private  ImagePickerControllerDelegateTest _imagePickerControllerTest;
 
         private  ImagePickerControllerDataSourceTest _imagePickerControllerDataSourceTest =
@@ -118,12 +119,13 @@ namespace TestApplication
             if (!_presentButton.Selected)
             {
                 UpdateNavigationItem(0);
+                _imagePicker = null;
                 _currentInputView = null;
                 ReloadInputViews();
                 return;
             }
 
-            var imagePicker = _imagePickerConfigurationHandlerClass.GenerateImagePicker();
+            _imagePicker = _imagePickerConfigurationHandlerClass.GenerateImagePicker();
 
 
             _imagePickerControllerTest = new ImagePickerControllerDelegateTest()
@@ -132,9 +134,9 @@ namespace TestApplication
                 DidDeselectAssetAction = DidDeselectAsset
                 
             };
-            
-            imagePicker.Delegate = _imagePickerControllerTest;
-            imagePicker.DataSource = _imagePickerControllerDataSourceTest;
+
+            _imagePicker.Delegate = _imagePickerControllerTest;
+            _imagePicker.DataSource = _imagePickerControllerDataSourceTest;
             
             // presentation
             // before we present VC we can ask for authorization to photo library,
@@ -149,14 +151,14 @@ namespace TestApplication
                     // for more info.
                     if (_imagePickerConfigurationHandlerClass.PresentsModally)
                     {
-                        imagePicker.LayoutConfiguration.ScrollDirection = UICollectionViewScrollDirection.Vertical;
-                        PresentPickerModally(imagePicker);
+                        _imagePicker.LayoutConfiguration.ScrollDirection = UICollectionViewScrollDirection.Vertical;
+                        PresentPickerModally(_imagePicker);
                     }
                     else
                     {
-                        imagePicker.LayoutConfiguration.ScrollDirection =
+                        _imagePicker.LayoutConfiguration.ScrollDirection =
                             UICollectionViewScrollDirection.Horizontal;
-                        PresentPickerAsInputView(imagePicker);
+                        PresentPickerAsInputView(_imagePicker);
                     }
                 });
             });

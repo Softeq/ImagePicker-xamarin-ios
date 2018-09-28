@@ -7,27 +7,27 @@ namespace YSImagePicker.Media
     public interface ICaptureSessionDelegate
     {
         ///called when session is successfully configured and started running
-        void CaptureSessionDidResume(CaptureSession session);
+        void CaptureSessionDidResume();
 
         ///called when session is was manually suspended
-        void CaptureSessionDidSuspend(CaptureSession session);
+        void CaptureSessionDidSuspend();
 
         ///capture session was running but did fail due to any AV error reason.
-        void DidFail(CaptureSession session, AVError error);
+        void DidFail(AVError error);
 
         ///called when creating and configuring session but something failed (e.g. input or output could not be added, etc
-        void DidFailConfiguringSession(CaptureSession session);
+        void DidFailConfiguringSession();
 
         ///called when user denied access to video device when prompted
-        void CaptureGrantedSession(CaptureSession session, AVAuthorizationStatus status);
+        void CaptureGrantedSession(AVAuthorizationStatus status);
 
         ///Called when user grants access to video device when prompted
-        void CaptureFailedSession(CaptureSession session, AVAuthorizationStatus status);
+        void CaptureFailedSession(AVAuthorizationStatus status);
 
         ///called when session is interrupted due to various reasons, for example when a phone call or user starts an audio using control center, etc.
-        void WasInterrupted(CaptureSession session, NSString reason);
+        void WasInterrupted(NSString reason);
 
         ///called when and interruption is ended and the session was automatically resumed.
-        void CaptureSessionInterruptionDidEnd(CaptureSession session);
+        void CaptureSessionInterruptionDidEnd();
     }
 }

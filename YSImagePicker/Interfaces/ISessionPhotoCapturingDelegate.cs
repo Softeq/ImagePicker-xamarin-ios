@@ -1,21 +1,22 @@
 using AVFoundation;
 using Foundation;
+using YSImagePicker.Media.Capture;
 
 namespace YSImagePicker.Media
 {
-    public interface ICaptureSessionPhotoCapturingDelegate
+    public interface ISessionPhotoCapturingDelegate
     {
         /// called as soon as the photo was taken, use this to update UI - for example show flash animation or live photo icon
-        void WillCapturePhotoWith(CaptureSession session, AVCapturePhotoSettings settings);
+        void WillCapturePhotoWith(PhotoCaptureSession session, AVCapturePhotoSettings settings);
 
         /// called when captured photo is processed and ready for use
-        void DidCapturePhotoData(CaptureSession session, NSData didCapturePhotoData,
+        void DidCapturePhotoData(PhotoCaptureSession session, NSData didCapturePhotoData,
             AVCapturePhotoSettings settings);
 
         /// called when captured photo is processed and ready for use
-        void DidFailCapturingPhotoWith(CaptureSession session, NSError error);
+        void DidFailCapturingPhotoWith(PhotoCaptureSession session, NSError error);
 
         /// called when number of processing live photos changed, see inProgressLivePhotoCapturesCount for current count
-        void CaptureSessionDidChangeNumberOfProcessingLivePhotos(CaptureSession session);
+        void CaptureSessionDidChangeNumberOfProcessingLivePhotos(PhotoCaptureSession session);
     }
 }

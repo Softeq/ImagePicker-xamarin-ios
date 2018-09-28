@@ -11,8 +11,11 @@ namespace YSImagePicker.Public
     public class CameraCollectionViewCell : UICollectionViewCell
     {
         private AVAuthorizationStatus? _authorizationStatus;
-        public readonly AVPreviewView PreviewView = new AVPreviewView(CGRect.Empty) { BackgroundColor = UIColor.Black };
-        private readonly UIImageView _imageView = new UIImageView(CGRect.Empty) { ContentMode = UIViewContentMode.ScaleAspectFill };
+        public readonly AVPreviewView PreviewView = new AVPreviewView(CGRect.Empty) {BackgroundColor = UIColor.Black};
+
+        private readonly UIImageView _imageView = new UIImageView(CGRect.Empty)
+            {ContentMode = UIViewContentMode.ScaleAspectFill};
+
         private UIVisualEffectView BlurView { get; set; }
         public bool IsVisualEffectViewUsedForBlurring { get; set; }
         public ICameraCollectionViewCellDelegate Delegate { get; set; }
@@ -144,10 +147,7 @@ namespace YSImagePicker.Public
 
         public void UnblurIfNeeded(bool animated, Action completion)
         {
-            Action animationBlock = null;
-            Action animationCompletionBlock = null;
-
-            animationBlock = () =>
+            Action animationBlock = () =>
             {
                 if (BlurView != null)
                 {
@@ -155,25 +155,17 @@ namespace YSImagePicker.Public
                 }
             };
 
-            animationCompletionBlock = () => completion?.Invoke();
-
             if (animated == false)
             {
                 animationBlock.Invoke();
-                animationCompletionBlock.Invoke();
+                completion?.Invoke();
             }
             else
             {
-                Animate(0.2, 0, UIViewAnimationOptions.AllowAnimatedContent, animationBlock,
-                    animationCompletionBlock);
+                Animate(0.2, 0, UIViewAnimationOptions.AllowAnimatedContent, animationBlock, completion);
             }
         }
 
-        ///
-        /// When user taps a camera cell this method is called and the result is
-        /// used when determining whether the tap should take a photo or not. This
-        /// is used when user taps on a button so the button is triggered not the touch.
-        ///
         public bool TouchIsCaptureEffective(CGPoint point)
         {
             return Bounds.Contains(point) && HitTest(point, null).Equals(ContentView);

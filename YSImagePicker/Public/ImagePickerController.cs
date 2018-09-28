@@ -7,92 +7,25 @@ using CoreGraphics;
 using Foundation;
 using Photos;
 using UIKit;
+using YSImagePicker.Extensions;
 using YSImagePicker.Interfaces;
 using YSImagePicker.Media;
-using YSImagePicker.Media.Capture;
 using YSImagePicker.Operations;
 using YSImagePicker.Views;
 
 namespace YSImagePicker.Public
 {
-    ///
-    /// Group of methods informing what image picker is currently doing
-    ///
-    public class ImagePickerControllerDelegate
-    {
-        ///
-        /// Called when user taps on an action item, index is either 0 or 1 depending which was tapped
-        ///
-        public virtual void DidSelectActionItemAt(ImagePickerController controller, int index)
-        {
-        }
-
-        ///
-        /// Called when user select an asset.
-        ///
-        public virtual void DidSelect(ImagePickerController controller, PHAsset asset)
-        {
-        }
-
-        ///
-        /// Called when user unselect previously selected asset.
-        ///
-        public virtual void DidDeselectAsset(ImagePickerController controller, PHAsset asset)
-        {
-        }
-
-        ///
-        /// Called when user takes new photo.
-        ///
-        public virtual void DidTake(ImagePickerController controller, UIImage image)
-        {
-        }
-
-        ///
-        /// Called right before an action item collection view cell is displayed. Use this method
-        /// to configure your cell.
-        ///
-        public virtual void WillDisplayActionItem(ImagePickerController controller, UICollectionViewCell cell,
-            int index)
-        {
-        }
-
-        ///
-        /// Called right before an asset item collection view cell is displayed. Use this method
-        /// to configure your cell based on asset media type, subtype, etc.
-        ///
-        public virtual void WillDisplayAssetItem(ImagePickerController controller, ImagePickerAssetCell cell,
-            PHAsset asset)
-        {
-        }
-    }
-
-    ///
-    /// Image picker may ask for additional resources, implement this protocol to fully support
-    /// all features.
-    ///
-    public abstract class ImagePickerControllerDataSource
-    {
-        ///
-        /// Asks for a view that is placed as overlay view with permissions info
-        /// when user did not grant or has restricted access to photo library.
-        ///
-        public abstract UIView ImagePicker(ImagePickerController controller, PHAuthorizationStatus status);
-    }
-
     public class ImagePickerController : UIViewController, IPHPhotoLibraryChangeObserver, IImagePickerDelegate,
-        ICaptureSessionDelegate, ICaptureSessionPhotoCapturingDelegate, ICaptureSessionVideoRecordingDelegate,
         ICameraCollectionViewCellDelegate
     {
-        protected override void Dispose(bool disposing)
+        public override void ViewWillDisappear(bool animated)
         {
-            base.Dispose(disposing);
+            base.ViewWillDisappear(animated);
+
             PHPhotoLibrary.SharedPhotoLibrary.UnregisterChangeObserver(this);
-            _captureSession?.Suspend();
+            _captureSession.Suspend();
             Console.WriteLine($"deinit: describing: {this}");
         }
-
-        // MARK: Public API
 
         ///
         /// Use this object to configure layout of action, camera and asset items.
@@ -107,7 +40,7 @@ namespace YSImagePicker.Public
         ///
         /// Use these settings to configure how the capturing should behave
         ///
-        public CaptureSettings CaptureSettings = new CaptureSettings();
+        public CaptureSettings CaptureSettings { get; } = new CaptureSettings();
 
         ///
         /// Get informed about user interaction and changes
@@ -302,25 +235,6 @@ namespace YSImagePicker.Public
             }
         }
 
-        /// Reload camera cell based on authorization status of camera input device (video)
-        private void ReloadCameraCell(AVAuthorizationStatus status)
-        {
-            var cameraCell = GetCameraCell(LayoutConfiguration);
-
-            if (cameraCell == null)
-            {
-                return;
-            }
-
-            cameraCell.AuthorizationStatus = status;
-        }
-
-        public CameraCollectionViewCell GetCameraCell(LayoutConfiguration layout)
-        {
-            return CollectionView.CellForItem(NSIndexPath.FromItemSection(0, layout.SectionIndexForCamera)) as
-                CameraCollectionViewCell;
-        }
-
         ///appearance object for global instances
         public static readonly Appearance ClassAppearanceProxy = new Appearance();
 
@@ -392,21 +306,41 @@ namespace YSImagePicker.Public
             //TODO: this is expensive (loading library for the first time)
             PHPhotoLibrary.SharedPhotoLibrary.RegisterChangeObserver(this);
 
-            //determine auth satus and based on that reload UI
+            //determine auth status and based on that reload UI
             ReloadData(PHPhotoLibrary.AuthorizationStatus);
 
             //configure capture session
             if (LayoutConfiguration.ShowsCameraItem)
             {
-                var session = new CaptureSession();
-                _captureSession = session;
-                session.PresetConfiguration = CaptureSessionPresetConfiguration(CaptureSettings.CameraMode);
-                session.VideoOrientation =
-                    GetCaptureVideoOrientation(UIApplication.SharedApplication.StatusBarOrientation);
-                session.Delegate = this;
-                session.VideoRecordingDelegate = this;
-                session.PhotoCapturingDelegate = this;
-                session.Prepare();
+                _captureSession = CaptureFactory.Create(GetCameraCell, Delegate, CaptureSettings.CameraMode);
+                _captureSession.Prepare(
+                    GetCaptureVideoOrientation(UIApplication.SharedApplication.StatusBarOrientation));
+            }
+        }
+
+        private CameraCollectionViewCell GetCameraCell()
+        {
+            return CollectionView.GetCameraCell(LayoutConfiguration);
+        }
+
+        private void TapGestureRecognized(UIGestureRecognizer sender)
+        {
+            if (sender.State != UIGestureRecognizerState.Ended)
+            {
+                return;
+            }
+
+            var cameraCell = CollectionView.GetCameraCell(LayoutConfiguration);
+
+            if (cameraCell == null)
+            {
+                return;
+            }
+
+            var point = sender.LocationInView(cameraCell);
+            if (cameraCell.TouchIsCaptureEffective(point))
+            {
+                TakePicture();
             }
         }
 
@@ -433,42 +367,6 @@ namespace YSImagePicker.Public
 
             coordinator.AnimateAlongsideTransition(context => { UpdateContentInset(); },
                 context => { UpdateItemSize(); });
-        }
-
-        private void TapGestureRecognized(UIGestureRecognizer sender)
-        {
-            if (sender.State != UIGestureRecognizerState.Ended)
-            {
-                return;
-            }
-
-            var cameraCell = GetCameraCell(LayoutConfiguration);
-
-            if (cameraCell == null)
-            {
-                return;
-            }
-
-            var point = sender.LocationInView(cameraCell);
-            if (cameraCell.TouchIsCaptureEffective(point))
-            {
-                TakePicture();
-            }
-        }
-
-        public SessionPresetConfiguration CaptureSessionPresetConfiguration(CameraMode mode)
-        {
-            switch (mode)
-            {
-                case CameraMode.Photo:
-                    return SessionPresetConfiguration.Photos;
-                case CameraMode.PhotoAndLivePhoto:
-                    return SessionPresetConfiguration.LivePhotos;
-                case CameraMode.PhotoAndVideo:
-                    return SessionPresetConfiguration.Videos;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(mode), mode, null);
-            }
         }
 
         public AVCaptureVideoOrientation GetCaptureVideoOrientation(UIInterfaceOrientation orientation)
@@ -567,11 +465,11 @@ namespace YSImagePicker.Public
             {
                 liveCameraCell.UpdateWithCameraMode(CaptureSettings.CameraMode);
             }
-
-            //update live photos
-            var inProgressLivePhotos = _captureSession?.InProgressLivePhotoCapturesCount ?? 0;
-            cell.UpdateLivePhotoStatus(inProgressLivePhotos > 0, false);
-
+            if (_captureSession.PhotoCaptureSession != null)
+            {
+                //update live photos
+                cell.UpdateLivePhotoStatus(_captureSession.PhotoCaptureSession.InProgressLivePhotoCapturesCount > 0, false);
+            }
             //update video recording status
             var isRecordingVideo = _captureSession?.VideoCaptureSession?.IsRecordingVideo ?? false;
             cell.UpdateRecordingVideoStatus(isRecordingVideo, false);
@@ -595,7 +493,7 @@ namespace YSImagePicker.Public
         {
             var isRecordingVideo = _captureSession?.VideoCaptureSession?.IsRecordingVideo ?? false;
 
-            //susped session only if not recording video, otherwise the recording would be stopped.
+            //suspend session only if not recording video, otherwise the recording would be stopped.
             if (isRecordingVideo == false)
             {
                 _captureSession?.Suspend();
@@ -622,159 +520,22 @@ namespace YSImagePicker.Public
         {
         }
 
-        public void CaptureSessionDidResume(CaptureSession session)
-        {
-            Console.WriteLine("did resume");
-            UnblurCellIfNeeded(true);
-        }
-
-        public void CaptureSessionDidSuspend(CaptureSession session)
-        {
-            Console.WriteLine("did suspend");
-            BlurCellIfNeeded(true);
-        }
-
-        public void DidFail(CaptureSession session, AVError error)
-        {
-            Console.WriteLine("did fail");
-        }
-
-        public void DidFailConfiguringSession(CaptureSession session)
-        {
-            Console.WriteLine("did fail configuring");
-        }
-
-        public void CaptureGrantedSession(CaptureSession session, AVAuthorizationStatus status)
-        {
-            Console.WriteLine("did grant authorization to camera");
-            ReloadCameraCell(status);
-        }
-
-        public void CaptureFailedSession(CaptureSession session, AVAuthorizationStatus status)
-        {
-            Console.WriteLine("did fail authorization to camera");
-            ReloadCameraCell(status);
-        }
-
-        public void WasInterrupted(CaptureSession session, NSString reason)
-        {
-            Console.WriteLine("interrupted");
-        }
-
-        public void CaptureSessionInterruptionDidEnd(CaptureSession session)
-        {
-            Console.WriteLine("interruption ended");
-        }
-
-        private void BlurCellIfNeeded(bool animated)
-        {
-            var cameraCell = GetCameraCell(LayoutConfiguration);
-
-            if (cameraCell == null)
-            {
-                return;
-            }
-
-            if (_captureSession == null)
-            {
-                return;
-            }
-
-            cameraCell.BlurIfNeeded(animated, null);
-        }
-
-        private void UnblurCellIfNeeded(bool animated)
-        {
-            GetCameraCell(LayoutConfiguration)?.UnblurIfNeeded(animated, null);
-        }
-
-        public void WillCapturePhotoWith(CaptureSession session, AVCapturePhotoSettings settings)
-        {
-            Console.WriteLine($"will capture photo {settings.UniqueID}");
-        }
-
-        public void DidCapturePhotoData(CaptureSession session, NSData didCapturePhotoData,
-            AVCapturePhotoSettings settings)
-        {
-            Console.WriteLine($"did capture photo {settings.UniqueID}");
-            Delegate?.DidTake(this, UIImage.LoadFromData(didCapturePhotoData));
-        }
-
-        public void DidFailCapturingPhotoWith(CaptureSession session, NSError error)
-        {
-            Console.WriteLine($"did fail capturing: {error}");
-        }
-
-        public void CaptureSessionDidChangeNumberOfProcessingLivePhotos(CaptureSession session)
-        {
-            var cameraCell = GetCameraCell(LayoutConfiguration);
-
-            if (cameraCell == null)
-            {
-                return;
-            }
-
-            var count = session.InProgressLivePhotoCapturesCount;
-            cameraCell.UpdateLivePhotoStatus(count > 0, true);
-        }
-
-        public void DidBecomeReadyForVideoRecording(VideoCaptureSession session)
-        {
-            Console.WriteLine("ready for video recording");
-            var cameraCell = GetCameraCell(LayoutConfiguration);
-
-            cameraCell?.VideoRecodingDidBecomeReady();
-        }
-
-        public void DidStartVideoRecording(VideoCaptureSession session)
-        {
-            Console.WriteLine("did start video recording");
-            UpdateCameraCellRecordingStatusIfNeeded(true, true);
-        }
-
-        public void DidCancelVideoRecording(VideoCaptureSession session)
-        {
-            Console.WriteLine("did cancel video recording");
-            UpdateCameraCellRecordingStatusIfNeeded(false, true);
-        }
-
-        public void DidFinishVideoRecording(VideoCaptureSession session, NSUrl videoUrl)
-        {
-            Console.WriteLine("did finish video recording");
-            UpdateCameraCellRecordingStatusIfNeeded(false, true);
-        }
-
-        public void DidInterruptVideoRecording(VideoCaptureSession session, NSUrl videoUrl, NSError reason)
-        {
-            Console.WriteLine($"did interruCameraCollectionViewCellDelegatept video recording, reason: {reason}");
-            UpdateCameraCellRecordingStatusIfNeeded(false, true);
-        }
-
-        public void DidFailVideoRecording(VideoCaptureSession session, NSError error)
-        {
-            Console.WriteLine("did fail video recording");
-            UpdateCameraCellRecordingStatusIfNeeded(false, true);
-        }
-
-        private void UpdateCameraCellRecordingStatusIfNeeded(bool isRecording, bool animated)
-        {
-            var cameraCell = GetCameraCell(LayoutConfiguration);
-            cameraCell?.UpdateRecordingVideoStatus(isRecording, animated);
-        }
-
         public void TakePicture()
         {
-            _captureSession?.CapturePhoto(LivePhotoMode.Off, CaptureSettings.SavesCapturedPhotosToPhotoLibrary);
+            _captureSession?.PhotoCaptureSession.CapturePhoto(LivePhotoMode.Off,
+                CaptureSettings.SavesCapturedPhotosToPhotoLibrary);
         }
 
         public void TakeLivePhoto()
         {
-            _captureSession?.CapturePhoto(LivePhotoMode.On, CaptureSettings.SavesCapturedLivePhotosToPhotoLibrary);
+            _captureSession?.PhotoCaptureSession.CapturePhoto(LivePhotoMode.On,
+                CaptureSettings.SavesCapturedLivePhotosToPhotoLibrary);
         }
 
         public void StartVideoRecording()
         {
-            _captureSession?.VideoCaptureSession?.StartVideoRecording(CaptureSettings.SavesCapturedVideosToPhotoLibrary);
+            _captureSession?.VideoCaptureSession?.StartVideoRecording(CaptureSettings
+                .SavesCapturedVideosToPhotoLibrary);
         }
 
         public void StopVideoRecording()
@@ -789,7 +550,7 @@ namespace YSImagePicker.Public
                 return;
             }
 
-            var cameraCell = GetCameraCell(LayoutConfiguration);
+            var cameraCell = CollectionView.GetCameraCell(LayoutConfiguration);
             if (cameraCell == null)
             {
                 _captureSession.ChangeCamera(completion);

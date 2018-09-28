@@ -14,7 +14,7 @@ namespace YSImagePicker.Media
         private readonly Action<VideoCaptureDelegate, NSError> _didFail;
 
         /// set this to false if you don't wish to save video to photo library
-        public bool SavesVideoToLibrary = true;
+        public bool ShouldSaveVideoToLibrary = true;
 
         /// true if user manually requested to cancel recording (stop without saving)
         public bool IsBeingCancelled = false;
@@ -67,7 +67,7 @@ namespace YSImagePicker.Media
             }
             else
             {
-                CleanUp(SavesVideoToLibrary, outputFileUrl);
+                CleanUp(ShouldSaveVideoToLibrary, outputFileUrl);
                 _didFinish.Invoke(this);
             }
         }
@@ -92,7 +92,7 @@ namespace YSImagePicker.Media
 
             if (successfullyFinished == true)
             {
-                CleanUp(SavesVideoToLibrary, outputFileUrl);
+                CleanUp(ShouldSaveVideoToLibrary, outputFileUrl);
                 _didFail.Invoke(this, error);
             }
             else

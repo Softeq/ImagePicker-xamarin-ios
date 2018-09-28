@@ -32,7 +32,7 @@ namespace TestApplication
             DidDeselectAssetAction?.Invoke(controller.SelectedAssets);
         }
 
-        public override void DidTake(ImagePickerController controller, UIImage image)
+        public override void DidTake(UIImage image)
         {
             DidTakeAssetAction?.Invoke(image);
         }

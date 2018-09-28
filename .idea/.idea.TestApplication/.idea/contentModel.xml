@@ -109,6 +109,7 @@
         <e p="bin" t="ExcludeRecursive" />
         <e p="Defines.cs" t="Include" />
         <e p="extensions" t="Include">
+          <e p="UICollectionViewExtensions.cs" t="Include" />
           <e p="UIImageExtensions.cs" t="Include" />
         </e>
         <e p="ImagePickerAssetModel.cs" t="Include" />
@@ -117,21 +118,29 @@
         <e p="ImagePickerLayout.cs" t="Include" />
         <e p="Interfaces" t="Include">
           <e p="ICameraCollectionViewCellDelegate.cs" t="Include" />
+          <e p="ICaptureSessionDelegate.cs" t="Include" />
+          <e p="ICaptureSessionVideoRecordingDelegate.cs" t="Include" />
           <e p="IImagePickerDelegate.cs" t="Include" />
+          <e p="ISessionPhotoCapturingDelegate.cs" t="Include" />
         </e>
         <e p="LayoutModel.cs" t="Include" />
         <e p="Media" t="Include">
           <e p="AVPreviewView.cs" t="Include" />
           <e p="Capture" t="Include">
+            <e p="AudioCaptureSession.cs" t="Include" />
+            <e p="NotificationCenterHandler.cs" t="Include" />
+            <e p="PhotoCaptureSession.cs" t="Include" />
             <e p="VideoCaptureSession.cs" t="Include" />
+            <e p="VideoDeviceInputManager.cs" t="Include" />
           </e>
+          <e p="CaptureFactory.cs" t="Include" />
           <e p="CaptureSession.cs" t="Include" />
-          <e p="ICaptureSessionDelegate.cs" t="Include" />
-          <e p="ICaptureSessionPhotoCapturingDelegate.cs" t="Include" />
-          <e p="ICaptureSessionVideoRecordingDelegate.cs" t="Include" />
+          <e p="CaptureSessionDelegate.cs" t="Include" />
+          <e p="CaptureSessionVideoRecordingDelegate.cs" t="Include" />
           <e p="LivePhotoMode.cs" t="Include" />
           <e p="PHAssetManager.cs" t="Include" />
           <e p="PhotoCaptureDelegate.cs" t="Include" />
+          <e p="SessionPhotoCapturingDelegate.cs" t="Include" />
           <e p="SessionPresetConfiguration.cs" t="Include" />
           <e p="SessionSetupResult.cs" t="Include" />
           <e p="VideoCaptureDelegate.cs" t="Include" />
@@ -148,9 +157,12 @@
         <e p="Public" t="Include">
           <e p="Appearance.cs" t="Include" />
           <e p="CameraCollectionViewCell.cs" t="Include" />
+          <e p="CameraMode.cs" t="Include" />
           <e p="CaptureSettings.cs" t="Include" />
           <e p="CellRegistrator.cs" t="Include" />
           <e p="ImagePickerController.cs" t="Include" />
+          <e p="ImagePickerControllerDataSource.cs" t="Include" />
+          <e p="ImagePickerControllerDelegate.cs" t="Include" />
           <e p="LayoutConfiguration.cs" t="Include" />
         </e>
         <e p="Resources" t="Include">
