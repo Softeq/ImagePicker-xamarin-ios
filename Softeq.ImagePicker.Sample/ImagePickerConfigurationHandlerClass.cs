@@ -41,7 +41,7 @@ namespace Softeq.ImagePicker.Sample
             InitializeCellData();
         }
 
-        public ImagePickerController GenerateImagePicker()
+        public ImagePickerController CreateImagePicker()
         {
             // create new instance
             var imagePicker = new ImagePickerController();
@@ -107,7 +107,7 @@ namespace Softeq.ImagePicker.Sample
                 case AssetsSource.OnlySelfies:
                     //registering custom image cell to demonstrate how to use custom cells
                     //please note that custom asset cells must conform to  ImagePickerAssetCell protocol
-                    imagePicker.CellRegistrator.RegisterNibForAssetItems(UINib.FromName("CustomImageCell", null));
+                    imagePicker.CellRegistrator.Register(UINib.FromName("CustomImageCell", null), PHAssetMediaType.Image);
                     imagePicker.AssetsFetchResultBlock = () =>
                     {
                         var collection = PHAssetCollection.FetchAssetCollections(PHAssetCollectionType.SmartAlbum,

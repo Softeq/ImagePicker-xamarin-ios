@@ -19,38 +19,11 @@ namespace Softeq.ImagePicker.Public
     {
         private CollectionViewUpdatesCoordinator _collectionViewCoordinator;
         private CameraCollectionViewCellDelegate _cameraCollectionViewCellDelegate;
-
         private readonly ImagePickerDataSource _collectionViewDataSource =
             new ImagePickerDataSource(new ImagePickerAssetModel());
-
         private ImagePickerDelegate _collectionViewDelegate;
         private CaptureSession _captureSession;
-
-        private void UpdateItemSize()
-        {
-            if (_collectionViewDelegate.Layout == null)
-            {
-                return;
-            }
-
-            var itemsInRow = LayoutConfiguration.NumberOfAssetItemsInRow;
-            var scrollDirection = LayoutConfiguration.ScrollDirection;
-            var cellSize =
-                _collectionViewDelegate.Layout.SizeForItem(itemsInRow, null, CollectionView, scrollDirection);
-            var scale = UIScreen.MainScreen.Scale;
-            var thumbnailSize = new CGSize(cellSize.Width * scale, cellSize.Height * scale);
-            _collectionViewDataSource.AssetsModel.ThumbnailSize = thumbnailSize;
-        }
-
-        private void UpdateContentInset()
-        {
-            if (UIDevice.CurrentDevice.CheckSystemVersion(11, 0))
-            {
-                CollectionView.ContentInset =
-                    new UIEdgeInsets(CollectionView.ContentInset.Top, View.SafeAreaInsets.Left,
-                        CollectionView.ContentInset.Bottom, View.SafeAreaInsets.Right);
-            }
-        }
+        private UIView _overlayView;
 
         public void Release()
         {
@@ -58,40 +31,6 @@ namespace Softeq.ImagePicker.Public
             _captureSession.Suspend();
             Console.WriteLine($"DismissViewController: describing: {nameof(ImagePickerController)}");
         }
-
-        /// View is used when there is a need for an overlay view over whole image picker
-        /// view hierarchy. For example when there is no permissions to photo library.
-        private UIView _overlayView;
-
-        /// Reload collection view layout/data based on authorization status of photo library
-        private void ReloadData(PHAuthorizationStatus status)
-        {
-            switch (status)
-            {
-                case PHAuthorizationStatus.Authorized:
-                    _collectionViewDataSource.AssetsModel.UpdateFetchResult(AssetsFetchResultBlock?.Invoke());
-                    _collectionViewDataSource.LayoutModel = new LayoutModel(LayoutConfiguration,
-                        (int)_collectionViewDataSource.AssetsModel.FetchResult.Count);
-                    break;
-                case PHAuthorizationStatus.Restricted:
-                case PHAuthorizationStatus.Denied:
-                    var view = _overlayView ?? DataSource?.ImagePicker(status);
-                    if (view != null && !view.Superview.Equals(CollectionView))
-                    {
-                        CollectionView.BackgroundView = view;
-                        _overlayView = view;
-                    }
-
-                    break;
-                case PHAuthorizationStatus.NotDetermined:
-                    PHPhotoLibrary.RequestAuthorization(authorizationStatus =>
-                    {
-                        DispatchQueue.MainQueue.DispatchAsync(() => { ReloadData(authorizationStatus); });
-                    });
-                    break;
-            }
-        }
-
 
         public override void LoadView()
         {
@@ -379,6 +318,61 @@ namespace Softeq.ImagePicker.Public
                 GetCaptureVideoOrientation(UIApplication.SharedApplication.StatusBarOrientation));
             _cameraCollectionViewCellDelegate =
                 new CameraCollectionViewCellDelegate(GetCameraCell, _captureSession, CaptureSettings);
+        }
+
+        private void UpdateItemSize()
+        {
+            if (_collectionViewDelegate.Layout == null)
+            {
+                return;
+            }
+
+            var itemsInRow = LayoutConfiguration.NumberOfAssetItemsInRow;
+            var scrollDirection = LayoutConfiguration.ScrollDirection;
+            var cellSize =
+                _collectionViewDelegate.Layout.SizeForItem(itemsInRow, null, CollectionView, scrollDirection);
+            var scale = UIScreen.MainScreen.Scale;
+            var thumbnailSize = new CGSize(cellSize.Width * scale, cellSize.Height * scale);
+            _collectionViewDataSource.AssetsModel.ThumbnailSize = thumbnailSize;
+        }
+
+        private void UpdateContentInset()
+        {
+            if (UIDevice.CurrentDevice.CheckSystemVersion(11, 0))
+            {
+                CollectionView.ContentInset =
+                    new UIEdgeInsets(CollectionView.ContentInset.Top, View.SafeAreaInsets.Left,
+                        CollectionView.ContentInset.Bottom, View.SafeAreaInsets.Right);
+            }
+        }
+
+        /// Reload collection view layout/data based on authorization status of photo library
+        private void ReloadData(PHAuthorizationStatus status)
+        {
+            switch (status)
+            {
+                case PHAuthorizationStatus.Authorized:
+                    _collectionViewDataSource.AssetsModel.UpdateFetchResult(AssetsFetchResultBlock?.Invoke());
+                    _collectionViewDataSource.LayoutModel = new LayoutModel(LayoutConfiguration,
+                        (int)_collectionViewDataSource.AssetsModel.FetchResult.Count);
+                    break;
+                case PHAuthorizationStatus.Restricted:
+                case PHAuthorizationStatus.Denied:
+                    var view = _overlayView ?? DataSource?.ImagePicker(status);
+                    if (view != null && !view.Superview.Equals(CollectionView))
+                    {
+                        CollectionView.BackgroundView = view;
+                        _overlayView = view;
+                    }
+
+                    break;
+                case PHAuthorizationStatus.NotDetermined:
+                    PHPhotoLibrary.RequestAuthorization(authorizationStatus =>
+                    {
+                        DispatchQueue.MainQueue.DispatchAsync(() => { ReloadData(authorizationStatus); });
+                    });
+                    break;
+            }
         }
     }
 }

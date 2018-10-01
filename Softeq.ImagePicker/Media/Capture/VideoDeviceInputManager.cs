@@ -28,7 +28,15 @@ namespace Softeq.ImagePicker.Media.Capture
 
         public SessionSetupResult ConfigureVideoDeviceInput(AVCaptureSession session)
         {
-            var videoDeviceInput = new AVCaptureDeviceInput(GetVideoDevice(), out var error);
+            var videoDevice = GetVideoDevice();
+           
+            if (videoDevice == null)
+            {
+                Console.WriteLine("capture session: could not create capture device");
+                return SessionSetupResult.ConfigurationFailed;
+            }
+
+            var videoDeviceInput = new AVCaptureDeviceInput(videoDevice, out var error);
 
             if (error != null)
             {

@@ -125,7 +125,7 @@ namespace Softeq.ImagePicker.Sample
                 return;
             }
 
-            _imagePicker = _imagePickerConfigurationHandlerClass.GenerateImagePicker();
+            _imagePicker = _imagePickerConfigurationHandlerClass.CreateImagePicker();
 
 
             _imagePickerController = new ImagePickerControllerDelegate()
