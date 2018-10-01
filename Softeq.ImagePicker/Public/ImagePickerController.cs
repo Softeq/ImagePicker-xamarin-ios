@@ -149,7 +149,7 @@ namespace Softeq.ImagePicker.Public
             base.ViewWillTransitionToSize(toSize, coordinator);
             //update capture session with new interface orientation
 
-            _captureSession?.UpdateVideoOrientation(
+            _captureSession.UpdateVideoOrientation(
                 GetCaptureVideoOrientation(UIApplication.SharedApplication.StatusBarOrientation));
 
             coordinator.AnimateAlongsideTransition(context => { UpdateContentInset(); },
@@ -235,13 +235,13 @@ namespace Softeq.ImagePicker.Public
             //resume session only if not recording video
             if (!isRecordingVideo)
             {
-                _captureSession?.Resume();
+                _captureSession.Resume();
             }
         }
 
         public void DidEndDisplayingCameraCell(CameraCollectionViewCell cell)
         {
-            var isRecordingVideo = _captureSession?.VideoCaptureSession?.IsRecordingVideo ?? false;
+            var isRecordingVideo = _captureSession.VideoCaptureSession?.IsRecordingVideo ?? false;
 
             //suspend session only if not recording video, otherwise the recording would be stopped.
             if (isRecordingVideo == false)
@@ -324,7 +324,7 @@ namespace Softeq.ImagePicker.Public
             cell.PreviewView.Session = _captureSession.Session;
             _captureSession.PreviewLayer = cell.PreviewView.PreviewLayer;
 
-            var config = _captureSession?.PresetConfiguration;
+            var config = _captureSession.PresetConfiguration;
             if (config == SessionPresetConfiguration.Videos)
             {
                 cell.IsVisualEffectViewUsedForBlurring = true;
