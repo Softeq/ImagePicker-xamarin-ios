@@ -3,8 +3,8 @@ using System.Globalization;
 using AVFoundation;
 using CoreFoundation;
 using Foundation;
+using YSImagePicker.Enums;
 using YSImagePicker.Interfaces;
-using YSImagePicker.Models;
 
 namespace YSImagePicker.Media.Capture
 {
@@ -13,7 +13,7 @@ namespace YSImagePicker.Media.Capture
         private bool _isSessionRunning;
         private SessionSetupResult _setupResult = SessionSetupResult.Success;
         private readonly DispatchQueue _sessionQueue = new DispatchQueue("session queue");
-        private readonly NotificationCenterHandler _notificationCenterHandler;
+        private readonly CaptureNotificationCenterHandler _notificationCenterHandler;
         private readonly ICaptureSessionDelegate _captureSessionDelegate;
         public readonly VideoCaptureSession VideoCaptureSession;
         public readonly PhotoCaptureSession PhotoCaptureSession;
@@ -28,7 +28,7 @@ namespace YSImagePicker.Media.Capture
             _captureSessionDelegate = captureSessionDelegate;
 
             VideoCaptureSession = new VideoCaptureSession(SessionRuntimeError, videoSessionDelegate, _sessionQueue);
-            _notificationCenterHandler = new NotificationCenterHandler(_captureSessionDelegate);
+            _notificationCenterHandler = new CaptureNotificationCenterHandler(_captureSessionDelegate);
         }
 
         public CaptureSession(ICaptureSessionDelegate captureSessionDelegate,
@@ -37,7 +37,7 @@ namespace YSImagePicker.Media.Capture
             _captureSessionDelegate = captureSessionDelegate;
 
             PhotoCaptureSession = new PhotoCaptureSession(SessionRuntimeError, photoSessionDelegate, _sessionQueue);
-            _notificationCenterHandler = new NotificationCenterHandler(_captureSessionDelegate);
+            _notificationCenterHandler = new CaptureNotificationCenterHandler(_captureSessionDelegate);
         }
 
         public void UpdateVideoOrientation(AVCaptureVideoOrientation newValue)
@@ -120,20 +120,23 @@ namespace YSImagePicker.Media.Capture
 
         public void Suspend()
         {
-            if (_setupResult != SessionSetupResult.Success)
+            _sessionQueue.DispatchAsync(() =>
             {
-                return;
-            }
+                if (_setupResult != SessionSetupResult.Success)
+                {
+                    return;
+                }
 
-            if (_isSessionRunning != true)
-            {
-                Console.WriteLine("capture session: warning - trying to suspend non running session");
-                return;
-            }
+                if (_isSessionRunning != true)
+                {
+                    Console.WriteLine("capture session: warning - trying to suspend non running session");
+                    return;
+                }
 
-            Session.StopRunning();
-            _isSessionRunning = Session.Running;
-            _notificationCenterHandler.RemoveObservers(Session);
+                Session.StopRunning();
+                _isSessionRunning = Session.Running;
+                _notificationCenterHandler.RemoveObservers(Session);
+            });
         }
 
         private void ConfigureSession()

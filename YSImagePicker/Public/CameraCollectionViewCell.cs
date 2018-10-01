@@ -56,7 +56,7 @@ namespace YSImagePicker.Public
         /// Called each time an authorization status to camera is changed. Update your
         /// cell's UI based on current value of `authorizationStatus` property.
         ///
-        public virtual void UpdateCameraAuthorizationStatus()
+        public void UpdateCameraAuthorizationStatus()
         {
         }
 

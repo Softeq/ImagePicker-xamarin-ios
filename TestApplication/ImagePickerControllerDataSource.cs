@@ -5,9 +5,9 @@ using YSImagePicker.Public;
 
 namespace TestApplication
 {
-    public class ImagePickerControllerDataSourceTest : ImagePickerControllerDataSource
+    public class ImagePickerControllerDataSource : YSImagePicker.Public.ImagePickerControllerDataSource
     {
-        public override UIView ImagePicker(ImagePickerController controller, PHAuthorizationStatus status)
+        public override UIView ImagePicker(PHAuthorizationStatus status)
         {
             var infoLabel = new UILabel(CGRect.Empty)
             {

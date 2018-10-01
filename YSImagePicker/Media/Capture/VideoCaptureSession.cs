@@ -2,9 +2,9 @@ using System;
 using AVFoundation;
 using CoreFoundation;
 using Foundation;
+using YSImagePicker.Enums;
 using YSImagePicker.Interfaces;
 using YSImagePicker.Media.Delegates;
-using YSImagePicker.Models;
 
 namespace YSImagePicker.Media.Capture
 {
@@ -13,11 +13,11 @@ namespace YSImagePicker.Media.Capture
         private AVCaptureMovieFileOutput _videoFileOutput;
         private readonly ICaptureSessionVideoRecordingDelegate _videoRecordingDelegate;
         private VideoCaptureDelegate _videoCaptureDelegate;
-        public bool IsRecordingVideo => _videoFileOutput?.Recording ?? false;
-
         private AudioCaptureSession _audioCaptureSession;
         private readonly VideoDeviceInputManager _videoDeviceInputManager;
         private readonly DispatchQueue _sessionQueue;
+
+        public bool IsRecordingVideo => _videoFileOutput?.Recording ?? false;
 
         public VideoCaptureSession(Action<NSNotification> action,
             ICaptureSessionVideoRecordingDelegate videoRecordingDelegate, DispatchQueue queue)
@@ -124,9 +124,6 @@ namespace YSImagePicker.Media.Capture
 
         private void DidFinishCaptureAction(VideoCaptureDelegate captureDelegate, NSUrl outputUrl)
         {
-            // we need to remove reference to the delegate so it can be deallocated
-            _sessionQueue.DispatchAsync(() => { captureDelegate = null; });
-
             DispatchQueue.MainQueue.DispatchAsync(() =>
             {
                 if (captureDelegate?.IsBeingCancelled == true)
@@ -179,12 +176,9 @@ namespace YSImagePicker.Media.Capture
 
             var connection = _videoFileOutput?.ConnectionFromMediaType(AVMediaType.Video);
 
-            if (connection != null)
+            if (connection?.SupportsVideoStabilization == true)
             {
-                if (connection.SupportsVideoStabilization)
-                {
-                    connection.PreferredVideoStabilizationMode = AVCaptureVideoStabilizationMode.Auto;
-                }
+                connection.PreferredVideoStabilizationMode = AVCaptureVideoStabilizationMode.Auto;
             }
         }
     }

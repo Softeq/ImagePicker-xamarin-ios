@@ -2,6 +2,7 @@ using System;
 using YSImagePicker.Media.Capture;
 using YSImagePicker.Media.Delegates;
 using YSImagePicker.Public;
+using YSImagePicker.Public.Delegates;
 
 namespace YSImagePicker.Media
 {

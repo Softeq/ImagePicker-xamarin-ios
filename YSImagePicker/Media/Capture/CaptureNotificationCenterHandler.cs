@@ -6,7 +6,7 @@ using YSImagePicker.Interfaces;
 
 namespace YSImagePicker.Media.Capture
 {
-    public class NotificationCenterHandler : NSObject
+    public class CaptureNotificationCenterHandler : NSObject
     {
         private bool _addedObservers;
         private NSObject _wasInterruptedNotification;
@@ -16,7 +16,7 @@ namespace YSImagePicker.Media.Capture
 
         private const string RunningObserverKeyPath = "running";
 
-        public NotificationCenterHandler(ICaptureSessionDelegate captureSessionDelegate)
+        public CaptureNotificationCenterHandler(ICaptureSessionDelegate captureSessionDelegate)
         {
             _delegate = captureSessionDelegate;
         }

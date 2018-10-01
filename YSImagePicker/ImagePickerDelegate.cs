@@ -36,7 +36,7 @@ namespace YSImagePicker
         {
             if (indexPath.Section == Layout.Configuration.SectionIndexForAssets)
             {
-                _delegate?.DidSelectAssetItemAt(this, indexPath.Row);
+                _delegate?.DidSelectAssetItemAt(indexPath.Row);
             }
         }
 
@@ -44,7 +44,7 @@ namespace YSImagePicker
         {
             if (indexPath.Section == Layout.Configuration.SectionIndexForAssets)
             {
-                _delegate?.DidDeselectAssetItemAt(this, indexPath.Row);
+                _delegate?.DidDeselectAssetItemAt(indexPath.Row);
             }
         }
 
@@ -62,7 +62,7 @@ namespace YSImagePicker
         {
             if (indexPath.Section == Layout.Configuration.SectionIndexForActions)
             {
-                _delegate?.DidSelectActionItemAt(this, indexPath.Row);
+                _delegate?.DidSelectActionItemAt(indexPath.Row);
             }
         }
 
@@ -72,13 +72,13 @@ namespace YSImagePicker
             switch (indexPath.Section)
             {
                 case var section when section == Layout.Configuration.SectionIndexForActions:
-                    _delegate?.WillDisplayActionCell(this, cell, indexPath.Row);
+                    _delegate?.WillDisplayActionCell(cell, indexPath.Row);
                     break;
                 case var section when section == Layout.Configuration.SectionIndexForCamera:
-                    _delegate?.WillDisplayCameraCell(this, cell as CameraCollectionViewCell);
+                    _delegate?.WillDisplayCameraCell(cell as CameraCollectionViewCell);
                     break;
                 case var section when section == Layout.Configuration.SectionIndexForAssets:
-                    _delegate?.WillDisplayAssetCell(this, cell as ImagePickerAssetCell, indexPath.Row);
+                    _delegate?.WillDisplayAssetCell(cell as ImagePickerAssetCell, indexPath.Row);
                     break;
                 default: throw new Exception("index path not supported");
             }
@@ -90,7 +90,7 @@ namespace YSImagePicker
             switch (indexPath.Section)
             {
                 case var section when section == Layout.Configuration.SectionIndexForCamera:
-                    _delegate?.DidEndDisplayingCameraCell(this, cell as CameraCollectionViewCell);
+                    _delegate?.DidEndDisplayingCameraCell(cell as CameraCollectionViewCell);
                     break;
                 case var section when section == Layout.Configuration.SectionIndexForActions ||
                                       section == Layout.Configuration.SectionIndexForAssets:
@@ -101,14 +101,14 @@ namespace YSImagePicker
 
         public override void Scrolled(UIScrollView scrollView)
         {
-            _delegate?.DidScroll(this, scrollView);
+            _delegate?.DidScroll(scrollView);
         }
         
         ///
         /// We allow selecting only asset items, action items are only highlighted,
         /// camera item is untouched.
         ///
-        private bool ShouldSelectItem(int section, LayoutConfiguration layoutConfiguration)
+        private static bool ShouldSelectItem(int section, LayoutConfiguration layoutConfiguration)
         {
             if (layoutConfiguration.SectionIndexForActions == section ||
                 layoutConfiguration.SectionIndexForCamera == section)
@@ -119,14 +119,9 @@ namespace YSImagePicker
             return true;
         }
 
-        private bool ShouldHighlightItem(int section, LayoutConfiguration layoutConfiguration)
+        private static bool ShouldHighlightItem(int section, LayoutConfiguration layoutConfiguration)
         {
-            if (layoutConfiguration.SectionIndexForCamera == section)
-            {
-                return false;
-            }
-
-            return true;
+            return layoutConfiguration.SectionIndexForCamera != section;
         }
     }
 }

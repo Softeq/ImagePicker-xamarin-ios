@@ -5,11 +5,11 @@ namespace YSImagePicker.Public
     ///
     /// Provides access to styling attributes of Image Picker.
     ///
-    public class Appearance
+    public sealed class Appearance
     {
         ///
         /// Image picker background color.
         ///
-        public virtual UIColor BackgroundColor { get; } =Defines.Colors.GrayColor;
+        public UIColor BackgroundColor { get; set; } = Defines.Colors.GrayColor;
     }
 }

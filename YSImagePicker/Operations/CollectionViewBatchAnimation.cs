@@ -60,10 +60,7 @@ namespace YSImagePicker.Operations
                     _collectionView.MoveItem(NSIndexPath.FromItemSection((nint) fromIndex, _sectionIndex),
                         NSIndexPath.FromItemSection((nint) toIndex, _sectionIndex));
                 });
-            }, finished =>
-            {
-//TODO: CHECK
-            });
+            }, null);
         }
     }
 }

@@ -13,6 +13,6 @@ namespace YSImagePicker.Public
         /// Asks for a view that is placed as overlay view with permissions info
         /// when user did not grant or has restricted access to photo library.
         ///
-        public abstract UIView ImagePicker(ImagePickerController controller, PHAuthorizationStatus status);
+        public abstract UIView ImagePicker(PHAuthorizationStatus status);
     }
 }

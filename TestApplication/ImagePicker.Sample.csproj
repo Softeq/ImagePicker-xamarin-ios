@@ -100,8 +100,8 @@
     <None Include="Entitlements.plist" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ImagePickerControllerDataSourceTest.cs" />
-    <Compile Include="ImagePickerControllerDelegateTest.cs" />
+    <Compile Include="ImagePickerControllerDataSource.cs" />
+    <Compile Include="ImagePickerControllerDelegate.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Models\CellItemModel.cs" />

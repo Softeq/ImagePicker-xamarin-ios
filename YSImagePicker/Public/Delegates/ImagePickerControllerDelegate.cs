@@ -2,7 +2,7 @@ using Photos;
 using UIKit;
 using YSImagePicker.Views;
 
-namespace YSImagePicker.Public
+namespace YSImagePicker.Public.Delegates
 {
     ///
     /// Group of methods informing what image picker is currently doing
@@ -19,7 +19,7 @@ namespace YSImagePicker.Public
         ///
         /// Called when user select an asset.
         ///
-        public virtual void DidSelect(ImagePickerController controller, PHAsset asset)
+        public virtual void DidSelectAsset(ImagePickerController controller, PHAsset asset)
         {
         }
 

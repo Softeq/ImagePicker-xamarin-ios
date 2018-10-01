@@ -16,11 +16,11 @@ namespace TestApplication
         private readonly ImagePickerConfigurationHandlerClass _imagePickerConfigurationHandlerClass =
             new ImagePickerConfigurationHandlerClass();
         private ImagePickerController _imagePicker;
-        private  ImagePickerControllerDelegateTest _imagePickerControllerTest;
+        private ImagePickerControllerDelegate _imagePickerController;
 
-        private  ImagePickerControllerDataSourceTest _imagePickerControllerDataSourceTest =
-            new ImagePickerControllerDataSourceTest();
-        
+        private ImagePickerControllerDataSource _imagePickerControllerDataSource =
+            new ImagePickerControllerDataSource();
+
         private UIView _currentInputView;
         private UIButton _presentButton;
 
@@ -69,7 +69,7 @@ namespace TestApplication
 
         public override nint RowsInSection(UITableView tableView, nint section)
         {
-            return _imagePickerConfigurationHandlerClass.CellsData[(int) section].Length;
+            return _imagePickerConfigurationHandlerClass.CellsData[(int)section].Length;
         }
 
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
@@ -103,12 +103,12 @@ namespace TestApplication
 
         public override string TitleForHeader(UITableView tableView, nint section)
         {
-            return _imagePickerConfigurationHandlerClass.SectionsData.ElementAt((int) section).GroupTitle;
+            return _imagePickerConfigurationHandlerClass.SectionsData.ElementAt((int)section).GroupTitle;
         }
 
         public override string TitleForFooter(UITableView tableView, nint section)
         {
-            return _imagePickerConfigurationHandlerClass.SectionsData.ElementAt((int) section).GroupDescription;
+            return _imagePickerConfigurationHandlerClass.SectionsData.ElementAt((int)section).GroupDescription;
         }
 
 
@@ -128,16 +128,17 @@ namespace TestApplication
             _imagePicker = _imagePickerConfigurationHandlerClass.GenerateImagePicker();
 
 
-            _imagePickerControllerTest = new ImagePickerControllerDelegateTest()
+            _imagePickerController = new ImagePickerControllerDelegate()
             {
                 DidSelectActionItemAction = DidSelectActionItemAt,
-                DidDeselectAssetAction = DidDeselectAsset
-                
+                DidDeselectAssetAction = UpdateSelectedItems,
+                DidSelectAssetAction = UpdateSelectedItems
+
             };
 
-            _imagePicker.Delegate = _imagePickerControllerTest;
-            _imagePicker.DataSource = _imagePickerControllerDataSourceTest;
-            
+            _imagePicker.Delegate = _imagePickerController;
+            _imagePicker.DataSource = _imagePickerControllerDataSource;
+
             // presentation
             // before we present VC we can ask for authorization to photo library,
             // if we don't do it now, Image Picker will ask for it automatically
@@ -226,14 +227,14 @@ namespace TestApplication
 
             if (UIDevice.CurrentDevice.CheckSystemVersion(10, 0))
             {
-                bottomAdjustment = (float) TableView.AdjustedContentInset.Bottom;
+                bottomAdjustment = (float)TableView.AdjustedContentInset.Bottom;
             }
 
             var button = new UIButton(UIButtonType.Custom)
             {
                 BackgroundColor = UIColor.FromRGB(208 / 255f, 2 / 255f, 27 / 255f),
                 ContentEdgeInsets = new UIEdgeInsets(0, 0, bottomAdjustment / 2, 0),
-                Frame = new CGRect {Size = new CGSize(0, 44 + bottomAdjustment)}
+                Frame = new CGRect { Size = new CGSize(0, 44 + bottomAdjustment) }
             };
 
             button.SetTitle("Present", UIControlState.Normal);
@@ -254,33 +255,34 @@ namespace TestApplication
             switch (index)
             {
                 case 0 when UIImagePickerController.IsSourceTypeAvailable(UIImagePickerControllerSourceType.Camera):
-                {
-                    var vc = new UIImagePickerController
                     {
-                        SourceType = UIImagePickerControllerSourceType.Camera, AllowsEditing = true
-                    };
-                    var mediaTypes =
-                        UIImagePickerController.AvailableMediaTypes(UIImagePickerControllerSourceType.Camera);
-                    if (mediaTypes != null)
-                    {
-                        vc.MediaTypes = mediaTypes;
-                    }
+                        var vc = new UIImagePickerController
+                        {
+                            SourceType = UIImagePickerControllerSourceType.Camera,
+                            AllowsEditing = true
+                        };
+                        var mediaTypes =
+                            UIImagePickerController.AvailableMediaTypes(UIImagePickerControllerSourceType.Camera);
+                        if (mediaTypes != null)
+                        {
+                            vc.MediaTypes = mediaTypes;
+                        }
 
-                    NavigationController?.VisibleViewController?.PresentViewController(vc, true, null);
-                    break;
-                }
+                        NavigationController?.VisibleViewController?.PresentViewController(vc, true, null);
+                        break;
+                    }
                 case 1 when UIImagePickerController.IsSourceTypeAvailable(
                     UIImagePickerControllerSourceType.PhotoLibrary):
-                {
-                    var vc = new UIImagePickerController {SourceType = UIImagePickerControllerSourceType.PhotoLibrary};
+                    {
+                        var vc = new UIImagePickerController { SourceType = UIImagePickerControllerSourceType.PhotoLibrary };
 
-                    NavigationController?.VisibleViewController?.PresentViewController(vc, true, null);
-                    break;
-                }
+                        NavigationController?.VisibleViewController?.PresentViewController(vc, true, null);
+                        break;
+                    }
             }
         }
-        
-        private void DidDeselectAsset(IReadOnlyList<PHAsset> readOnlyList)
+
+        private void UpdateSelectedItems(IReadOnlyList<PHAsset> readOnlyList)
         {
             Console.WriteLine($"selected assets: {readOnlyList.Count}");
             UpdateNavigationItem(readOnlyList.Count);

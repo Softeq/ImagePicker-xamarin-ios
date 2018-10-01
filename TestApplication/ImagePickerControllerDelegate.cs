@@ -5,12 +5,14 @@ using ObjCRuntime;
 using Photos;
 using TestApplication.CustomViews;
 using UIKit;
+using YSImagePicker.Extensions;
 using YSImagePicker.Public;
+using YSImagePicker.Public.Delegates;
 using YSImagePicker.Views;
 
 namespace TestApplication
 {
-    public class ImagePickerControllerDelegateTest : ImagePickerControllerDelegate
+    public class ImagePickerControllerDelegate : YSImagePicker.Public.Delegates.ImagePickerControllerDelegate
     {
         public Action<int> DidSelectActionItemAction { get; set; }
         public Action<IReadOnlyList<PHAsset>> DidSelectAssetAction { get; set; }
@@ -22,7 +24,7 @@ namespace TestApplication
             DidSelectActionItemAction?.Invoke(index);
         }
 
-        public override void DidSelect(ImagePickerController controller, PHAsset asset)
+        public override void DidSelectAsset(ImagePickerController controller, PHAsset asset)
         {
             DidSelectAssetAction?.Invoke(controller.SelectedAssets);
         }
@@ -48,11 +50,12 @@ namespace TestApplication
                 {
                     case 0:
                         iconWithTextCell.TitleLabel.Text = "Camera";
-                        iconWithTextCell.ImageView.Image = UIImage.FromBundle("button-camera");
+                        iconWithTextCell.ImageView.Image = UIImageExtensions.FromBundle(BundleAssets.ButtonCamera);
                         break;
                     case 1:
                         iconWithTextCell.TitleLabel.Text = "Photos";
-                        iconWithTextCell.ImageView.Image = UIImage.FromBundle("button-photo-library");
+                        iconWithTextCell.ImageView.Image =
+                            UIImageExtensions.FromBundle(BundleAssets.ButtonPhotoLibrary);
                         break;
                 }
             }

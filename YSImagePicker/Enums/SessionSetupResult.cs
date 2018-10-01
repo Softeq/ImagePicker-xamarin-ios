@@ -1,4 +1,4 @@
-namespace YSImagePicker.Models
+namespace YSImagePicker.Enums
 {
     public enum SessionSetupResult
     {

@@ -27,7 +27,7 @@ namespace YSImagePicker.Extensions
     public enum BundleAssets
     {
         [Description("button-camera")] ButtonCamera,
-        [Description("Button-photo-library")] ButtonPhotoLibrary,
+        [Description("button-photo-library")] ButtonPhotoLibrary,
         [Description("icon-check-background")] IconCheckBackground,
         [Description("icon-check")] IconCheck,
         [Description("gradient")] Gradient,

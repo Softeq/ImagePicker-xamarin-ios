@@ -23,8 +23,6 @@ namespace YSImagePicker.Media.Delegates
         public bool RecordingWasInterrupted = false;
 
         /// non null if failed or interrupted, null if cancelled
-        public NSError RecordingError { get; set; }
-
         public VideoCaptureDelegate(Action didStart, Action<VideoCaptureDelegate> didFinish,
             Action<VideoCaptureDelegate, NSError> didFail)
         {
@@ -82,8 +80,6 @@ namespace YSImagePicker.Media.Delegates
 
         private void HandleCaptureResultWithError(NSError error, NSUrl outputFileUrl)
         {
-            RecordingError = error;
-
             Console.WriteLine($"capture session: movie recording failed error: {error}");
 
             //this can be true even if recording is stopped due to a reason (no disk space, ...) so the video can still be delivered.

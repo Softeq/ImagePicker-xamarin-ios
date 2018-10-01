@@ -5,6 +5,7 @@ using UIKit;
 using YSImagePicker.Interfaces;
 using YSImagePicker.Media.Capture;
 using YSImagePicker.Public;
+using YSImagePicker.Public.Delegates;
 
 namespace YSImagePicker.Media.Delegates
 {
@@ -12,7 +13,6 @@ namespace YSImagePicker.Media.Delegates
     {
         private readonly Func<CameraCollectionViewCell> _getCameraCellFunc;
         private readonly ImagePickerControllerDelegate _imagePickerControllerDelegate;
-
 
         public SessionPhotoCapturingDelegate(Func<CameraCollectionViewCell> getCameraCellFunc,
             ImagePickerControllerDelegate @delegate)

@@ -2,7 +2,7 @@
 using System.Linq;
 using AVFoundation;
 using Foundation;
-using YSImagePicker.Models;
+using YSImagePicker.Enums;
 
 namespace YSImagePicker.Media.Capture
 {

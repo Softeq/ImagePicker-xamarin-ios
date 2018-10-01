@@ -8,24 +8,24 @@ namespace YSImagePicker.Operations
 {
     public class CollectionViewUpdatesCoordinator
     {
-        private UICollectionView СollectionView;
+        private readonly UICollectionView _сollectionView;
 
-        private NSOperationQueue serialMainQueue;
+        private readonly NSOperationQueue _serialMainQueue;
 
         public CollectionViewUpdatesCoordinator(UICollectionView collectionView)
         {
-            serialMainQueue = new NSOperationQueue
+            _serialMainQueue = new NSOperationQueue
             {
                 MaxConcurrentOperationCount = 1, UnderlyingQueue = DispatchQueue.MainQueue
             };
 
-            СollectionView = collectionView;
+            _сollectionView = collectionView;
         }
 
-        /// Provides opportunuty to update collectionView's dataSource in underlaying queue.
+        /// Provides opportunity to update collectionView's dataSource in underlying queue.
         public void PerformDataSourceUpdate(Action updates)
         {
-            serialMainQueue.AddOperation(updates);
+            _serialMainQueue.AddOperation(updates);
         }
 
         /// Updates collection view.
@@ -33,13 +33,13 @@ namespace YSImagePicker.Operations
         {
             if (changes.HasIncrementalChanges)
             {
-                var operation = new CollectionViewBatchAnimation(СollectionView, inSection, changes);
+                var operation = new CollectionViewBatchAnimation(_сollectionView, inSection, changes);
 
-                serialMainQueue.AddOperation(() => operation.Execute());
+                _serialMainQueue.AddOperation(() => operation.Execute());
             }
             else
             {
-                serialMainQueue.AddOperation(() => { СollectionView.ReloadData(); });
+                _serialMainQueue.AddOperation(() => { _сollectionView.ReloadData(); });
             }
         }
     }
