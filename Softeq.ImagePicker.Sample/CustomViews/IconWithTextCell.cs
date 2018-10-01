@@ -2,7 +2,7 @@ using System;
 using Foundation;
 using UIKit;
 
-namespace TestApplication.CustomViews
+namespace Softeq.ImagePicker.Sample.CustomViews
 {
     [Register("IconWithTextCell")]
     public partial class IconWithTextCell : UICollectionViewCell

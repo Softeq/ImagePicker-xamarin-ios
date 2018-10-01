@@ -6,10 +6,10 @@ using CoreGraphics;
 using Foundation;
 using Photos;
 using Softeq.ImagePicker.Public;
-using TestApplication.Models.Enums;
+using Softeq.ImagePicker.Sample.Models.Enums;
 using UIKit;
 
-namespace TestApplication
+namespace Softeq.ImagePicker.Sample
 {
     public partial class ViewController : UITableViewController
     {

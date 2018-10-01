@@ -1,4 +1,4 @@
-﻿namespace TestApplication.Models.Enums
+﻿namespace Softeq.ImagePicker.Sample.Models.Enums
 {
     public enum SelectorArgument
     {

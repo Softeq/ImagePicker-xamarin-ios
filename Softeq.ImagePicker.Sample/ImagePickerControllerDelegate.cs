@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using Foundation;
-using ObjCRuntime;
 using Photos;
 using Softeq.ImagePicker.Extensions;
 using Softeq.ImagePicker.Public;
+using Softeq.ImagePicker.Sample.CustomViews;
 using Softeq.ImagePicker.Views;
-using TestApplication.CustomViews;
 using UIKit;
 
-namespace TestApplication
+namespace Softeq.ImagePicker.Sample
 {
     public class ImagePickerControllerDelegate : Softeq.ImagePicker.Public.Delegates.ImagePickerControllerDelegate
     {

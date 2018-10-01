@@ -3,11 +3,11 @@ using Foundation;
 using Photos;
 using Softeq.ImagePicker.Enums;
 using Softeq.ImagePicker.Public;
-using TestApplication.Models;
-using TestApplication.Models.Enums;
+using Softeq.ImagePicker.Sample.Models;
+using Softeq.ImagePicker.Sample.Models.Enums;
 using UIKit;
 
-namespace TestApplication
+namespace Softeq.ImagePicker.Sample
 {
     public class ImagePickerConfigurationHandlerClass
     {

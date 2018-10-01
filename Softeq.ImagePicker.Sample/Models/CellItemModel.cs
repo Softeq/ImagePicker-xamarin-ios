@@ -1,9 +1,9 @@
 ﻿using System;
 using Foundation;
-using TestApplication.Models.Enums;
+using Softeq.ImagePicker.Sample.Models.Enums;
 using UIKit;
 
-namespace TestApplication.Models
+namespace Softeq.ImagePicker.Sample.Models
 {
     public class CellItemModel
     {

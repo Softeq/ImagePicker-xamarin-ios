@@ -3,7 +3,7 @@ using Foundation;
 using Softeq.ImagePicker.Views;
 using UIKit;
 
-namespace TestApplication.CustomViews
+namespace Softeq.ImagePicker.Sample.CustomViews
 {
     [Register("CustomVideoCell")]
     public partial class CustomVideoCell : ImagePickerAssetCell

@@ -1,6 +1,6 @@
 ﻿using UIKit;
 
-namespace TestApplication
+namespace Softeq.ImagePicker.Sample
 {
     public class Application
     {
