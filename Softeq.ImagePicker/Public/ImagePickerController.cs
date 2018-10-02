@@ -30,7 +30,7 @@ namespace Softeq.ImagePicker.Public
         public void Release()
         {
             PHPhotoLibrary.SharedPhotoLibrary.UnregisterChangeObserver(this);
-            _captureSession.Suspend();
+            _captureSession?.Suspend();
             Console.WriteLine($"DismissViewController: describing: {nameof(ImagePickerController)}");
         }
 

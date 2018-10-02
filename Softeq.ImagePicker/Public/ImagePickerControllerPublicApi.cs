@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Foundation;
 using Photos;
@@ -10,6 +11,7 @@ using UIKit;
 
 namespace Softeq.ImagePicker.Public
 {
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public partial class ImagePickerController
     {
         ///
@@ -20,7 +22,7 @@ namespace Softeq.ImagePicker.Public
         ///
         /// Use this to register a cell classes or nibs for each item types
         ///
-        public CellRegistrator CellRegistrator = new CellRegistrator();
+        public CellRegistrator CellRegistrator { get; } = new CellRegistrator();
 
         ///
         /// Use these settings to configure how the capturing should behave
@@ -30,7 +32,7 @@ namespace Softeq.ImagePicker.Public
         ///
         /// Get informed about user interaction and changes
         ///
-        public ImagePickerControllerDelegate Delegate;
+        public ImagePickerControllerDelegate Delegate { get; set; }
 
         ///
         /// Provide additional data when requested by Image Picker
@@ -42,7 +44,21 @@ namespace Softeq.ImagePicker.Public
         ///
         public UICollectionView CollectionView => ImagePickerView.UICollectionView;
 
-        private ImagePickerView ImagePickerView => View as ImagePickerView;
+        public ImagePickerView ImagePickerView => View as ImagePickerView;
+
+        ///
+        /// Fetch result of assets that will be used for picking.
+        ///
+        /// If you leave this nil or return nil from the block, assets from recently
+        /// added smart album will be used.
+        ///
+        public Func<PHFetchResult> AssetsFetchResultBlock;
+
+        ///
+        /// Instance appearance proxy object. Use this object to set appearance
+        /// for this particular instance of Image Picker.
+        ///
+        public Appearance Appearance { get; } = new Appearance();
 
         ///
         /// Programatically select asset.
@@ -110,19 +126,5 @@ namespace Softeq.ImagePicker.Public
 
             return (PHAsset) _collectionViewDataSource.AssetsModel.FetchResult.ElementAt(index);
         }
-
-        ///
-        /// Fetch result of assets that will be used for picking.
-        ///
-        /// If you leave this nil or return nil from the block, assets from recently
-        /// added smart album will be used.
-        ///
-        public Func<PHFetchResult> AssetsFetchResultBlock;
-
-        ///
-        /// Instance appearance proxy object. Use this object to set appearance
-        /// for this particular instance of Image Picker.
-        ///
-        public Appearance Appearance { get; } = new Appearance();
     }
 }

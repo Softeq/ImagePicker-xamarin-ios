@@ -21,8 +21,7 @@ namespace Softeq.ImagePicker.Public
     ///
     public class CellRegistrator
     {
-        // MARK: Private Methods
-        private string _actionItemIdentifierPrefix = "eu.inloop.action-item.cell-id";
+        private const string ActionItemIdentifierPrefix = "eu.inloop.action-item.cell-id";
         public Dictionary<int, (UINib, string)> ActionItemNibsData;
         public Dictionary<int, (Type, string)> ActionItemClassesData;
 
@@ -30,7 +29,7 @@ namespace Softeq.ImagePicker.Public
         public UINib CameraItemNib;
         public UICollectionViewCell CameraItemClass;
 
-        private string _assetItemIdentifierPrefix = "eu.inloop.asset-item.cell-id";
+        private const string AssetItemIdentifierPrefix = "eu.inloop.asset-item.cell-id";
         public Dictionary<PHAssetMediaType, (UINib, string)> AssetItemNibsData;
         public Dictionary<PHAssetMediaType, (Type, string)> AssetItemClassesData;
 
@@ -38,11 +37,8 @@ namespace Softeq.ImagePicker.Public
         public UINib AssetItemNib;
         public UICollectionViewCell AssetItemClass;
 
-        // MARK: Internal Methods
+        public const string CellIdentifierForCameraItem = "eu.inloop.camera-item.cell-id";
 
-        public string CellIdentifierForCameraItem = "eu.inloop.camera-item.cell-id";
-
-        //TODO: Check logic
         public string CellIdentifier(int index)
         {
             if (ActionItemNibsData != null && ActionItemNibsData.ContainsKey(index))
@@ -66,7 +62,7 @@ namespace Softeq.ImagePicker.Public
 
         public bool HasUserRegisteredActionCell => ActionItemNibsData?.Any() ?? ActionItemClassesData?.Any() ?? false;
 
-        public string CellIdentifierForAssetItems => _assetItemIdentifierPrefix;
+        public string CellIdentifierForAssetItems => AssetItemIdentifierPrefix;
 
         public string CellIdentifier(PHAssetMediaType type)
         {
@@ -114,7 +110,7 @@ namespace Softeq.ImagePicker.Public
                 ActionItemNibsData = new Dictionary<int, (UINib, string)>();
             }
 
-            var cellIdentifier = _actionItemIdentifierPrefix + index;
+            var cellIdentifier = ActionItemIdentifierPrefix + index;
             ActionItemNibsData.Add(index, (nib, cellIdentifier));
         }
 
@@ -129,7 +125,7 @@ namespace Softeq.ImagePicker.Public
                 ActionItemClassesData = new Dictionary<int, (Type, string)>();
             }
 
-            var cellIdentifier = _actionItemIdentifierPrefix + index;
+            var cellIdentifier = ActionItemIdentifierPrefix + index;
             ActionItemClassesData.Add(index, (cellClass, cellIdentifier));
         }
 
@@ -166,7 +162,7 @@ namespace Softeq.ImagePicker.Public
                 AssetItemNibsData = new Dictionary<PHAssetMediaType, (UINib, string)>();
             }
 
-            var cellIdentifier = _assetItemIdentifierPrefix + type.ToString();
+            var cellIdentifier = AssetItemIdentifierPrefix + type.ToString();
             AssetItemNibsData.Add(type, (nib, cellIdentifier));
         }
 
@@ -184,7 +180,7 @@ namespace Softeq.ImagePicker.Public
                 AssetItemClassesData = new Dictionary<PHAssetMediaType, (Type, string)>();
             }
 
-            var cellIdentifier = _assetItemIdentifierPrefix + type;
+            var cellIdentifier = AssetItemIdentifierPrefix + type;
             AssetItemClassesData.Add(type, (cellClass, cellIdentifier));
         }
 
@@ -247,12 +243,12 @@ namespace Softeq.ImagePicker.Public
                         collectionView.RegisterNibForCell(
                             UINib.FromName(nameof(LivePhotoCameraCell),
                                 NSBundle.FromIdentifier(nameof(LivePhotoCameraCell))),
-                            registrator.CellIdentifierForCameraItem);
+                            CellRegistrator.CellIdentifierForCameraItem);
                         break;
                     case CameraMode.PhotoAndVideo:
                         collectionView.RegisterNibForCell(
                             UINib.FromName(nameof(VideoCameraCell), NSBundle.FromIdentifier(nameof(VideoCameraCell))),
-                            registrator.CellIdentifierForCameraItem);
+                            CellRegistrator.CellIdentifierForCameraItem);
                         break;
                     default:
                         throw new ArgumentOutOfRangeException(nameof(cameraMode), cameraMode, null);
@@ -260,12 +256,12 @@ namespace Softeq.ImagePicker.Public
             }
             else if (registrator.CameraItemNib != null && registrator.CameraItemClass == null)
             {
-                collectionView.RegisterNibForCell(registrator.CameraItemNib, registrator.CellIdentifierForCameraItem);
+                collectionView.RegisterNibForCell(registrator.CameraItemNib, CellRegistrator.CellIdentifierForCameraItem);
             }
             else
             {
                 collectionView.RegisterClassForCell(registrator.CameraItemClass.GetType(),
-                    registrator.CellIdentifierForCameraItem);
+                    CellRegistrator.CellIdentifierForCameraItem);
             }
 
             //register asset items considering type
