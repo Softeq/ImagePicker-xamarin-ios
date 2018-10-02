@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Foundation;
 using Photos;
+using Softeq.ImagePicker.Infrastructure;
 using Softeq.ImagePicker.Infrastructure.Enums;
 using Softeq.ImagePicker.Views;
 using UIKit;
