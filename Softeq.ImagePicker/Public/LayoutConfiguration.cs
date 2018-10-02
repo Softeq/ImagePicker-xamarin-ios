@@ -7,7 +7,8 @@ namespace Softeq.ImagePicker.Public
     {
         public bool ShowsFirstActionItem;
         public bool ShowsSecondActionItem;
-
+        public string FirstNameOfActionItem;
+        public string SecondNameOfActionItem;
         public bool ShowsCameraItem;
 
         public bool ShowsAssetItems;
@@ -62,7 +63,8 @@ namespace Softeq.ImagePicker.Public
             SectionIndexForActions = 0;
             SectionIndexForCamera = 1;
             SectionIndexForAssets = 2;
-
+            FirstNameOfActionItem = "Camera";
+            SecondNameOfActionItem = "Photos";
             return this;
         }
     }

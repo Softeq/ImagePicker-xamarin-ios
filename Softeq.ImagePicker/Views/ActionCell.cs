@@ -26,16 +26,15 @@ namespace Softeq.ImagePicker.Views
 
             TitleLabel.TextColor = UIColor.Black;
 
-            switch (index)
+            if (index == 0)
             {
-                case 0:
-                    TitleLabel.Text = "Camera";
-                    ImageView.Image = UIImageExtensions.FromBundle(BundleAssets.ButtonCamera);
-                    break;
-                case 1:
-                    TitleLabel.Text = "Photos";
-                    ImageView.Image = UIImageExtensions.FromBundle(BundleAssets.ButtonPhotoLibrary);
-                    break;
+                TitleLabel.Text = layoutConfiguration.FirstNameOfActionItem;
+                ImageView.Image = UIImageExtensions.FromBundle(BundleAssets.ButtonCamera);
+            }
+            else if (index == 1)
+            {
+                TitleLabel.Text = layoutConfiguration.SecondNameOfActionItem;
+                ImageView.Image = UIImageExtensions.FromBundle(BundleAssets.ButtonPhotoLibrary);
             }
 
             var isFirst = index == 0;
