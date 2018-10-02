@@ -12,24 +12,24 @@ namespace Softeq.ImagePicker
     ///
     public class ImagePickerDataSource : UICollectionViewDataSource
     {
-        public LayoutModel LayoutModel;
+        private LayoutModel _layoutModel;
         public CellRegistrator CellRegistrator;
-        public readonly ImagePickerAssetModel AssetsModel;
+        public ImagePickerAssetModel AssetsModel { get; }
 
         public ImagePickerDataSource(ImagePickerAssetModel assetsModel)
         {
             AssetsModel = assetsModel;
-            LayoutModel = new LayoutModel(new LayoutConfiguration());
+            _layoutModel = new LayoutModel(new LayoutConfiguration());
         }
 
         public override nint GetItemsCount(UICollectionView collectionView, nint section)
         {
-            return LayoutModel.NumberOfItems((int) section);
+            return _layoutModel.NumberOfItems((int) section);
         }
 
         public override nint NumberOfSections(UICollectionView collectionView)
         {
-            return LayoutModel.NumberOfSections;
+            return _layoutModel.NumberOfSections;
         }
 
         public override UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath)
@@ -49,6 +49,11 @@ namespace Softeq.ImagePicker
                     return GetAssetCell(collectionView, indexPath);
                 default: throw new Exception("only 3 sections are supported");
             }
+        }
+
+        public void UpdateLayoutModel(LayoutModel layoutModel)
+        {
+            _layoutModel = layoutModel;
         }
 
         private UICollectionViewCell GetActionCell(UICollectionView collectionView, NSIndexPath indexPath)

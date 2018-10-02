@@ -19,8 +19,10 @@ namespace Softeq.ImagePicker.Public
     {
         private CollectionViewUpdatesCoordinator _collectionViewCoordinator;
         private CameraCollectionViewCellDelegate _cameraCollectionViewCellDelegate;
+
         private readonly ImagePickerDataSource _collectionViewDataSource =
             new ImagePickerDataSource(new ImagePickerAssetModel());
+
         private ImagePickerDelegate _collectionViewDelegate;
         private CaptureSession _captureSession;
         private UIView _overlayView;
@@ -111,8 +113,8 @@ namespace Softeq.ImagePicker.Public
                 _collectionViewDataSource.AssetsModel.UpdateFetchResult(changes.FetchResultAfterChanges);
 
                 //update layout model because it changed
-                _collectionViewDataSource.LayoutModel = new LayoutModel(LayoutConfiguration,
-                    (int)_collectionViewDataSource.AssetsModel.FetchResult.Count);
+                _collectionViewDataSource.UpdateLayoutModel(new LayoutModel(LayoutConfiguration,
+                    (int) _collectionViewDataSource.AssetsModel.FetchResult.Count));
             });
 
             //perform update animations
@@ -279,7 +281,7 @@ namespace Softeq.ImagePicker.Public
             _collectionViewCoordinator = new CollectionViewUpdatesCoordinator(CollectionView);
 
             //configure flow layout
-            var collectionViewLayout = (UICollectionViewFlowLayout)CollectionView.CollectionViewLayout;
+            var collectionViewLayout = (UICollectionViewFlowLayout) CollectionView.CollectionViewLayout;
             collectionViewLayout.ScrollDirection = LayoutConfiguration.ScrollDirection;
             collectionViewLayout.MinimumInteritemSpacing = LayoutConfiguration.InterItemSpacing;
             collectionViewLayout.MinimumLineSpacing = LayoutConfiguration.InterItemSpacing;
@@ -353,8 +355,8 @@ namespace Softeq.ImagePicker.Public
             {
                 case PHAuthorizationStatus.Authorized:
                     _collectionViewDataSource.AssetsModel.UpdateFetchResult(AssetsFetchResultBlock?.Invoke());
-                    _collectionViewDataSource.LayoutModel = new LayoutModel(LayoutConfiguration,
-                        (int)_collectionViewDataSource.AssetsModel.FetchResult.Count);
+                    _collectionViewDataSource.UpdateLayoutModel(new LayoutModel(LayoutConfiguration,
+                        (int) _collectionViewDataSource.AssetsModel.FetchResult.Count));
                     break;
                 case PHAuthorizationStatus.Restricted:
                 case PHAuthorizationStatus.Denied:

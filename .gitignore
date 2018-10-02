@@ -41,3 +41,5 @@ Thumbs.db
 *.dotCover
 
 \.idea/\.idea\.TestApplication/\.idea/workspace\.xml
+
+\.idea/\.idea\.ImagePicker/\.idea/workspace\.xml
