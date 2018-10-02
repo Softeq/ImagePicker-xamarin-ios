@@ -224,7 +224,7 @@ namespace Softeq.ImagePicker.Public
                 }
 
                 collectionView.RegisterNibForCell(
-                    UINib.FromName("ActionCell", NSBundle.FromIdentifier(nameof(ActionCell))),
+                    UINib.FromName(nameof(ActionCell), NSBundle.FromIdentifier(nameof(ActionCell))),
                     identifier);
             }
             else
