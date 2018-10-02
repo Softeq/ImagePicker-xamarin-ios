@@ -45,7 +45,6 @@ namespace Softeq.ImagePicker.Public
             {
                 return ActionItemNibsData[index].Item2;
             }
-
             if (ActionItemClassesData != null && ActionItemClassesData.ContainsKey(index))
             {
                 return ActionItemClassesData[index].Item2;
@@ -295,11 +294,6 @@ namespace Softeq.ImagePicker.Public
                 return;
             }
 
-            if (!nibsData.Any())
-            {
-                return;
-            }
-
             foreach (var tuple in nibsData)
             {
                 collectionView.RegisterNibForCell(tuple.Item1, tuple.Item2);
@@ -309,15 +303,9 @@ namespace Softeq.ImagePicker.Public
         ///
         /// Helper func that takes nib,cellid pair and registers them on a collection view
         ///
-        public static void Register(this UICollectionView collectionView,
-            IEnumerable<(Type, string)> classData)
+        public static void Register(this UICollectionView collectionView, IEnumerable<(Type, string)> classData)
         {
             if (classData == null)
-            {
-                return;
-            }
-
-            if (!classData.Any())
             {
                 return;
             }
