@@ -15,6 +15,9 @@ An easy to use drop-in framework providing user interface for taking pictures an
 
 **Requirements**
 - iOS 10.1+
+Xamarin.iOS 12.0.0.15+
+Visual Studio Community 2017 7.6.8 (build 38)+
+XCode 10.0+
 
 **Installation**
 TODO: via nuget package
