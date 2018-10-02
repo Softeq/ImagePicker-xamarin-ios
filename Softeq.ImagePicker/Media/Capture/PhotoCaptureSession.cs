@@ -95,15 +95,13 @@ namespace Softeq.ImagePicker.Media.Capture
 
                 photoSettings.IsHighResolutionPhotoEnabled = true;
 
-                if (UIDevice.CurrentDevice.CheckSystemVersion(10, 0) &&
-                    photoSettings.AvailableEmbeddedThumbnailPhotoCodecTypes.Length > 0)
+                var availablePhotoCodecTypes = photoSettings.GetAvailableEmbeddedThumbnailPhotoCodecTypes;
+
+                if (UIDevice.CurrentDevice.CheckSystemVersion(10, 0) && availablePhotoCodecTypes.Length > 0)
                 {
                     photoSettings.EmbeddedThumbnailPhotoFormat = new NSMutableDictionary
                     {
-                        {
-                            AVVideo.CodecKey,
-                            photoSettings.AvailableEmbeddedThumbnailPhotoCodecTypes[0].GetConstant()
-                        }
+                        {AVVideo.CodecKey, availablePhotoCodecTypes[0].GetConstant()}
                     };
                 }
 
@@ -138,7 +136,8 @@ namespace Softeq.ImagePicker.Media.Capture
             {
                 if (photoDelegate.PhotoData != null)
                 {
-                    _photoCapturingDelegate?.DidCapturePhotoData(photoDelegate.PhotoData, photoDelegate.RequestedPhotoSettings);
+                    _photoCapturingDelegate?.DidCapturePhotoData(photoDelegate.PhotoData,
+                        photoDelegate.RequestedPhotoSettings);
                 }
                 else if (photoDelegate.ProcessError != null)
                 {
