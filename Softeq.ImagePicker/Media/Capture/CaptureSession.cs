@@ -218,7 +218,6 @@ namespace Softeq.ImagePicker.Media.Capture
              reset and the last start running succeeded. Otherwise, enable the user
              to try to resume the session running.
              */
-
             var parsResult =
                 Enum.TryParse<AVError>(errorValue.Code.ToString(CultureInfo.InvariantCulture), out var error);
 

@@ -10,15 +10,14 @@ using UIKit;
 
 namespace Softeq.ImagePicker.Public
 {
-    ///
+    /// <summary>
     /// Convenient API to register custom cell classes or nibs for each item type.
-    ///
     /// Supported item types:
     /// 1. action item - register a cell for all items or a different cell for each index.
     /// 2. camera item - register a subclass of `CameraCollectionViewCell` to provide a
     /// 3. asset item - each asset media type (image, video) can have it's own cell
     /// custom camera cell implementation.
-    ///
+    /// </summary>
     public class CellRegistrator
     {
         private const string ActionItemIdentifierPrefix = "eu.inloop.action-item.cell-id";
@@ -78,30 +77,28 @@ namespace Softeq.ImagePicker.Public
             return null;
         }
 
-        // MARK: Public Methods
-
-        ///
+        /// <summary>
         /// Register a cell nib for all action items. Use this method if all action items
         /// have the same cell class.
-        ///
+        /// </summary>
         public void RegisterNibForActionItems(UINib nib)
         {
             Register(nib, int.MaxValue);
         }
 
-        ///
+        /// <summary>
         /// Register a cell class for all action items. Use this method if all action items
         /// have the same cell class.
-        ///
+        /// </summary>
         public void RegisterCellClassForActionItems(Type cellClass)
         {
             Register(cellClass, int.MaxValue);
         }
 
-        ///
+        /// <summary>
         /// Register a cell nib for an action item at particular index. Use this method if
         /// you wish to use different cells at each index.
-        ///
+        /// </summary>
         public void Register(UINib nib, int index)
         {
             if (ActionItemNibsData == null)
@@ -113,10 +110,10 @@ namespace Softeq.ImagePicker.Public
             ActionItemNibsData.Add(index, (nib, cellIdentifier));
         }
 
-        ///
+        /// <summary>
         /// Register a cell class for an action item at particular index. Use this method if
         /// you wish to use different cells at each index.
-        ///
+        /// </summary>
         public void Register(Type cellClass, int index)
         {
             if (ActionItemClassesData == null)
@@ -128,32 +125,30 @@ namespace Softeq.ImagePicker.Public
             ActionItemClassesData.Add(index, (cellClass, cellIdentifier));
         }
 
-        ///
+        /// <summary>
         /// Register a cell class for camera item.
-        ///
+        /// </summary>
         public void RegisterCellClassForCameraItem(CameraCollectionViewCell cellClass)
         {
             CameraItemClass = cellClass;
         }
 
-        ///
+        /// <summary>
         /// Register a cell nib for camera item.
-        ///
-        /// - note: A cell class must subclass `CameraCollectionViewCell` or an exception
+        /// A cell class must subclass `CameraCollectionViewCell` or an exception
         /// will be thrown.
-        ///
+        /// </summary>
         public void RegisterNibForCameraItem(UINib nib)
         {
             CameraItemNib = nib;
         }
 
-        ///
+        /// <summary>
         /// Register a cell nib for asset items of specific type (image or video).
-        ///
-        /// - note: Please note, that if you register cell for specific type and your collection view displays
+        /// Please note, that if you register cell for specific type and your collection view displays
         /// also other types that you did not register an exception will be thrown. Always register cells
         /// for all media types you support.
-        ///
+        /// </summary>
         public void Register(UINib nib, PHAssetMediaType type)
         {
             if (AssetItemNibsData == null)
@@ -165,13 +160,12 @@ namespace Softeq.ImagePicker.Public
             AssetItemNibsData.Add(type, (nib, cellIdentifier));
         }
 
-        ///
+        /// <summary>
         /// Register a cell class for asset items of specific type (image or video).
-        ///
-        /// - note: Please note, that if you register cell for specific type and your collection view displays
+        /// Please note, that if you register cell for specific type and your collection view displays
         /// also other types that you did not register an exception will be thrown. Always register cells
         /// for all media types you support.
-        ///
+        /// </summary>
         public void Register(Type cellClass, PHAssetMediaType type)
         {
             if (AssetItemClassesData == null)
@@ -183,19 +177,19 @@ namespace Softeq.ImagePicker.Public
             AssetItemClassesData.Add(type, (cellClass, cellIdentifier));
         }
 
-        ///
+        /// <summary>
         /// Register a cell class for all asset items types (image and video).
-        ///
+        /// </summary>
+        /// <param name="cellClass">Cell class.</param>
         public void RegisterCellClassForAssetItems(ImagePickerAssetCell cellClass)
         {
             AssetItemClass = cellClass;
         }
 
-        ///
+        /// <summary>
         /// Register a cell nib for all asset items types (image and video).
-        ///
         /// Please note that cell's class must conform to `ImagePickerAssetCell` protocol, otherwise an exception will be thrown.
-        ///
+        /// </summary>
         public void RegisterNibForAssetItems(UINib nib)
         {
             AssetItemNib = nib;
@@ -204,10 +198,13 @@ namespace Softeq.ImagePicker.Public
 
     public static class UICollectionExtensions
     {
-        ///
+        /// <summary>
         /// Used by datasource when registering all cells to the collection view. If user
         /// did not register custom cells, this method registers default cells
-        ///
+        /// </summary>
+        /// <param name="collectionView">Collection view.</param>
+        /// <param name="registrator">Registrator.</param>
+        /// <param name="cameraMode">Camera mode.</param>
         public static void Apply(this UICollectionView collectionView, CellRegistrator registrator,
             CameraMode cameraMode)
         {
@@ -284,9 +281,9 @@ namespace Softeq.ImagePicker.Public
             }
         }
 
-        ///
+        /// <summary>
         /// Helper func that takes nib,cellId pair and registers them on a collection view
-        ///
+        /// </summary>
         public static void Register(this UICollectionView collectionView, IEnumerable<(UINib, string)> nibsData)
         {
             if (nibsData == null)
@@ -300,9 +297,9 @@ namespace Softeq.ImagePicker.Public
             }
         }
 
-        ///
+        /// <summary>
         /// Helper func that takes nib,cellid pair and registers them on a collection view
-        ///
+        /// </summary>
         public static void Register(this UICollectionView collectionView, IEnumerable<(Type, string)> classData)
         {
             if (classData == null)

@@ -7,10 +7,9 @@ using UIKit;
 
 namespace Softeq.ImagePicker.Media
 {
-    ///
-    /// A view whose layer is AVCaptureVideoPreviewLayer so it's used for previewing
-    /// output from a capture session.
-    ///
+    /// <summary>
+    /// A view whose layer is AVCaptureVideoPreviewLayer so it's used for previewing output from a capture session.
+    /// </summary>
     public class AVPreviewView : UIView
     {
         private VideoDisplayMode _displayMode = VideoDisplayMode.AspectFill;

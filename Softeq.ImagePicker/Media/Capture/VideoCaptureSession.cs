@@ -138,11 +138,10 @@ namespace Softeq.ImagePicker.Media.Capture
             });
         }
 
-        ///
-        /// If there is any recording in progress it will be stopped.
-        ///
-        /// - parameter cancel: if true, recorded file will be deleted and corresponding delegate method will be called.
-        ///
+        /// <summary>
+        /// If there is any recording in progress it will be stopped. - parameter cancel: if true, recorded file will be deleted and corresponding delegate method will be called.
+        /// </summary>
+        /// <param name="cancel">If set to <c>true</c> cancel.</param>
         public void StopVideoRecording(bool cancel = false)
         {
             if (_videoFileOutput == null)

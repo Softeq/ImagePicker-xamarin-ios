@@ -4,7 +4,7 @@
 // Change them to the values specific to your project.
 
 [assembly: AssemblyTitle("ImagePicker")]
-[assembly: AssemblyDescription("An easy to use drop-in framework providing user interface for taking pictures and videos and pick assets from Photo Library. User interface is designed to support inputView \"keyboard - like\" presentation for conversation user interfaces. ")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Softeq Development Corp.")]
 [assembly: AssemblyProduct("")]
@@ -16,7 +16,7 @@
 // The form "{Major}.{Minor}.*" will automatically update the build and revision,
 // and "{Major}.{Minor}.{Build}.*" will update just the revision.
 
-[assembly: AssemblyVersion("1.0.*")]
+[assembly: AssemblyVersion("1.0.0")]
 
 // The following attributes are used to specify the signing key for the assembly, 
 // if desired. See the Mono documentation for more information about signing.

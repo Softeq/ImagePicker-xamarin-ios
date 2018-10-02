@@ -13,16 +13,27 @@ namespace Softeq.ImagePicker.Media.Delegates
         private readonly Action<VideoCaptureDelegate> _didFinish;
         private readonly Action<VideoCaptureDelegate, NSError> _didFail;
 
+        /// <summary>
         /// set this to false if you don't wish to save video to photo library
+        /// </summary>
         public bool ShouldSaveVideoToLibrary = true;
 
+        /// <summary>
         /// true if user manually requested to cancel recording (stop without saving)
+        /// </summary>
         public bool IsBeingCancelled = false;
 
+        /// <summary>
         /// if system interrupts recording due to various reasons (empty space, phone call, background, ...)
+        /// </summary>
         public bool RecordingWasInterrupted = false;
 
+        /// <summary>
         /// non null if failed or interrupted, null if cancelled
+        /// </summary>
+        /// <param name="didStart">Did start.</param>
+        /// <param name="didFinish">Did finish.</param>
+        /// <param name="didFail">Did fail.</param>
         public VideoCaptureDelegate(Action didStart, Action<VideoCaptureDelegate> didFinish,
             Action<VideoCaptureDelegate, NSError> didFail)
         {

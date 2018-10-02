@@ -19,7 +19,9 @@ namespace Softeq.ImagePicker.Media.Capture
         private SessionPresetConfiguration _presetConfiguration;
         private readonly VideoDeviceInputManager _videoDeviceInputManager;
 
-        /// contains number of currently processing live photos
+        /// <summary>
+        ///  contains number of currently processing live photos
+        /// </summary>
         public int InProgressLivePhotoCapturesCount;
 
         private AudioCaptureSession _audioCaptureSession;

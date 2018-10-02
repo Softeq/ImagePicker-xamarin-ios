@@ -7,12 +7,12 @@ using UIKit;
 
 namespace Softeq.ImagePicker
 {
-    ///
+    /// <summary>
     /// A helper class that contains all code and logic when doing layout of collection
     /// view cells. This is used solely by collection view's delegate. Typically 
     /// this code should be part of regular subclass of UICollectionViewLayout, however,
     /// since we are using UICollectionViewFlowLayout we have to do this workaround.
-    ///
+    /// </summary>
     public class ImagePickerLayout
     {
         public readonly LayoutConfiguration Configuration;

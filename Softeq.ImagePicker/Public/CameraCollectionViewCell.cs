@@ -38,10 +38,11 @@ namespace Softeq.ImagePicker.Public
             }
         }
 
-        ///
+        /// <summary>
         /// The cell can have multiple visual states based on authorization status. Use
         /// `updateCameraAuthorizationStatus()` func to update UI.
-        ///
+        /// </summary>
+        /// <value>The authorization status.</value>
         public AVAuthorizationStatus? AuthorizationStatus
         {
             get => _authorizationStatus;
@@ -52,32 +53,29 @@ namespace Softeq.ImagePicker.Public
             }
         }
 
-        ///
-        /// Called each time an authorization status to camera is changed. Update your
-        /// cell's UI based on current value of `authorizationStatus` property.
-        ///
+        /// <summary>
+        /// Called each time an authorization status to camera is changed. Update your cell's UI based on current value of `authorizationStatus` property.
+        /// </summary>
         public void UpdateCameraAuthorizationStatus()
         {
         }
 
-        ///
+        /// <summary>
         /// If live photos are enabled this method is called each time user captures
         /// a live photo. Override this method to update UI based on live view status.
-        ///
-        /// - parameter isProcessing: If there is at least 1 live photo being processed/captured
-        /// - parameter shouldAnimate: If the UI change should be animated or not.
-        ///
+        /// </summary>
+        /// <param name="isProcessing">If there is at least 1 live photo being processed</param>
+        /// <param name="shouldAnimate">If the UI change should be animated or not</param>
         public virtual void UpdateLivePhotoStatus(bool isProcessing, bool shouldAnimate)
         {
         }
 
-        ///
+        /// <summary>
         /// If video recording is enabled this method is called each time user starts or stops
         /// a recording. Override this method to update UI based on recording status.
-        ///
-        /// - parameter isRecording: If video is recording or not
-        /// - parameter shouldAnimate: If the UI change should be animated or not.
-        ///
+        /// </summary>
+        /// <param name="isRecording">If video is recording or not<c>true</c> is recording.</param>
+        /// <param name="shouldAnimate">If the UI change should be animated or not.</param>
         public virtual void UpdateRecordingVideoStatus(bool isRecording, bool shouldAnimate)
         {
         }
@@ -86,28 +84,23 @@ namespace Softeq.ImagePicker.Public
         {
         }
 
-        ///
-        /// Flips camera from front/rear or rear/front. Flip is always supplemented with
-        /// an flip animation.
-        ///
-        /// - parameter completion: A block is called as soon as camera is changed.
-        ///
+        /// <summary>
+        /// Flips camera from front/rear or rear/front. Flip is always supplemented with an flip animation.
+        /// </summary>
+        /// <param name="completion">A block is called as soon as camera is changed.</param>
         public void FlipCamera(Action completion = null)
         {
             Delegate?.FlipCamera(completion);
         }
 
-        ///
-        /// Takes a picture
-        ///
         public void TakePicture()
         {
             Delegate?.TakePicture();
         }
 
-        ///
+        /// <summary>
         /// Takes a live photo. Please note that live photos must be enabled when configuring Image Picker.
-        ///
+        /// </summary>
         public void TakeLivePhoto()
         {
             Delegate?.TakeLivePhoto();

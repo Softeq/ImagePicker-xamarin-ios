@@ -46,7 +46,6 @@ namespace Softeq.ImagePicker.Media.Delegates
             _willCapturePhotoAnimation?.Invoke();
         }
 
-        //this method is not called on iOS 11 if method above is implemented
         public override void DidFinishProcessingPhoto(AVCapturePhotoOutput captureOutput,
             CMSampleBuffer photoSampleBuffer,
             CMSampleBuffer previewPhotoSampleBuffer, AVCaptureResolvedPhotoSettings resolvedSettings,

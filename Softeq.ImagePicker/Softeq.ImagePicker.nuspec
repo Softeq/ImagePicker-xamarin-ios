@@ -4,15 +4,15 @@
     <id>$id$</id>
     <version>$version$</version>
     <title>$title$</title>
-    <authors>$author$</authors>
+    <authors>Softeq Development Corp.</authors>
     <owners>$author$</owners>
     <licenseUrl>https://github.com/Softeq/ImagePicker-xamarin-ios/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/Softeq/ImagePicker-xamarin-ios</projectUrl>
     <iconUrl>https://github.com/Softeq/ImagePicker-xamarin-ios/blob/development/Softeq.ImagePicker.Sample/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29%403x.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>$description$</description>
+    <description>An easy to use drop-in framework providing user interface for taking pictures and videos and pick assets from Photo Library. User interface is designed to support inputView "keyboard - like" presentation for conversation user interfaces.</description>
     <releaseNotes>First Release</releaseNotes>
     <copyright>Copyright 2018</copyright>
-    <tags>Tag1 Tag2</tags>
+    <tags>ImagePicker Xamarin iOS Softeq Image Camera Library Photo Video Attachments Chat</tags>
   </metadata>
 </package>

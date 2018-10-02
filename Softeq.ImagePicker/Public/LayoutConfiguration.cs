@@ -13,29 +13,29 @@ namespace Softeq.ImagePicker.Public
 
         public bool ShowsAssetItems;
 
-        ///
+        /// <summary>
         /// Scroll and layout direction
-        ///
+        /// </summary>
         public UICollectionViewScrollDirection ScrollDirection;
 
-        ///
+        /// <summary>
         /// Defines how many image assets will be in a row. Must be > 0
-        ///
+        /// </summary>
         public int NumberOfAssetItemsInRow;
 
-        ///
+        /// <summary>
         /// Spacing between items within a section
-        ///
+        /// </summary>
         public nfloat InterItemSpacing;
 
-        ///
+        /// <summary>
         /// Spacing between actions section and camera section
-        ///
+        /// </summary>
         public nfloat ActionSectionSpacing;
 
-        ///
+        /// <summary>
         /// Spacing between camera section and assets section
-        ///
+        /// </summary>
         public nfloat CameraSectionSpacing;
 
         public bool HasAnyAction()

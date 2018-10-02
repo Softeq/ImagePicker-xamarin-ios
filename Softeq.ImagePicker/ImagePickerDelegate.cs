@@ -105,10 +105,10 @@ namespace Softeq.ImagePicker
             _delegate?.DidScroll(scrollView);
         }
         
-        ///
+        /// <summary>
         /// We allow selecting only asset items, action items are only highlighted,
         /// camera item is untouched.
-        ///
+        /// </summary>
         private static bool ShouldSelectItem(int section, LayoutConfiguration layoutConfiguration)
         {
             if (layoutConfiguration.SectionIndexForActions == section ||
