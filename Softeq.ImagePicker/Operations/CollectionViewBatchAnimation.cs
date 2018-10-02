@@ -27,7 +27,7 @@ namespace Softeq.ImagePicker.Operations
             {
                 // For indexes to make sense, updates must be in this order:
                 // delete, insert, reload, move
-                if (_changes.RemovedIndexes != null && _changes.RemovedIndexes.Count > 0)
+                if (_changes.RemovedIndexes?.Count > 0)
                 {
                     var result = new List<NSIndexPath>();
                     _changes.RemovedIndexes.EnumerateIndexes((nuint idx, ref bool stop) =>
