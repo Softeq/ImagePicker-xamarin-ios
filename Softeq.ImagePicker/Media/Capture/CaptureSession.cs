@@ -72,8 +72,7 @@ namespace Softeq.ImagePicker.Media.Capture
                     _sessionQueue.Resume();
                 });
             }
-            else if (status == AVAuthorizationStatus.Authorized) ;
-            else
+            else if (status != AVAuthorizationStatus.Authorized)
             {
                 _setupResult = SessionSetupResult.NotAuthorized;
             }
