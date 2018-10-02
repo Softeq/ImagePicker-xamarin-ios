@@ -29,7 +29,7 @@ namespace Softeq.ImagePicker.Operations
         }
 
         /// Updates collection view.
-        public void PerformChanges(PHFetchResultChangeDetails changes,int inSection)
+        public void PerformChanges(PHFetchResultChangeDetails changes, int inSection)
         {
             if (changes.HasIncrementalChanges)
             {
@@ -39,7 +39,7 @@ namespace Softeq.ImagePicker.Operations
             }
             else
             {
-                _serialMainQueue.AddOperation(() => { _сollectionView.ReloadData(); });
+                _serialMainQueue.AddOperation(_сollectionView.ReloadData);
             }
         }
     }
