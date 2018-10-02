@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Foundation;
 using Photos;
-using Softeq.ImagePicker.Infrastructure;
 using Softeq.ImagePicker.Infrastructure.Enums;
 using Softeq.ImagePicker.Views;
 using UIKit;
@@ -64,8 +63,7 @@ namespace Softeq.ImagePicker.Public
             return CellIdentifier(int.MaxValue);
         }
 
-        public bool HasUserRegisteredActionCell =>
-            (ActionItemNibsData?.Count ?? 0) > 0 || (ActionItemClassesData?.Count ?? 0) > 0;
+        public bool HasUserRegisteredActionCell => ActionItemNibsData?.Any() ?? ActionItemClassesData?.Any() ?? false;
 
         public string CellIdentifierForAssetItems => _assetItemIdentifierPrefix;
 
@@ -246,7 +244,8 @@ namespace Softeq.ImagePicker.Public
                     case CameraMode.Photo:
                     case CameraMode.PhotoAndLivePhoto:
                         collectionView.RegisterNibForCell(
-                            UINib.FromName(nameof(LivePhotoCameraCell), NSBundle.FromIdentifier(nameof(LivePhotoCameraCell))),
+                            UINib.FromName(nameof(LivePhotoCameraCell),
+                                NSBundle.FromIdentifier(nameof(LivePhotoCameraCell))),
                             registrator.CellIdentifierForCameraItem);
                         break;
                     case CameraMode.PhotoAndVideo:
