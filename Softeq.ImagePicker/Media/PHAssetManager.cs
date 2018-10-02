@@ -5,7 +5,8 @@ namespace Softeq.ImagePicker.Media
 {
     public static class PHAssetManager
     {
-        public static void PerformChangesWithAuthorization(Action authorizedAction, Action errorAction)
+        public static void PerformChangesWithAuthorization(Action authorizedAction, Action errorAction,
+            Action completedAction)
         {
             PHPhotoLibrary.RequestAuthorization(status =>
             {
@@ -19,6 +20,8 @@ namespace Softeq.ImagePicker.Media
                                 $"capture session: Error occured while saving video or photo library: {error}");
                             errorAction?.Invoke();
                         }
+
+                        completedAction?.Invoke();
                     });
                 }
                 else

@@ -35,7 +35,7 @@ namespace Softeq.ImagePicker.Operations
             {
                 var operation = new CollectionViewBatchAnimation(_сollectionView, inSection, changes);
 
-                _serialMainQueue.AddOperation(() => operation.Execute());
+                _serialMainQueue.AddOperation(operation.Execute);
             }
             else
             {

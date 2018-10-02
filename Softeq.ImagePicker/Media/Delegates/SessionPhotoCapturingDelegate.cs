@@ -21,19 +21,20 @@ namespace Softeq.ImagePicker.Media.Delegates
             _imagePickerControllerDelegate = @delegate;
         }
 
-        public void WillCapturePhotoWith(PhotoCaptureSession session, AVCapturePhotoSettings settings)
+        public void WillCapturePhotoWith(AVCapturePhotoSettings settings)
         {
             Console.WriteLine($"will capture photo {settings.UniqueID}");
         }
 
-        public void DidCapturePhotoData(PhotoCaptureSession session, NSData didCapturePhotoData,
+        public void DidCapturePhotoData(NSData didCapturePhotoData,
             AVCapturePhotoSettings settings)
         {
             Console.WriteLine($"did capture photo {settings.UniqueID}");
             _imagePickerControllerDelegate?.DidTake(UIImage.LoadFromData(didCapturePhotoData));
+            didCapturePhotoData.Dispose();
         }
 
-        public void DidFailCapturingPhotoWith(PhotoCaptureSession session, NSError error)
+        public void DidFailCapturingPhotoWith(NSError error)
         {
             Console.WriteLine($"did fail capturing: {error}");
         }

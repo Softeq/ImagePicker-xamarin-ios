@@ -138,13 +138,11 @@ namespace Softeq.ImagePicker.Media.Capture
             {
                 if (photoDelegate.PhotoData != null)
                 {
-                    _photoCapturingDelegate?.DidCapturePhotoData(this, photoDelegate.PhotoData,
-                        photoDelegate.RequestedPhotoSettings);
+                    _photoCapturingDelegate?.DidCapturePhotoData(photoDelegate.PhotoData, photoDelegate.RequestedPhotoSettings);
                 }
                 else if (photoDelegate.ProcessError != null)
                 {
-                    _photoCapturingDelegate?.DidFailCapturingPhotoWith(this,
-                        photoDelegate.ProcessError);
+                    _photoCapturingDelegate?.DidFailCapturingPhotoWith(photoDelegate.ProcessError);
                 }
             });
         }
@@ -174,7 +172,7 @@ namespace Softeq.ImagePicker.Media.Capture
         {
             DispatchQueue.MainQueue.DispatchAsync(() =>
             {
-                _photoCapturingDelegate.WillCapturePhotoWith(this, photoSettings);
+                _photoCapturingDelegate.WillCapturePhotoWith(photoSettings);
             });
         }
 

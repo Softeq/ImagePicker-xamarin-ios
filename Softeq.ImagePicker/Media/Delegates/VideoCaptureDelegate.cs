@@ -117,7 +117,7 @@ namespace Softeq.ImagePicker.Media.Delegates
             }
 
             PHAssetManager.PerformChangesWithAuthorization(() => SaveVideoToLibrary(outputFileUrl),
-                () => DeleteFileIfNeeded(outputFileUrl));
+                () => DeleteFileIfNeeded(outputFileUrl), null);
         }
 
         private void DeleteFileIfNeeded(NSUrl outputFileUrl)

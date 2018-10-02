@@ -89,7 +89,7 @@ namespace Softeq.ImagePicker.Media.Delegates
         {
             if (ShouldSaveCaptureResult(error))
             {
-                PHAssetManager.PerformChangesWithAuthorization(TryToAddPhotoToLibrary, DidFinish);
+                PHAssetManager.PerformChangesWithAuthorization(TryToAddPhotoToLibrary, null, DidFinish);
             }
         }
 
