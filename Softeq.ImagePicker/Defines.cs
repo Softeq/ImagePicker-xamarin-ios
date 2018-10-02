@@ -10,6 +10,7 @@ namespace Softeq.ImagePicker
             public const int SecondsInMinute = 60;
         }
 
+        //TODO: Move all colors to the ColorSet and up IOS version to 11
         public static class Colors
         {
             public static readonly UIColor OrangeColor = UIColor.FromRGBA(234 / 255f, 53 / 255f, 52 / 255f, 1);
