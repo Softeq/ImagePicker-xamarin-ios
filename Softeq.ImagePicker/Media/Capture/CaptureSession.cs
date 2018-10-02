@@ -153,7 +153,7 @@ namespace Softeq.ImagePicker.Media.Capture
             {
                 case SessionPresetConfiguration.Photos:
                 case SessionPresetConfiguration.LivePhotos:
-                    PhotoCaptureSession.ConfigureSession(Session, PresetConfiguration);
+                    _setupResult = PhotoCaptureSession.ConfigureSession(Session, PresetConfiguration);
                     break;
                 case SessionPresetConfiguration.Videos:
                     Session.SessionPreset = AVCaptureSession.PresetHigh;
