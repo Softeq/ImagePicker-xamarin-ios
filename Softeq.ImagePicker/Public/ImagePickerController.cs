@@ -37,7 +37,7 @@ namespace Softeq.ImagePicker.Public
         public override void LoadView()
         {
             base.LoadView();
-            var nib = UINib.FromName("ImagePickerView", NSBundle.MainBundle);
+            var nib = UINib.FromName(nameof(ImagePickerView), NSBundle.MainBundle);
             View = nib.Instantiate(null, null)[0] as ImagePickerView;
         }
 
@@ -189,7 +189,7 @@ namespace Softeq.ImagePicker.Public
             {
                 _captureSession.Suspend();
 
-                DispatchQueue.MainQueue.DispatchAsync(() => { cell.BlurIfNeeded(false, null); });
+                DispatchQueue.MainQueue.DispatchAsync(() => cell.BlurIfNeeded(false, null));
             }
         }
 
