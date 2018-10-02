@@ -29,7 +29,7 @@ namespace Softeq.ImagePicker.Media.Capture
         public SessionSetupResult ConfigureVideoDeviceInput(AVCaptureSession session)
         {
             var videoDevice = GetVideoDevice();
-           
+
             if (videoDevice == null)
             {
                 Console.WriteLine("capture session: could not create capture device");
@@ -50,14 +50,13 @@ namespace Softeq.ImagePicker.Media.Capture
                 session.RemoveInput(_videoDeviceInput);
             }
 
-            if (session.CanAddInput(videoDeviceInput))
+            if (TryToAddInput(session, videoDeviceInput))
             {
-                session.AddInput(videoDeviceInput);
                 _videoDeviceInput = videoDeviceInput;
             }
-            else
+            else if (!TryToAddInput(session, _videoDeviceInput))
             {
-                session.AddInput(_videoDeviceInput);
+                return SessionSetupResult.ConfigurationFailed;
             }
 
             _runtimeErrorNotification = NSNotificationCenter.DefaultCenter.AddObserver(
@@ -65,6 +64,28 @@ namespace Softeq.ImagePicker.Media.Capture
                 _sessionRuntimeErrorHandler, _videoDeviceInput.Device);
 
             return SessionSetupResult.Success;
+        }
+
+        private bool TryToAddInput(AVCaptureSession session, AVCaptureDeviceInput videoDeviceInput)
+        {
+            if (videoDeviceInput == null)
+            {
+                return false;
+            }
+
+            if (_videoDeviceInput != null)
+            {
+                session.RemoveInput(_videoDeviceInput);
+            }
+
+            if (!session.CanAddInput(videoDeviceInput))
+            {
+                return false;
+            }
+
+            session.AddInput(videoDeviceInput);
+
+            return true;
         }
 
         private AVCaptureDevice GetVideoDevice()
