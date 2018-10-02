@@ -62,32 +62,43 @@ namespace Softeq.ImagePicker.Views
             switch (asset.MediaType)
             {
                 case PHAssetMediaType.Image:
-                    if (asset.MediaSubtypes == PHAssetMediaSubtype.PhotoLive)
-                    {
-                        _gradientView.Hidden = false;
-                        _gradientView.Image = UIImageExtensions.FromBundle(BundleAssets.Gradient);
-                        _iconView.Hidden = false;
-                        _durationLabel.Hidden = true;
-                        _iconView.Image = UIImageExtensions.FromBundle(BundleAssets.IconBadgeLivePhoto);
-                    }
-                    else
-                    {
-                        _gradientView.Hidden = true;
-                        _iconView.Hidden = true;
-                        _durationLabel.Hidden = true;
-                    }
-
+                    UpdateImageAsset(asset);
                     break;
                 case PHAssetMediaType.Video:
-                    _gradientView.Hidden = false;
-                    _gradientView.Image =
-                        UIImageExtensions.FromBundle(BundleAssets.Gradient)
-                            .CreateResizableImage(UIEdgeInsets.Zero, UIImageResizingMode.Stretch);
-                    _iconView.Hidden = false;
-                    _durationLabel.Hidden = false;
-                    _iconView.Image = UIImageExtensions.FromBundle(BundleAssets.IconBadgeVideo);
-                    _durationLabel.Text = _durationFormatter.StringFromTimeInterval(asset.Duration);
+                    UpdateVideoAsset(asset);
                     break;
+                default:
+                    throw new ArgumentException("Support only video and image types");
+            }
+        }
+
+        private void UpdateVideoAsset(PHAsset asset)
+        {
+            _gradientView.Hidden = false;
+            _gradientView.Image =
+                UIImageExtensions.FromBundle(BundleAssets.Gradient)
+                    .CreateResizableImage(UIEdgeInsets.Zero, UIImageResizingMode.Stretch);
+            _iconView.Hidden = false;
+            _durationLabel.Hidden = false;
+            _iconView.Image = UIImageExtensions.FromBundle(BundleAssets.IconBadgeVideo);
+            _durationLabel.Text = _durationFormatter.StringFromTimeInterval(asset.Duration);
+        }
+
+        private void UpdateImageAsset(PHAsset asset)
+        {
+            if (asset.MediaSubtypes == PHAssetMediaSubtype.PhotoLive)
+            {
+                _gradientView.Hidden = false;
+                _gradientView.Image = UIImageExtensions.FromBundle(BundleAssets.Gradient);
+                _iconView.Hidden = false;
+                _durationLabel.Hidden = true;
+                _iconView.Image = UIImageExtensions.FromBundle(BundleAssets.IconBadgeLivePhoto);
+            }
+            else
+            {
+                _gradientView.Hidden = true;
+                _iconView.Hidden = true;
+                _durationLabel.Hidden = true;
             }
         }
 
