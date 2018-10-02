@@ -1,6 +1,7 @@
 using System;
 using CoreGraphics;
 using Foundation;
+using Softeq.ImagePicker.Infrastructure;
 using Softeq.ImagePicker.Infrastructure.Interfaces;
 using Softeq.ImagePicker.Public;
 using Softeq.ImagePicker.Views;
@@ -80,7 +81,7 @@ namespace Softeq.ImagePicker
                 case var section when section == Layout.Configuration.SectionIndexForAssets:
                     _delegate?.WillDisplayAssetCell(cell as ImagePickerAssetCell, indexPath.Row);
                     break;
-                default: throw new Exception("index path not supported");
+                default: throw new ImagePickerException("index path not supported");
             }
         }
 
@@ -95,7 +96,7 @@ namespace Softeq.ImagePicker
                 case var section when section == Layout.Configuration.SectionIndexForActions ||
                                       section == Layout.Configuration.SectionIndexForAssets:
                     break;
-                default: throw new Exception("index path not supported");
+                default: throw new ImagePickerException("index path not supported");
             }
         }
 

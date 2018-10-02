@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Foundation;
 using Photos;
+using Softeq.ImagePicker.Infrastructure;
 using Softeq.ImagePicker.Public.Delegates;
 using Softeq.ImagePicker.Views;
 using UIKit;
@@ -91,7 +92,7 @@ namespace Softeq.ImagePicker.Public
         {
             if (_collectionViewDataSource.AssetsModel.FetchResult == null)
             {
-                throw new Exception($"Accessing assets at indexes {indexes} failed");
+                throw new ImagePickerException($"Accessing assets at indexes {indexes} failed");
             }
 
             return _collectionViewDataSource.AssetsModel.FetchResult.ObjectsAt<PHAsset>(indexes);
@@ -104,7 +105,7 @@ namespace Softeq.ImagePicker.Public
         {
             if (_collectionViewDataSource.AssetsModel.FetchResult == null)
             {
-                throw new Exception($"Accessing asset at index {index} failed");
+                throw new ImagePickerException($"Accessing asset at index {index} failed");
             }
 
             return (PHAsset) _collectionViewDataSource.AssetsModel.FetchResult.ElementAt(index);

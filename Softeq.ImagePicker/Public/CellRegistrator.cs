@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Foundation;
 using Photos;
+using Softeq.ImagePicker.Infrastructure;
 using Softeq.ImagePicker.Infrastructure.Enums;
 using Softeq.ImagePicker.Views;
 using UIKit;
@@ -225,7 +226,7 @@ namespace Softeq.ImagePicker.Public
 
                 if (identifier == null)
                 {
-                    throw new Exception("Image Picker: unable to register default action item cell");
+                    throw new ImagePickerException("Image Picker: unable to register default action item cell");
                 }
 
                 collectionView.RegisterNibForCell(

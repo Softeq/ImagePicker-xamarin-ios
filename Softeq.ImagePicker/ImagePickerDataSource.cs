@@ -1,6 +1,7 @@
 using System;
 using Foundation;
 using Photos;
+using Softeq.ImagePicker.Infrastructure;
 using Softeq.ImagePicker.Public;
 using Softeq.ImagePicker.Views;
 using UIKit;
@@ -36,7 +37,7 @@ namespace Softeq.ImagePicker
         {
             if (CellRegistrator == null)
             {
-                throw new Exception("cells registrator must be set at this moment");
+                throw new ImagePickerException("cells registrator must be set at this moment");
             }
 
             switch (indexPath.Section)
@@ -47,7 +48,7 @@ namespace Softeq.ImagePicker
                     return GetCameraCell(collectionView, indexPath);
                 case 2:
                     return GetAssetCell(collectionView, indexPath);
-                default: throw new Exception("only 3 sections are supported");
+                default: throw new ImagePickerException("only 3 sections are supported");
             }
         }
 

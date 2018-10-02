@@ -1,6 +1,7 @@
 using System;
 using CoreGraphics;
 using Foundation;
+using Softeq.ImagePicker.Infrastructure;
 using Softeq.ImagePicker.Public;
 using UIKit;
 
@@ -51,7 +52,7 @@ namespace Softeq.ImagePicker
         {
             if (!(collectionViewLayout is UICollectionViewFlowLayout layout))
             {
-                throw new Exception("currently only UICollectionViewFlowLayout is supported");
+                throw new ImagePickerException("currently only UICollectionViewFlowLayout is supported");
             }
 
             var layoutModel = new LayoutModel(Configuration, 0);
@@ -94,14 +95,14 @@ namespace Softeq.ImagePicker
                     //make sure there is at least 1 item, othewise invalid layout
                     if (Configuration.NumberOfAssetItemsInRow < 0)
                     {
-                        throw new Exception(
+                        throw new ImagePickerException(
                             "invalid layout - numberOfAssetItemsInRow must be > 0, check your layout configuration ");
                     }
 
                     return SizeForItem(Configuration.NumberOfAssetItemsInRow, null, collectionView,
                         layout.ScrollDirection);
                 default:
-                    throw new Exception("unexpected sections count");
+                    throw new ImagePickerException("unexpected sections count");
             }
         }
 
@@ -110,7 +111,7 @@ namespace Softeq.ImagePicker
         {
             if (!(collectionViewLayout is UICollectionViewFlowLayout layout))
             {
-                throw new Exception("currently only UICollectionViewFlowLayout is supported");
+                throw new ImagePickerException("currently only UICollectionViewFlowLayout is supported");
             }
 
             /// helper method that creates edge insets considering scroll direction
@@ -123,7 +124,7 @@ namespace Softeq.ImagePicker
                     case UICollectionViewScrollDirection.Vertical:
                         return new UIEdgeInsets(0, 0, inset, 0);
                     default:
-                        throw new Exception("unexpected enum");
+                        throw new ImagePickerException("unexpected enum");
                 }
             }
 

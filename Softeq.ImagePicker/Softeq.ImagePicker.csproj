@@ -53,7 +53,6 @@
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Infrastructure" />
     <Folder Include="Resources\" />
     <Folder Include="Views\" />
     <Folder Include="Public\" />
@@ -72,6 +71,7 @@
     <Compile Include="Infrastructure\Enums\VideoDisplayMode.cs" />
     <Compile Include="Infrastructure\Extensions\UICollectionViewExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\UIImageExtensions.cs" />
+    <Compile Include="Infrastructure\ImagePickerException.cs" />
     <Compile Include="Infrastructure\Interfaces\ICameraCollectionViewCellDelegate.cs" />
     <Compile Include="Infrastructure\Interfaces\ICaptureSessionDelegate.cs" />
     <Compile Include="Infrastructure\Interfaces\ICaptureSessionVideoRecordingDelegate.cs" />

@@ -2,6 +2,7 @@ using System;
 using AVFoundation;
 using CoreFoundation;
 using Foundation;
+using Softeq.ImagePicker.Infrastructure;
 using Softeq.ImagePicker.Infrastructure.Enums;
 using Softeq.ImagePicker.Infrastructure.Interfaces;
 using Softeq.ImagePicker.Media.Delegates;
@@ -161,7 +162,7 @@ namespace Softeq.ImagePicker.Media.Capture
 
                 if (_videoCaptureDelegate == null)
                 {
-                    throw new Exception(
+                    throw new ImagePickerException(
                         "capture session: trying to stop a video recording but video capture delegate is nil");
                 }
 
