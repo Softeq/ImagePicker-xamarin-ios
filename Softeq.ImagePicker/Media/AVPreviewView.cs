@@ -2,7 +2,7 @@ using AVFoundation;
 using CoreGraphics;
 using Foundation;
 using ObjCRuntime;
-using Softeq.ImagePicker.Enums;
+using Softeq.ImagePicker.Infrastructure.Enums;
 using UIKit;
 
 namespace Softeq.ImagePicker.Media

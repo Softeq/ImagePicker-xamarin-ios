@@ -1,7 +1,7 @@
 using System;
 using CoreGraphics;
 using Foundation;
-using Softeq.ImagePicker.Interfaces;
+using Softeq.ImagePicker.Infrastructure.Interfaces;
 using Softeq.ImagePicker.Public;
 using Softeq.ImagePicker.Views;
 using UIKit;

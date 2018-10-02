@@ -1,4 +1,4 @@
-using Softeq.ImagePicker.Enums;
+using Softeq.ImagePicker.Infrastructure.Enums;
 
 namespace Softeq.ImagePicker.Public
 {

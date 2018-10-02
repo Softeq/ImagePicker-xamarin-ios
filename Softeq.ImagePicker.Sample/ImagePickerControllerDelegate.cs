@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Foundation;
 using Photos;
-using Softeq.ImagePicker.Extensions;
+using Softeq.ImagePicker.Infrastructure.Extensions;
 using Softeq.ImagePicker.Public;
 using Softeq.ImagePicker.Sample.CustomViews;
 using Softeq.ImagePicker.Views;

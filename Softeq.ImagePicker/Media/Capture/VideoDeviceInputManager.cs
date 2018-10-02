@@ -2,7 +2,7 @@
 using System.Linq;
 using AVFoundation;
 using Foundation;
-using Softeq.ImagePicker.Enums;
+using Softeq.ImagePicker.Infrastructure.Enums;
 
 namespace Softeq.ImagePicker.Media.Capture
 {

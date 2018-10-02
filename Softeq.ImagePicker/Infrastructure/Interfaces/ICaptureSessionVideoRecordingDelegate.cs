@@ -1,7 +1,7 @@
 using Foundation;
 using Softeq.ImagePicker.Media.Capture;
 
-namespace Softeq.ImagePicker.Interfaces
+namespace Softeq.ImagePicker.Infrastructure.Interfaces
 {
     /// Groups a method that informs a delegate about progress and state of photo capturing.
     public interface ICaptureSessionVideoRecordingDelegate

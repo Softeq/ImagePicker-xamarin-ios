@@ -1,7 +1,7 @@
 using System;
 using AVFoundation;
 using Foundation;
-using Softeq.ImagePicker.Interfaces;
+using Softeq.ImagePicker.Infrastructure.Interfaces;
 using Softeq.ImagePicker.Public;
 
 namespace Softeq.ImagePicker.Media.Delegates

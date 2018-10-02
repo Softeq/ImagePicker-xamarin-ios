@@ -2,7 +2,7 @@ using Softeq.ImagePicker.Public;
 using Softeq.ImagePicker.Views;
 using UIKit;
 
-namespace Softeq.ImagePicker.Interfaces
+namespace Softeq.ImagePicker.Infrastructure.Interfaces
 {
     public interface IImagePickerDelegate
     {

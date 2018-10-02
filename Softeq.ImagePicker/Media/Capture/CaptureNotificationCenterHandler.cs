@@ -2,7 +2,7 @@
 using AVFoundation;
 using CoreFoundation;
 using Foundation;
-using Softeq.ImagePicker.Interfaces;
+using Softeq.ImagePicker.Infrastructure.Interfaces;
 
 namespace Softeq.ImagePicker.Media.Capture
 {

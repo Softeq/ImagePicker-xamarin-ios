@@ -4,8 +4,8 @@ using System.Linq;
 using AVFoundation;
 using CoreFoundation;
 using Foundation;
-using Softeq.ImagePicker.Enums;
-using Softeq.ImagePicker.Interfaces;
+using Softeq.ImagePicker.Infrastructure.Enums;
+using Softeq.ImagePicker.Infrastructure.Interfaces;
 using Softeq.ImagePicker.Media.Delegates;
 using UIKit;
 

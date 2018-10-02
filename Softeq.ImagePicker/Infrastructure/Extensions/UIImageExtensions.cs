@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel;
 using UIKit;
 
-namespace Softeq.ImagePicker.Extensions
+namespace Softeq.ImagePicker.Infrastructure.Extensions
 {
     public static class UIImageExtensions
     {

@@ -2,7 +2,7 @@
 using CoreGraphics;
 using Foundation;
 using Photos;
-using Softeq.ImagePicker.Extensions;
+using Softeq.ImagePicker.Infrastructure.Extensions;
 using UIKit;
 
 namespace Softeq.ImagePicker.Views

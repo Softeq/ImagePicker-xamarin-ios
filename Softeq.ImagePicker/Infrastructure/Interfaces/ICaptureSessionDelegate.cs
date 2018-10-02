@@ -1,7 +1,7 @@
 using AVFoundation;
 using Foundation;
 
-namespace Softeq.ImagePicker.Interfaces
+namespace Softeq.ImagePicker.Infrastructure.Interfaces
 {
     /// Groups a method that informs a delegate about progress and state of video recording.
     public interface ICaptureSessionDelegate

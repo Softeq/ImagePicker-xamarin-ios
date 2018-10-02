@@ -1,6 +1,6 @@
 ﻿using System;
 using Foundation;
-using Softeq.ImagePicker.Enums;
+using Softeq.ImagePicker.Infrastructure.Enums;
 using Softeq.ImagePicker.Public;
 using UIKit;
 

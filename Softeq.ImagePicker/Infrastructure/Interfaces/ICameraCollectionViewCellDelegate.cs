@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Softeq.ImagePicker.Interfaces
+namespace Softeq.ImagePicker.Infrastructure.Interfaces
 {
     public interface ICameraCollectionViewCellDelegate
     {

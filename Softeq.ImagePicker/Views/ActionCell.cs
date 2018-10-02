@@ -1,6 +1,6 @@
 using System;
 using Foundation;
-using Softeq.ImagePicker.Extensions;
+using Softeq.ImagePicker.Infrastructure.Extensions;
 using Softeq.ImagePicker.Public;
 using UIKit;
 

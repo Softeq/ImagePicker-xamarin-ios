@@ -2,7 +2,7 @@
 using AVFoundation;
 using CoreGraphics;
 using Foundation;
-using Softeq.ImagePicker.Interfaces;
+using Softeq.ImagePicker.Infrastructure.Interfaces;
 using Softeq.ImagePicker.Media;
 using UIKit;
 

@@ -1,5 +1,5 @@
 using System;
-using Softeq.ImagePicker.Enums;
+using Softeq.ImagePicker.Infrastructure.Enums;
 using Softeq.ImagePicker.Media.Capture;
 using Softeq.ImagePicker.Media.Delegates;
 using Softeq.ImagePicker.Public;

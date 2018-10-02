@@ -2,7 +2,7 @@ using Foundation;
 using Softeq.ImagePicker.Public;
 using UIKit;
 
-namespace Softeq.ImagePicker.Extensions
+namespace Softeq.ImagePicker.Infrastructure.Extensions
 {
     public static class UICollectionViewExtensions
     {

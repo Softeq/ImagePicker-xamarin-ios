@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Foundation;
 using Photos;
-using Softeq.ImagePicker.Enums;
+using Softeq.ImagePicker.Infrastructure.Enums;
 using Softeq.ImagePicker.Public;
 using Softeq.ImagePicker.Sample.Models;
 using Softeq.ImagePicker.Sample.Models.Enums;

@@ -3,8 +3,8 @@ using System.Globalization;
 using AVFoundation;
 using CoreFoundation;
 using Foundation;
-using Softeq.ImagePicker.Enums;
-using Softeq.ImagePicker.Interfaces;
+using Softeq.ImagePicker.Infrastructure.Enums;
+using Softeq.ImagePicker.Infrastructure.Interfaces;
 
 namespace Softeq.ImagePicker.Media.Capture
 {

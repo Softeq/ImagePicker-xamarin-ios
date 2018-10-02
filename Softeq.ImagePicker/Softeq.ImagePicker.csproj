@@ -53,6 +53,7 @@
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Infrastructure" />
     <Folder Include="Resources\" />
     <Folder Include="Views\" />
     <Folder Include="Public\" />
@@ -61,15 +62,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Defines.cs" />
-    <Compile Include="Enums\CameraMode.cs" />
-    <Compile Include="Extensions\UICollectionViewExtensions.cs" />
-    <Compile Include="Extensions\UIImageExtensions.cs" />
     <Compile Include="ImagePickerAssetModel.cs" />
     <Compile Include="ImagePickerDataSource.cs" />
     <Compile Include="ImagePickerDelegate.cs" />
     <Compile Include="ImagePickerLayout.cs" />
-    <Compile Include="Interfaces\ICameraCollectionViewCellDelegate.cs" />
-    <Compile Include="Interfaces\IImagePickerDelegate.cs" />
+    <Compile Include="Infrastructure\Enums\CameraMode.cs" />
+    <Compile Include="Infrastructure\Enums\LivePhotoMode.cs" />
+    <Compile Include="Infrastructure\Enums\SessionSetupResult.cs" />
+    <Compile Include="Infrastructure\Enums\VideoDisplayMode.cs" />
+    <Compile Include="Infrastructure\Extensions\UICollectionViewExtensions.cs" />
+    <Compile Include="Infrastructure\Extensions\UIImageExtensions.cs" />
+    <Compile Include="Infrastructure\Interfaces\ICameraCollectionViewCellDelegate.cs" />
+    <Compile Include="Infrastructure\Interfaces\ICaptureSessionDelegate.cs" />
+    <Compile Include="Infrastructure\Interfaces\ICaptureSessionVideoRecordingDelegate.cs" />
+    <Compile Include="Infrastructure\Interfaces\IImagePickerDelegate.cs" />
+    <Compile Include="Infrastructure\Interfaces\ISessionPhotoCapturingDelegate.cs" />
     <Compile Include="Media\AVPreviewView.cs" />
     <Compile Include="Media\CaptureFactory.cs" />
     <Compile Include="Media\Capture\AudioCaptureSession.cs" />
@@ -83,9 +90,6 @@
     <Compile Include="Media\Delegates\VideoCaptureDelegate.cs" />
     <Compile Include="Media\SessionPresetConfiguration.cs" />
     <Compile Include="Media\PHAssetManager.cs" />
-    <Compile Include="Enums\LivePhotoMode.cs" />
-    <Compile Include="Enums\SessionSetupResult.cs" />
-    <Compile Include="Enums\VideoDisplayMode.cs" />
     <Compile Include="Operations\CollectionViewBatchAnimation.cs" />
     <Compile Include="Operations\CollectionViewUpdatesCoordinator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -128,9 +132,6 @@
     </Compile>
     <Compile Include="Media\Capture\VideoDeviceInputManager.cs" />
     <Compile Include="Media\Capture\CaptureNotificationCenterHandler.cs" />
-    <Compile Include="Interfaces\ICaptureSessionDelegate.cs" />
-    <Compile Include="Interfaces\ICaptureSessionVideoRecordingDelegate.cs" />
-    <Compile Include="Interfaces\ISessionPhotoCapturingDelegate.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Views\ActionCell.xib" />
