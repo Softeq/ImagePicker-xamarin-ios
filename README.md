@@ -4,7 +4,7 @@
 
 An easy to use drop-in framework providing user interface for taking pictures and videos and pick assets from Photo Library. User interface is designed to support `inputView` "keyboard-like" presentation for conversation user interfaces. Project is written in C#.
 
-This library has been rewritten fron Swift.
+This library has been rewritten fron Swift 4.
 Original library you can find by the following [link](https://github.com/inloop/image-picker)
 
 ![Demo](https://user-images.githubusercontent.com/500145/38921876-13fda7b4-42f7-11e8-81d4-173f6a09fe22.gif)
