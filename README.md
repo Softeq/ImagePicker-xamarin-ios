@@ -1,4 +1,4 @@
-![Image Picker: Image picker for chat applications](https://user-images.githubusercontent.com/500145/31496739-deaafdc4-af5c-11e7-847c-03266262d990.png)
+![Image Picker: Image picker for chat applications](Images/logo.png)
 
 [![Build status](https://dev.azure.com/VladimirSverzhinsky/ImagePicker-xamarin-ios/_apis/build/status/Check%20Master%20Branch)](https://dev.azure.com/VladimirSverzhinsky/ImagePicker-xamarin-ios/_build/latest?definitionId=4)
 
@@ -7,7 +7,7 @@ An easy to use drop-in framework providing user interface for taking pictures an
 This library has been rewritten fron Swift 4.
 Original library you can find by the following [link](https://github.com/inloop/image-picker)
 
-![Demo](https://user-images.githubusercontent.com/500145/38921876-13fda7b4-42f7-11e8-81d4-173f6a09fe22.gif)
+![Demo](Images/demo.gif)
 
 **Features:**
 - [x] presentation designed for chat apps as well as regular view controllers
