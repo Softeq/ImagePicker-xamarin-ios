@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="$USER_HOME$/Library/Caches/Rider2018.2/extResources" t="IncludeRecursive" />
+    <e p="$USER_HOME$/Library/Caches/Rider2018.2/resharper-host/local/Transient/ReSharperHost/v182/SolutionCaches/_ImagePicker.1449547951.00" t="ExcludeRecursive" />
+    <e p="$APPLICATION_CONFIG_DIR$/extensions" t="IncludeRecursive" />
+    <e p="$PROJECT_DIR$" t="IncludeFlat">
+      <e p="ImagePicker.sln" t="IncludeFlat" />
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="Softeq.ImagePicker" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Defines.cs" t="Include" />
+        <e p="ImagePickerAssetModel.cs" t="Include" />
+        <e p="ImagePickerDataSource.cs" t="Include" />
+        <e p="ImagePickerDelegate.cs" t="Include" />
+        <e p="ImagePickerLayout.cs" t="Include" />
+        <e p="Infrastructure" t="Include">
+          <e p="Enums" t="Include">
+            <e p="CameraMode.cs" t="Include" />
+            <e p="LivePhotoMode.cs" t="Include" />
+            <e p="SessionSetupResult.cs" t="Include" />
+            <e p="VideoDisplayMode.cs" t="Include" />
+          </e>
+          <e p="extensions" t="Include">
+            <e p="UICollectionViewExtensions.cs" t="Include" />
+            <e p="UIImageExtensions.cs" t="Include" />
+          </e>
+          <e p="ImagePickerException.cs" t="Include" />
+          <e p="Interfaces" t="Include">
+            <e p="ICameraCollectionViewCellDelegate.cs" t="Include" />
+            <e p="ICaptureSessionDelegate.cs" t="Include" />
+            <e p="ICaptureSessionVideoRecordingDelegate.cs" t="Include" />
+            <e p="IImagePickerDelegate.cs" t="Include" />
+            <e p="ISessionPhotoCapturingDelegate.cs" t="Include" />
+          </e>
+        </e>
+        <e p="LayoutModel.cs" t="Include" />
+        <e p="Media" t="Include">
+          <e p="AVPreviewView.cs" t="Include" />
+          <e p="Capture" t="Include">
+            <e p="AudioCaptureSession.cs" t="Include" />
+            <e p="CaptureNotificationCenterHandler.cs" t="Include" />
+            <e p="CaptureSession.cs" t="Include" />
+            <e p="PhotoCaptureSession.cs" t="Include" />
+            <e p="VideoCaptureSession.cs" t="Include" />
+            <e p="VideoDeviceInputManager.cs" t="Include" />
+          </e>
+          <e p="CaptureFactory.cs" t="Include" />
+          <e p="Delegates" t="Include">
+            <e p="CaptureSessionDelegate.cs" t="Include" />
+            <e p="CaptureSessionVideoRecordingDelegate.cs" t="Include" />
+            <e p="PhotoCaptureDelegate.cs" t="Include" />
+            <e p="SessionPhotoCapturingDelegate.cs" t="Include" />
+            <e p="VideoCaptureDelegate.cs" t="Include" />
+          </e>
+          <e p="PHAssetManager.cs" t="Include" />
+          <e p="SessionPresetConfiguration.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="Operations" t="Include">
+          <e p="CollectionViewBatchAnimation.cs" t="Include" />
+          <e p="CollectionViewUpdatesCoordinator.cs" t="Include" />
+        </e>
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+        </e>
+        <e p="Public" t="Include">
+          <e p="Appearance.cs" t="Include" />
+          <e p="CameraCollectionViewCell.cs" t="Include" />
+          <e p="CaptureSettings.cs" t="Include" />
+          <e p="CellRegistrator.cs" t="Include" />
+          <e p="Delegates" t="Include">
+            <e p="CameraCollectionViewCellDelegate.cs" t="Include" />
+            <e p="ImagePickerControllerDelegate.cs" t="Include" />
+          </e>
+          <e p="ImagePickerController.cs" t="Include" />
+          <e p="ImagePickerControllerDataSource.cs" t="Include" />
+          <e p="ImagePickerControllerPublicApi.cs" t="Include" />
+          <e p="LayoutConfiguration.cs" t="Include" />
+        </e>
+        <e p="Resources" t="Include">
+          <e p="Assets.xcassets" t="Include">
+            <e p="AppIcon.imageset" t="Include" />
+            <e p="background-rounded.imageset" t="Include">
+              <e p="background-rounded.pdf" t="Include" />
+              <e p="Contents.json" t="Include" />
+            </e>
+            <e p="button-camera.imageset" t="Include">
+              <e p="button-camera.pdf" t="Include" />
+              <e p="Contents.json" t="Include" />
+            </e>
+            <e p="button-photo-library.imageset" t="Include">
+              <e p="button-photo-library.pdf" t="Include" />
+              <e p="Contents.json" t="Include" />
+            </e>
+            <e p="Contents.json" t="Include" />
+            <e p="gradient.imageset" t="Include">
+              <e p="Contents.json" t="Include" />
+              <e p="gradient.png" t="Include" />
+              <e p="gradient@2x.png" t="Include" />
+              <e p="gradient@3x.png" t="Include" />
+            </e>
+            <e p="icon-badge-livephoto.imageset" t="Include">
+              <e p="Contents.json" t="Include" />
+              <e p="icon-badge-livephoto.pdf" t="Include" />
+            </e>
+            <e p="icon-badge-video.imageset" t="Include">
+              <e p="Contents.json" t="Include" />
+              <e p="icon-badge-video.pdf" t="Include" />
+            </e>
+            <e p="icon-check-background.imageset" t="Include">
+              <e p="Contents.json" t="Include" />
+              <e p="icon-ckeck-background.pdf" t="Include" />
+            </e>
+            <e p="icon-check.imageset" t="Include">
+              <e p="Contents.json" t="Include" />
+              <e p="icon-check.pdf" t="Include" />
+            </e>
+            <e p="icon-flip-camera.imageset" t="Include">
+              <e p="Contents.json" t="Include" />
+              <e p="flipCamera.pdf" t="Include" />
+            </e>
+            <e p="icon-live-off.imageset" t="Include">
+              <e p="Contents.json" t="Include" />
+              <e p="icon-live-off.pdf" t="Include" />
+            </e>
+            <e p="icon-live-on.imageset" t="Include">
+              <e p="Contents.json" t="Include" />
+              <e p="icon-live-on.pdf" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Softeq.ImagePicker.csproj" t="IncludeRecursive" />
+        <e p="Views" t="Include">
+          <e p="ActionCell.cs" t="Include" />
+          <e p="ActionCell.designer.cs" t="Include" />
+          <e p="ActionCell.xib" t="Include" />
+          <e p="AssetCell.cs" t="Include" />
+          <e p="CustomControls" t="Include">
+            <e p="CarvedLabel.cs" t="Include" />
+            <e p="CheckView.cs" t="Include" />
+            <e p="LayersState.cs" t="Include" />
+            <e p="RecordButton.cs" t="Include" />
+            <e p="RecordDurationLabel.cs" t="Include" />
+            <e p="ShutterButton.cs" t="Include" />
+            <e p="StationaryButton.cs" t="Include" />
+          </e>
+          <e p="ImagePickerAssetCell.cs" t="Include" />
+          <e p="ImagePickerView.cs" t="Include" />
+          <e p="ImagePickerView.designer.cs" t="Include" />
+          <e p="ImagePickerView.xib" t="Include" />
+          <e p="LivePhotoCameraCell.cs" t="Include" />
+          <e p="LivePhotoCameraCell.designer.cs" t="Include" />
+          <e p="LivePhotoCameraCell.xib" t="Include" />
+          <e p="VideoAssetCell.cs" t="Include" />
+          <e p="VideoCameraCell.cs" t="Include" />
+          <e p="VideoCameraCell.designer.cs" t="Include" />
+          <e p="VideoCameraCell.xib" t="Include" />
+        </e>
+      </e>
+      <e p="Softeq.ImagePicker.Sample" t="IncludeRecursive">
+        <e p="AppDelegate.cs" t="Include" />
+        <e p="Assets.xcassets" t="Include">
+          <e p="AppIcon.appiconset" t="Include">
+            <e p="Contents.json" t="Include" />
+            <e p="Icon-App-20x20@2x.png" t="Include" />
+            <e p="Icon-App-20x20@3x.png" t="Include" />
+            <e p="Icon-App-29x29@2x.png" t="Include" />
+            <e p="Icon-App-29x29@3x.png" t="Include" />
+            <e p="Icon-App-40x40@2x.png" t="Include" />
+            <e p="Icon-App-40x40@3x.png" t="Include" />
+            <e p="Icon-App-60x60@2x.png" t="Include" />
+            <e p="Icon-App-60x60@3x.png" t="Include" />
+            <e p="iTunesArtwork@2x.png" t="Include" />
+          </e>
+          <e p="background-rounded.imageset" t="Include">
+            <e p="background-rounded.pdf" t="Include" />
+            <e p="Contents.json" t="Include" />
+          </e>
+          <e p="button-camera.imageset" t="Include">
+            <e p="button-camera.pdf" t="Include" />
+            <e p="Contents.json" t="Include" />
+          </e>
+          <e p="button-photo-library.imageset" t="Include">
+            <e p="button-photo-library.pdf" t="Include" />
+            <e p="Contents.json" t="Include" />
+          </e>
+          <e p="button_snap.imageset" t="Include">
+            <e p="button_snap.pdf" t="Include" />
+            <e p="Contents.json" t="Include" />
+          </e>
+          <e p="Contents.json" t="Include" />
+          <e p="ic-camera.imageset" t="Include">
+            <e p="Contents.json" t="Include" />
+            <e p="ic-camera.pdf" t="Include" />
+          </e>
+          <e p="ic-check.imageset" t="Include">
+            <e p="Contents.json" t="Include" />
+            <e p="ic-check.pdf" t="Include" />
+          </e>
+          <e p="ic-photo.imageset" t="Include">
+            <e p="Contents.json" t="Include" />
+            <e p="ic-photo.pdf" t="Include" />
+          </e>
+          <e p="icon-depth.imageset" t="Include">
+            <e p="Contents.json" t="Include" />
+            <e p="icon-depth.pdf" t="Include" />
+          </e>
+          <e p="icon-live.imageset" t="Include">
+            <e p="Contents.json" t="Include" />
+            <e p="icon-live.pdf" t="Include" />
+          </e>
+          <e p="icon-pano.imageset" t="Include">
+            <e p="Contents.json" t="Include" />
+            <e p="icon-pano.pdf" t="Include" />
+          </e>
+          <e p="icon_flip_camera.imageset" t="Include">
+            <e p="Contents.json" t="Include" />
+            <e p="icon_flip_camera.pdf" t="Include" />
+          </e>
+        </e>
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="CustomViews" t="Include">
+          <e p="CustomImageCell.cs" t="Include" />
+          <e p="CustomImageCell.designer.cs" t="Include" />
+          <e p="CustomImageCell.xib" t="Include" />
+          <e p="CustomVideoCell.cs" t="Include" />
+          <e p="CustomVideoCell.designer.cs" t="Include" />
+          <e p="CustomVideoCell.xib" t="Include" />
+          <e p="IconWithTextCell.cs" t="Include" />
+          <e p="IconWithTextCell.designer.cs" t="Include" />
+          <e p="IconWithTextCell.xib" t="Include" />
+        </e>
+        <e p="Entitlements.plist" t="Include" />
+        <e p="ImagePickerConfigurationHandlerClass.cs" t="Include" />
+        <e p="ImagePickerControllerDataSource.cs" t="Include" />
+        <e p="ImagePickerControllerDelegate.cs" t="Include" />
+        <e p="Info.plist" t="Include" />
+        <e p="LaunchScreen.storyboard" t="Include" />
+        <e p="Main.cs" t="Include" />
+        <e p="Main.storyboard" t="Include" />
+        <e p="Models" t="Include">
+          <e p="CellItemModel.cs" t="Include" />
+          <e p="Enums" t="Include">
+            <e p="AssetsSource.cs" t="Include" />
+            <e p="CameraItemConfig.cs" t="Include" />
+            <e p="SelectorArgument.cs" t="Include" />
+          </e>
+        </e>
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="Softeq.ImagePicker.Sample.csproj" t="IncludeRecursive" />
+        <e p="ViewController.cs" t="Include" />
+        <e p="ViewController.designer.cs" t="Include" />
+      </e>
+    </e>
+  </component>
+</project>
