@@ -1,6 +1,11 @@
 ![Image Picker: Image picker for chat applications](https://user-images.githubusercontent.com/500145/31496739-deaafdc4-af5c-11e7-847c-03266262d990.png)
 
+[![Build status](https://dev.azure.com/VladimirSverzhinsky/ImagePicker-xamarin-ios/_apis/build/status/Check%20Master%20Branch)](https://dev.azure.com/VladimirSverzhinsky/ImagePicker-xamarin-ios/_build/latest?definitionId=4)
+
 An easy to use drop-in framework providing user interface for taking pictures and videos and pick assets from Photo Library. User interface is designed to support `inputView` "keyboard-like" presentation for conversation user interfaces. Project is written in C#.
+
+This library has been rewritten fron Swift.
+Original library you can find by the following [link](https://github.com/inloop/image-picker)
 
 ![Demo](https://user-images.githubusercontent.com/500145/38921876-13fda7b4-42f7-11e8-81d4-173f6a09fe22.gif)
 
