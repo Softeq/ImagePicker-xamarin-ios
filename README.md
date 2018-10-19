@@ -26,7 +26,11 @@ Original library you can find by the following [link](https://github.com/inloop/
 
 **Installation**
 
-TODO: via nuget package
+NuGet:
+
+```
+Install-Package ImagePicker
+```
 
 ## Overview
 
