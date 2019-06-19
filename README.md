@@ -1,6 +1,5 @@
 ![Image Picker: Image picker for chat applications](Images/logo.png)
 
-[![Build Status](https://dev.azure.com/SofteqDevelopment/ImagePicker-xamarin-ios/_apis/build/status/Check%20Master%20Branch?branchName=master)](https://dev.azure.com/SofteqDevelopment/ImagePicker-xamarin-ios/_build/latest?definitionId=4?branchName=master)
 [![NuGet Badge](https://buildstats.info/nuget/ImagePicker)](https://www.nuget.org/packages/ImagePicker/)
 
 An easy to use drop-in framework providing user interface for taking pictures and videos and pick assets from Photo Library. User interface is designed to support `inputView` "keyboard-like" presentation for conversation user interfaces. Project is written in C#.
