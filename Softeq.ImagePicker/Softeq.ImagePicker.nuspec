@@ -15,4 +15,7 @@
     <copyright>Copyright 2018</copyright>
     <tags>ImagePicker Xamarin iOS Softeq Image Camera Library Photo Video Attachments Chat</tags>
   </metadata>
+    <files>
+      <file src="Assets/**/*.*" target="content" />
+  </files>
 </package>

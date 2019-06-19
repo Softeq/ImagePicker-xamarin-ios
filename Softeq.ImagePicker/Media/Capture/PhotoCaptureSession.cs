@@ -97,7 +97,7 @@ namespace Softeq.ImagePicker.Media.Capture
 
                 photoSettings.IsHighResolutionPhotoEnabled = true;
 
-                var availablePhotoCodecTypes = photoSettings.GetAvailableEmbeddedThumbnailPhotoCodecTypes;
+                var availablePhotoCodecTypes = photoSettings.AvailableEmbeddedThumbnailPhotoCodecTypes;
 
                 if (UIDevice.CurrentDevice.CheckSystemVersion(10, 0) && availablePhotoCodecTypes.Length > 0)
                 {
