@@ -13,6 +13,7 @@
     <Version>1.1.2</Version>
     <Authors>Softeq Development Corp.</Authors>
     <Owners>Softeq Development Corp.</Owners>
+    <PackageIcon>icon.png</PackageIcon>
     <PackageProjectUrl>https://github.com/Softeq/ImagePicker-xamarin-ios</PackageProjectUrl>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageTags>image picker;camera;ios;xamarin;softeq;library;uikit;ui;chat</PackageTags>
@@ -23,6 +24,7 @@
   <ItemGroup>
     <None Include="../LICENSE" Visible="False" Pack="true" PackagePath="" />
     <None Include="../README.md" Visible="False" Pack="true" PackagePath="" />
+    <None Include="../Images/icon.png" Pack="True" PackagePath="" />
 
     <None Include="Assets/**/*.*" Pack="true" PackagePath="content" />
   </ItemGroup>
