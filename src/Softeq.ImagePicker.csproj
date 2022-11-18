@@ -10,7 +10,7 @@
     <Description>An easy to use drop-in framework providing user interface for taking pictures and videos and pick assets from Photo Library. User interface is designed to support inputView "keyboard - like" presentation for conversation user interfaces.</Description>
     <Company>Softeq Development Corporation</Company>
     <Copyright>Copyright © 2018 Softeq Development Corporation</Copyright>
-    <Version>1.1.2</Version>
+    <Version>1.1.3</Version>
     <Authors>Softeq Development Corp.</Authors>
     <Owners>Softeq Development Corp.</Owners>
     <PackageIcon>icon.png</PackageIcon>
