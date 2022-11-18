@@ -1,6 +1,6 @@
-![Image Picker: Image picker for chat applications](Images/logo.png)
+![Image Picker: Image picker for chat applications](https://raw.githubusercontent.com/Softeq/ImagePicker-xamarin-ios/master/Images/logo.png)
 
-[![Build Status](https://dev.azure.com/SofteqDevelopment/ImagePicker-xamarin-ios/_apis/build/status/Check%20Master%20Branch?branchName=master)](https://dev.azure.com/SofteqDevelopment/ImagePicker-xamarin-ios/_build/latest?definitionId=4?branchName=master)
+[![Build Status](https://dev.azure.com/SofteqDevelopment/Xamarin.Binding.Libraries/_apis/build/status/ImagePicker%20iOS%20Library/ImagePicker-dev?branchName=master)](https://dev.azure.com/SofteqDevelopment/Xamarin.Binding.Libraries/_build/latest?definitionId=415&branchName=master)
 [![NuGet Badge](https://buildstats.info/nuget/ImagePicker)](https://www.nuget.org/packages/ImagePicker/)
 
 An easy to use drop-in framework providing user interface for taking pictures and videos and pick assets from Photo Library. User interface is designed to support `inputView` "keyboard-like" presentation for conversation user interfaces. Project is written in C#.
@@ -8,7 +8,7 @@ An easy to use drop-in framework providing user interface for taking pictures an
 This library has been rewritten from Swift 4.
 Original library you can find by the following [link](https://github.com/inloop/image-picker)
 
-![Demo](Images/demo.gif)
+![Demo](https://raw.githubusercontent.com/Softeq/ImagePicker-xamarin-ios/master/Images/demo.gif)
 
 **Features:**
 - [x] presentation designed for chat apps as well as regular view controllers
@@ -73,7 +73,7 @@ Various kind of configuration is supported. All configuration should be done **b
 - don't forget to set your `delegate` and `dataSource` if needed
 - to define a source of photos that should be available to pick up use view controller's `assetsFetchResultBlock` block
 
-## Important 
+## Important
 User should handle close state and invoke ImagePicker.Release() when you want to close ImagePicker.
 
 ### Capture settings
