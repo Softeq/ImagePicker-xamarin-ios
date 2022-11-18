@@ -1,15 +1,10 @@
-using System;
-using UIKit;
+namespace Softeq.ImagePicker.Views;
 
-namespace Softeq.ImagePicker.Views
+public partial class ImagePickerView : UIView
 {
-    public partial class ImagePickerView : UIView
+    public UICollectionView UICollectionView => CollectionView;
+
+    protected internal ImagePickerView(IntPtr handle) : base(handle)
     {
-
-        public UICollectionView UICollectionView => CollectionView;
-
-        protected internal ImagePickerView(IntPtr handle) : base(handle)
-        {
-        }
     }
 }

@@ -1,52 +1,46 @@
-using System;
-using CoreFoundation;
-using Foundation;
-using Photos;
-using UIKit;
+namespace Softeq.ImagePicker.Operations;
 
-namespace Softeq.ImagePicker.Operations
+public class CollectionViewUpdatesCoordinator
 {
-    public class CollectionViewUpdatesCoordinator
+    private readonly UICollectionView _сollectionView;
+
+    private readonly NSOperationQueue _serialMainQueue;
+
+    public CollectionViewUpdatesCoordinator(UICollectionView collectionView)
     {
-        private readonly UICollectionView _сollectionView;
-
-        private readonly NSOperationQueue _serialMainQueue;
-
-        public CollectionViewUpdatesCoordinator(UICollectionView collectionView)
+        _serialMainQueue = new NSOperationQueue
         {
-            _serialMainQueue = new NSOperationQueue
-            {
-                MaxConcurrentOperationCount = 1, UnderlyingQueue = DispatchQueue.MainQueue
-            };
+            MaxConcurrentOperationCount = 1,
+            UnderlyingQueue = DispatchQueue.MainQueue
+        };
 
-            _сollectionView = collectionView;
+        _сollectionView = collectionView;
+    }
+
+    /// <summary>
+    /// Provides opportunity to update collectionView's dataSource in underlying queue.
+    /// </summary>
+    /// <param name="updates">Updates.</param>
+    public void PerformDataSourceUpdate(Action updates)
+    {
+        _serialMainQueue.AddOperation(updates);
+    }
+
+    /// <summary>
+    /// Updates collection view.
+    /// </summary>
+    /// <param name="changes">Changes.</param>
+    /// <param name="inSection">In section.</param>
+    public void PerformChanges(PHFetchResultChangeDetails changes, int inSection)
+    {
+        if (changes.HasIncrementalChanges)
+        {
+            var operation = new CollectionViewBatchAnimation(_сollectionView, inSection, changes);
+            _serialMainQueue.AddOperation(operation.Execute);
         }
-
-        /// <summary>
-        /// Provides opportunity to update collectionView's dataSource in underlying queue.
-        /// </summary>
-        /// <param name="updates">Updates.</param>
-        public void PerformDataSourceUpdate(Action updates)
+        else
         {
-            _serialMainQueue.AddOperation(updates);
-        }
-
-        /// <summary>
-        /// Updates collection view.
-        /// </summary>
-        /// <param name="changes">Changes.</param>
-        /// <param name="inSection">In section.</param>
-        public void PerformChanges(PHFetchResultChangeDetails changes, int inSection)
-        {
-            if (changes.HasIncrementalChanges)
-            {
-                var operation = new CollectionViewBatchAnimation(_сollectionView, inSection, changes);
-                _serialMainQueue.AddOperation(operation.Execute);
-            }
-            else
-            {
-                _serialMainQueue.AddOperation(_сollectionView.ReloadData);
-            }
+            _serialMainQueue.AddOperation(_сollectionView.ReloadData);
         }
     }
 }

@@ -1,9 +1,8 @@
-namespace Softeq.ImagePicker.Media
+namespace Softeq.ImagePicker.Media;
+
+public enum SessionPresetConfiguration
 {
-    public enum SessionPresetConfiguration
-    {
-        Photos,
-        LivePhotos,
-        Videos
-    }
+    Photos,
+    LivePhotos,
+    Videos
 }

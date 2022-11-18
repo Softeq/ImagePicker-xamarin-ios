@@ -1,77 +1,73 @@
-﻿using System;
-using Foundation;
-using Softeq.ImagePicker.Infrastructure.Enums;
+﻿using Softeq.ImagePicker.Infrastructure.Enums;
 using Softeq.ImagePicker.Public;
-using UIKit;
 
-namespace Softeq.ImagePicker.Views
+namespace Softeq.ImagePicker.Views;
+
+public partial class LivePhotoCameraCell : CameraCollectionViewCell
 {
-    public partial class LivePhotoCameraCell : CameraCollectionViewCell
+    public LivePhotoCameraCell(IntPtr handle) : base(handle)
     {
-        public LivePhotoCameraCell(IntPtr handle) : base(handle)
+    }
+
+    [Export("awakeFromNib")]
+    public override void AwakeFromNib()
+    {
+        base.AwakeFromNib();
+        LiveIndicator.Alpha = 0;
+        LiveIndicator.TintColor = Defines.Colors.YellowColor;
+
+        EnableLivePhotoButton.UnselectedTintColor = UIColor.White;
+        EnableLivePhotoButton.SelectedTintColor = Defines.Colors.YellowColor;
+    }
+
+    partial void SnapButtonTapped(NSObject sender)
+    {
+        if (EnableLivePhotoButton.Selected)
         {
+            TakeLivePhoto();
         }
-
-        [Export("awakeFromNib")]
-        public override void AwakeFromNib()
+        else
         {
-            base.AwakeFromNib();
-            LiveIndicator.Alpha = 0;
-            LiveIndicator.TintColor = Defines.Colors.YellowColor;
-            
-            EnableLivePhotoButton.UnselectedTintColor = UIColor.White;
-            EnableLivePhotoButton.SelectedTintColor = Defines.Colors.YellowColor;
+            TakePicture();
         }
+    }
 
-        partial void SnapButtonTapped(NSObject sender)
+    partial void FlipButtonTapped(NSObject sender)
+    {
+        FlipCamera();
+    }
+
+    public void UpdateWithCameraMode(CameraMode mode)
+    {
+        switch (mode)
         {
-            if (EnableLivePhotoButton.Selected)
-            {
-                TakeLivePhoto();
-            }
-            else
-            {
-                TakePicture();
-            }
+            case CameraMode.Photo:
+                LiveIndicator.Hidden = true;
+                EnableLivePhotoButton.Hidden = true;
+                break;
+            case CameraMode.PhotoAndLivePhoto:
+                LiveIndicator.Hidden = false;
+                EnableLivePhotoButton.Hidden = false;
+                break;
+            default:
+                throw new ArgumentException($"Not supported {mode}");
         }
+    }
 
-        partial void FlipButtonTapped(NSObject sender)
+    public override void UpdateLivePhotoStatus(bool isProcessing, bool shouldAnimate)
+    {
+        Action updates = () =>
         {
-            FlipCamera();
+            LiveIndicator.Alpha = isProcessing ? 1 : 0;
+        };
+
+        if (shouldAnimate)
+        {
+            Animate(0.25, updates);
         }
-
-        public void UpdateWithCameraMode(CameraMode mode)
+        else
         {
-            switch (mode)
-            {
-                case CameraMode.Photo:
-                    LiveIndicator.Hidden = true;
-                    EnableLivePhotoButton.Hidden = true;
-                    break;
-                case CameraMode.PhotoAndLivePhoto:
-                    LiveIndicator.Hidden = false;
-                    EnableLivePhotoButton.Hidden = false;
-                    break;
-                default:
-                    throw new ArgumentException($"Not supported {mode}");
-            }
-        }
-
-        public override void UpdateLivePhotoStatus(bool isProcessing, bool shouldAnimate)
-        {
-            Action updates = () =>
-            {
-                LiveIndicator.Alpha = isProcessing ? 1 : 0;
-            };
-
-            if (shouldAnimate)
-            {
-                Animate(0.25, updates);
-            }
-            else
-            {
-                updates.Invoke();
-            }
+            updates.Invoke();
         }
     }
 }

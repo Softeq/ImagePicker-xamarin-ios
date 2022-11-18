@@ -1,9 +1,8 @@
-﻿namespace Softeq.ImagePicker.Views.CustomControls
+﻿namespace Softeq.ImagePicker.Views.CustomControls;
+
+public enum LayersState
 {
-    public enum LayersState
-    {
-        Initial,
-        Pressed,
-        Recording
-    }
+    Initial,
+    Pressed,
+    Recording
 }

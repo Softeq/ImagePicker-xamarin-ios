@@ -1,8 +1,7 @@
-﻿namespace Softeq.ImagePicker.Sample.Models.Enums
+﻿namespace Softeq.ImagePicker.Sample.Models.Enums;
+
+public enum SelectorArgument
 {
-    public enum SelectorArgument
-    {
-        IndexPath,
-        None
-    }
+    IndexPath,
+    None
 }

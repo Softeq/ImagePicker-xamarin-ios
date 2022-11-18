@@ -1,7 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net6.0-ios10</TargetFramework>
-    <SupportedOSPlatformVersion>10.0</SupportedOSPlatformVersion>
+    <TargetFramework>net6.0-ios10.2</TargetFramework>
+    <SupportedOSPlatformVersion>10.2</SupportedOSPlatformVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
 
     <!-- Assembly & NuGet Info -->
     <Id>ImagePicker</Id>
@@ -22,6 +23,8 @@
   <ItemGroup>
     <None Include="../LICENSE" Visible="False" Pack="true" PackagePath="" />
     <None Include="../README.md" Visible="False" Pack="true" PackagePath="" />
+
+    <None Include="Assets/**/*.*" Pack="true" PackagePath="content" />
   </ItemGroup>
 
 </Project>

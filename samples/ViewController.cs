@@ -9,293 +9,291 @@ using Softeq.ImagePicker.Public;
 using Softeq.ImagePicker.Sample.Models.Enums;
 using UIKit;
 
-namespace Softeq.ImagePicker.Sample
+namespace Softeq.ImagePicker.Sample;
+
+public partial class ViewController : UITableViewController
 {
-    public partial class ViewController : UITableViewController
+    private readonly ImagePickerConfigurationHandlerClass _imagePickerConfigurationHandlerClass = new();
+    private readonly ImagePickerControllerDataSource _imagePickerControllerDataSource = new();
+    
+    private ImagePickerController? _imagePicker;
+    private ImagePickerControllerDelegate? _imagePickerController;
+    private UIView? _currentInputView;
+    private UIButton? _presentButton;
+    private bool _openedAsInputView;
+
+    public override UIView InputView => _currentInputView!;
+
+    public override UIView InputAccessoryView => _presentButton!;
+
+    protected ViewController(IntPtr handle) : base(handle)
     {
-        private readonly ImagePickerConfigurationHandlerClass _imagePickerConfigurationHandlerClass =
-            new ImagePickerConfigurationHandlerClass();
-        private ImagePickerController _imagePicker;
-        private ImagePickerControllerDelegate _imagePickerController;
+    }
 
-        private ImagePickerControllerDataSource _imagePickerControllerDataSource =
-            new ImagePickerControllerDataSource();
+    public override void ViewDidAppear(bool animated)
+    {
+        base.ViewDidAppear(animated);
+        CreatePresentButton();
+    }
 
-        private UIView _currentInputView;
-        private UIButton _presentButton;
-        private bool _openedAsInputView = false;
+    public override void ViewDidLoad()
+    {
+        base.ViewDidLoad();
+        _presentButton = CreatePresentButton();
 
-        public override UIView InputView => _currentInputView;
+        NavigationItem.Title = "Image Picker";
+        TableView.RegisterClassForCellReuse(typeof(UITableViewCell), "cellId");
+        TableView.KeyboardDismissMode = UIScrollViewKeyboardDismissMode.None;
+    }
 
-        public override UIView InputAccessoryView => _presentButton;
+    public override bool CanBecomeFirstResponder => true;
 
-        protected ViewController(IntPtr handle) : base(handle)
+    public override bool ResignFirstResponder()
+    {
+        var result = base.ResignFirstResponder();
+
+        if (result)
         {
+            _currentInputView = null;
         }
 
-        public override void ViewDidAppear(bool animated)
+        return result;
+    }
+
+    public override nint NumberOfSections(UITableView tableView)
+    {
+        return _imagePickerConfigurationHandlerClass.CellsData!.Count;
+    }
+
+    public override nint RowsInSection(UITableView tableView, nint section)
+    {
+        return _imagePickerConfigurationHandlerClass.CellsData[(int)section].Length;
+    }
+
+    public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
+    {
+        var cell = tableView.DequeueReusableCell("cellId", indexPath);
+        cell.TextLabel.Text =
+            _imagePickerConfigurationHandlerClass.CellsData[indexPath.Section][indexPath.Row].Title;
+
+        _imagePickerConfigurationHandlerClass.CellsData[indexPath.Section][indexPath.Row].ConfigBlock?.Invoke(cell);
+
+        return cell;
+    }
+
+    public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
+    {
+        // deselect
+        tableView.DeselectRow(indexPath, true);
+
+        // perform selector
+        var selector = _imagePickerConfigurationHandlerClass.CellsData[indexPath.Section][indexPath.Row].Selector;
+        var argumentType = _imagePickerConfigurationHandlerClass.CellsData[indexPath.Section][indexPath.Row]
+            .SelectorArgument;
+        if (argumentType == SelectorArgument.IndexPath)
         {
-            base.ViewDidAppear(animated);
-            CreatePresentButton();
+            selector?.Invoke(indexPath);
         }
 
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-            _presentButton = CreatePresentButton();
+        // update checks in section
+        UncheckCellsInSection(indexPath);
+    }
 
-            NavigationItem.Title = "Image Picker";
-            TableView.RegisterClassForCellReuse(typeof(UITableViewCell), "cellId");
-            TableView.KeyboardDismissMode = UIScrollViewKeyboardDismissMode.None;
-        }
+    public override string TitleForHeader(UITableView tableView, nint section)
+    {
+        return _imagePickerConfigurationHandlerClass.SectionsData.ElementAt((int)section).GroupTitle;
+    }
 
-        public override bool CanBecomeFirstResponder => true;
+    public override string TitleForFooter(UITableView tableView, nint section)
+    {
+        return _imagePickerConfigurationHandlerClass.SectionsData.ElementAt((int)section).GroupDescription;
+    }
 
-        public override bool ResignFirstResponder()
-        {
-            var result = base.ResignFirstResponder();
+    private void PresentButtonTapped(object sender, EventArgs e)
+    {
+        _presentButton.Selected = !_presentButton.Selected;
 
-            if (result)
-            {
-                _currentInputView = null;
-            }
-
-            return result;
-        }
-
-        public override nint NumberOfSections(UITableView tableView)
-        {
-            return _imagePickerConfigurationHandlerClass.CellsData.Count;
-        }
-
-        public override nint RowsInSection(UITableView tableView, nint section)
-        {
-            return _imagePickerConfigurationHandlerClass.CellsData[(int)section].Length;
-        }
-
-        public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
-        {
-            var cell = tableView.DequeueReusableCell("cellId", indexPath);
-            cell.TextLabel.Text =
-                _imagePickerConfigurationHandlerClass.CellsData[indexPath.Section][indexPath.Row].Title;
-
-            _imagePickerConfigurationHandlerClass.CellsData[indexPath.Section][indexPath.Row].ConfigBlock?.Invoke(cell);
-
-            return cell;
-        }
-
-        public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
-        {
-            // deselect
-            tableView.DeselectRow(indexPath, true);
-
-            // perform selector
-            var selector = _imagePickerConfigurationHandlerClass.CellsData[indexPath.Section][indexPath.Row].Selector;
-            var argumentType = _imagePickerConfigurationHandlerClass.CellsData[indexPath.Section][indexPath.Row]
-                .SelectorArgument;
-            if (argumentType == SelectorArgument.IndexPath)
-            {
-                selector?.Invoke(indexPath);
-            }
-
-            // update checks in section
-            UncheckCellsInSection(indexPath);
-        }
-
-        public override string TitleForHeader(UITableView tableView, nint section)
-        {
-            return _imagePickerConfigurationHandlerClass.SectionsData.ElementAt((int)section).GroupTitle;
-        }
-
-        public override string TitleForFooter(UITableView tableView, nint section)
-        {
-            return _imagePickerConfigurationHandlerClass.SectionsData.ElementAt((int)section).GroupDescription;
-        }
-
-        private void PresentButtonTapped(object sender, EventArgs e)
-        {
-            _presentButton.Selected = !_presentButton.Selected;
-
-            if (!_presentButton.Selected)
-            {
-                UpdateNavigationItem(0);
-                _imagePicker.Release();
-                _currentInputView = null;
-                ReloadInputViews();
-                return;
-            }
-
-            _imagePicker = _imagePickerConfigurationHandlerClass.CreateImagePicker();
-
-
-            _imagePickerController = new ImagePickerControllerDelegate()
-            {
-                DidSelectActionItemAction = DidSelectActionItemAt,
-                DidDeselectAssetAction = UpdateSelectedItems,
-                DidSelectAssetAction = UpdateSelectedItems
-
-            };
-
-            _imagePicker.Delegate = _imagePickerController;
-            _imagePicker.DataSource = _imagePickerControllerDataSource;
-
-            // presentation
-            // before we present VC we can ask for authorization to photo library,
-            // if we don't do it now, Image Picker will ask for it automatically
-            // after it's presented.
-            PHPhotoLibrary.RequestAuthorization(handler =>
-            {
-                DispatchQueue.MainQueue.DispatchAsync(() =>
-                {
-                    // we can present VC regardless of status because we support
-                    // non granted states in Image Picker. Please check `ImagePickerControllerDataSource`
-                    // for more info.
-                    if (_imagePickerConfigurationHandlerClass.PresentsModally)
-                    {
-                        _imagePicker.LayoutConfiguration.ScrollDirection = UICollectionViewScrollDirection.Vertical;
-                        PresentPickerModally(_imagePicker);
-                    }
-                    else
-                    {
-                        _imagePicker.LayoutConfiguration.ScrollDirection =
-                            UICollectionViewScrollDirection.Horizontal;
-                        PresentPickerAsInputView(_imagePicker);
-                    }
-                });
-            });
-        }
-
-        private void PresentPickerAsInputView(ImagePickerController vc)
-        {
-            //if you want to present view as input view, you have to set flexible height
-            //to adopt natural keyboard height or just set an layout constraint height
-            //for specific height.
-            vc.View.AutoresizingMask = UIViewAutoresizing.FlexibleHeight;
-            _currentInputView = vc.View;
-            _openedAsInputView = true;
-
-            ReloadInputViews();
-        }
-
-        private void PresentPickerModally(ImagePickerController vc)
-        {
-            _openedAsInputView = false;
-
-            vc.NavigationItem.LeftBarButtonItem =
-                new UIBarButtonItem("Dismiss", UIBarButtonItemStyle.Done, DismissPresentedImagePicker);
-            var nc = new UINavigationController(vc);
-            PresentViewController(nc, true, null);
-        }
-
-        void DismissPresentedImagePicker(object sender, EventArgs e)
+        if (!_presentButton.Selected)
         {
             UpdateNavigationItem(0);
-            _imagePicker.Release();
-            _presentButton.Selected = false;
-            NavigationController?.VisibleViewController?.DismissViewController(true, null);
+            _imagePicker?.Release();
+            _currentInputView = null;
+            ReloadInputViews();
+            return;
         }
 
-        private void UpdateNavigationItem(int selectedCount)
+        _imagePicker = _imagePickerConfigurationHandlerClass.CreateImagePicker();
+
+
+        _imagePickerController = new ImagePickerControllerDelegate()
         {
-            if (selectedCount == 0)
+            DidSelectActionItemAction = DidSelectActionItemAt,
+            DidDeselectAssetAction = UpdateSelectedItems,
+            DidSelectAssetAction = UpdateSelectedItems
+
+        };
+
+        _imagePicker.Delegate = _imagePickerController;
+        _imagePicker.DataSource = _imagePickerControllerDataSource;
+
+        // presentation
+        // before we present VC we can ask for authorization to photo library,
+        // if we don't do it now, Image Picker will ask for it automatically
+        // after it's presented.
+        PHPhotoLibrary.RequestAuthorization(handler =>
+        {
+            DispatchQueue.MainQueue.DispatchAsync(() =>
             {
-                if (NavigationController?.VisibleViewController?.NavigationItem != null)
+                // we can present VC regardless of status because we support
+                // non granted states in Image Picker. Please check `ImagePickerControllerDataSource`
+                // for more info.
+                if (_imagePickerConfigurationHandlerClass.PresentsModally)
                 {
-                    NavigationController.VisibleViewController.NavigationItem.RightBarButtonItem = null;
+                    _imagePicker.LayoutConfiguration.ScrollDirection = UICollectionViewScrollDirection.Vertical;
+                    PresentPickerModally(_imagePicker);
                 }
-            }
-            else
-            {
-                var title = $"Items ({selectedCount})";
-                if (NavigationController.VisibleViewController.NavigationItem != null)
+                else
                 {
-                    NavigationController.VisibleViewController.NavigationItem.RightBarButtonItem =
-                        new UIBarButtonItem(title, UIBarButtonItemStyle.Plain, null, null);
+                    _imagePicker.LayoutConfiguration.ScrollDirection =
+                        UICollectionViewScrollDirection.Horizontal;
+                    PresentPickerAsInputView(_imagePicker);
                 }
+            });
+        });
+    }
+
+    private void PresentPickerAsInputView(ImagePickerController vc)
+    {
+        //if you want to present view as input view, you have to set flexible height
+        //to adopt natural keyboard height or just set an layout constraint height
+        //for specific height.
+        vc.View!.AutoresizingMask = UIViewAutoresizing.FlexibleHeight;
+        _currentInputView = vc.View;
+        _openedAsInputView = true;
+
+        ReloadInputViews();
+    }
+
+    private void PresentPickerModally(ImagePickerController vc)
+    {
+        _openedAsInputView = false;
+
+        vc.NavigationItem.LeftBarButtonItem =
+            new UIBarButtonItem("Dismiss", UIBarButtonItemStyle.Done, DismissPresentedImagePicker);
+        var nc = new UINavigationController(vc);
+        PresentViewController(nc, true, null);
+    }
+
+    void DismissPresentedImagePicker(object sender, EventArgs e)
+    {
+        UpdateNavigationItem(0);
+        _imagePicker?.Release();
+        _presentButton.Selected = false;
+        NavigationController?.VisibleViewController?.DismissViewController(true, null);
+    }
+
+    private void UpdateNavigationItem(int selectedCount)
+    {
+        if (selectedCount == 0)
+        {
+            if (NavigationController?.VisibleViewController?.NavigationItem != null)
+            {
+                NavigationController.VisibleViewController.NavigationItem.RightBarButtonItem = null;
             }
         }
-
-        public void UncheckCellsInSection(NSIndexPath indexPath)
+        else
         {
-            foreach (var path in TableView.IndexPathsForVisibleRows.Where(path => path.Section == indexPath.Section))
+            var title = $"Items ({selectedCount})";
+            if (NavigationController?.VisibleViewController?.NavigationItem != null)
             {
-                TableView.CellAt(path).Accessory = path.Equals(indexPath)
-                    ? UITableViewCellAccessory.Checkmark
-                    : UITableViewCellAccessory.None;
+                NavigationController.VisibleViewController.NavigationItem.RightBarButtonItem =
+                    new UIBarButtonItem(title, UIBarButtonItemStyle.Plain, null, null);
             }
         }
+    }
 
-        private UIButton CreatePresentButton()
+    public void UncheckCellsInSection(NSIndexPath indexPath)
+    {
+        foreach (var path in TableView.IndexPathsForVisibleRows!.Where(path => path.Section == indexPath.Section))
         {
-            var bottomAdjustment = 0f;
+            TableView.CellAt(path)!.Accessory = path.Equals(indexPath)
+                ? UITableViewCellAccessory.Checkmark
+                : UITableViewCellAccessory.None;
+        }
+    }
 
-            if (UIDevice.CurrentDevice.CheckSystemVersion(10, 0))
-            {
-                bottomAdjustment = (float)TableView.AdjustedContentInset.Bottom;
-            }
+    private UIButton CreatePresentButton()
+    {
+        var bottomAdjustment = 0f;
 
-            var button = new UIButton(UIButtonType.Custom)
-            {
-                BackgroundColor = UIColor.FromRGB(208 / 255f, 2 / 255f, 27 / 255f),
-                ContentEdgeInsets = new UIEdgeInsets(0, 0, bottomAdjustment / 2, 0),
-                Frame = new CGRect { Size = new CGSize(0, 44 + bottomAdjustment) }
-            };
-
-            button.SetTitle("Present", UIControlState.Normal);
-            button.SetTitle("Dismiss", UIControlState.Selected);
-            button.AddTarget(PresentButtonTapped, UIControlEvent.TouchUpInside);
-            return button;
+        if (UIDevice.CurrentDevice.CheckSystemVersion(11, 0))
+        {
+#pragma warning disable CA1416
+            bottomAdjustment = (float)TableView.AdjustedContentInset.Bottom;
+#pragma warning restore CA1416
         }
 
-        private void DidSelectActionItemAt(int index)
+        var button = new UIButton(UIButtonType.Custom)
         {
-            Console.WriteLine($"did select action {index}");
+            BackgroundColor = UIColor.FromRGB(208 / 255f, 2 / 255f, 27 / 255f),
+            ContentEdgeInsets = new UIEdgeInsets(0, 0, bottomAdjustment / 2, 0),
+            Frame = new CGRect { Size = new CGSize(0, 44 + bottomAdjustment) }
+        };
 
-            //before we present system image picker, we must update present button
-            //because first responder will be dismissed
+        button.SetTitle("Present", UIControlState.Normal);
+        button.SetTitle("Dismiss", UIControlState.Selected);
+        button.AddTarget(PresentButtonTapped, UIControlEvent.TouchUpInside);
+        return button;
+    }
 
-            _presentButton.Selected = false;
+    private void DidSelectActionItemAt(int index)
+    {
+        Console.WriteLine($"did select action {index}");
 
-            if (_openedAsInputView)
-            {
-                _imagePicker.Release();
-            }
+        //before we present system image picker, we must update present button
+        //because first responder will be dismissed
 
-            switch (index)
-            {
-                case 0 when UIImagePickerController.IsSourceTypeAvailable(UIImagePickerControllerSourceType.Camera):
+        _presentButton.Selected = false;
+
+        if (_openedAsInputView)
+        {
+            _imagePicker?.Release();
+        }
+
+        switch (index)
+        {
+            case 0 when UIImagePickerController.IsSourceTypeAvailable(UIImagePickerControllerSourceType.Camera):
+                {
+                    var vc = new UIImagePickerController
                     {
-                        var vc = new UIImagePickerController
-                        {
-                            SourceType = UIImagePickerControllerSourceType.Camera,
-                            AllowsEditing = true
-                        };
-                        var mediaTypes =
-                            UIImagePickerController.AvailableMediaTypes(UIImagePickerControllerSourceType.Camera);
-                        if (mediaTypes != null)
-                        {
-                            vc.MediaTypes = mediaTypes;
-                        }
-
-                        NavigationController?.VisibleViewController?.PresentViewController(vc, true, null);
-                        break;
-                    }
-                case 1 when UIImagePickerController.IsSourceTypeAvailable(
-                    UIImagePickerControllerSourceType.PhotoLibrary):
+                        SourceType = UIImagePickerControllerSourceType.Camera,
+                        AllowsEditing = true
+                    };
+                    var mediaTypes =
+                        UIImagePickerController.AvailableMediaTypes(UIImagePickerControllerSourceType.Camera);
+                    if (mediaTypes != null)
                     {
-                        var vc = new UIImagePickerController { SourceType = UIImagePickerControllerSourceType.PhotoLibrary };
-
-                        NavigationController?.VisibleViewController?.PresentViewController(vc, true, null);
-                        break;
+                        vc.MediaTypes = mediaTypes;
                     }
-            }
 
+                    NavigationController?.VisibleViewController?.PresentViewController(vc, true, null);
+                    break;
+                }
+            case 1 when UIImagePickerController.IsSourceTypeAvailable(
+                UIImagePickerControllerSourceType.PhotoLibrary):
+                {
+                    var vc = new UIImagePickerController { SourceType = UIImagePickerControllerSourceType.PhotoLibrary };
+
+                    NavigationController?.VisibleViewController?.PresentViewController(vc, true, null);
+                    break;
+                }
         }
 
-        private void UpdateSelectedItems(IReadOnlyList<PHAsset> readOnlyList)
-        {
-            Console.WriteLine($"selected assets: {readOnlyList.Count}");
-            UpdateNavigationItem(readOnlyList.Count);
-        }
+    }
+
+    private void UpdateSelectedItems(IReadOnlyList<PHAsset> readOnlyList)
+    {
+        Console.WriteLine($"selected assets: {readOnlyList.Count}");
+        UpdateNavigationItem(readOnlyList.Count);
     }
 }

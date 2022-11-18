@@ -1,9 +1,8 @@
-namespace Softeq.ImagePicker.Infrastructure.Enums
+namespace Softeq.ImagePicker.Infrastructure.Enums;
+
+public enum SessionSetupResult
 {
-    public enum SessionSetupResult
-    {
-        Success,
-        NotAuthorized,
-        ConfigurationFailed
-    }
+    Success,
+    NotAuthorized,
+    ConfigurationFailed
 }

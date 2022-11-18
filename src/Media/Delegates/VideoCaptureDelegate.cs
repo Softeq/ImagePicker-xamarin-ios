@@ -1,150 +1,143 @@
-using System;
-using AVFoundation;
-using Foundation;
-using Photos;
-using UIKit;
+namespace Softeq.ImagePicker.Media.Delegates;
 
-namespace Softeq.ImagePicker.Media.Delegates
+public class VideoCaptureDelegate : AVCaptureFileOutputRecordingDelegate
 {
-    public class VideoCaptureDelegate : AVCaptureFileOutputRecordingDelegate
+    private nint? _backgroundRecordingId;
+    private readonly Action _didStart;
+    private readonly Action<VideoCaptureDelegate> _didFinish;
+    private readonly Action<VideoCaptureDelegate, NSError> _didFail;
+
+    /// <summary>
+    /// set this to false if you don't wish to save video to photo library
+    /// </summary>
+    public bool ShouldSaveVideoToLibrary = true;
+
+    /// <summary>
+    /// true if user manually requested to cancel recording (stop without saving)
+    /// </summary>
+    public bool IsBeingCancelled = false;
+
+    /// <summary>
+    /// if system interrupts recording due to various reasons (empty space, phone call, background, ...)
+    /// </summary>
+    public bool RecordingWasInterrupted = false;
+
+    /// <summary>
+    /// non null if failed or interrupted, null if cancelled
+    /// </summary>
+    /// <param name="didStart">Did start.</param>
+    /// <param name="didFinish">Did finish.</param>
+    /// <param name="didFail">Did fail.</param>
+    public VideoCaptureDelegate(Action didStart, Action<VideoCaptureDelegate> didFinish,
+        Action<VideoCaptureDelegate, NSError> didFail)
     {
-        private nint? _backgroundRecordingId;
-        private readonly Action _didStart;
-        private readonly Action<VideoCaptureDelegate> _didFinish;
-        private readonly Action<VideoCaptureDelegate, NSError> _didFail;
+        _didStart = didStart;
+        _didFinish = didFinish;
+        _didFail = didFail;
 
-        /// <summary>
-        /// set this to false if you don't wish to save video to photo library
-        /// </summary>
-        public bool ShouldSaveVideoToLibrary = true;
-
-        /// <summary>
-        /// true if user manually requested to cancel recording (stop without saving)
-        /// </summary>
-        public bool IsBeingCancelled = false;
-
-        /// <summary>
-        /// if system interrupts recording due to various reasons (empty space, phone call, background, ...)
-        /// </summary>
-        public bool RecordingWasInterrupted = false;
-
-        /// <summary>
-        /// non null if failed or interrupted, null if cancelled
-        /// </summary>
-        /// <param name="didStart">Did start.</param>
-        /// <param name="didFinish">Did finish.</param>
-        /// <param name="didFail">Did fail.</param>
-        public VideoCaptureDelegate(Action didStart, Action<VideoCaptureDelegate> didFinish,
-            Action<VideoCaptureDelegate, NSError> didFail)
+        if (UIDevice.CurrentDevice.IsMultitaskingSupported)
         {
-            _didStart = didStart;
-            _didFinish = didFinish;
-            _didFail = didFail;
+            /*
+             Setup background task.
+             This is needed because the `capture(_:, didFinishRecordingToOutputFileAt:, fromConnections:, error:)`
+             callback is not received until AVCam returns to the foreground unless you request background execution time.
+             This also ensures that there will be time to write the file to the photo library when AVCam is backgrounded.
+             To conclude this background execution, endBackgroundTask(_:) is called in
+             `capture(_:, didFinishRecordingToOutputFileAt:, fromConnections:, error:)` after the recorded file has been saved.
+             */
+            _backgroundRecordingId = UIApplication.SharedApplication.BeginBackgroundTask(null);
+        }
+    }
 
-            if (UIDevice.CurrentDevice.IsMultitaskingSupported)
+    public override void DidStartRecording(AVCaptureFileOutput captureOutput, NSUrl outputFileUrl,
+        NSObject[] connections)
+    {
+        _didStart?.Invoke();
+    }
+
+    public override void FinishedRecording(AVCaptureFileOutput captureOutput, NSUrl outputFileUrl,
+        NSObject[] connections,
+        NSError error)
+    {
+        if (error != null)
+        {
+            HandleCaptureResultWithError(error, outputFileUrl);
+        }
+        else if (IsBeingCancelled)
+        {
+            CleanUp(false, outputFileUrl);
+            _didFinish.Invoke(this);
+        }
+        else
+        {
+            CleanUp(ShouldSaveVideoToLibrary, outputFileUrl);
+            _didFinish.Invoke(this);
+        }
+    }
+
+    private void SaveVideoToLibrary(NSUrl outputFileUrl)
+    {
+        var creationRequest = PHAssetCreationRequest.CreationRequestForAsset();
+        var videoResourceOptions = new PHAssetResourceCreationOptions { ShouldMoveFile = true };
+        creationRequest.AddResource(PHAssetResourceType.Video, outputFileUrl,
+            videoResourceOptions);
+    }
+
+    private void HandleCaptureResultWithError(NSError error, NSUrl outputFileUrl)
+    {
+        Console.WriteLine($"capture session: movie recording failed error: {error}");
+
+        //this can be true even if recording is stopped due to a reason (no disk space, ...) so the video can still be delivered.
+        var successfullyFinished =
+            (error.UserInfo[AVErrorKeys.RecordingSuccessfullyFinished] as NSNumber)?.BoolValue;
+
+        if (successfullyFinished == true)
+        {
+            CleanUp(ShouldSaveVideoToLibrary, outputFileUrl);
+            _didFail.Invoke(this, error);
+        }
+        else
+        {
+            CleanUp(false, outputFileUrl);
+            _didFail.Invoke(this, error);
+        }
+    }
+
+    private void CleanUp(bool saveToAssets, NSUrl outputFileUrl)
+    {
+        if (_backgroundRecordingId != null)
+        {
+            if (_backgroundRecordingId != UIApplication.BackgroundTaskInvalid)
             {
-                /*
-                 Setup background task.
-                 This is needed because the `capture(_:, didFinishRecordingToOutputFileAt:, fromConnections:, error:)`
-                 callback is not received until AVCam returns to the foreground unless you request background execution time.
-                 This also ensures that there will be time to write the file to the photo library when AVCam is backgrounded.
-                 To conclude this background execution, endBackgroundTask(_:) is called in
-                 `capture(_:, didFinishRecordingToOutputFileAt:, fromConnections:, error:)` after the recorded file has been saved.
-                 */
-                _backgroundRecordingId = UIApplication.SharedApplication.BeginBackgroundTask(null);
+                UIApplication.SharedApplication.EndBackgroundTask(_backgroundRecordingId.Value);
             }
+
+            _backgroundRecordingId = UIApplication.BackgroundTaskInvalid;
         }
 
-        public override void DidStartRecording(AVCaptureFileOutput captureOutput, NSUrl outputFileUrl,
-            NSObject[] connections)
+        if (!saveToAssets)
         {
-            _didStart?.Invoke();
+            DeleteFileIfNeeded(outputFileUrl);
+            return;
         }
 
-        public override void FinishedRecording(AVCaptureFileOutput captureOutput, NSUrl outputFileUrl,
-            NSObject[] connections,
-            NSError error)
+        PHAssetManager.PerformChangesWithAuthorization(() => SaveVideoToLibrary(outputFileUrl),
+            () => DeleteFileIfNeeded(outputFileUrl), null);
+    }
+
+    private void DeleteFileIfNeeded(NSUrl outputFileUrl)
+    {
+        if (NSFileManager.DefaultManager.FileExists(outputFileUrl.Path))
         {
-            if (error != null)
-            {
-                HandleCaptureResultWithError(error, outputFileUrl);
-            }
-            else if (IsBeingCancelled)
-            {
-                CleanUp(false, outputFileUrl);
-                _didFinish.Invoke(this);
-            }
-            else
-            {
-                CleanUp(ShouldSaveVideoToLibrary, outputFileUrl);
-                _didFinish.Invoke(this);
-            }
+            return;
         }
 
-        private void SaveVideoToLibrary(NSUrl outputFileUrl)
+        NSFileManager.DefaultManager.Remove(outputFileUrl.Path, out var nsError);
+
+        if (nsError != null)
         {
-            var creationRequest = PHAssetCreationRequest.CreationRequestForAsset();
-            var videoResourceOptions = new PHAssetResourceCreationOptions {ShouldMoveFile = true};
-            creationRequest.AddResource(PHAssetResourceType.Video, outputFileUrl,
-                videoResourceOptions);
-        }
-
-        private void HandleCaptureResultWithError(NSError error, NSUrl outputFileUrl)
-        {
-            Console.WriteLine($"capture session: movie recording failed error: {error}");
-
-            //this can be true even if recording is stopped due to a reason (no disk space, ...) so the video can still be delivered.
-            var successfullyFinished =
-                (error.UserInfo[AVErrorKeys.RecordingSuccessfullyFinished] as NSNumber)?.BoolValue;
-
-            if (successfullyFinished == true)
-            {
-                CleanUp(ShouldSaveVideoToLibrary, outputFileUrl);
-                _didFail.Invoke(this, error);
-            }
-            else
-            {
-                CleanUp(false, outputFileUrl);
-                _didFail.Invoke(this, error);
-            }
-        }
-
-        private void CleanUp(bool saveToAssets, NSUrl outputFileUrl)
-        {
-            if (_backgroundRecordingId != null)
-            {
-                if (_backgroundRecordingId != UIApplication.BackgroundTaskInvalid)
-                {
-                    UIApplication.SharedApplication.EndBackgroundTask(_backgroundRecordingId.Value);
-                }
-
-                _backgroundRecordingId = UIApplication.BackgroundTaskInvalid;
-            }
-
-            if (!saveToAssets)
-            {
-                DeleteFileIfNeeded(outputFileUrl);
-                return;
-            }
-
-            PHAssetManager.PerformChangesWithAuthorization(() => SaveVideoToLibrary(outputFileUrl),
-                () => DeleteFileIfNeeded(outputFileUrl), null);
-        }
-
-        private void DeleteFileIfNeeded(NSUrl outputFileUrl)
-        {
-            if (NSFileManager.DefaultManager.FileExists(outputFileUrl.Path))
-            {
-                return;
-            }
-
-            NSFileManager.DefaultManager.Remove(outputFileUrl.Path, out var nsError);
-
-            if (nsError != null)
-            {
-                Console.WriteLine($"capture session: could not remove recording at url: {outputFileUrl}");
-                Console.WriteLine($"capture session: error: {nsError}");
-            }
+            Console.WriteLine($"capture session: could not remove recording at url: {outputFileUrl}");
+            Console.WriteLine($"capture session: error: {nsError}");
         }
     }
 }

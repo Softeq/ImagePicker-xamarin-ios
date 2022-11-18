@@ -1,75 +1,72 @@
-using System;
 using Softeq.ImagePicker.Infrastructure.Enums;
 using Softeq.ImagePicker.Infrastructure.Interfaces;
 using Softeq.ImagePicker.Media.Capture;
-using UIKit;
 
-namespace Softeq.ImagePicker.Public.Delegates
+namespace Softeq.ImagePicker.Public.Delegates;
+
+public class CameraCollectionViewCellDelegate : ICameraCollectionViewCellDelegate
 {
-    public class CameraCollectionViewCellDelegate : ICameraCollectionViewCellDelegate
+    private readonly Func<CameraCollectionViewCell> _getCameraCellFunc;
+    private readonly CaptureSession _captureSession;
+    private readonly CaptureSettings _captureSettings;
+
+    public CameraCollectionViewCellDelegate(Func<CameraCollectionViewCell> getCameraCellFunc,
+        CaptureSession captureSession, CaptureSettings captureSettings)
     {
-        private readonly Func<CameraCollectionViewCell> _getCameraCellFunc;
-        private readonly CaptureSession _captureSession;
-        private readonly CaptureSettings _captureSettings;
+        _getCameraCellFunc = getCameraCellFunc;
+        _captureSession = captureSession;
+        _captureSettings = captureSettings;
+    }
 
-        public CameraCollectionViewCellDelegate(Func<CameraCollectionViewCell> getCameraCellFunc,
-            CaptureSession captureSession, CaptureSettings captureSettings)
+    public void TakePicture()
+    {
+        _captureSession.PhotoCaptureSession.CapturePhoto(LivePhotoMode.Off,
+            _captureSettings.SavesCapturedPhotosToPhotoLibrary);
+    }
+
+    public void TakeLivePhoto()
+    {
+        _captureSession.PhotoCaptureSession.CapturePhoto(LivePhotoMode.On,
+            _captureSettings.SavesCapturedLivePhotosToPhotoLibrary);
+    }
+
+    public void StartVideoRecording()
+    {
+        _captureSession.VideoCaptureSession?.StartVideoRecording(_captureSettings
+            .SavesCapturedVideosToPhotoLibrary);
+    }
+
+    public void StopVideoRecording()
+    {
+        _captureSession.VideoCaptureSession?.StopVideoRecording();
+    }
+
+    public void FlipCamera(Action completion)
+    {
+        if (_captureSession == null)
         {
-            _getCameraCellFunc = getCameraCellFunc;
-            _captureSession = captureSession;
-            _captureSettings = captureSettings;
+            return;
         }
 
-        public void TakePicture()
+        var cameraCell = _getCameraCellFunc.Invoke();
+        if (cameraCell == null)
         {
-            _captureSession.PhotoCaptureSession.CapturePhoto(LivePhotoMode.Off,
-                _captureSettings.SavesCapturedPhotosToPhotoLibrary);
+            _captureSession.ChangeCamera(completion);
+            return;
         }
 
-        public void TakeLivePhoto()
+        // 1. blur cell
+        cameraCell.BlurIfNeeded(true, () =>
         {
-            _captureSession.PhotoCaptureSession.CapturePhoto(LivePhotoMode.On,
-                _captureSettings.SavesCapturedLivePhotosToPhotoLibrary);
-        }
-
-        public void StartVideoRecording()
-        {
-            _captureSession.VideoCaptureSession?.StartVideoRecording(_captureSettings
-                .SavesCapturedVideosToPhotoLibrary);
-        }
-
-        public void StopVideoRecording()
-        {
-            _captureSession.VideoCaptureSession?.StopVideoRecording();
-        }
-
-        public void FlipCamera(Action completion)
-        {
-            if (_captureSession == null)
             {
-                return;
-            }
-
-            var cameraCell = _getCameraCellFunc.Invoke();
-            if (cameraCell == null)
-            {
-                _captureSession.ChangeCamera(completion);
-                return;
-            }
-
-            // 1. blur cell
-            cameraCell.BlurIfNeeded(true, () =>
-            {
+                // 2. flip camera
+                _captureSession.ChangeCamera(() =>
                 {
-                    // 2. flip camera
-                    _captureSession.ChangeCamera(() =>
-                    {
-                        UIView.Transition(cameraCell.PreviewView, 0.25,
-                            UIViewAnimationOptions.TransitionFlipFromLeft | UIViewAnimationOptions.AllowAnimatedContent,
-                            null, () => { cameraCell.UnblurIfNeeded(true, completion); });
-                    });
-                }
-            });
-        }
+                    UIView.Transition(cameraCell.PreviewView, 0.25,
+                        UIViewAnimationOptions.TransitionFlipFromLeft | UIViewAnimationOptions.AllowAnimatedContent,
+                        null, () => { cameraCell.UnblurIfNeeded(true, completion); });
+                });
+            }
+        });
     }
 }

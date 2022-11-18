@@ -1,9 +1,8 @@
-﻿namespace Softeq.ImagePicker.Sample.Models.Enums
+﻿namespace Softeq.ImagePicker.Sample.Models.Enums;
+
+public enum AssetsSource
 {
-    public enum AssetsSource
-    {
-        RecentlyAdded = 0,
-        OnlyVideos = 1,
-        OnlySelfies = 2
-    }
+    RecentlyAdded = 0,
+    OnlyVideos = 1,
+    OnlySelfies = 2
 }

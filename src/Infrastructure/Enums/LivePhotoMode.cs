@@ -1,8 +1,7 @@
-namespace Softeq.ImagePicker.Infrastructure.Enums
+namespace Softeq.ImagePicker.Infrastructure.Enums;
+
+public enum LivePhotoMode
 {
-    public enum LivePhotoMode
-    {
-        On,
-        Off
-    }
+    On,
+    Off
 }

@@ -1,69 +1,63 @@
-using AVFoundation;
-using CoreGraphics;
-using Foundation;
-using ObjCRuntime;
 using Softeq.ImagePicker.Infrastructure.Enums;
-using UIKit;
 
-namespace Softeq.ImagePicker.Media
+namespace Softeq.ImagePicker.Media;
+
+/// <summary>
+/// A view whose layer is AVCaptureVideoPreviewLayer so it's used for previewing output from a capture session.
+/// </summary>
+public class AVPreviewView : UIView
 {
-    /// <summary>
-    /// A view whose layer is AVCaptureVideoPreviewLayer so it's used for previewing output from a capture session.
-    /// </summary>
-    public class AVPreviewView : UIView
+    private VideoDisplayMode _displayMode = VideoDisplayMode.AspectFill;
+    public AVCaptureVideoPreviewLayer PreviewLayer => Layer as AVCaptureVideoPreviewLayer;
+
+    public AVCaptureSession Session
     {
-        private VideoDisplayMode _displayMode = VideoDisplayMode.AspectFill;
-        public AVCaptureVideoPreviewLayer PreviewLayer => Layer as AVCaptureVideoPreviewLayer;
-
-        public AVCaptureSession Session
+        get => PreviewLayer.Session;
+        set
         {
-            get => PreviewLayer.Session;
-            set
+            if (PreviewLayer.Session != null && PreviewLayer.Session.Equals(value))
             {
-                if (PreviewLayer.Session != null && PreviewLayer.Session.Equals(value))
-                {
-                    return;
-                }
-
-                PreviewLayer.Session = value;
+                return;
             }
-        }
 
-        public VideoDisplayMode DisplayMode
-        {
-            get => _displayMode;
-            set
-            {
-                _displayMode = value;
-                ApplyVideoDisplayMode();
-            }
+            PreviewLayer.Session = value;
         }
-        
-        [Export("layerClass")]
-        public static Class LayerClass()
-        {
-            return new Class(typeof(AVCaptureVideoPreviewLayer));
-        }
+    }
 
-        public AVPreviewView(CGRect frame) : base(frame)
+    public VideoDisplayMode DisplayMode
+    {
+        get => _displayMode;
+        set
         {
+            _displayMode = value;
             ApplyVideoDisplayMode();
         }
+    }
 
-        private void ApplyVideoDisplayMode()
+    [Export("layerClass")]
+    public static Class LayerClass()
+    {
+        return new Class(typeof(AVCaptureVideoPreviewLayer));
+    }
+
+    public AVPreviewView(CGRect frame) : base(frame)
+    {
+        ApplyVideoDisplayMode();
+    }
+
+    private void ApplyVideoDisplayMode()
+    {
+        switch (DisplayMode)
         {
-            switch (DisplayMode)
-            {
-                case VideoDisplayMode.AspectFill:
-                    PreviewLayer.VideoGravity = AVLayerVideoGravity.ResizeAspectFill;
-                    break;
-                case VideoDisplayMode.AspectFit:
-                    PreviewLayer.VideoGravity = AVLayerVideoGravity.ResizeAspect;
-                    break;
-                case VideoDisplayMode.Resize:
-                    PreviewLayer.VideoGravity = AVLayerVideoGravity.Resize;
-                    break;
-            }
+            case VideoDisplayMode.AspectFill:
+                PreviewLayer.VideoGravity = AVLayerVideoGravity.ResizeAspectFill;
+                break;
+            case VideoDisplayMode.AspectFit:
+                PreviewLayer.VideoGravity = AVLayerVideoGravity.ResizeAspect;
+                break;
+            case VideoDisplayMode.Resize:
+                PreviewLayer.VideoGravity = AVLayerVideoGravity.Resize;
+                break;
         }
     }
 }

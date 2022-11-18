@@ -1,8 +1,7 @@
-﻿namespace Softeq.ImagePicker.Sample.Models.Enums
+﻿namespace Softeq.ImagePicker.Sample.Models.Enums;
+
+public enum CameraItemConfig
 {
-    public enum CameraItemConfig
-    {
-        Enabled = 0,
-        Disabled = 1
-    }
+    Enabled = 0,
+    Disabled = 1
 }

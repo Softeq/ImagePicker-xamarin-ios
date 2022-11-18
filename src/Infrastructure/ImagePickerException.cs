@@ -1,11 +1,8 @@
-using System;
+namespace Softeq.ImagePicker.Infrastructure;
 
-namespace Softeq.ImagePicker.Infrastructure
+public class ImagePickerException : Exception
 {
-    public class ImagePickerException : Exception
+    public ImagePickerException(string errorMessage) : base(errorMessage)
     {
-        public ImagePickerException(string errorMessage) : base(errorMessage)
-        {
-        }
     }
 }
