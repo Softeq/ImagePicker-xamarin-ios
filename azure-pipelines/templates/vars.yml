@@ -1,0 +1,2 @@
+variables:
+  MACOS_VM_IMAGE: 'macos-12'

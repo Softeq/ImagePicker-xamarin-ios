@@ -1,0 +1,29 @@
+trigger:
+  batch: true
+  branches:
+    include:
+      - master
+      - release/*
+  paths:
+    include:
+      - '*'
+    exclude:
+      - '**/*.md'
+# pr: by default runs on each commit (with autoCancel) for all branches
+
+variables:
+- template: templates/vars.yml
+
+jobs:
+- job: macOS
+  pool:
+    vmImage: $(MACOS_VM_IMAGE)
+  steps:
+    - template: templates/setup-dotnet.yml
+
+    - task: Bash@3
+      displayName: Build iOS App
+      inputs:
+        targetType: 'inline'
+        script: |
+          dotnet build -c Debug -v Detailed

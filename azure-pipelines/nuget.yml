@@ -1,0 +1,28 @@
+trigger: none
+pr: none
+
+variables:
+- template: templates/vars.yml
+
+jobs:
+- job: macOS
+  pool:
+    vmImage: $(MACOS_VM_IMAGE)
+  steps:
+    - template: templates/setup-dotnet.yml
+
+    - task: Bash@3
+      displayName: Pack Library
+      inputs:
+        targetType: 'inline'
+        script: |
+          cd src && dotnet pack -c Release -o .
+
+    - task: CopyFiles@2
+      inputs:
+        contents: '**/*.nupkg'
+        targetFolder: $(Build.ArtifactStagingDirectory)
+
+    - task: PublishBuildArtifacts@1
+      inputs:
+        ArtifactName: 'drop'

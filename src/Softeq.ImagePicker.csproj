@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0-ios10.2</TargetFramework>
+    <SupportedOSPlatformVersion>10.2</SupportedOSPlatformVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+
+    <!-- Assembly & NuGet Info -->
+    <Id>ImagePicker</Id>
+    <Title>ImagePicker for Xamarin.iOS</Title>
+    <Description>An easy to use drop-in framework providing user interface for taking pictures and videos and pick assets from Photo Library. User interface is designed to support inputView "keyboard - like" presentation for conversation user interfaces.</Description>
+    <Company>Softeq Development Corporation</Company>
+    <Copyright>Copyright © 2018 Softeq Development Corporation</Copyright>
+    <Version>1.1.3</Version>
+    <Authors>Softeq Development Corp.</Authors>
+    <Owners>Softeq Development Corp.</Owners>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageProjectUrl>https://github.com/Softeq/ImagePicker-xamarin-ios</PackageProjectUrl>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageTags>image picker;camera;ios;xamarin;softeq;library;uikit;ui;chat</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageReleaseNotes>Migration to .NET6</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="../LICENSE" Visible="False" Pack="true" PackagePath="" />
+    <None Include="../README.md" Visible="False" Pack="true" PackagePath="" />
+    <None Include="../Images/icon.png" Pack="True" PackagePath="" />
+
+    <None Include="Assets/**/*.*" Pack="true" PackagePath="content" />
+  </ItemGroup>
+
+</Project>
